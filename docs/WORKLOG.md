@@ -8,6 +8,13 @@ what is still open. Add a new entry at the top of **Log** for each piece of work
 
 ## Log
 
+### 2026-09-28 — First push to GitHub
+
+- Pushed the full history (24 commits) to `Biswadev-9/fnal_thesis` on `main`.
+- HTTP 403 (token lacked repo access), then HTTP 408 (6.8 MB upload timed out on a slow link). Fixed with `http.version=HTTP/1.1` and a larger `http.postBuffer`.
+- Renamed the local branch to `main`. `origin` now points to `fnal_thesis`; the old repo is the `thesis-old` remote.
+- A token was pasted into a chat session. Revoke it and replace it.
+
 ### 2026-09-28 — Repository migrated to `fnal_thesis`, README rewritten
 
 **What was done**
@@ -70,4 +77,5 @@ what is still open. Add a new entry at the top of **Log** for each piece of work
 | `e6e49d6` | 2026-09-18 | Swin-T backbone arm alongside EfficientNet-B0 |
 | `9574344` | 2026-09-19 | Swin-T arm of the Step 21 ablation matrix |
 | `d3b1a11` | 2026-09-28 | README rewrite with architecture and protocol diagrams |
-| _next_ | 2026-09-28 | Add this work log |
+| `08f1b7e` | 2026-09-28 | Add this work log |
+| _next_ | 2026-09-28 | Log the first push to GitHub |
