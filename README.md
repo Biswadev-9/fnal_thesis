@@ -1,590 +1,516 @@
-# Brain MRI Classification with Multiscale and Quantum Feature Fusion
+# Brain Tumour MRI Classification with Adaptive Multiscale and Quantum Feature Fusion
 
-A configurable research pipeline for four-class brain MRI classification using classical image features, adaptive multiscale convolutions, simulated quantum circuits, and feature fusion.
+A Hydra + PyTorch Lightning research framework for **four-class brain MRI classification**. It
+fuses three feature sources: a pretrained classical backbone, a spatially adaptive multiscale
+CNN, and a learned mixture of simulated quantum circuits. Around the model sits a 25-step
+experimental protocol covering the data audit, preprocessing, imbalance, baselines, fusion,
+evaluation, explainability, ablation and statistics.
 
-The repository includes dataset preparation, model training, controlled comparisons, evaluation, explainability, and statistical reporting, organized around the experiments defined in the [research specification](docs/Instruction%20BY%20asif%20vai.md).
+| Label | Class      |
+|:-----:|------------|
+| 0     | Glioma     |
+| 1     | Meningioma |
+| 2     | Pituitary  |
+| 3     | No-tumor   |
 
-> **Research status:** Training and analysis components are implemented, with recorded smoke-run outputs. A completed full-protocol study is not established by the available reports. Steps 21–25 and preprocessing confirmation require further experimental validation. See [Known limitations](#known-limitations) before running or interpreting the study.
+> **Status.** All stages are implemented and have passed smoke runs. Full-protocol results are
+> not reported in this repository, and the Swin-T arm has not yet been executed at scale. See
+> [Limitations](#10-limitations).
 
-## Overview
+---
 
-The task is to classify individual 2D MRI images into:
+## Contents
 
-| Label | Class |
-|---|---|
-| `0` | Glioma |
-| `1` | Meningioma |
-| `2` | Pituitary |
-| `3` | No-tumor |
+1. [Research questions](#1-research-questions)
+2. [System overview](#2-system-overview)
+3. [Model architecture](#3-model-architecture)
+4. [Training strategy](#4-training-strategy)
+5. [Experimental protocol (Steps 4–25)](#5-experimental-protocol-steps-425)
+6. [Ablation design](#6-ablation-design)
+7. [Backbone arms: EfficientNet-B0 vs Swin-T](#7-backbone-arms-efficientnet-b0-vs-swin-t)
+8. [Repository structure](#8-repository-structure)
+9. [Quick start](#9-quick-start)
+10. [Limitations](#10-limitations)
+11. [Documentation](#11-documentation)
 
-The project investigates whether adaptive feature extraction and quantum transformations provide measurable benefits over conventional CNN and Transformer baselines.
+---
 
-It is an experiment framework that produces checkpoints, feature caches, tables, figures, and reports. It does not include a web interface, inference API, or clinical deployment workflow.
+## 1. Research questions
 
-## Motivation
+Each research question maps to the experiment that provides its evidence (Step 22, `configs/analysis/step22_rq_mapping.yaml`).
 
-The study examines several related questions:
+| RQ | Question | Evidence from |
+|----|----------|---------------|
+| RQ1 | Does the proposed model improve multiclass classification? | Steps 9, 15, 16 |
+| RQ2 | Does diffusion preprocessing help? | Steps 6, 21 (A1→A2) |
+| RQ3 | Are boundary and texture details preserved? | Steps 6, 11, 19 |
+| RQ4 | Do adaptive kernels and circuits outperform fixed ones? | Steps 11, 12, 24, 25 |
+| RQ5 | Does the model handle tumour variation? | Steps 11, 16, 18 |
+| RQ6 | Which imbalance strategy works best? | Steps 8, 14 |
+| RQ7 | How does it perform on an external dataset? | Step 17 |
+| RQ8 | Is there a measurable quantum benefit? | Steps 20, 25 |
+| RQ9 | Are the predictions explainable? | Step 19 |
+| RQ10 | How much does each component contribute? | Steps 21, 23 |
 
-- Does image preprocessing improve classification?
-- Which imbalance-handling strategies improve class-wise performance?
-- Does spatially adaptive multiscale fusion outperform fixed receptive fields?
-- Does a learned mixture of quantum circuits improve useful feature information?
-- Which feature-fusion and loss formulations perform best on validation data?
-- How do the models behave under external data, image degradation, and ablation?
+The study does not assume quantum superiority, and a negative result counts as a valid outcome.
 
-Quantum components are evaluated as experimental alternatives. Superiority is not assumed, and negative results are valid study outcomes.
+---
 
-## Key Features
-
-- Exact-file deduplication and stratified train/validation/test splitting.
-- Dataset audits covering image properties, class distribution, corruption, and crop validation.
-- Preprocessing comparisons using diffusion, Wiener filtering, CLAHE, gamma adjustment, and logarithmic transformation.
-- Class weighting, focal loss, weighted sampling, and augmentation studies.
-- CNN, Transformer, fixed multiscale, and fixed quantum baselines.
-- Spatially adaptive multiscale feature extraction.
-- A learned soft mixture of five simulated quantum circuits.
-- Cached branch features for efficient fusion-head training.
-- Concatenation, SE-style, and gated fusion comparisons.
-- Internal and external evaluation, calibration metrics, and degradation sweeps.
-- Grad-CAM, feature attribution, MC-dropout, and explanation sanity checks.
-- Ablation tables, paired statistical comparisons, and research-question mapping.
-- Hydra configuration and a resumable Kaggle pipeline runner.
-
-## Architecture and Workflow
+## 2. System overview
 
 ```mermaid
-flowchart TD
-    A[Raw MRI images] --> B[Discovery and exact-file deduplication]
-    B --> C[Stratified split CSV]
-    C --> D[Preprocessing and imbalance studies]
-    D --> E[Processed image cache]
-    C --> F[Image datamodule]
-    E --> F
+flowchart LR
+    subgraph DATA["① Data"]
+        RAW[(Kaggle 4-class<br/>brain MRI)] --> DEDUP[SHA dedup +<br/>stratified 70/15/15]
+        FIG[(Figshare<br/>external set)]
+    end
 
-    F --> G[Classical EfficientNet-B0 branch]
-    F --> H[Spatial multiscale and quantum branch]
-    F --> I[Baseline models]
+    subgraph PREP["② Selection studies"]
+        DEDUP --> P6[Step 6<br/>preprocessing]
+        DEDUP --> P8[Step 8<br/>imbalance]
+    end
 
-    G --> J[Frozen feature extraction]
-    H --> J
-    J --> K[Split-specific feature caches]
-    K --> L[Fusion and loss studies]
-    L --> M[Final fusion classifier]
+    subgraph BRANCH["③ Branch training"]
+        P6 & P8 --> B10[Step 10<br/>classical backbone]
+        P6 & P8 --> B12[Step 12<br/>spatial + quantum]
+        P6 & P8 --> B9[Step 9<br/>7 baselines]
+    end
 
-    G --> N[Full image-to-logits pipeline]
-    H --> N
-    M --> N
+    subgraph FUSE["④ Fusion"]
+        B10 & B12 --> CACHE[(Frozen feature<br/>cache .pt)]
+        CACHE --> F13[Step 13 fusion] --> F14[Step 14 loss] --> F15[Step 15<br/>final head ×3 seeds]
+    end
 
-    N --> O[Evaluation and explainability]
-    I --> P[Ablation and statistical analysis]
-    O --> P
-    P --> Q[Research-question reports]
+    subgraph EVAL["⑤ Evaluation"]
+        F15 --> FULL[FullPipeline<br/>image → logits]
+        FULL --> E16[16 internal] & E17[17 external] & E18[18 robustness] & E19[19 XAI] & E20[20 quantum]
+        FIG --> E17
+    end
+
+    subgraph REPORT["⑥ Reporting"]
+        E16 & E20 & B9 --> A21[21 ablation] --> S23[23 statistics] --> R22[22 RQ map]
+        A24[24 receptive field] & A25[25 circuit ablation] --> S23
+    end
 ```
 
-### Feature extraction and fusion
+Hydra composes every stage from `configs/`. The orchestrator `scripts/kaggle_pipeline.py` runs
+them in dependency order, resumes where a previous run stopped, and writes completion markers
+plus a `REPORT.md`.
 
-| Component | Default output | Description |
-|---|---:|---|
-| Classical branch | 1,280 features | EfficientNet-B0 image representation |
-| Spatial branch | 32 features | Learned weighting of parallel convolution paths |
-| Quantum branch | 4 features | Weighted mixture of circuit expectation values |
-| Final fused representation | 192 features | Three projections of 64 features, concatenated |
+---
 
-The spatial module combines 3×3, 5×5, and dilated 3×3 convolutions. Its spatial gate computes a per-pixel softmax over the paths.
+## 3. Model architecture
 
-The quantum branch uses four qubits and five circuit designs: `fixed`, `deep`, `strong`, `combined`, and `reupload`. Every circuit executes for each image. A learned selector combines their outputs; it does not skip circuits or select a single circuit for execution.
+### 3.1 The proposed model
 
-Quantum computation uses PennyLane’s `default.qubit` simulator. This repository does not demonstrate execution on quantum hardware.
+```mermaid
+flowchart TB
+    X["MRI image<br/>3 × 224 × 224"]
 
-Branches are trained before feature extraction. Frozen features are cached for fusion training. The spatial features used by the final model come from inside the jointly trained Step 12 spatial/quantum branch; the independently trained Step 11 model supports separate ablation and morphology analyses.
+    subgraph C["Classical branch (Step 10)"]
+        direction TB
+        BB["EfficientNet-B0 (ImageNet)<br/>frozen except final blocks"] --> GAP1[Global avg pool]
+    end
 
-### Experiment stages
+    subgraph Q["Adaptive spatial–quantum branch (Step 12)"]
+        direction TB
+        MS["MultiscaleBranch<br/>(spatial gate, 32 ch)"] --> RED["Linear 32→4"] --> TANH["tanh · π<br/>angle scaling"]
+        TANH --> QC["5 quantum circuits<br/>(4 qubits each)"]
+        MS --> SEL["Selector MLP<br/>32→64→5, softmax"]
+        QC --> MIX["Σ wₖ · ⟨Z⟩ₖ"]
+        SEL --> MIX
+    end
 
-| Stages | Purpose |
+    X --> BB
+    X --> MS
+
+    GAP1 -- "1280-d" --> P1["Linear→64, ReLU"]
+    MS -- "32-d spatial" --> P2["Linear→64, ReLU"]
+    MIX -- "4-d quantum" --> P3["Linear→64, ReLU"]
+
+    P1 & P2 & P3 --> CAT["Concat → 192-d"]
+
+    subgraph H["FinalClassifier (Steps 14–15)"]
+        direction TB
+        H1["Linear 192→128 · BN · GELU · Dropout 0.4"] --> H2["Linear 128→64 · BN · GELU · Dropout 0.4"] --> H3["Linear 64→4"]
+    end
+
+    CAT --> H1
+    H3 --> OUT["Softmax → {Glioma, Meningioma, Pituitary, No-tumor}"]
+```
+
+| Component | Code | Output |
+|---|---|---:|
+| Classical branch | `TransferBackbone` in `src/models/components/transfer.py` | 1280 (EffNet-B0) / 768 (Swin-T) |
+| Spatial branch | `MultiscaleBranch` in `src/models/components/multiscale.py` | 32 |
+| Quantum branch | `AdaptiveQuantumBranch` in `src/models/components/quantum.py` | 4 |
+| Projections + head | `FusedFeatureClassifier` in `src/models/components/fusion.py` | 192 → 4 |
+| End-to-end wrapper | `FullPipeline` in `src/models/full_pipeline.py` | logits |
+
+### 3.2 Spatially adaptive multiscale gate
+
+Three parallel receptive fields are mixed by a **per-pixel** softmax, so every location picks
+its own kernel scale.
+
+```mermaid
+flowchart LR
+    IN[Image] --> STEM["ConvStem<br/>2 × (Conv3×3 · BN · ReLU), 32 ch"]
+    STEM --> K3["Conv 3×3"]
+    STEM --> K5["Conv 5×5"]
+    STEM --> KD["Conv 3×3, dilation 3"]
+    K3 & K5 & KD --> CC["Concat 96 ch"]
+    CC --> G["Gate head<br/>1×1 → BN → ReLU → 1×1 → 3"]
+    G --> SM["Softmax over paths<br/>at every (h, w)"]
+    SM --> WS["Σ path × weight map"]
+    K3 & K5 & KD --> WS
+    WS --> POOL["GAP → 32-d"]
+```
+
+Step 11 and Step 24 compare this gate against a fixed single scale, a fixed multiscale
+concatenation, and a global (per-image) gate.
+
+### 3.3 Adaptive mixture of quantum circuits
+
+Each image runs through all five circuits. A learned selector then **softly weights** their
+PauliZ expectation values, so no circuit is skipped and none is picked alone.
+
+| Circuit | Encoding | Ansatz | Depth |
+|---|---|---|---:|
+| `fixed` | AngleEmbedding | BasicEntanglerLayers | 2 |
+| `deep` | AngleEmbedding | BasicEntanglerLayers | 4 |
+| `strong` | AngleEmbedding | StronglyEntanglingLayers | 2 |
+| `combined` | AngleEmbedding | StronglyEntanglingLayers | 4 |
+| `reupload` | AngleEmbedding before **each** layer | BasicEntanglerLayers | 2 |
+
+The circuits are simulated with PennyLane `default.qubit` on the CPU, wrapped as `qml.qnn.TorchLayer`.
+Nothing runs on quantum hardware.
+
+### 3.4 Fusion variants (Step 13)
+
+| Strategy | Mechanism |
 |---|---|
-| 4 | Dataset audit and split preparation |
-| 6 and confirmation | Preprocessing ranking and real-backbone confirmation |
-| 8 | Imbalance-handling comparison |
-| 9–12 | Baselines and feature-extraction branches |
-| 13–15 | Fusion comparison, loss selection, and final classifier training |
-| 16–18 | Internal, external, and robustness evaluation |
-| 19–20 | Explainability and quantum contribution analysis |
-| 21–23 | Ablation matrix, research-question mapping, and statistics |
-| 24 | Controlled receptive-field comparison |
-| 25 | Fixed-circuit versus adaptive-mixture comparison |
+| `ConcatFusion` | Project each branch to 64-d, concatenate, MLP head |
+| `SEFusion` | Squeeze-and-excitation reweighting of the concatenated 192-d vector |
+| `GatedFusion` | Softmax weight **per branch per image** |
+| `FusedFeatureClassifier` | Concat + deeper BN/GELU head. This is the shipped final model. |
 
-## Repository Structure
+### 3.5 Baselines (Step 9)
 
-```text
-.
-├── configs/
-│   ├── analysis/                 # Analysis-stage settings
-│   ├── callbacks/                # Checkpointing and early stopping
-│   ├── data/                     # Image, proxy, feature, and external data
-│   ├── experiment/               # Experiment compositions
-│   ├── loss/                     # Cross-entropy and focal losses
-│   ├── model/                    # Baselines, branches, and fusion models
-│   ├── protocol/fixed.yaml       # Shared training protocol
-│   ├── trainer/                  # CPU, GPU, and distributed configurations
-│   ├── analyze.yaml
-│   ├── eval.yaml
-│   ├── extract_features.yaml
-│   ├── prepare_dataset.yaml
-│   └── train.yaml
-├── data/                         # Raw data, splits, and generated caches
-├── docs/
-│   ├── Instruction BY asif vai.md
-│   ├── IMPLEMENTATION_PLAN.md
-│   └── DEVIATIONS.md
-├── notebooks/
-│   ├── kaggle_run.ipynb          # Kaggle execution wrapper
-│   └── mri_thesis_notebook.ipynb  # Historical research notebook
-├── scripts/
-│   ├── download_data.ps1
-│   ├── download_data.sh
-│   ├── kaggle_pipeline.py
-│   └── make_kaggle_notebook.py
-├── src/
-│   ├── analysis/                # Studies, evaluation, and reporting
-│   ├── data/
-│   │   └── components/          # Splits, transforms, sampling, preprocessing
-│   ├── models/
-│   │   └── components/          # Backbones, gates, circuits, fusion, losses
-│   ├── utils/                   # Metrics, statistics, checkpoints, logging
-│   ├── analyze.py
-│   ├── eval.py
-│   ├── extract_features.py
-│   ├── prepare_dataset.py
-│   └── train.py
-├── tests/
-├── .github/workflows/
-├── .pre-commit-config.yaml
-├── environment.yaml
-├── Makefile
-├── pyproject.toml
-├── requirements.txt
-├── setup.py
-└── USAGE.md
+Simple CNN · ResNet-50 · EfficientNet-B0 · ViT-B/16 · Swin-T · fixed multiscale CNN · fixed
+QCNN. All seven are trained under the same fixed protocol.
+
+---
+
+## 4. Training strategy
+
+The simulated quantum branch runs roughly five times slower than a single circuit, because every
+image passes through five circuits. The model is therefore trained in **stages**: each
+branch is trained once, frozen, and its features are cached. The fusion head then trains on the
+cached tensors in seconds.
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant D as Split CSV + images
+    participant C as Step 10 classical
+    participant Q as Step 12 spatial+quantum
+    participant X as extract_features.py
+    participant F as Steps 13–15 fusion head
+    participant P as FullPipeline (16–20)
+
+    D->>C: train (fixed protocol, 3 seeds)
+    D->>Q: train (fixed protocol)
+    C-->>X: best ckpt (val macro-F1)
+    Q-->>X: best ckpt (val macro-F1)
+    X->>X: freeze, run train/val/test once
+    X-->>F: data/features/<tag>/{train,val,test}.pt + manifest
+    F->>F: pick fusion (13), pick loss (14), train head ×3 seeds (15)
+    C-->>P: frozen classical net
+    Q-->>P: frozen spatial+quantum net
+    F-->>P: trained head
+    P->>P: raw image → logits (grad flows to pixels for Grad-CAM)
 ```
 
-## Technologies and Dependencies
-
-| Area | Libraries and tools |
-|---|---|
-| Deep learning | PyTorch, torchvision, Lightning, TorchMetrics |
-| Configuration | Hydra, OmegaConf, rootutils |
-| Quantum simulation | PennyLane |
-| Data and statistics | NumPy, pandas, SciPy, scikit-learn |
-| Imaging | Pillow, OpenCV, scikit-image, h5py, SimpleITK |
-| Visualization | Matplotlib, seaborn |
-| Explainability | SHAP |
-| Development | pytest, pre-commit, GitHub Actions |
-| Dataset access | Kaggle CLI |
-
-[requirements.txt](requirements.txt) is the main dependency list. Most versions are not pinned.
-
-SHAP is commented out there but imported by the current explainability stage. UMAP is optional; the analysis provides a t-SNE fallback. Optional logging integrations require their corresponding packages.
-
-## Prerequisites
-
-- A Python environment compatible with the packages in `requirements.txt`.
-- Compatible PyTorch and torchvision installations.
-- Kaggle credentials when using the dataset download scripts.
-- Sufficient storage for datasets, processed images, checkpoints, and feature caches.
-- A CUDA-capable GPU for practical execution of the full classical-model study.
-
-Quantum simulation remains CPU-based. The Step 12 configuration advises against mixed precision and distributed training for the quantum branch.
-
-The repository does not define a single fully pinned, validated environment. The Conda file contains template-era dependencies and is not a complete substitute for the research dependency list.
-
-## Installation
-
-Run commands from the repository root in an activated Python environment:
-
-```bash
-python -m pip install -r requirements.txt
-python -m pip install shap
-```
-
-Check the core imports and CUDA availability:
-
-```bash
-python -c "import torch, lightning, pennylane; print(torch.__version__, torch.cuda.is_available())"
-```
-
-An editable package installation is optional:
-
-```bash
-python -m pip install -e .
-```
-
-This exposes `train_command` and `eval_command`. Install the research dependencies first: `setup.py` declares only a small subset of them and retains placeholder package metadata.
-
-There is no separate application build step.
-
-## Configuration
-
-Hydra composes settings from [configs](configs). Command-line overrides select experiments and adjust individual values.
-
-Common options include:
-
-| Option | Purpose |
-|---|---|
-| `experiment` | Select an experiment configuration |
-| `model` | Select a backbone, branch, or classifier |
-| `trainer` | Select execution hardware/configuration |
-| `seed` | Set the training seed |
-| `data.recipe` | Select a materialized preprocessing recipe; `null` reads raw images |
-| `data.normalize` | `imagenet`, `zscore`, `minmax`, or `none` |
-| `data.batch_size` | Set batch size |
-| `data.num_workers` | Set loader worker count |
-| `data.augment` | Enable training augmentation |
-| `data.use_weighted_sampler` | Enable weighted training sampling |
-| `test` | Control post-training test evaluation |
-| `logger` | Select a logging configuration |
-
-The default MRI input is 224×224 with ImageNet normalization. Background cropping is disabled.
-
-### Fixed training protocol
-
-[configs/protocol/fixed.yaml](configs/protocol/fixed.yaml) specifies:
+### Fixed protocol (`configs/protocol/fixed.yaml`)
 
 | Setting | Value |
 |---|---|
-| Optimizer | AdamW |
-| Learning rate | `1e-4` |
-| Weight decay | `1e-4` |
+| Optimizer | AdamW, lr `1e-4`, weight decay `1e-4` |
 | Scheduler | Cosine annealing |
-| Batch size | `32` |
-| Maximum epochs | `30` |
-| Early-stopping patience | `12` |
-| Selection metric | Validation macro-F1 |
-| Full-run seeds | `42`, `123`, `7` |
+| Batch size / max epochs | 32 / 30 |
+| Early stopping | patience 12 on `val/f1_macro` |
+| Checkpoint selection | best validation macro-F1 |
+| Seeds | 42, 123, 7 |
+| Input | 224 × 224, ImageNet normalisation |
 
-A bare training command does not automatically enable this protocol. Use the relevant experiment configuration.
+### Loss options (Steps 8 and 14)
 
-> **Test-set access:** `configs/train.yaml` defaults to `test: True`. The training examples below explicitly use `test=false` to avoid automatic test evaluation during model development. The pipeline runner currently inherits the default; see [Known limitations](#known-limitations).
+`plain_ce` · `weighted_ce` (inverse-frequency class weights) · `focal`. They can be combined with
+a weighted sampler and augmentation.
 
-## Dataset Preparation
+---
 
-### Sources
+## 5. Experimental protocol (Steps 4–25)
 
-The download scripts reference:
+```mermaid
+flowchart TD
+    S4["4 · Audit + split"] --> S6["6 · Preprocessing proxy<br/>diffusion · Wiener · CLAHE · γ · log"]
+    S6 --> S6M["6 · Materialise recipes"] --> S6C["6 · Real-backbone confirmation"]
+    S4 --> S8["8 · Imbalance study"]
+    S6 & S8 --> S9["9 · Baselines ×7"]
+    S6 & S8 --> S10["10 · Classical branch"]
+    S6 & S8 --> S11["11 · Multiscale arm ablation"]
+    S6 & S8 --> S12["12 · Adaptive quantum branch"]
+    S10 --> E10["10 · Embeddings (t-SNE/UMAP)"]
+    S11 --> G11["11 · Gate morphology"]
+    S10 & S12 --> FX["Feature extraction"]
+    FX --> S13["13 · Fusion comparison"] --> S14["14 · Loss selection"] --> S15["15 · Final head ×3 seeds"]
+    S15 --> S16["16 · Internal test"]
+    S15 --> S17["17 · External (Figshare)"]
+    S15 --> S18["18 · Robustness sweeps"]
+    S15 --> S19["19 · Explainability"]
+    S15 --> S20["20 · Quantum contribution"]
+    S9 & S16 --> S21["21 · Ablation A0–A8 + P"]
+    S6C --> S24["24 · Receptive-field ladder"]
+    S6C --> S25["25 · Circuit adaptivity ladder"]
+    S21 & S24 & S25 --> S23["23 · Paired statistics"]
+    S23 --> S22["22 · RQ mapping"]
 
-- Primary dataset: `mohamadabouali1/mri-brain-tumor-dataset-4-class-7023-images`
-- External dataset: `ashkhagan/figshare-brain-tumor-dataset`
-
-The primary dataset provides four classes. Figshare external evaluation uses three tumor classes.
-
-Configure Kaggle credentials outside version control. The scripts support Kaggle’s credential file or the environment settings described in [.env.example](.env.example).
-
-### Download
-
-Windows PowerShell:
-
-```powershell
-.\scripts\download_data.ps1 -IncludeExternal
+    classDef sel fill:#fef3c7,stroke:#b45309,color:#000
+    classDef train fill:#dbeafe,stroke:#1d4ed8,color:#000
+    classDef eval fill:#dcfce7,stroke:#15803d,color:#000
+    classDef rep fill:#f3e8ff,stroke:#7e22ce,color:#000
+    class S4,S6,S6M,S6C,S8 sel
+    class S9,S10,S11,S12,FX,S13,S14,S15 train
+    class S16,S17,S18,S19,S20,E10,G11 eval
+    class S21,S22,S23,S24,S25 rep
 ```
 
-Linux/macOS:
-
-```bash
-bash scripts/download_data.sh --external
-```
-
-Omit `-IncludeExternal` or `--external` to download only the primary dataset.
-
-The expected logical layout is:
-
-```text
-data/
-└── raw/
-    ├── bt_mri/
-    │   ├── Training/
-    │   └── Testing/
-    └── figshare/
-```
-
-The primary split folders contain class directories. The loader recognizes supported class-name aliases and searches nested archive layouts.
-
-### Audit and split
-
-```bash
-python src/analyze.py analysis=step04_audit
-```
-
-The split builder pools the source Training/Testing images, removes exact duplicate file hashes, and creates a stratified 70/15/15 split in:
-
-```text
-data/splits/dataset_split.csv
-```
-
-This is an image-level split. Exact-hash checks do not establish patient independence or eliminate near-duplicates.
-
-## Usage
-
-### Run selection studies
-
-```bash
-python src/analyze.py analysis=step06_preprocessing
-python src/analyze.py analysis=step08_imbalance
-```
-
-The preprocessing proxy ranks candidates. Real-backbone confirmation is a separate stage; a proxy winner should not be treated as a confirmed scientific decision.
-
-To materialize a supported recipe, for example CLAHE:
-
-```bash
-python src/prepare_dataset.py recipe=clahe
-```
-
-This writes an image mirror under `data/processed/clahe`. The command illustrates recipe preparation; it does not imply that CLAHE is the selected treatment.
-
-### Inspect the pipeline
-
-```bash
-python scripts/kaggle_pipeline.py --list --profile full
-```
-
-The runner resolves some stages from existing study summaries. On a fresh workspace, the displayed graph cannot enumerate confirmation candidates until the proxy ranking exists or candidates are supplied explicitly.
-
-### Execution profiles
-
-| Profile | Behavior | Intended use |
+| Step | Entry point | What it produces |
 |---|---|---|
-| `smoke` | One epoch and limited batches for training stages | Execution checks |
-| `fast` | Shortened training with one seed | Development |
-| `full` | Fixed protocol and three default seeds | Intended study execution |
+| 4 | `analyze.py analysis=step04_audit` | Image stats, corruption check, `data/splits/dataset_split.csv` |
+| 6 | `analyze.py analysis=step06_preprocessing` / `step06_confirm` | Ranked preprocessing recipes, then confirmed on a real backbone |
+| 8 | `analyze.py analysis=step08_imbalance` | Class weights vs focal vs sampler vs augmentation |
+| 9–12 | `train.py experiment=step09…step12` | Baseline and branch checkpoints |
+| 13–15 | `analyze.py` + `train.py experiment=step15_final_protocol` | Fusion choice, loss choice, final head |
+| 16 | `analysis=step16_internal` | Macro-F1, per-class recall, ECE, confusion matrix. Writes a test lock. |
+| 17 | `analysis=step17_external` | Figshare (3 tumour classes) transfer |
+| 18 | `analysis=step18_robustness` | Noise, blur, contrast, intensity and resolution degradation sweeps |
+| 19 | `analysis=step19_explainability` | Grad-CAM, attribution, MC-dropout, sanity checks |
+| 20 | `analysis=step20_quantum_advantage` | Quantum features zeroed (McNemar, paired bootstrap), fixed vs adaptive circuits, efficiency, separability |
+| 21 | `analysis=step21_ablation` | A0–A8 + P table |
+| 22 | `analysis=step22_rq_mapping` | Evidence table for RQ1–RQ10 |
+| 23 | `analysis=step23_statistics` | Paired tests and confidence intervals across seeds |
+| 24 | `analysis=step24_receptive_field` | Controlled receptive-field comparison (5 conditions) |
+| 25 | `analysis=step25_quantum_circuit_ablation` | Single fixed circuit vs adaptive mixture (4 conditions) |
 
-A smoke run is started with:
+---
 
-```bash
-python scripts/kaggle_pipeline.py --profile smoke
+## 6. Ablation design
+
+The Step 21 rows are defined **as data** in `src/analysis/ablation_rows.py`, so tests can assert
+that neighbouring rows differ in exactly one factor.
+
+```mermaid
+flowchart LR
+    A0["A0<br/>Raw + CNN"] --> A1["A1<br/>+ conventional<br/>preprocessing"] --> A2["A2<br/>+ diffusion"]
+    A2 --> A3["A3<br/>+ adaptive<br/>multiscale"]
+    A2 --> A4["A4<br/>+ fixed QCNN"]
+    A2 --> A5["A5<br/>+ adaptive<br/>quantum"]
+    A3 & A5 --> A6["A6<br/>full fusion<br/>(plain CE)"]
+    A6 --> A7["A7<br/>+ imbalance-<br/>aware loss"]
+    A7 --> A8["A8<br/>+ XAI &<br/>uncertainty"]
+    A7 -.-> P["P<br/>model as shipped<br/>(Step 6 recipe)"]
 ```
 
-The intended full-study command is:
+- **A6 uses plain CE**, so that A6 → A7 measures the loss and nothing else.
+- **Row P** records the model that was actually trained on the Step 6 selected recipe. Rows
+  A2–A6 keep diffusion as the specification requires.
+- Step 24 (receptive field) and Step 25 (circuit adaptivity) are separate controlled
+  comparisons. Each of their conditions changes only one config key.
 
-```bash
-python scripts/kaggle_pipeline.py --profile full
+---
+
+## 7. Backbone arms: EfficientNet-B0 vs Swin-T
+
+Swin-T was chosen on the Step 9 **validation** results: macro-F1 99.07 ± 0.10, against
+98.71 ± 0.22 for EfficientNet-B0. This branch adds a Swin-T arm that swaps **only** the classical
+backbone.
+
+```mermaid
+flowchart LR
+    subgraph BASE["Baseline arm"]
+        E["EfficientNet-B0<br/>1280-d"]
+    end
+    subgraph SWIN["Swin arm"]
+        S["Swin-T<br/>768-d"]
+    end
+    SQ["Step 12 spatial+quantum ckpt<br/>(reused verbatim)"]
+    E --> PJ1["Linear 1280→64"]
+    S --> PJ2["Linear 768→64"]
+    PJ1 & PJ2 --> SAME["Same 192-d fusion + FinalClassifier"]
+    SQ --> SAME
 ```
 
-These commands write artifacts and may run lengthy experiments. Current orchestration and methodology limitations mean that `full` alone is not a guarantee of reportable results.
+| Resource | Baseline | Swin arm |
+|---|---|---|
+| Classical config | `model/branch_classical.yaml` | `model/branch_classical_swin.yaml` |
+| Feature cache | `data/features/default/` | `data/features/swin/` |
+| Step 10 runs | `logs/train/runs/step10_classical/` | `logs/train/runs/step10_classical_swin/` |
+| Analyses | `analysis=stepNN_*` | `analysis=stepNN_*_swin` |
 
-The [Kaggle notebook](notebooks/kaggle_run.ipynb) wraps setup, execution, restoration, and bundling. It contains some outdated guidance; consult the source and limitations below before using Run All.
+The dataset, split, input size (224), protocol and seeds are identical in both arms. The full
+run order is in [`docs/SWIN_EXPERIMENT.md`](docs/SWIN_EXPERIMENT.md).
 
-## Training, Testing, and Evaluation
+---
 
-### Train a baseline
+## 8. Repository structure
 
-```bash
-python src/train.py experiment=step09_baselines model=baseline_simple_cnn seed=42 logger=csv test=false
+```text
+.
+├── configs/                      # Hydra configuration (single source of truth)
+│   ├── analysis/                 # One file per analysis step (+ *_swin variants)
+│   ├── experiment/               # Training compositions per step
+│   ├── model/                    # Baselines, branches, fusion heads
+│   ├── data/                     # bt_mri, feature cache, proxy, figshare
+│   ├── loss/                     # plain_ce, weighted_ce, focal
+│   ├── protocol/fixed.yaml       # Shared training protocol
+│   ├── trainer/ callbacks/ logger/ paths/ hydra/ debug/
+│   └── train.yaml eval.yaml analyze.yaml extract_features*.yaml prepare_dataset.yaml
+├── src/
+│   ├── train.py                  # Lightning training entry point
+│   ├── eval.py                   # Checkpoint evaluation
+│   ├── analyze.py                # Dispatches analysis=<step>
+│   ├── extract_features.py       # Frozen branches → cached tensors
+│   ├── prepare_dataset.py        # Materialise a preprocessing recipe
+│   ├── data/
+│   │   ├── bt_mri_datamodule.py          # Image datamodule
+│   │   ├── bt_mri_feature_datamodule.py  # Cached-feature datamodule
+│   │   ├── eval_datamodules.py           # External + degraded eval sets
+│   │   └── components/                   # split_builder, preprocessing, transforms,
+│   │                                     # sampling, cropping, degradations, external
+│   ├── models/
+│   │   ├── mri_classification_module.py  # LightningModule for image models
+│   │   ├── feature_fusion_module.py      # LightningModule for fusion heads
+│   │   ├── full_pipeline.py              # Frozen branches + head, image → logits
+│   │   └── components/                   # transfer, backbones, multiscale, quantum,
+│   │                                     # fusion, losses, explain
+│   ├── analysis/                 # One module per study step + shared metric battery
+│   └── utils/                    # metrics, statistics, checkpoints, atomic I/O, logging
+├── scripts/
+│   ├── kaggle_pipeline.py        # Resumable stage orchestrator (smoke / fast / full)
+│   ├── make_kaggle_notebook.py
+│   └── download_data.{sh,ps1}
+├── notebooks/                    # Kaggle runner + historical research notebook
+├── tests/                        # pytest suite (splits, models, configs, pipeline, stats)
+├── docs/                         # Specification, implementation plan, deviations, Swin guide
+├── USAGE.md                      # Detailed command reference
+└── requirements.txt / environment.yaml / pyproject.toml / Makefile
 ```
 
-Train EfficientNet-B0 on GPU:
+### Code-level class map
 
-```bash
-python src/train.py experiment=step09_baselines model=baseline_efficientnet_b0 trainer=gpu seed=42 logger=csv test=false
+```mermaid
+classDiagram
+    class FeatureNet {
+        +extract(x) dict
+        +forward(x) logits
+        +feature_dim
+    }
+    FeatureNet <|-- TransferBackbone
+    FeatureNet <|-- SimpleCNN
+    FeatureNet <|-- FixedMultiscaleCNN
+    FeatureNet <|-- FixedQCNN
+    FeatureNet <|-- MultiscaleClassifier
+    FeatureNet <|-- AdaptiveQuantumClassifier
+
+    AdaptiveQuantumClassifier *-- AdaptiveQuantumBranch
+    AdaptiveQuantumBranch *-- MultiscaleBranch
+    AdaptiveQuantumBranch *-- "5" QuantumLayer
+    AdaptiveQuantumBranch *-- AdaptiveQuantumSelector
+    MultiscaleBranch *-- SpatialMultiScaleGate
+
+    class FusionNet
+    FusionNet <|-- ConcatFusion
+    FusionNet <|-- SEFusion
+    FusionNet <|-- GatedFusion
+    FusionNet <|-- FusedFeatureClassifier
+    FusedFeatureClassifier *-- BranchProjections
+    FusedFeatureClassifier *-- FinalClassifier
+
+    FullPipeline o-- TransferBackbone : classical_net
+    FullPipeline o-- AdaptiveQuantumClassifier : quantum_net
+    FullPipeline o-- FusedFeatureClassifier : fusion_net
 ```
 
-Run a three-seed baseline sweep:
+---
+
+## 9. Quick start
 
 ```bash
-python src/train.py -m experiment=step09_baselines model=baseline_efficientnet_b0 seed=42,123,7 trainer=gpu logger=csv test=false
-```
+# 1. Environment
+python -m pip install -r requirements.txt shap
 
-### Train feature branches
+# 2. Data (Kaggle credentials required; see .env.example)
+bash scripts/download_data.sh --external        # Windows: .\scripts\download_data.ps1 -IncludeExternal
 
-Classical branch:
+# 3. Audit + split
+python src/analyze.py analysis=step04_audit
 
-```bash
-python src/train.py experiment=step10_classical seed=42 logger=csv test=false
-```
+# 4a. Run the whole study through the orchestrator
+python scripts/kaggle_pipeline.py --list --profile full   # inspect the stage graph
+python scripts/kaggle_pipeline.py --profile smoke         # execution check
+python scripts/kaggle_pipeline.py --profile full          # full protocol
 
-Adaptive spatial/quantum branch:
-
-```bash
+# 4b. Or run individual stages
+python src/train.py experiment=step10_classical seed=42 trainer=gpu logger=csv test=false
 python src/train.py experiment=step12_adaptive_quantum seed=42 logger=csv test=false
-```
-
-These examples use each experiment’s default data settings. Apply the same established preprocessing policy to training, feature extraction, and evaluation.
-
-### Feature extraction and fusion
-
-[src/extract_features.py](src/extract_features.py) requires `classical_ckpt` and `quantum_ckpt`. Its configuration is documented in [configs/extract_features.yaml](configs/extract_features.yaml).
-
-The pipeline runner supplies these paths automatically. After its branch-training stages have completed:
-
-```bash
 python scripts/kaggle_pipeline.py --profile full --only features
-```
-
-Once the `default` feature cache exists:
-
-```bash
 python src/analyze.py analysis=step13_fusion analysis.tag=default
-python src/analyze.py analysis=step14_loss_selection analysis.tag=default
-```
 
-Final fusion training uses `experiment=step15_final_protocol`. Its loss must match the Step 14 decision. The runner resolves that decision and launches the configured final training stages:
-
-```bash
-python scripts/kaggle_pipeline.py --profile full --only step15
-```
-
-Selecting a stage does not automatically run its missing prerequisites.
-
-### Evaluation
-
-For the full fused model, Step 16 requires completed classical, quantum, and final fusion checkpoints. Once the corresponding full-profile stages exist and model choices are settled:
-
-```bash
-python scripts/kaggle_pipeline.py --profile full --only step16_internal
-```
-
-External evaluation additionally requires the Figshare dataset:
-
-```bash
-python scripts/kaggle_pipeline.py --profile full --only step17_external
-```
-
-Step 16 writes a `test_evaluated.lock` to prevent repetition through that analysis path. This does not block test access through generic training, evaluation, or other analyses.
-
-[src/eval.py](src/eval.py) also supports checkpoint evaluation through `ckpt_path`. The selected model architecture and data configuration must match the checkpoint. See [configs/eval.yaml](configs/eval.yaml).
-
-### Tests
-
-Run the test suite:
-
-```bash
-python -m pytest tests/ -q
-```
-
-Exclude tests marked slow:
-
-```bash
+# 5. Tests
 python -m pytest tests/ -m "not slow" -q
 ```
 
-Coverage includes data splitting, transforms, losses, model shapes and gradients, configuration consistency, checkpoint handling, orchestration, evaluation, and statistics.
-
-Some tests train models, download data, or require existing MRI data, feature caches, optional dependencies, or GPUs. Excluding slow tests does not make execution read-only or entirely self-contained.
-
-## Inputs and Outputs
-
-| Artifact | Location or form |
+| Profile | Behaviour |
 |---|---|
-| Primary input images | `data/raw/bt_mri/` |
-| External input images | Figshare `.mat` files under `data/raw/figshare/` |
-| Split membership | `data/splits/dataset_split.csv` |
-| Processed images | `data/processed/<recipe>/` |
-| Cached branch features | `data/features/<tag>/{train,val,test}.pt` |
-| Feature provenance | Manifest alongside feature tensors |
-| Training outputs | Checkpoints, resolved configuration, logs, and optional CSV metrics |
-| Analysis outputs | JSON summaries, CSV tables, figures, and stage-specific prediction archives |
-| Pipeline state | Completion markers, manifest, and `REPORT.md` |
-| Result bundle | `thesis_results_*.zip` |
+| `smoke` | 1 epoch, limited batches. Checks that everything runs. |
+| `fast` | Shortened training, one seed |
+| `full` | Fixed protocol, seeds 42 / 123 / 7 |
 
-Individual Hydra runs use timestamped directories under `logs/<task>/runs/`; multiruns use `logs/<task>/multiruns/`.
+[`USAGE.md`](USAGE.md) is the full command reference.
 
-The runner uses stable stage directories. Smoke and fast runs use `logs/_smoke/` and `logs/_fast/`, while full runs use `logs/`.
+---
 
-Result bundles contain lightweight reports and figures. They omit checkpoints and tensor caches and are not sufficient on their own for complete training restoration.
+## 10. Limitations
 
-## Recorded Results
+- **Image-level split.** Deduplication removes exact duplicates only, so the split is not
+  grouped by patient.
+- **The preprocessing proxy ranks, it does not decide.** Step 6 must be confirmed on a real
+  backbone before a recipe is treated as selected.
+- **The final classifier uses concatenation.** If gated or SE fusion wins Step 13, it does not
+  automatically replace the head.
+- **Final-head seeds share cached branch features.** They are not independent full retrains.
+- **The test split is not globally sealed.** `train.yaml` defaults to `test: True`, so pass
+  `test=false` during development.
+- **The quantum circuits are simulated** on CPU. Cached-feature timings leave out the
+  simulator's inference cost.
+- **Dependencies are not fully pinned.** `environment.yaml` and `setup.py` still contain template content.
 
-The [saved smoke-run report](thesis_results_20260814_075721/logs/_smoke/pipeline/REPORT.md) records 30 completed stages and explicitly identifies the run as **not reportable**.
+[`docs/DEVIATIONS.md`](docs/DEVIATIONS.md) records every decision that departs from the
+specification.
 
-Its dataset audit records:
+---
 
-| Property | Recorded value |
-|---|---:|
-| Unique images | 6,597 |
-| Training images | 4,617 |
-| Validation images | 990 |
-| Test images | 990 |
-| Corrupted images detected | 0 |
-| Image dimensions | 224×224 |
-| Color mode | RGB |
-| Bits per channel | 8 |
+## 11. Documentation
 
-These are saved audit observations, not a new verification of the dataset.
+| Document | Purpose |
+|---|---|
+| [`docs/Instruction BY asif vai.md`](docs/Instruction%20BY%20asif%20vai.md) | Research specification |
+| [`docs/IMPLEMENTATION_PLAN.md`](docs/IMPLEMENTATION_PLAN.md) | Phase-by-phase implementation plan |
+| [`docs/DEVIATIONS.md`](docs/DEVIATIONS.md) | Decision and deviation register |
+| [`docs/SWIN_EXPERIMENT.md`](docs/SWIN_EXPERIMENT.md) | Swin-T arm execution guide |
+| [`USAGE.md`](USAGE.md) | Full command reference |
 
-No full-protocol performance benchmark or quantum-advantage claim is established here. Smoke metrics should be used to inspect execution behavior, not as thesis performance results.
-
-## Known Limitations
-
-### Experimental validity
-
-- **Test access is not globally sealed.** Training defaults to post-fit test evaluation, and some earlier analyses inspect the test split.
-- **Preprocessing decisions are inconsistent across consumers.** Main training stages use the proxy selection, while Steps 24–25 require real-backbone confirmation.
-- **The final classifier uses concatenation.** A gated or SE winner from Step 13 does not currently replace the final fusion architecture.
-- **Splits are not patient-grouped.** Exact-file deduplication does not address related slices, near-duplicates, or primary/external overlap.
-- **The imbalance proxy is balanced by construction.** Equal per-class sampling limits what it can establish about original-dataset imbalance.
-- **Final-head seeds share cached branch features.** They do not represent independent retraining of the entire pipeline.
-- **Some ablations change more than one factor or differ in capacity.** Their conclusions must reflect those differences.
-
-### Execution and reproducibility
-
-- Confirmation training stages are constructed before a fresh proxy run produces its ranking. A fresh single invocation may fail at confirmation; re-invocation after ranking or explicit candidate configuration is required.
-- With `--keep-going`, failures may not be reflected in the final process exit code. The Kaggle notebook also does not enforce successful tests before continuing.
-- Completion markers do not comprehensively validate configuration, code, dataset, checkpoint, or cache provenance.
-- Processed-image and feature-cache existence is not fully checked during stage resumption.
-- The `a6_diffusion` ablation feature tag is shared across profiles.
-- Dependencies are not fully pinned. Conda configuration, package metadata, and legacy MNIST examples retain template content.
-- Some CI tests require data or artifacts that the workflow does not provision.
-
-### Evaluation and reporting
-
-- Selected preprocessing is not consistently applied in external and robustness evaluation.
-- Attention-rollout helpers exist but are not connected to the explainability study.
-- Morphology analysis uses threshold-derived proxy regions rather than verified tumor masks.
-- Cached-feature timing does not measure full quantum-simulator inference cost.
-- Some statistical pairing checks validate labels without sample identifiers.
-- Steps 24–25 are not integrated into the earlier research-question report.
-- Several documentation passages describe older implementation states.
-
-## Remaining Work
-
-Work supported by the current implementation and deviation register includes:
-
-- Complete real-backbone preprocessing confirmation and the outstanding full-protocol experiments.
-- Establish consistent propagation of preprocessing and fusion decisions.
-- Enforce the intended test-access policy across all entry points.
-- Strengthen cache provenance, profile isolation, and dependency invalidation.
-- Complete explanation and research-question reporting connections.
-- Reconcile dependency declarations, CI prerequisites, and outdated documentation.
-
-See [docs/DEVIATIONS.md](docs/DEVIATIONS.md) for documented decisions and open items.
-
-## Contributing
-
-Use the [pull request template](.github/PULL_REQUEST_TEMPLATE.md). Keep changes focused, explain their motivation, identify breaking changes, and report relevant validation.
-
-Run applicable tests before submitting:
-
-```bash
-python -m pytest tests/ -q
-```
-
-Run the configured development hooks:
-
-```bash
-pre-commit run -a
-```
-
-Some hooks modify files.
-
-Changes to the fixed protocol, splits, preprocessing, or model-selection rules can invalidate downstream results. Document methodological changes in the deviation register and regenerate affected artifacts.
-
-Do not commit dataset credentials or other secrets.
-
-## Documentation and Acknowledgements
-
-The implementation builds on the repository’s Lightning/Hydra training scaffold and historical MRI research notebook.
-
-- [Research specification](docs/Instruction%20BY%20asif%20vai.md)
-- [Implementation plan](docs/IMPLEMENTATION_PLAN.md)
-- [Deviation register](docs/DEVIATIONS.md)
-- [Detailed usage guide](USAGE.md)
-- [Historical research notebook](notebooks/mri_thesis_notebook.ipynb)
-- [Kaggle execution notebook](notebooks/kaggle_run.ipynb)
+**Stack:** PyTorch · torchvision · Lightning · TorchMetrics · Hydra · PennyLane · scikit-learn ·
+SciPy · OpenCV · scikit-image · SHAP · Matplotlib · pytest

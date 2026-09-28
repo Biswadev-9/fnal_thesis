@@ -153,3 +153,7 @@ configs/local/default.yaml
 # Aim logging
 .aim
 thesis_results*
+# AI assistant / editor local files
+.claude/
+CLAUDE.md
+.DS_Store
