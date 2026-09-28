@@ -511,6 +511,7 @@ specification.
 | [`docs/DEVIATIONS.md`](docs/DEVIATIONS.md) | Decision and deviation register |
 | [`docs/SWIN_EXPERIMENT.md`](docs/SWIN_EXPERIMENT.md) | Swin-T arm execution guide |
 | [`USAGE.md`](USAGE.md) | Full command reference |
+| [`docs/WORKLOG.md`](docs/WORKLOG.md) | Running log of all changes |
 
 **Stack:** PyTorch · torchvision · Lightning · TorchMetrics · Hydra · PennyLane · scikit-learn ·
 SciPy · OpenCV · scikit-image · SHAP · Matplotlib · pytest
