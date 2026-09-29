@@ -1,0 +1,132 @@
+{
+  "tag": "swin",
+  "feature_dims": {
+    "classical": 768,
+    "spatial": 32,
+    "quantum": 4
+  },
+  "selected_strategy": "gated",
+  "selection_rationale": "gated beat the concatenation baseline by +0.0031 validation macro-F1, exceeding the 0.0 threshold",
+  "selection_metric": "validation macro-F1",
+  "strategies": [
+    {
+      "strategy": "gated",
+      "macro_f1": 0.9845880703695772,
+      "balanced_accuracy": 0.9847364006075665,
+      "min_class_recall": 0.9782608695652174,
+      "recall_Glioma": 0.9876543209876543,
+      "recall_Meningioma": 0.9782608695652174,
+      "recall_Pituitary": 0.9808429118773946,
+      "recall_No-tumor": 0.9921875,
+      "best_val_f1": 0.9865464568138123,
+      "ece": 0.015075389363548991,
+      "trainable_parameters": 66759
+    },
+    {
+      "strategy": "se",
+      "macro_f1": 0.9835940039897519,
+      "balanced_accuracy": 0.9837785462014363,
+      "min_class_recall": 0.9770114942528736,
+      "recall_Glioma": 0.9876543209876543,
+      "recall_Meningioma": 0.9782608695652174,
+      "recall_Pituitary": 0.9770114942528736,
+      "recall_No-tumor": 0.9921875,
+      "best_val_f1": 0.9856414794921875,
+      "ece": 0.015111378467444257,
+      "trainable_parameters": 95540
+    },
+    {
+      "strategy": "concat",
+      "macro_f1": 0.9814987347689096,
+      "balanced_accuracy": 0.9817209330327121,
+      "min_class_recall": 0.9770114942528736,
+      "recall_Glioma": 0.9794238683127572,
+      "recall_Meningioma": 0.9782608695652174,
+      "recall_Pituitary": 0.9770114942528736,
+      "recall_No-tumor": 0.9921875,
+      "best_val_f1": 0.9866194725036621,
+      "ece": 0.017113639549775597,
+      "trainable_parameters": 76868
+    }
+  ],
+  "protocol": {
+    "epochs": 20,
+    "lr": 0.001,
+    "seed": 42
+  },
+  "branch_ablation": [
+    {
+      "condition": "full",
+      "zeroed": [],
+      "macro_f1": 0.9845880703695772,
+      "balanced_accuracy": 0.9847364006075665,
+      "min_class_recall": 0.9782608695652174,
+      "recall_Glioma": 0.9876543209876543,
+      "recall_Meningioma": 0.9782608695652174,
+      "recall_Pituitary": 0.9808429118773946,
+      "recall_No-tumor": 0.9921875,
+      "best_val_f1": 0.9865464568138123,
+      "ece": 0.015075389363548991,
+      "trainable_parameters": 66759
+    },
+    {
+      "condition": "no_classical",
+      "zeroed": [
+        "classical"
+      ],
+      "macro_f1": 0.7925288607118695,
+      "balanced_accuracy": 0.8054127185057163,
+      "min_class_recall": 0.41739130434782606,
+      "recall_Glioma": 0.9547325102880658,
+      "recall_Meningioma": 0.41739130434782606,
+      "recall_Pituitary": 0.9042145593869731,
+      "recall_No-tumor": 0.9453125,
+      "best_val_f1": 0.8028557300567627,
+      "ece": 0.08379871800090324,
+      "trainable_parameters": 66759
+    },
+    {
+      "condition": "no_spatial",
+      "zeroed": [
+        "spatial"
+      ],
+      "macro_f1": 0.9835403412388216,
+      "balanced_accuracy": 0.9837075940232044,
+      "min_class_recall": 0.9782608695652174,
+      "recall_Glioma": 0.9835390946502057,
+      "recall_Meningioma": 0.9782608695652174,
+      "recall_Pituitary": 0.9808429118773946,
+      "recall_No-tumor": 0.9921875,
+      "best_val_f1": 0.9865959286689758,
+      "ece": 0.015764288890241392,
+      "trainable_parameters": 66759
+    },
+    {
+      "condition": "no_quantum",
+      "zeroed": [
+        "quantum"
+      ],
+      "macro_f1": 0.9845880703695772,
+      "balanced_accuracy": 0.9847364006075665,
+      "min_class_recall": 0.9782608695652174,
+      "recall_Glioma": 0.9876543209876543,
+      "recall_Meningioma": 0.9782608695652174,
+      "recall_Pituitary": 0.9808429118773946,
+      "recall_No-tumor": 0.9921875,
+      "best_val_f1": 0.9865464568138123,
+      "ece": 0.01531712984797931,
+      "trainable_parameters": 66759
+    }
+  ],
+  "branch_contributions": {
+    "classical": 0.19205920965770773,
+    "spatial": 0.0010477291307555703,
+    "quantum": 0.0
+  },
+  "mean_branch_weights": {
+    "classical": 0.9999768733978271,
+    "spatial": 9.189657248498406e-06,
+    "quantum": 1.3930013665230945e-05
+  },
+  "caveat": "All figures are validation-split only. The internal test set is not touched until Step 16."
+}

@@ -1,0 +1,18 @@
+[2026-09-21 06:18:22,560][src.utils.utils][INFO] - [rank: 0] Enforcing tags! <cfg.extras.enforce_tags=True>
+[2026-09-21 06:18:22,565][__main__][INFO] - [rank: 0] Instantiating datamodule <src.data.bt_mri_datamodule.BTMRIDataModule>
+[2026-09-21 06:18:22,592][__main__][INFO] - [rank: 0] Instantiating analysis <src.analysis.rq_mapping.RQMapping>
+[2026-09-21 06:18:22,605][__main__][INFO] - [rank: 0] Running analysis; artefacts will be written to /kaggle/working/thesis/logs/analyze/runs_swin/step22_rq_mapping
+[2026-09-21 06:18:22,618][src.analysis.base][INFO] - [rank: 0] [step22_rq_mapping] wrote step22_rq_evidence.csv (45 rows)
+[2026-09-21 06:18:22,618][src.analysis.rq_mapping][INFO] - [rank: 0] === Step 22: research question mapping ===
+[2026-09-21 06:18:22,618][src.analysis.rq_mapping][INFO] - [rank: 0]   RQ1   descriptive_only      4 evidence item(s), 0 formal, 0 missing - Improve multiclass classification
+[2026-09-21 06:18:22,618][src.analysis.rq_mapping][INFO] - [rank: 0]   RQ2   descriptive_only      8 evidence item(s), 1 formal, 0 missing - Diffusion preprocessing
+[2026-09-21 06:18:22,618][src.analysis.rq_mapping][INFO] - [rank: 0]   RQ3   partially_supported   3 evidence item(s), 0 formal, 1 missing - Boundary and texture preservation
+[2026-09-21 06:18:22,618][src.analysis.rq_mapping][INFO] - [rank: 0]   RQ4   supported             4 evidence item(s), 1 formal, 0 missing - Adaptive kernels/circuits
+[2026-09-21 06:18:22,618][src.analysis.rq_mapping][INFO] - [rank: 0]   RQ5   partially_supported   3 evidence item(s), 0 formal, 1 missing - Tumor variation handling
+[2026-09-21 06:18:22,618][src.analysis.rq_mapping][INFO] - [rank: 0]   RQ6   descriptive_only      3 evidence item(s), 1 formal, 0 missing - Imbalance strategy
+[2026-09-21 06:18:22,618][src.analysis.rq_mapping][INFO] - [rank: 0]   RQ7   descriptive_only      1 evidence item(s), 0 formal, 0 missing - External dataset performance
+[2026-09-21 06:18:22,618][src.analysis.rq_mapping][INFO] - [rank: 0]   RQ8   supported             4 evidence item(s), 1 formal, 0 missing - Quantum benefit
+[2026-09-21 06:18:22,618][src.analysis.rq_mapping][INFO] - [rank: 0]   RQ9   descriptive_only      1 evidence item(s), 0 formal, 0 missing - Explainability
+[2026-09-21 06:18:22,618][src.analysis.rq_mapping][INFO] - [rank: 0]   RQ10  supported             14 evidence item(s), 4 formal, 0 missing - Component contribution
+[2026-09-21 06:18:22,631][src.analysis.base][INFO] - [rank: 0] [step22_rq_mapping] wrote step22_rq_mapping_summary.json
+[2026-09-21 06:18:22,632][src.utils.utils][INFO] - [rank: 0] Output dir: /kaggle/working/thesis/logs/analyze/runs_swin/step22_rq_mapping

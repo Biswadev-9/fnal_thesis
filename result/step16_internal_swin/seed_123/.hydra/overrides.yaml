@@ -1,0 +1,7 @@
+- analysis=step16_internal_swin
+- analysis.classical_ckpt=logs/train/runs/step10_classical_swin/seed_42
+- analysis.quantum_ckpt=logs/train/runs/step12_adaptive_quantum/seed_42
+- analysis.fusion_ckpt=logs/train/runs/step15_final_swin/seed_123
+- data.recipe=null
+- data.num_workers=0
+- extras.print_config=false

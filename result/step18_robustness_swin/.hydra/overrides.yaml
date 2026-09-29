@@ -1,0 +1,8 @@
+- analysis=step18_robustness_swin
+- analysis.models.proposed.classical_ckpt=logs/train/runs/step10_classical_swin/seed_42
+- analysis.models.proposed.quantum_ckpt=logs/train/runs/step12_adaptive_quantum/seed_42
+- analysis.models.proposed.fusion_ckpt=logs/train/runs/step15_final_swin/seed_42
+- analysis.models.efficientnet_b0.ckpt=logs/train/runs/step09_baselines/baseline_efficientnet_b0/seed_42
+- analysis.models.vit.ckpt=logs/train/runs/step09_baselines/baseline_vit/seed_42
+- data.num_workers=0
+- extras.print_config=false

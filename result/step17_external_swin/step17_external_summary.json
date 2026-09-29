@@ -1,0 +1,37 @@
+{
+  "n_external_samples": 3064,
+  "present_classes": [
+    "Glioma",
+    "Meningioma",
+    "Pituitary"
+  ],
+  "restricted": {
+    "accuracy": 0.9441906005221932,
+    "balanced_accuracy": 0.9337167164549673,
+    "macro_precision": 0.9402563208509918,
+    "macro_recall": 0.9337167164549673,
+    "macro_f1": 0.9362616989977434,
+    "mcc": 0.9127195889258678
+  },
+  "unrestricted": {
+    "accuracy": 0.9428851174934726,
+    "balanced_accuracy": 0.932295306693291,
+    "macro_precision": 0.9422037239682894,
+    "macro_recall": 0.932295306693291,
+    "macro_f1": 0.9365626015521736,
+    "mcc": 0.9108009024260141
+  },
+  "predicted_absent_class_count": 11,
+  "restriction_effect_macro_f1": -0.00030090255443027125,
+  "performance_drop": {
+    "internal_macro_f1_same_classes": 0.9778136940135087,
+    "external_macro_f1": 0.9362616989977434,
+    "drop": 0.04155199501576534
+  },
+  "domain_shift_notes": [
+    "Figshare scans are 16-bit with varying intensity ranges and are min-max normalised per image before the shared pipeline; the internal set is 8-bit and natively 224x224.",
+    "Acquisition differs in scanner, sequence weighting and slice orientation, none of which is controlled for.",
+    "Figshare provides one label per slice and multiple slices per patient (PID); slice-level metrics therefore treat correlated slices as independent.",
+    "No non-tumour class exists externally, so the restricted score forgives every case the model would have answered No-tumor - see 'predicted_absent_class_count'."
+  ]
+}

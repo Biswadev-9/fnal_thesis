@@ -1,0 +1,228 @@
+
+=== 2026-08-23T01:51:08+00:00 :: /usr/bin/python3 src/analyze.py analysis=step24_receptive_field analysis.run_root=/kaggle/working/thesis/logs/train/runs/step24_receptive_field analysis.recipe=null analysis.seeds=[42,123,7] data.num_workers=0 data.pin_memory=true extras.print_config=false hydra.run.dir=/kaggle/working/thesis/logs/analyze/runs/step24_receptive_field
+[[36m2026-08-23 01:51:17,106[0m][[34msrc.utils.utils[0m][[32mINFO[0m] - [rank: 0] Enforcing tags! <cfg.extras.enforce_tags=True>[0m
+[[36m2026-08-23 01:51:17,114[0m][[34m__main__[0m][[32mINFO[0m] - [rank: 0] Instantiating datamodule <src.data.bt_mri_datamodule.BTMRIDataModule>[0m
+[[36m2026-08-23 01:51:17,144[0m][[34m__main__[0m][[32mINFO[0m] - [rank: 0] Instantiating analysis <src.analysis.receptive_field_study.ReceptiveFieldStudy>[0m
+[[36m2026-08-23 01:51:17,161[0m][[34m__main__[0m][[32mINFO[0m] - [rank: 0] Running analysis; artefacts will be written to /kaggle/working/thesis/logs/analyze/runs/step24_receptive_field[0m
+[[36m2026-08-23 01:51:17,162[0m][[34msrc.utils.utils[0m][[31mERROR[0m] - [rank: 0] [0m
+Traceback (most recent call last):
+  File "/kaggle/working/thesis/src/utils/utils.py", line 68, in wrap
+    metric_dict, object_dict = task_func(cfg=cfg)
+                               ^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analyze.py", line 41, in analyze
+    summary = analysis.run(datamodule=datamodule, output_dir=output_dir)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analysis/base.py", line 53, in run
+    summary = self.compute(datamodule)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analysis/receptive_field_study.py", line 217, in compute
+    context = self._context()
+              ^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analysis/receptive_field_study.py", line 203, in _context
+    return ReceptiveFieldContext.from_confirmation(self.confirmation_summary)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analysis/receptive_field_rows.py", line 231, in from_confirmation
+    recipe = load_confirmed_recipe(summary_path)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analysis/preprocessing_confirmation.py", line 417, in load_confirmed_recipe
+    raise ConfirmationIncomplete(
+src.analysis.preprocessing_confirmation.ConfirmationIncomplete: Step 6 confirmation has not produced an authoritative selected_recipe; no confirmation summary was configured. Run the confirmation sweep and then analysis=step06_confirm to produce step06_confirm_summary.json.
+[[36m2026-08-23 01:51:17,166[0m][[34msrc.utils.utils[0m][[32mINFO[0m] - [rank: 0] Output dir: /kaggle/working/thesis/logs/analyze/runs/step24_receptive_field[0m
+Error executing job with overrides: ['analysis=step24_receptive_field', 'analysis.run_root=/kaggle/working/thesis/logs/train/runs/step24_receptive_field', 'analysis.recipe=null', 'analysis.seeds=[42,123,7]', 'data.num_workers=0', 'data.pin_memory=true', 'extras.print_config=false']
+Traceback (most recent call last):
+  File "/kaggle/working/thesis/src/analyze.py", line 58, in <module>
+    main()
+  File "/usr/local/lib/python3.12/dist-packages/hydra/main.py", line 94, in decorated_main
+    _run_hydra(
+  File "/usr/local/lib/python3.12/dist-packages/hydra/_internal/utils.py", line 394, in _run_hydra
+    _run_app(
+  File "/usr/local/lib/python3.12/dist-packages/hydra/_internal/utils.py", line 457, in _run_app
+    run_and_report(
+  File "/usr/local/lib/python3.12/dist-packages/hydra/_internal/utils.py", line 223, in run_and_report
+    raise ex
+  File "/usr/local/lib/python3.12/dist-packages/hydra/_internal/utils.py", line 220, in run_and_report
+    return func()
+           ^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hydra/_internal/utils.py", line 458, in <lambda>
+    lambda: hydra.run(
+            ^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hydra/_internal/hydra.py", line 132, in run
+    _ = ret.return_value
+        ^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hydra/core/utils.py", line 260, in return_value
+    raise self._return_value
+  File "/usr/local/lib/python3.12/dist-packages/hydra/core/utils.py", line 186, in run_job
+    ret.return_value = task_function(task_cfg)
+                       ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analyze.py", line 54, in main
+    analyze(cfg)
+  File "/kaggle/working/thesis/src/utils/utils.py", line 78, in wrap
+    raise ex
+  File "/kaggle/working/thesis/src/utils/utils.py", line 68, in wrap
+    metric_dict, object_dict = task_func(cfg=cfg)
+                               ^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analyze.py", line 41, in analyze
+    summary = analysis.run(datamodule=datamodule, output_dir=output_dir)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analysis/base.py", line 53, in run
+    summary = self.compute(datamodule)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analysis/receptive_field_study.py", line 217, in compute
+    context = self._context()
+              ^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analysis/receptive_field_study.py", line 203, in _context
+    return ReceptiveFieldContext.from_confirmation(self.confirmation_summary)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analysis/receptive_field_rows.py", line 231, in from_confirmation
+    recipe = load_confirmed_recipe(summary_path)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analysis/preprocessing_confirmation.py", line 417, in load_confirmed_recipe
+    raise ConfirmationIncomplete(
+src.analysis.preprocessing_confirmation.ConfirmationIncomplete: Step 6 confirmation has not produced an authoritative selected_recipe; no confirmation summary was configured. Run the confirmation sweep and then analysis=step06_confirm to produce step06_confirm_summary.json.
+
+=== 2026-08-23T11:03:31+00:00 :: /usr/bin/python3 src/analyze.py analysis=step24_receptive_field analysis.run_root=/kaggle/working/thesis/logs/train/runs/step24_receptive_field analysis.recipe=null analysis.seeds=[42,123,7] data.num_workers=0 data.pin_memory=true extras.print_config=false hydra.run.dir=/kaggle/working/thesis/logs/analyze/runs/step24_receptive_field
+[[36m2026-08-23 11:03:40,320[0m][[34msrc.utils.utils[0m][[32mINFO[0m] - [rank: 0] Enforcing tags! <cfg.extras.enforce_tags=True>[0m
+[[36m2026-08-23 11:03:40,325[0m][[34m__main__[0m][[32mINFO[0m] - [rank: 0] Instantiating datamodule <src.data.bt_mri_datamodule.BTMRIDataModule>[0m
+[[36m2026-08-23 11:03:40,353[0m][[34m__main__[0m][[32mINFO[0m] - [rank: 0] Instantiating analysis <src.analysis.receptive_field_study.ReceptiveFieldStudy>[0m
+[[36m2026-08-23 11:03:40,369[0m][[34m__main__[0m][[32mINFO[0m] - [rank: 0] Running analysis; artefacts will be written to /kaggle/working/thesis/logs/analyze/runs/step24_receptive_field[0m
+[[36m2026-08-23 11:03:40,370[0m][[34msrc.utils.utils[0m][[31mERROR[0m] - [rank: 0] [0m
+Traceback (most recent call last):
+  File "/kaggle/working/thesis/src/utils/utils.py", line 68, in wrap
+    metric_dict, object_dict = task_func(cfg=cfg)
+                               ^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analyze.py", line 41, in analyze
+    summary = analysis.run(datamodule=datamodule, output_dir=output_dir)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analysis/base.py", line 53, in run
+    summary = self.compute(datamodule)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analysis/receptive_field_study.py", line 217, in compute
+    context = self._context()
+              ^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analysis/receptive_field_study.py", line 203, in _context
+    return ReceptiveFieldContext.from_confirmation(self.confirmation_summary)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analysis/receptive_field_rows.py", line 231, in from_confirmation
+    recipe = load_confirmed_recipe(summary_path)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analysis/preprocessing_confirmation.py", line 417, in load_confirmed_recipe
+    raise ConfirmationIncomplete(
+src.analysis.preprocessing_confirmation.ConfirmationIncomplete: Step 6 confirmation has not produced an authoritative selected_recipe; no confirmation summary was configured. Run the confirmation sweep and then analysis=step06_confirm to produce step06_confirm_summary.json.
+[[36m2026-08-23 11:03:40,374[0m][[34msrc.utils.utils[0m][[32mINFO[0m] - [rank: 0] Output dir: /kaggle/working/thesis/logs/analyze/runs/step24_receptive_field[0m
+Error executing job with overrides: ['analysis=step24_receptive_field', 'analysis.run_root=/kaggle/working/thesis/logs/train/runs/step24_receptive_field', 'analysis.recipe=null', 'analysis.seeds=[42,123,7]', 'data.num_workers=0', 'data.pin_memory=true', 'extras.print_config=false']
+Traceback (most recent call last):
+  File "/kaggle/working/thesis/src/analyze.py", line 58, in <module>
+    main()
+  File "/usr/local/lib/python3.12/dist-packages/hydra/main.py", line 94, in decorated_main
+    _run_hydra(
+  File "/usr/local/lib/python3.12/dist-packages/hydra/_internal/utils.py", line 394, in _run_hydra
+    _run_app(
+  File "/usr/local/lib/python3.12/dist-packages/hydra/_internal/utils.py", line 457, in _run_app
+    run_and_report(
+  File "/usr/local/lib/python3.12/dist-packages/hydra/_internal/utils.py", line 223, in run_and_report
+    raise ex
+  File "/usr/local/lib/python3.12/dist-packages/hydra/_internal/utils.py", line 220, in run_and_report
+    return func()
+           ^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hydra/_internal/utils.py", line 458, in <lambda>
+    lambda: hydra.run(
+            ^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hydra/_internal/hydra.py", line 132, in run
+    _ = ret.return_value
+        ^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/hydra/core/utils.py", line 260, in return_value
+    raise self._return_value
+  File "/usr/local/lib/python3.12/dist-packages/hydra/core/utils.py", line 186, in run_job
+    ret.return_value = task_function(task_cfg)
+                       ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analyze.py", line 54, in main
+    analyze(cfg)
+  File "/kaggle/working/thesis/src/utils/utils.py", line 78, in wrap
+    raise ex
+  File "/kaggle/working/thesis/src/utils/utils.py", line 68, in wrap
+    metric_dict, object_dict = task_func(cfg=cfg)
+                               ^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analyze.py", line 41, in analyze
+    summary = analysis.run(datamodule=datamodule, output_dir=output_dir)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analysis/base.py", line 53, in run
+    summary = self.compute(datamodule)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analysis/receptive_field_study.py", line 217, in compute
+    context = self._context()
+              ^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analysis/receptive_field_study.py", line 203, in _context
+    return ReceptiveFieldContext.from_confirmation(self.confirmation_summary)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analysis/receptive_field_rows.py", line 231, in from_confirmation
+    recipe = load_confirmed_recipe(summary_path)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analysis/preprocessing_confirmation.py", line 417, in load_confirmed_recipe
+    raise ConfirmationIncomplete(
+src.analysis.preprocessing_confirmation.ConfirmationIncomplete: Step 6 confirmation has not produced an authoritative selected_recipe; no confirmation summary was configured. Run the confirmation sweep and then analysis=step06_confirm to produce step06_confirm_summary.json.
+
+=== 2026-08-24T03:45:47+00:00 :: /usr/bin/python3 src/analyze.py analysis=step24_receptive_field analysis.run_root=/kaggle/working/thesis/logs/train/runs/step24_receptive_field analysis.recipe=null analysis.confirmation_summary=/kaggle/working/thesis/logs/analyze/runs/step06_confirm/step06_confirm_summary.json analysis.seeds=[42,123,7] data.num_workers=0 data.pin_memory=true extras.print_config=false hydra.run.dir=/kaggle/working/thesis/logs/analyze/runs/step24_receptive_field
+[[36m2026-08-24 03:45:56,253[0m][[34msrc.utils.utils[0m][[32mINFO[0m] - [rank: 0] Enforcing tags! <cfg.extras.enforce_tags=True>[0m
+[[36m2026-08-24 03:45:56,258[0m][[34m__main__[0m][[32mINFO[0m] - [rank: 0] Instantiating datamodule <src.data.bt_mri_datamodule.BTMRIDataModule>[0m
+[[36m2026-08-24 03:45:56,284[0m][[34m__main__[0m][[32mINFO[0m] - [rank: 0] Instantiating analysis <src.analysis.receptive_field_study.ReceptiveFieldStudy>[0m
+[[36m2026-08-24 03:45:56,300[0m][[34m__main__[0m][[32mINFO[0m] - [rank: 0] Running analysis; artefacts will be written to /kaggle/working/thesis/logs/analyze/runs/step24_receptive_field[0m
+[[36m2026-08-24 03:45:56,335[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Split table already present at data/splits/dataset_split.csv[0m
+[[36m2026-08-24 03:45:56,386[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Datasets ready - train 4617, val 990, test 990[0m
+[[36m2026-08-24 03:45:56,409[0m][[34msrc.utils.checkpoints[0m][[32mINFO[0m] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step24_receptive_field/FIXED_3X3/seed_42/checkpoints/epoch_015.ckpt[0m
+[[36m2026-08-24 03:45:59,491[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Split table already present at data/splits/dataset_split.csv[0m
+[[36m2026-08-24 03:45:59,531[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Datasets ready - train 4617, val 990, test 990[0m
+[[36m2026-08-24 03:45:59,546[0m][[34msrc.utils.checkpoints[0m][[32mINFO[0m] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step24_receptive_field/FIXED_3X3/seed_123/checkpoints/epoch_024.ckpt[0m
+[[36m2026-08-24 03:46:01,935[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Split table already present at data/splits/dataset_split.csv[0m
+[[36m2026-08-24 03:46:01,975[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Datasets ready - train 4617, val 990, test 990[0m
+[[36m2026-08-24 03:46:01,994[0m][[34msrc.utils.checkpoints[0m][[32mINFO[0m] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step24_receptive_field/FIXED_3X3/seed_7/checkpoints/epoch_021.ckpt[0m
+[[36m2026-08-24 03:46:04,423[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Split table already present at data/splits/dataset_split.csv[0m
+[[36m2026-08-24 03:46:04,461[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Datasets ready - train 4617, val 990, test 990[0m
+[[36m2026-08-24 03:46:04,476[0m][[34msrc.utils.checkpoints[0m][[32mINFO[0m] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step24_receptive_field/FIXED_5X5/seed_42/checkpoints/epoch_022.ckpt[0m
+[[36m2026-08-24 03:46:06,896[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Split table already present at data/splits/dataset_split.csv[0m
+[[36m2026-08-24 03:46:06,933[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Datasets ready - train 4617, val 990, test 990[0m
+[[36m2026-08-24 03:46:06,950[0m][[34msrc.utils.checkpoints[0m][[32mINFO[0m] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step24_receptive_field/FIXED_5X5/seed_123/checkpoints/epoch_022.ckpt[0m
+[[36m2026-08-24 03:46:09,385[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Split table already present at data/splits/dataset_split.csv[0m
+[[36m2026-08-24 03:46:09,423[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Datasets ready - train 4617, val 990, test 990[0m
+[[36m2026-08-24 03:46:09,438[0m][[34msrc.utils.checkpoints[0m][[32mINFO[0m] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step24_receptive_field/FIXED_5X5/seed_7/checkpoints/epoch_028.ckpt[0m
+[[36m2026-08-24 03:46:11,853[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Split table already present at data/splits/dataset_split.csv[0m
+[[36m2026-08-24 03:46:11,891[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Datasets ready - train 4617, val 990, test 990[0m
+[[36m2026-08-24 03:46:11,907[0m][[34msrc.utils.checkpoints[0m][[32mINFO[0m] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step24_receptive_field/FIXED_DILATED_3X3/seed_42/checkpoints/epoch_027.ckpt[0m
+[[36m2026-08-24 03:46:14,299[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Split table already present at data/splits/dataset_split.csv[0m
+[[36m2026-08-24 03:46:14,338[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Datasets ready - train 4617, val 990, test 990[0m
+[[36m2026-08-24 03:46:14,353[0m][[34msrc.utils.checkpoints[0m][[32mINFO[0m] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step24_receptive_field/FIXED_DILATED_3X3/seed_123/checkpoints/epoch_026.ckpt[0m
+[[36m2026-08-24 03:46:16,714[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Split table already present at data/splits/dataset_split.csv[0m
+[[36m2026-08-24 03:46:16,753[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Datasets ready - train 4617, val 990, test 990[0m
+[[36m2026-08-24 03:46:16,770[0m][[34msrc.utils.checkpoints[0m][[32mINFO[0m] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step24_receptive_field/FIXED_DILATED_3X3/seed_7/checkpoints/epoch_025.ckpt[0m
+[[36m2026-08-24 03:46:19,145[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Split table already present at data/splits/dataset_split.csv[0m
+[[36m2026-08-24 03:46:19,183[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Datasets ready - train 4617, val 990, test 990[0m
+[[36m2026-08-24 03:46:19,205[0m][[34msrc.utils.checkpoints[0m][[32mINFO[0m] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step24_receptive_field/MULTISCALE_NO_GATE/seed_42/checkpoints/epoch_029.ckpt[0m
+[[36m2026-08-24 03:46:21,729[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Split table already present at data/splits/dataset_split.csv[0m
+[[36m2026-08-24 03:46:21,766[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Datasets ready - train 4617, val 990, test 990[0m
+[[36m2026-08-24 03:46:21,786[0m][[34msrc.utils.checkpoints[0m][[32mINFO[0m] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step24_receptive_field/MULTISCALE_NO_GATE/seed_123/checkpoints/epoch_022.ckpt[0m
+[[36m2026-08-24 03:46:24,391[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Split table already present at data/splits/dataset_split.csv[0m
+[[36m2026-08-24 03:46:24,428[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Datasets ready - train 4617, val 990, test 990[0m
+[[36m2026-08-24 03:46:24,448[0m][[34msrc.utils.checkpoints[0m][[32mINFO[0m] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step24_receptive_field/MULTISCALE_NO_GATE/seed_7/checkpoints/epoch_028.ckpt[0m
+[[36m2026-08-24 03:46:26,941[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Split table already present at data/splits/dataset_split.csv[0m
+[[36m2026-08-24 03:46:26,978[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Datasets ready - train 4617, val 990, test 990[0m
+[[36m2026-08-24 03:46:27,002[0m][[34msrc.utils.checkpoints[0m][[32mINFO[0m] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step24_receptive_field/ADAPTIVE_MULTISCALE/seed_42/checkpoints/epoch_022.ckpt[0m
+[[36m2026-08-24 03:46:29,554[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Split table already present at data/splits/dataset_split.csv[0m
+[[36m2026-08-24 03:46:29,591[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Datasets ready - train 4617, val 990, test 990[0m
+[[36m2026-08-24 03:46:29,616[0m][[34msrc.utils.checkpoints[0m][[32mINFO[0m] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step24_receptive_field/ADAPTIVE_MULTISCALE/seed_123/checkpoints/epoch_026.ckpt[0m
+[[36m2026-08-24 03:46:32,175[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Split table already present at data/splits/dataset_split.csv[0m
+[[36m2026-08-24 03:46:32,215[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Datasets ready - train 4617, val 990, test 990[0m
+[[36m2026-08-24 03:46:32,240[0m][[34msrc.utils.checkpoints[0m][[32mINFO[0m] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step24_receptive_field/ADAPTIVE_MULTISCALE/seed_7/checkpoints/epoch_020.ckpt[0m
+[[36m2026-08-24 03:47:03,234[0m][[34msrc.analysis.base[0m][[32mINFO[0m] - [rank: 0] [step24_receptive_field] wrote step24_receptive_field.csv (15 rows)[0m
+[[36m2026-08-24 03:47:03,235[0m][[34msrc.analysis.receptive_field_study[0m][[32mINFO[0m] - [rank: 0] === Step 24: receptive-field strategy ladder ===[0m
+[[36m2026-08-24 03:47:03,235[0m][[34msrc.analysis.receptive_field_study[0m][[32mINFO[0m] - [rank: 0]   condition                 params  macro-F1 (mean +- std)[0m
+[[36m2026-08-24 03:47:03,235[0m][[34msrc.analysis.receptive_field_study[0m][[32mINFO[0m] - [rank: 0]   FIXED_3X3                 19,716  0.7283 +- 0.0075 (n=3)[0m
+[[36m2026-08-24 03:47:03,235[0m][[34msrc.analysis.receptive_field_study[0m][[32mINFO[0m] - [rank: 0]   FIXED_5X5                 36,100  0.7721 +- 0.0041 (n=3)[0m
+[[36m2026-08-24 03:47:03,236[0m][[34msrc.analysis.receptive_field_study[0m][[32mINFO[0m] - [rank: 0]   FIXED_DILATED_3X3         19,716  0.7593 +- 0.0050 (n=3)[0m
+[[36m2026-08-24 03:47:03,236[0m][[34msrc.analysis.receptive_field_study[0m][[32mINFO[0m] - [rank: 0]   MULTISCALE_NO_GATE        57,828  0.8097 +- 0.0066 (n=3)[0m
+[[36m2026-08-24 03:47:03,236[0m][[34msrc.analysis.receptive_field_study[0m][[32mINFO[0m] - [rank: 0]   ADAPTIVE_MULTISCALE       56,359  0.7673 +- 0.0094 (n=3)[0m
+[[36m2026-08-24 03:47:03,236[0m][[34msrc.analysis.receptive_field_study[0m][[32mINFO[0m] - [rank: 0]   H24 ADAPTIVE_MULTISCALE vs MULTISCALE_NO_GATE: delta macro-F1 -0.0361 [-0.0543, -0.0189]  p=0.0004  SIGNIFICANT[0m
+[[36m2026-08-24 03:47:03,236[0m][[34msrc.analysis.receptive_field_study[0m][[32mINFO[0m] - [rank: 0]   MULTISCALE_NO_GATE carries +1,469 parameters relative to ADAPTIVE_MULTISCALE. The control is the larger of the two, which is what determines whether a win here could be explained by capacity rather than by gating.[0m
+[[36m2026-08-24 03:47:03,236[0m][[34msrc.analysis.receptive_field_study[0m][[32mINFO[0m] - [rank: 0]   S24a_vs_fixed_3x3 (descriptive): delta +0.0481 [+0.0313, +0.0658][0m
+[[36m2026-08-24 03:47:03,237[0m][[34msrc.analysis.receptive_field_study[0m][[32mINFO[0m] - [rank: 0]   S24b_vs_fixed_5x5 (descriptive): delta -0.0049 [-0.0176, +0.0085][0m
+[[36m2026-08-24 03:47:03,237[0m][[34msrc.analysis.receptive_field_study[0m][[32mINFO[0m] - [rank: 0]   S24c_vs_fixed_dilated (descriptive): delta +0.0081 [-0.0059, +0.0214][0m
+[[36m2026-08-24 03:47:03,246[0m][[34msrc.analysis.base[0m][[32mINFO[0m] - [rank: 0] [step24_receptive_field] wrote step24_receptive_field_summary.json[0m
+[[36m2026-08-24 03:47:03,247[0m][[34msrc.utils.utils[0m][[32mINFO[0m] - [rank: 0] Output dir: /kaggle/working/thesis/logs/analyze/runs/step24_receptive_field[0m

@@ -1,0 +1,21 @@
+[2026-09-19 05:02:38,798][src.utils.utils][INFO] - [rank: 0] Enforcing tags! <cfg.extras.enforce_tags=True>
+[2026-09-19 05:02:38,802][__main__][INFO] - [rank: 0] Instantiating datamodule <src.data.bt_mri_datamodule.BTMRIDataModule>
+[2026-09-19 05:02:38,830][__main__][INFO] - [rank: 0] Instantiating analysis <src.analysis.quantum_advantage.QuantumAdvantageStudy>
+[2026-09-19 05:02:38,846][__main__][INFO] - [rank: 0] Running analysis; artefacts will be written to /kaggle/working/thesis/logs/analyze/runs/step20_quantum_advantage_swin
+[2026-09-19 05:02:38,906][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step15_final_swin/seed_42/checkpoints/epoch_008.ckpt
+[2026-09-19 05:02:39,202][src.data.bt_mri_feature_datamodule][INFO] - [rank: 0] Feature cache 'swin' loaded - train 4617, val 990, test 990; dims classical=768, spatial=32, quantum=4
+[2026-09-19 05:02:39,381][src.data.bt_mri_feature_datamodule][INFO] - [rank: 0] Feature cache 'swin' loaded - train 4617, val 990, test 990; dims classical=768, spatial=32, quantum=4; zeroed=['quantum']
+[2026-09-19 05:02:39,444][src.analysis.quantum_advantage][INFO] - [rank: 0] Control trains with loss 'focal' - resolved from Step 14 selection (logs/analyze/runs/step14_loss_selection_swin/step14_loss_selection_summary.json)
+[2026-09-19 05:02:39,472][src.analysis.quantum_advantage][INFO] - [rank: 0] Retraining the no-quantum control under the Step 15 protocol: max_epochs=30, lr=0.0001, early stopping on val/f1_macro (patience 12), best-checkpoint selection
+[2026-09-19 05:03:31,130][src.data.bt_mri_feature_datamodule][INFO] - [rank: 0] Feature cache 'swin' loaded - train 4617, val 990, test 990; dims classical=768, spatial=32, quantum=4
+[2026-09-19 05:04:12,380][src.data.bt_mri_feature_datamodule][INFO] - [rank: 0] Feature cache 'swin' loaded - train 4617, val 990, test 990; dims classical=768, spatial=32, quantum=4
+[2026-09-19 05:04:12,448][src.analysis.base][INFO] - [rank: 0] [step20_quantum_advantage] wrote step20_efficiency.csv (2 rows)
+[2026-09-19 05:04:12,450][src.analysis.quantum_advantage][INFO] - [rank: 0] === Step 20: quantum advantage ===
+[2026-09-19 05:04:12,450][src.analysis.quantum_advantage][INFO] - [rank: 0]   full model      macro-F1 0.9824
+[2026-09-19 05:04:12,450][src.analysis.quantum_advantage][INFO] - [rank: 0]   no-quantum      macro-F1 0.9823
+[2026-09-19 05:04:12,450][src.analysis.quantum_advantage][INFO] - [rank: 0]   delta                    +0.0000
+[2026-09-19 05:04:12,451][src.analysis.quantum_advantage][INFO] - [rank: 0]   paired bootstrap 95% CI  [-0.0030, +0.0032]  significant=False
+[2026-09-19 05:04:12,451][src.analysis.quantum_advantage][INFO] - [rank: 0]   McNemar p                1.0000 (exact binomial)
+[2026-09-19 05:04:12,451][src.analysis.quantum_advantage][INFO] - [rank: 0]   VERDICT: The quantum branch is nominally better (+0.0000 macro-F1) but the paired bootstrap interval spans zero, so the difference is not distinguishable from noise on this test set.
+[2026-09-19 05:04:12,455][src.analysis.base][INFO] - [rank: 0] [step20_quantum_advantage] wrote step20_quantum_advantage_summary.json
+[2026-09-19 05:04:12,456][src.utils.utils][INFO] - [rank: 0] Output dir: /kaggle/working/thesis/logs/analyze/runs/step20_quantum_advantage_swin

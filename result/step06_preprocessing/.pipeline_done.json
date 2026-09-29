@@ -1,0 +1,15 @@
+{
+  "stage": "step06_preprocessing",
+  "status": "done",
+  "returncode": 0,
+  "seconds": 694.0,
+  "out_dir": "/kaggle/working/thesis/logs/analyze/runs/step06_preprocessing",
+  "overrides": [
+    "analysis=step06_preprocessing",
+    "data.num_workers=0",
+    "data.pin_memory=true"
+  ],
+  "profile": "full",
+  "protocol_intact": true,
+  "finished": "2026-08-19T05:38:18+00:00"
+}

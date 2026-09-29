@@ -1,0 +1,20 @@
+{
+  "stage": "step24_receptive_field",
+  "status": "done",
+  "returncode": 0,
+  "seconds": 78.2,
+  "out_dir": "/kaggle/working/thesis/logs/analyze/runs/step24_receptive_field",
+  "overrides": [
+    "analysis=step24_receptive_field",
+    "analysis.run_root=/kaggle/working/thesis/logs/train/runs/step24_receptive_field",
+    "analysis.recipe=null",
+    "analysis.confirmation_summary=/kaggle/working/thesis/logs/analyze/runs/step06_confirm/step06_confirm_summary.json",
+    "analysis.seeds=[42,123,7]",
+    "data.num_workers=0",
+    "data.pin_memory=true"
+  ],
+  "profile": "full",
+  "protocol_intact": true,
+  "finished": "2026-08-24T03:47:05+00:00",
+  "inputs_fingerprint": "15/15:step24_receptive_field/ADAPTIVE_MULTISCALE/seed_123,step24_receptive_field/ADAPTIVE_MULTISCALE/seed_42,step24_receptive_field/ADAPTIVE_MULTISCALE/seed_7,step24_receptive_field/FIXED_3X3/seed_123,step24_receptive_field/FIXED_3X3/seed_42,step24_receptive_field/FIXED_3X3/seed_7,step24_receptive_field/FIXED_5X5/seed_123,step24_receptive_field/FIXED_5X5/seed_42,step24_receptive_field/FIXED_5X5/seed_7,step24_receptive_field/FIXED_DILATED_3X3/seed_123,step24_receptive_field/FIXED_DILATED_3X3/seed_42,step24_receptive_field/FIXED_DILATED_3X3/seed_7,step24_receptive_field/MULTISCALE_NO_GATE/seed_123,step24_receptive_field/MULTISCALE_NO_GATE/seed_42,step24_receptive_field/MULTISCALE_NO_GATE/seed_7"
+}

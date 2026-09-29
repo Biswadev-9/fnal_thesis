@@ -1,0 +1,120 @@
+[2026-08-23 01:51:17,106][src.utils.utils][INFO] - [rank: 0] Enforcing tags! <cfg.extras.enforce_tags=True>
+[2026-08-23 01:51:17,114][__main__][INFO] - [rank: 0] Instantiating datamodule <src.data.bt_mri_datamodule.BTMRIDataModule>
+[2026-08-23 01:51:17,144][__main__][INFO] - [rank: 0] Instantiating analysis <src.analysis.receptive_field_study.ReceptiveFieldStudy>
+[2026-08-23 01:51:17,161][__main__][INFO] - [rank: 0] Running analysis; artefacts will be written to /kaggle/working/thesis/logs/analyze/runs/step24_receptive_field
+[2026-08-23 01:51:17,162][src.utils.utils][ERROR] - [rank: 0] 
+Traceback (most recent call last):
+  File "/kaggle/working/thesis/src/utils/utils.py", line 68, in wrap
+    metric_dict, object_dict = task_func(cfg=cfg)
+                               ^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analyze.py", line 41, in analyze
+    summary = analysis.run(datamodule=datamodule, output_dir=output_dir)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analysis/base.py", line 53, in run
+    summary = self.compute(datamodule)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analysis/receptive_field_study.py", line 217, in compute
+    context = self._context()
+              ^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analysis/receptive_field_study.py", line 203, in _context
+    return ReceptiveFieldContext.from_confirmation(self.confirmation_summary)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analysis/receptive_field_rows.py", line 231, in from_confirmation
+    recipe = load_confirmed_recipe(summary_path)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analysis/preprocessing_confirmation.py", line 417, in load_confirmed_recipe
+    raise ConfirmationIncomplete(
+src.analysis.preprocessing_confirmation.ConfirmationIncomplete: Step 6 confirmation has not produced an authoritative selected_recipe; no confirmation summary was configured. Run the confirmation sweep and then analysis=step06_confirm to produce step06_confirm_summary.json.
+[2026-08-23 01:51:17,166][src.utils.utils][INFO] - [rank: 0] Output dir: /kaggle/working/thesis/logs/analyze/runs/step24_receptive_field
+[2026-08-23 11:03:40,320][src.utils.utils][INFO] - [rank: 0] Enforcing tags! <cfg.extras.enforce_tags=True>
+[2026-08-23 11:03:40,325][__main__][INFO] - [rank: 0] Instantiating datamodule <src.data.bt_mri_datamodule.BTMRIDataModule>
+[2026-08-23 11:03:40,353][__main__][INFO] - [rank: 0] Instantiating analysis <src.analysis.receptive_field_study.ReceptiveFieldStudy>
+[2026-08-23 11:03:40,369][__main__][INFO] - [rank: 0] Running analysis; artefacts will be written to /kaggle/working/thesis/logs/analyze/runs/step24_receptive_field
+[2026-08-23 11:03:40,370][src.utils.utils][ERROR] - [rank: 0] 
+Traceback (most recent call last):
+  File "/kaggle/working/thesis/src/utils/utils.py", line 68, in wrap
+    metric_dict, object_dict = task_func(cfg=cfg)
+                               ^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analyze.py", line 41, in analyze
+    summary = analysis.run(datamodule=datamodule, output_dir=output_dir)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analysis/base.py", line 53, in run
+    summary = self.compute(datamodule)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analysis/receptive_field_study.py", line 217, in compute
+    context = self._context()
+              ^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analysis/receptive_field_study.py", line 203, in _context
+    return ReceptiveFieldContext.from_confirmation(self.confirmation_summary)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analysis/receptive_field_rows.py", line 231, in from_confirmation
+    recipe = load_confirmed_recipe(summary_path)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/thesis/src/analysis/preprocessing_confirmation.py", line 417, in load_confirmed_recipe
+    raise ConfirmationIncomplete(
+src.analysis.preprocessing_confirmation.ConfirmationIncomplete: Step 6 confirmation has not produced an authoritative selected_recipe; no confirmation summary was configured. Run the confirmation sweep and then analysis=step06_confirm to produce step06_confirm_summary.json.
+[2026-08-23 11:03:40,374][src.utils.utils][INFO] - [rank: 0] Output dir: /kaggle/working/thesis/logs/analyze/runs/step24_receptive_field
+[2026-08-24 03:45:56,253][src.utils.utils][INFO] - [rank: 0] Enforcing tags! <cfg.extras.enforce_tags=True>
+[2026-08-24 03:45:56,258][__main__][INFO] - [rank: 0] Instantiating datamodule <src.data.bt_mri_datamodule.BTMRIDataModule>
+[2026-08-24 03:45:56,284][__main__][INFO] - [rank: 0] Instantiating analysis <src.analysis.receptive_field_study.ReceptiveFieldStudy>
+[2026-08-24 03:45:56,300][__main__][INFO] - [rank: 0] Running analysis; artefacts will be written to /kaggle/working/thesis/logs/analyze/runs/step24_receptive_field
+[2026-08-24 03:45:56,335][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at data/splits/dataset_split.csv
+[2026-08-24 03:45:56,386][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-08-24 03:45:56,409][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step24_receptive_field/FIXED_3X3/seed_42/checkpoints/epoch_015.ckpt
+[2026-08-24 03:45:59,491][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at data/splits/dataset_split.csv
+[2026-08-24 03:45:59,531][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-08-24 03:45:59,546][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step24_receptive_field/FIXED_3X3/seed_123/checkpoints/epoch_024.ckpt
+[2026-08-24 03:46:01,935][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at data/splits/dataset_split.csv
+[2026-08-24 03:46:01,975][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-08-24 03:46:01,994][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step24_receptive_field/FIXED_3X3/seed_7/checkpoints/epoch_021.ckpt
+[2026-08-24 03:46:04,423][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at data/splits/dataset_split.csv
+[2026-08-24 03:46:04,461][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-08-24 03:46:04,476][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step24_receptive_field/FIXED_5X5/seed_42/checkpoints/epoch_022.ckpt
+[2026-08-24 03:46:06,896][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at data/splits/dataset_split.csv
+[2026-08-24 03:46:06,933][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-08-24 03:46:06,950][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step24_receptive_field/FIXED_5X5/seed_123/checkpoints/epoch_022.ckpt
+[2026-08-24 03:46:09,385][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at data/splits/dataset_split.csv
+[2026-08-24 03:46:09,423][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-08-24 03:46:09,438][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step24_receptive_field/FIXED_5X5/seed_7/checkpoints/epoch_028.ckpt
+[2026-08-24 03:46:11,853][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at data/splits/dataset_split.csv
+[2026-08-24 03:46:11,891][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-08-24 03:46:11,907][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step24_receptive_field/FIXED_DILATED_3X3/seed_42/checkpoints/epoch_027.ckpt
+[2026-08-24 03:46:14,299][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at data/splits/dataset_split.csv
+[2026-08-24 03:46:14,338][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-08-24 03:46:14,353][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step24_receptive_field/FIXED_DILATED_3X3/seed_123/checkpoints/epoch_026.ckpt
+[2026-08-24 03:46:16,714][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at data/splits/dataset_split.csv
+[2026-08-24 03:46:16,753][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-08-24 03:46:16,770][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step24_receptive_field/FIXED_DILATED_3X3/seed_7/checkpoints/epoch_025.ckpt
+[2026-08-24 03:46:19,145][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at data/splits/dataset_split.csv
+[2026-08-24 03:46:19,183][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-08-24 03:46:19,205][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step24_receptive_field/MULTISCALE_NO_GATE/seed_42/checkpoints/epoch_029.ckpt
+[2026-08-24 03:46:21,729][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at data/splits/dataset_split.csv
+[2026-08-24 03:46:21,766][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-08-24 03:46:21,786][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step24_receptive_field/MULTISCALE_NO_GATE/seed_123/checkpoints/epoch_022.ckpt
+[2026-08-24 03:46:24,391][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at data/splits/dataset_split.csv
+[2026-08-24 03:46:24,428][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-08-24 03:46:24,448][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step24_receptive_field/MULTISCALE_NO_GATE/seed_7/checkpoints/epoch_028.ckpt
+[2026-08-24 03:46:26,941][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at data/splits/dataset_split.csv
+[2026-08-24 03:46:26,978][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-08-24 03:46:27,002][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step24_receptive_field/ADAPTIVE_MULTISCALE/seed_42/checkpoints/epoch_022.ckpt
+[2026-08-24 03:46:29,554][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at data/splits/dataset_split.csv
+[2026-08-24 03:46:29,591][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-08-24 03:46:29,616][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step24_receptive_field/ADAPTIVE_MULTISCALE/seed_123/checkpoints/epoch_026.ckpt
+[2026-08-24 03:46:32,175][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at data/splits/dataset_split.csv
+[2026-08-24 03:46:32,215][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-08-24 03:46:32,240][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step24_receptive_field/ADAPTIVE_MULTISCALE/seed_7/checkpoints/epoch_020.ckpt
+[2026-08-24 03:47:03,234][src.analysis.base][INFO] - [rank: 0] [step24_receptive_field] wrote step24_receptive_field.csv (15 rows)
+[2026-08-24 03:47:03,235][src.analysis.receptive_field_study][INFO] - [rank: 0] === Step 24: receptive-field strategy ladder ===
+[2026-08-24 03:47:03,235][src.analysis.receptive_field_study][INFO] - [rank: 0]   condition                 params  macro-F1 (mean +- std)
+[2026-08-24 03:47:03,235][src.analysis.receptive_field_study][INFO] - [rank: 0]   FIXED_3X3                 19,716  0.7283 +- 0.0075 (n=3)
+[2026-08-24 03:47:03,235][src.analysis.receptive_field_study][INFO] - [rank: 0]   FIXED_5X5                 36,100  0.7721 +- 0.0041 (n=3)
+[2026-08-24 03:47:03,236][src.analysis.receptive_field_study][INFO] - [rank: 0]   FIXED_DILATED_3X3         19,716  0.7593 +- 0.0050 (n=3)
+[2026-08-24 03:47:03,236][src.analysis.receptive_field_study][INFO] - [rank: 0]   MULTISCALE_NO_GATE        57,828  0.8097 +- 0.0066 (n=3)
+[2026-08-24 03:47:03,236][src.analysis.receptive_field_study][INFO] - [rank: 0]   ADAPTIVE_MULTISCALE       56,359  0.7673 +- 0.0094 (n=3)
+[2026-08-24 03:47:03,236][src.analysis.receptive_field_study][INFO] - [rank: 0]   H24 ADAPTIVE_MULTISCALE vs MULTISCALE_NO_GATE: delta macro-F1 -0.0361 [-0.0543, -0.0189]  p=0.0004  SIGNIFICANT
+[2026-08-24 03:47:03,236][src.analysis.receptive_field_study][INFO] - [rank: 0]   MULTISCALE_NO_GATE carries +1,469 parameters relative to ADAPTIVE_MULTISCALE. The control is the larger of the two, which is what determines whether a win here could be explained by capacity rather than by gating.
+[2026-08-24 03:47:03,236][src.analysis.receptive_field_study][INFO] - [rank: 0]   S24a_vs_fixed_3x3 (descriptive): delta +0.0481 [+0.0313, +0.0658]
+[2026-08-24 03:47:03,237][src.analysis.receptive_field_study][INFO] - [rank: 0]   S24b_vs_fixed_5x5 (descriptive): delta -0.0049 [-0.0176, +0.0085]
+[2026-08-24 03:47:03,237][src.analysis.receptive_field_study][INFO] - [rank: 0]   S24c_vs_fixed_dilated (descriptive): delta +0.0081 [-0.0059, +0.0214]
+[2026-08-24 03:47:03,246][src.analysis.base][INFO] - [rank: 0] [step24_receptive_field] wrote step24_receptive_field_summary.json
+[2026-08-24 03:47:03,247][src.utils.utils][INFO] - [rank: 0] Output dir: /kaggle/working/thesis/logs/analyze/runs/step24_receptive_field

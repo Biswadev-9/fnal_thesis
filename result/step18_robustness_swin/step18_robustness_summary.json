@@ -1,0 +1,379 @@
+{
+  "models": [
+    "proposed",
+    "efficientnet_b0",
+    "vit"
+  ],
+  "categories": [
+    "clean",
+    "gaussian_noise",
+    "contrast_shift",
+    "blur",
+    "resolution",
+    "intensity_shift"
+  ],
+  "clean_scores": {
+    "proposed": 0.9823798783532688,
+    "efficientnet_b0": 0.9782516666363597,
+    "vit": 0.9824043443677792
+  },
+  "mean_drop_by_model": {
+    "efficientnet_b0": 0.35238821672401754,
+    "proposed": 0.12093244142085782,
+    "vit": 0.16124316437027397
+  },
+  "most_damaging": {
+    "worst_category": "gaussian_noise",
+    "worst_mean_drop": 0.4181083574082685,
+    "by_category": {
+      "intensity_shift": 0.029342749936974572,
+      "contrast_shift": 0.03910888939805298,
+      "blur": 0.24709944064418066,
+      "resolution": 0.32394693347110554,
+      "gaussian_noise": 0.4181083574082685
+    }
+  },
+  "diffusion_verdict": {
+    "answered": false,
+    "reason": "Needs two model entries differing only in 'preprocess' - one with a diffusion recipe and one without. Configure both to answer whether diffusion preprocessing improves robustness under noise."
+  },
+  "results": [
+    {
+      "model": "proposed",
+      "category": "clean",
+      "severity": "none",
+      "macro_f1": 0.9823798783532688,
+      "drop_from_clean": 0.0
+    },
+    {
+      "model": "efficientnet_b0",
+      "category": "clean",
+      "severity": "none",
+      "macro_f1": 0.9782516666363597,
+      "drop_from_clean": 0.0
+    },
+    {
+      "model": "vit",
+      "category": "clean",
+      "severity": "none",
+      "macro_f1": 0.9824043443677792,
+      "drop_from_clean": 0.0
+    },
+    {
+      "model": "proposed",
+      "category": "gaussian_noise",
+      "severity": "sigma=10",
+      "macro_f1": 0.965870084919253,
+      "drop_from_clean": 0.016509793434015818
+    },
+    {
+      "model": "efficientnet_b0",
+      "category": "gaussian_noise",
+      "severity": "sigma=10",
+      "macro_f1": 0.2574833585518462,
+      "drop_from_clean": 0.7207683080845135
+    },
+    {
+      "model": "vit",
+      "category": "gaussian_noise",
+      "severity": "sigma=10",
+      "macro_f1": 0.9193661337755153,
+      "drop_from_clean": 0.06303821059226389
+    },
+    {
+      "model": "proposed",
+      "category": "gaussian_noise",
+      "severity": "sigma=25",
+      "macro_f1": 0.8670801256160239,
+      "drop_from_clean": 0.11529975273724491
+    },
+    {
+      "model": "efficientnet_b0",
+      "category": "gaussian_noise",
+      "severity": "sigma=25",
+      "macro_f1": 0.23475762889652163,
+      "drop_from_clean": 0.743494037739838
+    },
+    {
+      "model": "vit",
+      "category": "gaussian_noise",
+      "severity": "sigma=25",
+      "macro_f1": 0.6972411380282879,
+      "drop_from_clean": 0.2851632063394913
+    },
+    {
+      "model": "proposed",
+      "category": "gaussian_noise",
+      "severity": "sigma=40",
+      "macro_f1": 0.4949420230436077,
+      "drop_from_clean": 0.4874378553096611
+    },
+    {
+      "model": "efficientnet_b0",
+      "category": "gaussian_noise",
+      "severity": "sigma=40",
+      "macro_f1": 0.18415234096669303,
+      "drop_from_clean": 0.7940993256696667
+    },
+    {
+      "model": "vit",
+      "category": "gaussian_noise",
+      "severity": "sigma=40",
+      "macro_f1": 0.4452396176000579,
+      "drop_from_clean": 0.5371647267677213
+    },
+    {
+      "model": "proposed",
+      "category": "contrast_shift",
+      "severity": "0.7x",
+      "macro_f1": 0.9833753183271804,
+      "drop_from_clean": -0.0009954399739116049
+    },
+    {
+      "model": "efficientnet_b0",
+      "category": "contrast_shift",
+      "severity": "0.7x",
+      "macro_f1": 0.9740171609496576,
+      "drop_from_clean": 0.004234505686702028
+    },
+    {
+      "model": "vit",
+      "category": "contrast_shift",
+      "severity": "0.7x",
+      "macro_f1": 0.980320920486633,
+      "drop_from_clean": 0.0020834238811462402
+    },
+    {
+      "model": "proposed",
+      "category": "contrast_shift",
+      "severity": "0.5x",
+      "macro_f1": 0.977151814442467,
+      "drop_from_clean": 0.005228063910801772
+    },
+    {
+      "model": "efficientnet_b0",
+      "category": "contrast_shift",
+      "severity": "0.5x",
+      "macro_f1": 0.952675668518521,
+      "drop_from_clean": 0.025575998117838616
+    },
+    {
+      "model": "vit",
+      "category": "contrast_shift",
+      "severity": "0.5x",
+      "macro_f1": 0.9667023833863958,
+      "drop_from_clean": 0.015701960981383434
+    },
+    {
+      "model": "proposed",
+      "category": "contrast_shift",
+      "severity": "0.3x",
+      "macro_f1": 0.9729534190436738,
+      "drop_from_clean": 0.009426459309594959
+    },
+    {
+      "model": "efficientnet_b0",
+      "category": "contrast_shift",
+      "severity": "0.3x",
+      "macro_f1": 0.7482398772954874,
+      "drop_from_clean": 0.2300117893408723
+    },
+    {
+      "model": "vit",
+      "category": "contrast_shift",
+      "severity": "0.3x",
+      "macro_f1": 0.9216911010397302,
+      "drop_from_clean": 0.06071324332804906
+    },
+    {
+      "model": "proposed",
+      "category": "blur",
+      "severity": "radius=1",
+      "macro_f1": 0.9600092609968838,
+      "drop_from_clean": 0.022370617356385014
+    },
+    {
+      "model": "efficientnet_b0",
+      "category": "blur",
+      "severity": "radius=1",
+      "macro_f1": 0.924743300322312,
+      "drop_from_clean": 0.05350836631404765
+    },
+    {
+      "model": "vit",
+      "category": "blur",
+      "severity": "radius=1",
+      "macro_f1": 0.9523671039300383,
+      "drop_from_clean": 0.03003724043774092
+    },
+    {
+      "model": "proposed",
+      "category": "blur",
+      "severity": "radius=2",
+      "macro_f1": 0.8733772130658335,
+      "drop_from_clean": 0.1090026652874353
+    },
+    {
+      "model": "efficientnet_b0",
+      "category": "blur",
+      "severity": "radius=2",
+      "macro_f1": 0.5095910114780304,
+      "drop_from_clean": 0.4686606551583292
+    },
+    {
+      "model": "vit",
+      "category": "blur",
+      "severity": "radius=2",
+      "macro_f1": 0.8015860008186172,
+      "drop_from_clean": 0.18081834354916204
+    },
+    {
+      "model": "proposed",
+      "category": "blur",
+      "severity": "radius=3",
+      "macro_f1": 0.6645719664950435,
+      "drop_from_clean": 0.3178079118582253
+    },
+    {
+      "model": "efficientnet_b0",
+      "category": "blur",
+      "severity": "radius=3",
+      "macro_f1": 0.3319361278363647,
+      "drop_from_clean": 0.6463155387999949
+    },
+    {
+      "model": "vit",
+      "category": "blur",
+      "severity": "radius=3",
+      "macro_f1": 0.5870307173314737,
+      "drop_from_clean": 0.3953736270363055
+    },
+    {
+      "model": "proposed",
+      "category": "resolution",
+      "severity": "0.5x",
+      "macro_f1": 0.9387546674152789,
+      "drop_from_clean": 0.04362521093798988
+    },
+    {
+      "model": "efficientnet_b0",
+      "category": "resolution",
+      "severity": "0.5x",
+      "macro_f1": 0.8764597658283511,
+      "drop_from_clean": 0.1017919008080086
+    },
+    {
+      "model": "vit",
+      "category": "resolution",
+      "severity": "0.5x",
+      "macro_f1": 0.9313021159554946,
+      "drop_from_clean": 0.05110222841228462
+    },
+    {
+      "model": "proposed",
+      "category": "resolution",
+      "severity": "0.25x",
+      "macro_f1": 0.7924680809225852,
+      "drop_from_clean": 0.18991179743068354
+    },
+    {
+      "model": "efficientnet_b0",
+      "category": "resolution",
+      "severity": "0.25x",
+      "macro_f1": 0.4391214537854084,
+      "drop_from_clean": 0.5391302128509512
+    },
+    {
+      "model": "vit",
+      "category": "resolution",
+      "severity": "0.25x",
+      "macro_f1": 0.7898394443184932,
+      "drop_from_clean": 0.19256490004928606
+    },
+    {
+      "model": "proposed",
+      "category": "resolution",
+      "severity": "0.125x",
+      "macro_f1": 0.49153787355973627,
+      "drop_from_clean": 0.4908420047935325
+    },
+    {
+      "model": "efficientnet_b0",
+      "category": "resolution",
+      "severity": "0.125x",
+      "macro_f1": 0.24837653379721852,
+      "drop_from_clean": 0.7298751328391411
+    },
+    {
+      "model": "vit",
+      "category": "resolution",
+      "severity": "0.125x",
+      "macro_f1": 0.4057253312497071,
+      "drop_from_clean": 0.5766790131180721
+    },
+    {
+      "model": "proposed",
+      "category": "intensity_shift",
+      "severity": "+20",
+      "macro_f1": 0.9823480558074631,
+      "drop_from_clean": 3.18225458056931e-05
+    },
+    {
+      "model": "efficientnet_b0",
+      "category": "intensity_shift",
+      "severity": "+20",
+      "macro_f1": 0.9761593265481074,
+      "drop_from_clean": 0.002092340088252209
+    },
+    {
+      "model": "vit",
+      "category": "intensity_shift",
+      "severity": "+20",
+      "macro_f1": 0.9793422393742826,
+      "drop_from_clean": 0.0030621049934966837
+    },
+    {
+      "model": "proposed",
+      "category": "intensity_shift",
+      "severity": "+40",
+      "macro_f1": 0.9812956993007396,
+      "drop_from_clean": 0.0010841790525292216
+    },
+    {
+      "model": "efficientnet_b0",
+      "category": "intensity_shift",
+      "severity": "+40",
+      "macro_f1": 0.7954261066300482,
+      "drop_from_clean": 0.18282556000631145
+    },
+    {
+      "model": "vit",
+      "category": "intensity_shift",
+      "severity": "+40",
+      "macro_f1": 0.9752389457388019,
+      "drop_from_clean": 0.00716539862897736
+    },
+    {
+      "model": "proposed",
+      "category": "intensity_shift",
+      "severity": "-30",
+      "macro_f1": 0.9759759510303951,
+      "drop_from_clean": 0.006403927322873648
+    },
+    {
+      "model": "efficientnet_b0",
+      "category": "intensity_shift",
+      "severity": "-30",
+      "macro_f1": 0.9348120872805638,
+      "drop_from_clean": 0.0434395793557959
+    },
+    {
+      "model": "vit",
+      "category": "intensity_shift",
+      "severity": "-30",
+      "macro_f1": 0.9644245069290502,
+      "drop_from_clean": 0.017979837438728996
+    }
+  ],
+  "excluded_data_note": "The archive's pre-degraded 'Challenging Datasets' were not used: their filenames do not correspond to the primary set, so degraded copies of training images cannot be excluded."
+}

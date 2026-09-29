@@ -1,0 +1,23 @@
+[2026-09-18 20:13:33,151][src.utils.utils][INFO] - [rank: 0] Enforcing tags! <cfg.extras.enforce_tags=True>
+[2026-09-18 20:13:33,155][__main__][INFO] - [rank: 0] Instantiating datamodule <src.data.eval_datamodules.FigshareDataModule>
+[2026-09-18 20:13:33,186][__main__][INFO] - [rank: 0] Instantiating analysis <src.analysis.external_test.ExternalTest>
+[2026-09-18 20:13:33,196][__main__][INFO] - [rank: 0] Running analysis; artefacts will be written to /kaggle/working/thesis/logs/analyze/runs/step17_external_swin
+[2026-09-18 20:13:33,723][src.models.components.transfer][INFO] - [rank: 0] swin_t: fine-tuning 15,366,576/27,519,354 backbone parameters (55.8%)
+[2026-09-18 20:13:33,923][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step10_classical_swin/seed_42/checkpoints/epoch_021.ckpt
+[2026-09-18 20:13:35,279][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step12_adaptive_quantum/seed_42/checkpoints/epoch_027.ckpt
+[2026-09-18 20:13:35,297][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step15_final_swin/seed_42/checkpoints/epoch_008.ckpt
+[2026-09-18 20:13:35,621][src.models.full_pipeline][INFO] - [rank: 0] Full pipeline assembled on cuda (27,680,090 parameters)
+[2026-09-18 20:14:00,573][src.data.components.external][WARNING] - [rank: 0] Skipped 1 unreadable or unmapped Figshare scans
+[2026-09-18 20:14:00,574][src.data.components.external][INFO] - [rank: 0] Indexed 3064 Figshare scans from /kaggle/working/thesis/data/raw/figshare
+[2026-09-18 20:14:24,220][src.data.components.external][WARNING] - [rank: 0] Skipped 1 unreadable or unmapped Figshare scans
+[2026-09-18 20:14:24,221][src.data.components.external][INFO] - [rank: 0] Indexed 3064 Figshare scans from /kaggle/working/thesis/data/raw/figshare
+[2026-09-18 20:14:24,224][src.data.eval_datamodules][INFO] - [rank: 0] External dataset ready: 3064 scans
+[2026-09-18 20:14:24,224][src.analysis.external_test][INFO] - [rank: 0] External evaluation over ['Glioma', 'Meningioma', 'Pituitary'] (3064 scans)
+[2026-09-18 20:15:42,129][src.analysis.base][INFO] - [rank: 0] [step17_external] wrote step17_per_class.csv (3 rows)
+[2026-09-18 20:15:42,330][src.analysis.external_test][INFO] - [rank: 0] === Step 17: external validation ===
+[2026-09-18 20:15:42,330][src.analysis.external_test][INFO] - [rank: 0]   restricted macro-F1   0.9363
+[2026-09-18 20:15:42,330][src.analysis.external_test][INFO] - [rank: 0]   unrestricted macro-F1 0.9366
+[2026-09-18 20:15:42,331][src.analysis.external_test][INFO] - [rank: 0]   predicted the absent class 11 times of 3064
+[2026-09-18 20:15:42,331][src.analysis.external_test][INFO] - [rank: 0]   drop from internal    +0.0416
+[2026-09-18 20:15:42,337][src.analysis.base][INFO] - [rank: 0] [step17_external] wrote step17_external_summary.json
+[2026-09-18 20:15:42,338][src.utils.utils][INFO] - [rank: 0] Output dir: /kaggle/working/thesis/logs/analyze/runs/step17_external_swin

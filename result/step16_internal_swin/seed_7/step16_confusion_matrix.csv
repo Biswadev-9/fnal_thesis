@@ -1,0 +1,5 @@
+,Glioma,Meningioma,Pituitary,No-tumor
+Glioma,235,8,0,0
+Meningioma,2,226,2,0
+Pituitary,1,3,257,0
+No-tumor,0,0,1,255

@@ -1,0 +1,4 @@
+- analysis=step04_audit
+- data.num_workers=0
+- data.pin_memory=true
+- extras.print_config=false

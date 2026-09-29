@@ -1,0 +1,32 @@
+{
+  "n_images": 6597,
+  "n_readable": 6597,
+  "n_corrupted": 0,
+  "corrupted_files": [],
+  "split_sizes": {
+    "train": 4617,
+    "val": 990,
+    "test": 990
+  },
+  "train_imbalance_ratio": 1.1372549019607843,
+  "unique_sizes": [
+    "224x224"
+  ],
+  "modes": {
+    "RGB": 6597
+  },
+  "bits_per_channel": {
+    "8": 6597
+  },
+  "intensity_min": 0.0,
+  "intensity_max": 255.0,
+  "leak_free": true,
+  "background_crop_validation": {
+    "passed": false,
+    "n_images": 60,
+    "tolerance": 0.001,
+    "max_foreground_lost": 0.051178752611160845,
+    "mean_foreground_lost": 0.0016249670789480763,
+    "worst_case_index": 52
+  }
+}

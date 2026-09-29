@@ -1,0 +1,65 @@
+[2026-08-19 05:26:52,983][src.utils.utils][INFO] - [rank: 0] Enforcing tags! <cfg.extras.enforce_tags=True>
+[2026-08-19 05:26:52,987][__main__][INFO] - [rank: 0] Instantiating datamodule <src.data.bt_mri_datamodule.BTMRIDataModule>
+[2026-08-19 05:26:53,015][__main__][INFO] - [rank: 0] Instantiating analysis <src.analysis.preprocessing_study.PreprocessingStudy>
+[2026-08-19 05:26:53,072][__main__][INFO] - [rank: 0] Running analysis; artefacts will be written to /kaggle/working/thesis/logs/analyze/runs/step06_preprocessing
+[2026-08-19 05:26:53,072][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at /kaggle/working/thesis/data/splits/dataset_split.csv
+[2026-08-19 05:26:53,073][src.analysis.preprocessing_study][INFO] - [rank: 0] Step 6: evaluating 13 preprocessing candidates
+[2026-08-19 05:26:53,172][src.analysis.preprocessing_study][INFO] - [rank: 0] [1/13] conventional
+[2026-08-19 05:26:53,583][src.data.bt_mri_proxy_datamodule][INFO] - [rank: 0] Proxy subsets ready - train 800, val 300 at 128px, preprocess=None
+[2026-08-19 05:27:10,444][src.analysis.preprocessing_study][INFO] - [rank: 0]     macro-F1 0.5473 | balanced acc 0.5700 | edge preservation 1.0000
+[2026-08-19 05:27:10,446][src.analysis.preprocessing_study][INFO] - [rank: 0] [2/13] wiener  (~3m remaining)
+[2026-08-19 05:27:10,557][src.data.bt_mri_proxy_datamodule][INFO] - [rank: 0] Proxy subsets ready - train 800, val 300 at 128px, preprocess=WienerFilter(size=5)
+[2026-08-19 05:27:57,561][src.analysis.preprocessing_study][INFO] - [rank: 0]     macro-F1 0.5801 | balanced acc 0.6033 | edge preservation 0.9077
+[2026-08-19 05:27:57,563][src.analysis.preprocessing_study][INFO] - [rank: 0] [3/13] gamma  (~6m remaining)
+[2026-08-19 05:27:57,668][src.data.bt_mri_proxy_datamodule][INFO] - [rank: 0] Proxy subsets ready - train 800, val 300 at 128px, preprocess=AdaptiveGamma(target=0.5, gamma_range=(0.3, 3.0))
+[2026-08-19 05:28:19,685][src.analysis.preprocessing_study][INFO] - [rank: 0]     macro-F1 0.3761 | balanced acc 0.4300 | edge preservation 0.8393
+[2026-08-19 05:28:19,686][src.analysis.preprocessing_study][INFO] - [rank: 0] [4/13] clahe  (~5m remaining)
+[2026-08-19 05:28:19,775][src.data.bt_mri_proxy_datamodule][INFO] - [rank: 0] Proxy subsets ready - train 800, val 300 at 128px, preprocess=CLAHE(clip_limit=2.0, tile_grid_size=(8, 8))
+[2026-08-19 05:28:44,551][src.analysis.preprocessing_study][INFO] - [rank: 0]     macro-F1 0.5809 | balanced acc 0.5967 | edge preservation 0.9421
+[2026-08-19 05:28:44,554][src.analysis.preprocessing_study][INFO] - [rank: 0] [5/13] log  (~4m remaining)
+[2026-08-19 05:28:44,652][src.data.bt_mri_proxy_datamodule][INFO] - [rank: 0] Proxy subsets ready - train 800, val 300 at 128px, preprocess=LogTransform()
+[2026-08-19 05:29:04,298][src.analysis.preprocessing_study][INFO] - [rank: 0]     macro-F1 0.4635 | balanced acc 0.5000 | edge preservation 0.6458
+[2026-08-19 05:29:04,300][src.analysis.preprocessing_study][INFO] - [rank: 0] [6/13] diffusion_i5_k15  (~3m remaining)
+[2026-08-19 05:29:04,400][src.data.bt_mri_proxy_datamodule][INFO] - [rank: 0] Proxy subsets ready - train 800, val 300 at 128px, preprocess=AnisotropicDiffusion(num_iter=5, kappa=15.0, lam=0.2, option=1)
+[2026-08-19 05:29:45,651][src.analysis.preprocessing_study][INFO] - [rank: 0]     macro-F1 0.6148 | balanced acc 0.6300 | edge preservation 0.9369
+[2026-08-19 05:29:45,653][src.analysis.preprocessing_study][INFO] - [rank: 0] [7/13] diffusion_i5_k30  (~3m remaining)
+[2026-08-19 05:29:45,751][src.data.bt_mri_proxy_datamodule][INFO] - [rank: 0] Proxy subsets ready - train 800, val 300 at 128px, preprocess=AnisotropicDiffusion(num_iter=5, kappa=30.0, lam=0.2, option=1)
+[2026-08-19 05:30:26,933][src.analysis.preprocessing_study][INFO] - [rank: 0]     macro-F1 0.5894 | balanced acc 0.6100 | edge preservation 0.8547
+[2026-08-19 05:30:26,935][src.analysis.preprocessing_study][INFO] - [rank: 0] [8/13] diffusion_i10_k15  (~3m remaining)
+[2026-08-19 05:30:27,028][src.data.bt_mri_proxy_datamodule][INFO] - [rank: 0] Proxy subsets ready - train 800, val 300 at 128px, preprocess=AnisotropicDiffusion(num_iter=10, kappa=15.0, lam=0.2, option=1)
+[2026-08-19 05:31:28,399][src.analysis.preprocessing_study][INFO] - [rank: 0]     macro-F1 0.6025 | balanced acc 0.6200 | edge preservation 0.8833
+[2026-08-19 05:31:28,401][src.analysis.preprocessing_study][INFO] - [rank: 0] [9/13] diffusion_i10_k30  (~3m remaining)
+[2026-08-19 05:31:28,501][src.data.bt_mri_proxy_datamodule][INFO] - [rank: 0] Proxy subsets ready - train 800, val 300 at 128px, preprocess=AnisotropicDiffusion(num_iter=10, kappa=30.0, lam=0.2, option=1)
+[2026-08-19 05:32:29,440][src.analysis.preprocessing_study][INFO] - [rank: 0]     macro-F1 0.5943 | balanced acc 0.6133 | edge preservation 0.7432
+[2026-08-19 05:32:29,442][src.analysis.preprocessing_study][INFO] - [rank: 0] [10/13] diffusion_i15_k15  (~2m remaining)
+[2026-08-19 05:32:29,775][src.data.bt_mri_proxy_datamodule][INFO] - [rank: 0] Proxy subsets ready - train 800, val 300 at 128px, preprocess=AnisotropicDiffusion(num_iter=15, kappa=15.0, lam=0.2, option=1)
+[2026-08-19 05:33:49,596][src.analysis.preprocessing_study][INFO] - [rank: 0]     macro-F1 0.6029 | balanced acc 0.6200 | edge preservation 0.8475
+[2026-08-19 05:33:49,598][src.analysis.preprocessing_study][INFO] - [rank: 0] [11/13] diffusion_i15_k30  (~2m remaining)
+[2026-08-19 05:33:49,688][src.data.bt_mri_proxy_datamodule][INFO] - [rank: 0] Proxy subsets ready - train 800, val 300 at 128px, preprocess=AnisotropicDiffusion(num_iter=15, kappa=30.0, lam=0.2, option=1)
+[2026-08-19 05:35:04,569][src.analysis.preprocessing_study][INFO] - [rank: 0]     macro-F1 0.5912 | balanced acc 0.6133 | edge preservation 0.6763
+[2026-08-19 05:35:04,571][src.analysis.preprocessing_study][INFO] - [rank: 0] [12/13] diffusion_i20_k15  (~89s remaining)
+[2026-08-19 05:35:04,656][src.data.bt_mri_proxy_datamodule][INFO] - [rank: 0] Proxy subsets ready - train 800, val 300 at 128px, preprocess=AnisotropicDiffusion(num_iter=20, kappa=15.0, lam=0.2, option=1)
+[2026-08-19 05:36:40,059][src.analysis.preprocessing_study][INFO] - [rank: 0]     macro-F1 0.6071 | balanced acc 0.6233 | edge preservation 0.8223
+[2026-08-19 05:36:40,062][src.analysis.preprocessing_study][INFO] - [rank: 0] [13/13] diffusion_i20_k30  (~49s remaining)
+[2026-08-19 05:36:40,149][src.data.bt_mri_proxy_datamodule][INFO] - [rank: 0] Proxy subsets ready - train 800, val 300 at 128px, preprocess=AnisotropicDiffusion(num_iter=20, kappa=30.0, lam=0.2, option=1)
+[2026-08-19 05:38:15,070][src.analysis.preprocessing_study][INFO] - [rank: 0]     macro-F1 0.5562 | balanced acc 0.5900 | edge preservation 0.6331
+[2026-08-19 05:38:15,075][src.analysis.base][INFO] - [rank: 0] [step06_preprocessing] wrote step06_preprocessing_comparison.csv (13 rows)
+[2026-08-19 05:38:15,574][src.analysis.preprocessing_study][INFO] - [rank: 0] 
+           recipe                family  macro_f1  balanced_accuracy  min_class_recall  recall_Glioma  recall_Meningioma  recall_Pituitary  recall_No-tumor  best_val_f1  edge_preservation
+ diffusion_i5_k15 anisotropic_diffusion  0.614838           0.630000          0.413333       0.786667           0.453333          0.413333         0.866667     0.614838           0.936889
+diffusion_i20_k15 anisotropic_diffusion  0.607052           0.623333          0.400000       0.786667           0.440000          0.400000         0.866667     0.607052           0.822297
+diffusion_i15_k15 anisotropic_diffusion  0.602911           0.620000          0.400000       0.786667           0.426667          0.400000         0.866667     0.602911           0.847506
+diffusion_i10_k15 anisotropic_diffusion  0.602546           0.620000          0.373333       0.786667           0.453333          0.373333         0.866667     0.602546           0.883265
+diffusion_i10_k30 anisotropic_diffusion  0.594264           0.613333          0.346667       0.800000           0.440000          0.346667         0.866667     0.594264           0.743151
+diffusion_i15_k30 anisotropic_diffusion  0.591210           0.613333          0.280000       0.813333           0.506667          0.280000         0.853333     0.591210           0.676276
+ diffusion_i5_k30 anisotropic_diffusion  0.589355           0.610000          0.320000       0.786667           0.466667          0.320000         0.866667     0.589355           0.854721
+            clahe                 clahe  0.580928           0.596667          0.333333       0.786667           0.453333          0.333333         0.813333     0.586227           0.942057
+           wiener                wiener  0.580137           0.603333          0.266667       0.826667           0.493333          0.266667         0.826667     0.580137           0.907698
+diffusion_i20_k30 anisotropic_diffusion  0.556233           0.590000          0.186667       0.813333           0.506667          0.186667         0.853333     0.560516           0.633074
+     conventional                  none  0.547300           0.570000          0.200000       0.760000           0.533333          0.200000         0.786667     0.557727           1.000000
+              log                   log  0.463474           0.500000          0.146667       0.613333           0.146667          0.866667         0.373333     0.463474           0.645811
+            gamma                 gamma  0.376102           0.430000          0.093333       0.653333           0.093333          0.173333         0.800000     0.439679           0.839294
+[2026-08-19 05:38:15,575][src.analysis.preprocessing_study][INFO] - [rank: 0] Selected preprocessing: diffusion_i5_k15
+[2026-08-19 05:38:15,576][src.analysis.preprocessing_study][INFO] - [rank: 0] Next: python src/prepare_dataset.py recipe=diffusion_i5_k15  # materialise, then train with data.recipe=<same>
+[2026-08-19 05:38:15,581][src.analysis.base][INFO] - [rank: 0] [step06_preprocessing] wrote step06_preprocessing_summary.json
+[2026-08-19 05:38:15,582][src.utils.utils][INFO] - [rank: 0] Output dir: /kaggle/working/thesis/logs/analyze/runs/step06_preprocessing

@@ -1,0 +1,4 @@
+- analysis=step23_statistics
+- analysis.ablation_dir=logs/analyze/runs_swin/step21_ablation
+- data.num_workers=0
+- extras.print_config=false

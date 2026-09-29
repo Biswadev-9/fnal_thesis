@@ -1,0 +1,3 @@
+model,trainable_parameters,inference_seconds_per_batch
+full,85252,0.0006551330000093003
+no_quantum,85252,0.000631442999747378

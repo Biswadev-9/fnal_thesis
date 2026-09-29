@@ -1,0 +1,169 @@
+[2026-09-18 20:15:54,520][src.utils.utils][INFO] - [rank: 0] Enforcing tags! <cfg.extras.enforce_tags=True>
+[2026-09-18 20:15:54,524][__main__][INFO] - [rank: 0] Instantiating datamodule <src.data.bt_mri_datamodule.BTMRIDataModule>
+[2026-09-18 20:15:54,551][__main__][INFO] - [rank: 0] Instantiating analysis <src.analysis.robustness.RobustnessStudy>
+[2026-09-18 20:15:54,610][__main__][INFO] - [rank: 0] Running analysis; artefacts will be written to /kaggle/working/thesis/logs/analyze/runs/step18_robustness_swin
+[2026-09-18 20:15:55,230][src.models.components.transfer][INFO] - [rank: 0] swin_t: fine-tuning 15,366,576/27,519,354 backbone parameters (55.8%)
+[2026-09-18 20:15:55,442][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step10_classical_swin/seed_42/checkpoints/epoch_021.ckpt
+[2026-09-18 20:15:56,707][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step12_adaptive_quantum/seed_42/checkpoints/epoch_027.ckpt
+[2026-09-18 20:15:56,724][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step15_final_swin/seed_42/checkpoints/epoch_008.ckpt
+[2026-09-18 20:15:57,045][src.models.full_pipeline][INFO] - [rank: 0] Full pipeline assembled on cuda (27,680,090 parameters)
+[2026-09-18 20:15:57,127][src.models.components.transfer][INFO] - [rank: 0] efficientnet_b0: fine-tuning 3,155,740/4,007,548 backbone parameters (78.7%)
+[2026-09-18 20:15:57,320][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step09_baselines/baseline_efficientnet_b0/seed_42/checkpoints/epoch_020.ckpt
+[2026-09-18 20:15:58,222][src.models.components.transfer][INFO] - [rank: 0] vit_b_16: fine-tuning 14,175,744/85,798,656 backbone parameters (16.5%)
+[2026-09-18 20:16:00,063][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step09_baselines/baseline_vit/seed_42/checkpoints/epoch_011.ckpt
+[2026-09-18 20:16:00,174][src.analysis.robustness][INFO] - [rank: 0] Step 18: 3 models x 16 conditions = 48 evaluations
+[2026-09-18 20:16:00,174][src.analysis.robustness][INFO] - [rank: 0] [1/48] proposed | clean | none
+[2026-09-18 20:16:09,808][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.9824
+[2026-09-18 20:16:09,810][src.analysis.robustness][INFO] - [rank: 0] [2/48] efficientnet_b0 | clean | none  (~8m remaining)
+[2026-09-18 20:16:13,047][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.9783
+[2026-09-18 20:16:13,049][src.analysis.robustness][INFO] - [rank: 0] [3/48] vit | clean | none  (~5m remaining)
+[2026-09-18 20:16:25,737][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.9824
+[2026-09-18 20:16:25,738][src.analysis.robustness][INFO] - [rank: 0] [4/48] proposed | gaussian_noise | sigma=10  (~6m remaining)
+[2026-09-18 20:16:37,604][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.9659
+[2026-09-18 20:16:37,606][src.analysis.robustness][INFO] - [rank: 0] [5/48] efficientnet_b0 | gaussian_noise | sigma=10  (~7m remaining)
+[2026-09-18 20:16:44,449][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.2575
+[2026-09-18 20:16:44,451][src.analysis.robustness][INFO] - [rank: 0] [6/48] vit | gaussian_noise | sigma=10  (~6m remaining)
+[2026-09-18 20:17:00,363][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.9194
+[2026-09-18 20:17:00,365][src.analysis.robustness][INFO] - [rank: 0] [7/48] proposed | gaussian_noise | sigma=25  (~7m remaining)
+[2026-09-18 20:17:11,913][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.8671
+[2026-09-18 20:17:11,926][src.analysis.robustness][INFO] - [rank: 0] [8/48] efficientnet_b0 | gaussian_noise | sigma=25  (~7m remaining)
+[2026-09-18 20:17:18,945][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.2348
+[2026-09-18 20:17:18,974][src.analysis.robustness][INFO] - [rank: 0] [9/48] vit | gaussian_noise | sigma=25  (~7m remaining)
+[2026-09-18 20:17:34,551][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.6972
+[2026-09-18 20:17:34,552][src.analysis.robustness][INFO] - [rank: 0] [10/48] proposed | gaussian_noise | sigma=40  (~7m remaining)
+[2026-09-18 20:17:45,990][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.4949
+[2026-09-18 20:17:45,995][src.analysis.robustness][INFO] - [rank: 0] [11/48] efficientnet_b0 | gaussian_noise | sigma=40  (~7m remaining)
+[2026-09-18 20:17:52,944][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.1842
+[2026-09-18 20:17:52,971][src.analysis.robustness][INFO] - [rank: 0] [12/48] vit | gaussian_noise | sigma=40  (~6m remaining)
+[2026-09-18 20:18:08,992][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.4452
+[2026-09-18 20:18:08,994][src.analysis.robustness][INFO] - [rank: 0] [13/48] proposed | contrast_shift | 0.7x  (~6m remaining)
+[2026-09-18 20:18:18,378][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.9834
+[2026-09-18 20:18:18,383][src.analysis.robustness][INFO] - [rank: 0] [14/48] efficientnet_b0 | contrast_shift | 0.7x  (~6m remaining)
+[2026-09-18 20:18:22,611][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.9740
+[2026-09-18 20:18:22,638][src.analysis.robustness][INFO] - [rank: 0] [15/48] vit | contrast_shift | 0.7x  (~6m remaining)
+[2026-09-18 20:18:35,918][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.9803
+[2026-09-18 20:18:35,919][src.analysis.robustness][INFO] - [rank: 0] [16/48] proposed | contrast_shift | 0.5x  (~6m remaining)
+[2026-09-18 20:18:45,142][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.9772
+[2026-09-18 20:18:45,143][src.analysis.robustness][INFO] - [rank: 0] [17/48] efficientnet_b0 | contrast_shift | 0.5x  (~5m remaining)
+[2026-09-18 20:18:49,390][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.9527
+[2026-09-18 20:18:49,419][src.analysis.robustness][INFO] - [rank: 0] [18/48] vit | contrast_shift | 0.5x  (~5m remaining)
+[2026-09-18 20:19:02,537][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.9667
+[2026-09-18 20:19:02,538][src.analysis.robustness][INFO] - [rank: 0] [19/48] proposed | contrast_shift | 0.3x  (~5m remaining)
+[2026-09-18 20:19:11,650][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.9730
+[2026-09-18 20:19:11,652][src.analysis.robustness][INFO] - [rank: 0] [20/48] efficientnet_b0 | contrast_shift | 0.3x  (~5m remaining)
+[2026-09-18 20:19:15,625][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.7482
+[2026-09-18 20:19:15,627][src.analysis.robustness][INFO] - [rank: 0] [21/48] vit | contrast_shift | 0.3x  (~5m remaining)
+[2026-09-18 20:19:28,841][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.9217
+[2026-09-18 20:19:28,843][src.analysis.robustness][INFO] - [rank: 0] [22/48] proposed | blur | radius=1  (~4m remaining)
+[2026-09-18 20:19:39,245][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.9600
+[2026-09-18 20:19:39,250][src.analysis.robustness][INFO] - [rank: 0] [23/48] efficientnet_b0 | blur | radius=1  (~4m remaining)
+[2026-09-18 20:19:44,444][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.9247
+[2026-09-18 20:19:44,446][src.analysis.robustness][INFO] - [rank: 0] [24/48] vit | blur | radius=1  (~4m remaining)
+[2026-09-18 20:19:58,898][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.9524
+[2026-09-18 20:19:58,900][src.analysis.robustness][INFO] - [rank: 0] [25/48] proposed | blur | radius=2  (~4m remaining)
+[2026-09-18 20:20:09,374][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.8734
+[2026-09-18 20:20:09,376][src.analysis.robustness][INFO] - [rank: 0] [26/48] efficientnet_b0 | blur | radius=2  (~4m remaining)
+[2026-09-18 20:20:14,788][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.5096
+[2026-09-18 20:20:14,790][src.analysis.robustness][INFO] - [rank: 0] [27/48] vit | blur | radius=2  (~4m remaining)
+[2026-09-18 20:20:29,156][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.8016
+[2026-09-18 20:20:29,158][src.analysis.robustness][INFO] - [rank: 0] [28/48] proposed | blur | radius=3  (~3m remaining)
+[2026-09-18 20:20:39,907][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.6646
+[2026-09-18 20:20:39,911][src.analysis.robustness][INFO] - [rank: 0] [29/48] efficientnet_b0 | blur | radius=3  (~3m remaining)
+[2026-09-18 20:20:45,167][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.3319
+[2026-09-18 20:20:45,169][src.analysis.robustness][INFO] - [rank: 0] [30/48] vit | blur | radius=3  (~3m remaining)
+[2026-09-18 20:20:59,636][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.5870
+[2026-09-18 20:20:59,638][src.analysis.robustness][INFO] - [rank: 0] [31/48] proposed | resolution | 0.5x  (~3m remaining)
+[2026-09-18 20:21:09,298][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.9388
+[2026-09-18 20:21:09,302][src.analysis.robustness][INFO] - [rank: 0] [32/48] efficientnet_b0 | resolution | 0.5x  (~3m remaining)
+[2026-09-18 20:21:13,520][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.8765
+[2026-09-18 20:21:13,522][src.analysis.robustness][INFO] - [rank: 0] [33/48] vit | resolution | 0.5x  (~3m remaining)
+[2026-09-18 20:21:27,161][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.9313
+[2026-09-18 20:21:27,163][src.analysis.robustness][INFO] - [rank: 0] [34/48] proposed | resolution | 0.25x  (~2m remaining)
+[2026-09-18 20:21:36,397][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.7925
+[2026-09-18 20:21:36,402][src.analysis.robustness][INFO] - [rank: 0] [35/48] efficientnet_b0 | resolution | 0.25x  (~2m remaining)
+[2026-09-18 20:21:40,679][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.4391
+[2026-09-18 20:21:40,680][src.analysis.robustness][INFO] - [rank: 0] [36/48] vit | resolution | 0.25x  (~2m remaining)
+[2026-09-18 20:21:53,951][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.7898
+[2026-09-18 20:21:53,953][src.analysis.robustness][INFO] - [rank: 0] [37/48] proposed | resolution | 0.125x  (~2m remaining)
+[2026-09-18 20:22:03,282][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.4915
+[2026-09-18 20:22:03,284][src.analysis.robustness][INFO] - [rank: 0] [38/48] efficientnet_b0 | resolution | 0.125x  (~2m remaining)
+[2026-09-18 20:22:07,176][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.2484
+[2026-09-18 20:22:07,197][src.analysis.robustness][INFO] - [rank: 0] [39/48] vit | resolution | 0.125x  (~2m remaining)
+[2026-09-18 20:22:20,449][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.4057
+[2026-09-18 20:22:20,451][src.analysis.robustness][INFO] - [rank: 0] [40/48] proposed | intensity_shift | +20  (~1m remaining)
+[2026-09-18 20:22:29,777][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.9823
+[2026-09-18 20:22:29,779][src.analysis.robustness][INFO] - [rank: 0] [41/48] efficientnet_b0 | intensity_shift | +20  (~1m remaining)
+[2026-09-18 20:22:33,532][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.9762
+[2026-09-18 20:22:33,533][src.analysis.robustness][INFO] - [rank: 0] [42/48] vit | intensity_shift | +20  (~1m remaining)
+[2026-09-18 20:22:46,858][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.9793
+[2026-09-18 20:22:46,860][src.analysis.robustness][INFO] - [rank: 0] [43/48] proposed | intensity_shift | +40  (~1m remaining)
+[2026-09-18 20:22:55,813][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.9813
+[2026-09-18 20:22:55,815][src.analysis.robustness][INFO] - [rank: 0] [44/48] efficientnet_b0 | intensity_shift | +40  (~1m remaining)
+[2026-09-18 20:23:00,209][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.7954
+[2026-09-18 20:23:00,211][src.analysis.robustness][INFO] - [rank: 0] [45/48] vit | intensity_shift | +40  (~1m remaining)
+[2026-09-18 20:23:13,887][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.9752
+[2026-09-18 20:23:13,889][src.analysis.robustness][INFO] - [rank: 0] [46/48] proposed | intensity_shift | -30  (~0m remaining)
+[2026-09-18 20:23:23,127][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.9760
+[2026-09-18 20:23:23,129][src.analysis.robustness][INFO] - [rank: 0] [47/48] efficientnet_b0 | intensity_shift | -30  (~0m remaining)
+[2026-09-18 20:23:26,909][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.9348
+[2026-09-18 20:23:26,911][src.analysis.robustness][INFO] - [rank: 0] [48/48] vit | intensity_shift | -30  (~0m remaining)
+[2026-09-18 20:23:40,169][src.analysis.robustness][INFO] - [rank: 0]     macro-F1 0.9644
+[2026-09-18 20:23:40,178][src.analysis.base][INFO] - [rank: 0] [step18_robustness] wrote step18_robustness.csv (48 rows)
+[2026-09-18 20:23:40,241][matplotlib.category][INFO] - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+[2026-09-18 20:23:40,242][matplotlib.category][INFO] - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+[2026-09-18 20:23:40,243][matplotlib.category][INFO] - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+[2026-09-18 20:23:40,244][matplotlib.category][INFO] - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+[2026-09-18 20:23:40,245][matplotlib.category][INFO] - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+[2026-09-18 20:23:40,245][matplotlib.category][INFO] - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+[2026-09-18 20:23:40,708][src.analysis.robustness][INFO] - [rank: 0] 
+          model        category severity  macro_f1  drop_from_clean
+       proposed           clean     none  0.982380         0.000000
+efficientnet_b0           clean     none  0.978252         0.000000
+            vit           clean     none  0.982404         0.000000
+       proposed  gaussian_noise sigma=10  0.965870         0.016510
+efficientnet_b0  gaussian_noise sigma=10  0.257483         0.720768
+            vit  gaussian_noise sigma=10  0.919366         0.063038
+       proposed  gaussian_noise sigma=25  0.867080         0.115300
+efficientnet_b0  gaussian_noise sigma=25  0.234758         0.743494
+            vit  gaussian_noise sigma=25  0.697241         0.285163
+       proposed  gaussian_noise sigma=40  0.494942         0.487438
+efficientnet_b0  gaussian_noise sigma=40  0.184152         0.794099
+            vit  gaussian_noise sigma=40  0.445240         0.537165
+       proposed  contrast_shift     0.7x  0.983375        -0.000995
+efficientnet_b0  contrast_shift     0.7x  0.974017         0.004235
+            vit  contrast_shift     0.7x  0.980321         0.002083
+       proposed  contrast_shift     0.5x  0.977152         0.005228
+efficientnet_b0  contrast_shift     0.5x  0.952676         0.025576
+            vit  contrast_shift     0.5x  0.966702         0.015702
+       proposed  contrast_shift     0.3x  0.972953         0.009426
+efficientnet_b0  contrast_shift     0.3x  0.748240         0.230012
+            vit  contrast_shift     0.3x  0.921691         0.060713
+       proposed            blur radius=1  0.960009         0.022371
+efficientnet_b0            blur radius=1  0.924743         0.053508
+            vit            blur radius=1  0.952367         0.030037
+       proposed            blur radius=2  0.873377         0.109003
+efficientnet_b0            blur radius=2  0.509591         0.468661
+            vit            blur radius=2  0.801586         0.180818
+       proposed            blur radius=3  0.664572         0.317808
+efficientnet_b0            blur radius=3  0.331936         0.646316
+            vit            blur radius=3  0.587031         0.395374
+       proposed      resolution     0.5x  0.938755         0.043625
+efficientnet_b0      resolution     0.5x  0.876460         0.101792
+            vit      resolution     0.5x  0.931302         0.051102
+       proposed      resolution    0.25x  0.792468         0.189912
+efficientnet_b0      resolution    0.25x  0.439121         0.539130
+            vit      resolution    0.25x  0.789839         0.192565
+       proposed      resolution   0.125x  0.491538         0.490842
+efficientnet_b0      resolution   0.125x  0.248377         0.729875
+            vit      resolution   0.125x  0.405725         0.576679
+       proposed intensity_shift      +20  0.982348         0.000032
+efficientnet_b0 intensity_shift      +20  0.976159         0.002092
+            vit intensity_shift      +20  0.979342         0.003062
+       proposed intensity_shift      +40  0.981296         0.001084
+efficientnet_b0 intensity_shift      +40  0.795426         0.182826
+            vit intensity_shift      +40  0.975239         0.007165
+       proposed intensity_shift      -30  0.975976         0.006404
+efficientnet_b0 intensity_shift      -30  0.934812         0.043440
+            vit intensity_shift      -30  0.964425         0.017980
+[2026-09-18 20:23:40,726][src.analysis.base][INFO] - [rank: 0] [step18_robustness] wrote step18_robustness_summary.json
+[2026-09-18 20:23:40,727][src.utils.utils][INFO] - [rank: 0] Output dir: /kaggle/working/thesis/logs/analyze/runs/step18_robustness_swin

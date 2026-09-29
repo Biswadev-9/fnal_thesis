@@ -1,0 +1,135 @@
+[2026-09-20 06:41:51,352][src.utils.utils][INFO] - [rank: 0] Enforcing tags! <cfg.extras.enforce_tags=True>
+[2026-09-20 06:41:51,356][__main__][INFO] - [rank: 0] Instantiating datamodule <src.data.bt_mri_datamodule.BTMRIDataModule>
+[2026-09-20 06:41:51,384][__main__][INFO] - [rank: 0] Instantiating analysis <src.analysis.ablation_study.AblationStudy>
+[2026-09-20 06:41:51,417][__main__][INFO] - [rank: 0] Running analysis; artefacts will be written to /kaggle/working/thesis/logs/analyze/runs_swin/step21_ablation
+[2026-09-20 06:41:51,418][src.analysis.ablation_study][INFO] - [rank: 0] Ablation context: diffusion=diffusion_i5_k15 selected=diffusion_i5_k15 step14_loss=focal
+[2026-09-20 06:41:51,418][src.analysis.ablation_study][WARNING] - [rank: 0] A0 seed 42: No checkpoints directory under logs/train/runs/step21_ablation_swin/A0/seed_42
+[2026-09-20 06:41:51,418][src.analysis.ablation_study][WARNING] - [rank: 0] A1 seed 42: No checkpoints directory under logs/train/runs/step21_ablation_swin/A1/seed_42
+[2026-09-20 06:41:51,451][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at data/splits/dataset_split.csv
+[2026-09-20 06:41:51,504][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-09-20 06:41:52,095][src.models.components.transfer][INFO] - [rank: 0] swin_t: fine-tuning 15,366,576/27,519,354 backbone parameters (55.8%)
+[2026-09-20 06:41:52,263][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step21_ablation_swin/A2/seed_42/checkpoints/epoch_023.ckpt
+[2026-09-20 06:41:58,300][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at data/splits/dataset_split.csv
+[2026-09-20 06:41:58,340][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-09-20 06:41:58,376][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step21_ablation_swin/A3/seed_42/checkpoints/epoch_029.ckpt
+[2026-09-20 06:42:00,334][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at data/splits/dataset_split.csv
+[2026-09-20 06:42:00,375][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-09-20 06:42:01,642][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step21_ablation_swin/A4/seed_42/checkpoints/epoch_027.ckpt
+[2026-09-20 06:42:03,567][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at data/splits/dataset_split.csv
+[2026-09-20 06:42:03,608][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-09-20 06:42:03,643][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step21_ablation_swin/A5/seed_42/checkpoints/epoch_027.ckpt
+[2026-09-20 06:42:07,543][src.data.bt_mri_feature_datamodule][INFO] - [rank: 0] Feature cache 'a6_diffusion_swin' loaded - train 4617, val 990, test 990; dims classical=768, spatial=32, quantum=4
+[2026-09-20 06:42:07,563][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step21_ablation_swin/A6/seed_42/checkpoints/epoch_004.ckpt
+[2026-09-20 06:42:07,633][src.analysis.ablation_study][WARNING] - [rank: 0] A7 seed 42: No checkpoints directory under logs/train/runs/step21_ablation_swin/A7/seed_42
+[2026-09-20 06:42:07,642][src.analysis.base][INFO] - [rank: 0] [step21_ablation] wrote step21_ablation_matrix.csv (6 rows)
+[2026-09-20 06:42:07,642][src.analysis.ablation_study][INFO] - [rank: 0] === Step 21: ablation matrix ===
+[2026-09-20 06:42:07,642][src.analysis.ablation_study][INFO] - [rank: 0]   row  macro-F1 (mean+-std)     worst-class recall   note
+[2026-09-20 06:42:07,642][src.analysis.ablation_study][INFO] - [rank: 0]   A0   not evaluated           
+[2026-09-20 06:42:07,642][src.analysis.ablation_study][INFO] - [rank: 0]   A1   not evaluated           
+[2026-09-20 06:42:07,642][src.analysis.ablation_study][INFO] - [rank: 0]   A2   0.9845 +- 0.0000 (n=1)   0.9753 (Glioma)      diffusion_i5_k15/plain_ce
+[2026-09-20 06:42:07,642][src.analysis.ablation_study][INFO] - [rank: 0]   A3   0.7728 +- 0.0000 (n=1)   0.5391 (Meningioma)  diffusion_i5_k15/plain_ce
+[2026-09-20 06:42:07,642][src.analysis.ablation_study][INFO] - [rank: 0]   A4   0.4451 +- 0.0000 (n=1)   0.0000 (Glioma)      diffusion_i5_k15/plain_ce
+[2026-09-20 06:42:07,642][src.analysis.ablation_study][INFO] - [rank: 0]   A5   0.9027 +- 0.0000 (n=1)   0.8087 (Meningioma)  diffusion_i5_k15/plain_ce
+[2026-09-20 06:42:07,643][src.analysis.ablation_study][INFO] - [rank: 0]   A6   0.9803 +- 0.0000 (n=1)   0.9565 (Meningioma)  diffusion_i5_k15/plain_ce
+[2026-09-20 06:42:07,643][src.analysis.ablation_study][INFO] - [rank: 0]   A7   not evaluated           
+[2026-09-20 06:42:07,643][src.analysis.ablation_study][INFO] - [rank: 0]   A8   not evaluated           
+[2026-09-20 06:42:07,643][src.analysis.ablation_study][INFO] - [rank: 0]   P    0.9824 +- 0.0000 (n=1)   0.9630 (Glioma)      diffusion_i5_k15/focal
+[2026-09-20 06:42:07,643][src.analysis.ablation_study][WARNING] - [rank: 0] Matrix is INCOMPLETE: {'A0': [42], 'A1': [42], 'A7': [42], 'A8': [42]}. Do not quote it as a full ablation.
+[2026-09-20 06:42:07,649][src.analysis.base][INFO] - [rank: 0] [step21_ablation] wrote step21_ablation_summary.json
+[2026-09-20 06:42:07,650][src.utils.utils][INFO] - [rank: 0] Output dir: /kaggle/working/thesis/logs/analyze/runs_swin/step21_ablation
+[2026-09-21 06:15:31,800][src.utils.utils][INFO] - [rank: 0] Enforcing tags! <cfg.extras.enforce_tags=True>
+[2026-09-21 06:15:31,805][__main__][INFO] - [rank: 0] Instantiating datamodule <src.data.bt_mri_datamodule.BTMRIDataModule>
+[2026-09-21 06:15:31,832][__main__][INFO] - [rank: 0] Instantiating analysis <src.analysis.ablation_study.AblationStudy>
+[2026-09-21 06:15:31,864][__main__][INFO] - [rank: 0] Running analysis; artefacts will be written to /kaggle/working/thesis/logs/analyze/runs_swin/step21_ablation
+[2026-09-21 06:15:31,864][src.analysis.ablation_study][INFO] - [rank: 0] Ablation context: diffusion=diffusion_i5_k15 selected=diffusion_i5_k15 step14_loss=focal
+[2026-09-21 06:15:31,898][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at data/splits/dataset_split.csv
+[2026-09-21 06:15:31,978][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-09-21 06:15:32,585][src.models.components.transfer][INFO] - [rank: 0] swin_t: fine-tuning 15,366,576/27,519,354 backbone parameters (55.8%)
+[2026-09-21 06:15:32,767][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step21_ablation_swin/A0/seed_42/checkpoints/epoch_014.ckpt
+[2026-09-21 06:15:40,962][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at data/splits/dataset_split.csv
+[2026-09-21 06:15:41,005][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-09-21 06:15:41,584][src.models.components.transfer][INFO] - [rank: 0] swin_t: fine-tuning 15,366,576/27,519,354 backbone parameters (55.8%)
+[2026-09-21 06:15:41,786][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step21_ablation_swin/A0/seed_123/checkpoints/epoch_010.ckpt
+[2026-09-21 06:15:48,259][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at data/splits/dataset_split.csv
+[2026-09-21 06:15:48,298][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-09-21 06:15:48,767][src.models.components.transfer][INFO] - [rank: 0] swin_t: fine-tuning 15,366,576/27,519,354 backbone parameters (55.8%)
+[2026-09-21 06:15:48,931][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step21_ablation_swin/A0/seed_7/checkpoints/epoch_019.ckpt
+[2026-09-21 06:15:55,253][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at data/splits/dataset_split.csv
+[2026-09-21 06:15:55,294][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-09-21 06:15:55,772][src.models.components.transfer][INFO] - [rank: 0] swin_t: fine-tuning 15,366,576/27,519,354 backbone parameters (55.8%)
+[2026-09-21 06:15:55,937][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step21_ablation_swin/A1/seed_42/checkpoints/epoch_025.ckpt
+[2026-09-21 06:16:02,747][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at data/splits/dataset_split.csv
+[2026-09-21 06:16:02,787][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-09-21 06:16:03,253][src.models.components.transfer][INFO] - [rank: 0] swin_t: fine-tuning 15,366,576/27,519,354 backbone parameters (55.8%)
+[2026-09-21 06:16:03,424][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step21_ablation_swin/A1/seed_123/checkpoints/epoch_017.ckpt
+[2026-09-21 06:16:10,181][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at data/splits/dataset_split.csv
+[2026-09-21 06:16:10,220][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-09-21 06:16:10,690][src.models.components.transfer][INFO] - [rank: 0] swin_t: fine-tuning 15,366,576/27,519,354 backbone parameters (55.8%)
+[2026-09-21 06:16:10,864][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step21_ablation_swin/A1/seed_7/checkpoints/epoch_024.ckpt
+[2026-09-21 06:16:17,769][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at data/splits/dataset_split.csv
+[2026-09-21 06:16:17,811][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-09-21 06:16:18,276][src.models.components.transfer][INFO] - [rank: 0] swin_t: fine-tuning 15,366,576/27,519,354 backbone parameters (55.8%)
+[2026-09-21 06:16:19,160][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step21_ablation_swin/A2/seed_42/checkpoints/epoch_023.ckpt
+[2026-09-21 06:16:25,190][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at data/splits/dataset_split.csv
+[2026-09-21 06:16:25,229][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-09-21 06:16:25,694][src.models.components.transfer][INFO] - [rank: 0] swin_t: fine-tuning 15,366,576/27,519,354 backbone parameters (55.8%)
+[2026-09-21 06:16:25,861][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step21_ablation_swin/A2/seed_123/checkpoints/epoch_026.ckpt
+[2026-09-21 06:16:31,767][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at data/splits/dataset_split.csv
+[2026-09-21 06:16:31,805][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-09-21 06:16:32,304][src.models.components.transfer][INFO] - [rank: 0] swin_t: fine-tuning 15,366,576/27,519,354 backbone parameters (55.8%)
+[2026-09-21 06:16:32,477][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step21_ablation_swin/A2/seed_7/checkpoints/epoch_020.ckpt
+[2026-09-21 06:16:38,356][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at data/splits/dataset_split.csv
+[2026-09-21 06:16:38,394][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-09-21 06:16:38,424][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step21_ablation_swin/A3/seed_42/checkpoints/epoch_029.ckpt
+[2026-09-21 06:16:40,293][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at data/splits/dataset_split.csv
+[2026-09-21 06:16:40,330][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-09-21 06:16:40,356][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step21_ablation_swin/A3/seed_123/checkpoints/epoch_025.ckpt
+[2026-09-21 06:16:42,170][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at data/splits/dataset_split.csv
+[2026-09-21 06:16:42,208][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-09-21 06:16:42,237][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step21_ablation_swin/A3/seed_7/checkpoints/epoch_020.ckpt
+[2026-09-21 06:16:44,037][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at data/splits/dataset_split.csv
+[2026-09-21 06:16:44,075][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-09-21 06:16:45,813][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step21_ablation_swin/A4/seed_42/checkpoints/epoch_027.ckpt
+[2026-09-21 06:16:47,551][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at data/splits/dataset_split.csv
+[2026-09-21 06:16:47,592][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-09-21 06:16:47,608][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step21_ablation_swin/A4/seed_123/checkpoints/epoch_010.ckpt
+[2026-09-21 06:16:49,327][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at data/splits/dataset_split.csv
+[2026-09-21 06:16:49,364][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-09-21 06:16:49,380][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step21_ablation_swin/A4/seed_7/checkpoints/epoch_023.ckpt
+[2026-09-21 06:16:51,128][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at data/splits/dataset_split.csv
+[2026-09-21 06:16:51,165][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-09-21 06:16:51,202][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step21_ablation_swin/A5/seed_42/checkpoints/epoch_027.ckpt
+[2026-09-21 06:16:54,797][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at data/splits/dataset_split.csv
+[2026-09-21 06:16:54,835][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-09-21 06:16:54,871][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step21_ablation_swin/A5/seed_123/checkpoints/epoch_025.ckpt
+[2026-09-21 06:16:58,451][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at data/splits/dataset_split.csv
+[2026-09-21 06:16:58,489][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-09-21 06:16:58,525][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step21_ablation_swin/A5/seed_7/checkpoints/epoch_028.ckpt
+[2026-09-21 06:17:02,149][src.data.bt_mri_feature_datamodule][INFO] - [rank: 0] Feature cache 'a6_diffusion_swin' loaded - train 4617, val 990, test 990; dims classical=768, spatial=32, quantum=4
+[2026-09-21 06:17:02,173][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step21_ablation_swin/A6/seed_42/checkpoints/epoch_004.ckpt
+[2026-09-21 06:17:02,244][src.data.bt_mri_feature_datamodule][INFO] - [rank: 0] Feature cache 'a6_diffusion_swin' loaded - train 4617, val 990, test 990; dims classical=768, spatial=32, quantum=4
+[2026-09-21 06:17:02,261][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step21_ablation_swin/A6/seed_123/checkpoints/epoch_003.ckpt
+[2026-09-21 06:17:02,331][src.data.bt_mri_feature_datamodule][INFO] - [rank: 0] Feature cache 'a6_diffusion_swin' loaded - train 4617, val 990, test 990; dims classical=768, spatial=32, quantum=4
+[2026-09-21 06:17:02,348][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step21_ablation_swin/A6/seed_7/checkpoints/epoch_003.ckpt
+[2026-09-21 06:17:02,417][src.data.bt_mri_feature_datamodule][INFO] - [rank: 0] Feature cache 'a6_diffusion_swin' loaded - train 4617, val 990, test 990; dims classical=768, spatial=32, quantum=4
+[2026-09-21 06:17:02,436][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step21_ablation_swin/A7/seed_42/checkpoints/epoch_016.ckpt
+[2026-09-21 06:17:02,505][src.data.bt_mri_feature_datamodule][INFO] - [rank: 0] Feature cache 'a6_diffusion_swin' loaded - train 4617, val 990, test 990; dims classical=768, spatial=32, quantum=4
+[2026-09-21 06:17:02,523][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step21_ablation_swin/A7/seed_123/checkpoints/epoch_003.ckpt
+[2026-09-21 06:17:02,594][src.data.bt_mri_feature_datamodule][INFO] - [rank: 0] Feature cache 'a6_diffusion_swin' loaded - train 4617, val 990, test 990; dims classical=768, spatial=32, quantum=4
+[2026-09-21 06:17:02,612][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step21_ablation_swin/A7/seed_7/checkpoints/epoch_001.ckpt
+[2026-09-21 06:17:02,680][src.analysis.base][INFO] - [rank: 0] [step21_ablation] wrote step21_ablation_matrix.csv (28 rows)
+[2026-09-21 06:17:02,680][src.analysis.ablation_study][INFO] - [rank: 0] === Step 21: ablation matrix ===
+[2026-09-21 06:17:02,680][src.analysis.ablation_study][INFO] - [rank: 0]   row  macro-F1 (mean+-std)     worst-class recall   note
+[2026-09-21 06:17:02,680][src.analysis.ablation_study][INFO] - [rank: 0]   A0   0.9814 +- 0.0036 (n=3)   0.9712 (Glioma)      raw/plain_ce
+[2026-09-21 06:17:02,680][src.analysis.ablation_study][INFO] - [rank: 0]   A1   0.9845 +- 0.0011 (n=3)   0.9657 (Glioma)      conventional/plain_ce
+[2026-09-21 06:17:02,680][src.analysis.ablation_study][INFO] - [rank: 0]   A2   0.9852 +- 0.0012 (n=3)   0.9739 (Glioma)      diffusion_i5_k15/plain_ce
+[2026-09-21 06:17:02,680][src.analysis.ablation_study][INFO] - [rank: 0]   A3   0.7661 +- 0.0167 (n=3)   0.5116 (Meningioma)  diffusion_i5_k15/plain_ce
+[2026-09-21 06:17:02,680][src.analysis.ablation_study][INFO] - [rank: 0]   A4   0.3714 +- 0.0645 (n=3)   0.1232 (Meningioma)  diffusion_i5_k15/plain_ce
+[2026-09-21 06:17:02,681][src.analysis.ablation_study][INFO] - [rank: 0]   A5   0.9058 +- 0.0084 (n=3)   0.8261 (Meningioma)  diffusion_i5_k15/plain_ce
+[2026-09-21 06:17:02,681][src.analysis.ablation_study][INFO] - [rank: 0]   A6   0.9806 +- 0.0016 (n=3)   0.9594 (Meningioma)  diffusion_i5_k15/plain_ce
+[2026-09-21 06:17:02,681][src.analysis.ablation_study][INFO] - [rank: 0]   A7   0.9817 +- 0.0032 (n=3)   0.9681 (Meningioma)  diffusion_i5_k15/focal
+[2026-09-21 06:17:02,681][src.analysis.ablation_study][INFO] - [rank: 0]   A8   0.9817 +- 0.0032 (n=3)   0.9681 (Meningioma)  diffusion_i5_k15/focal
+[2026-09-21 06:17:02,681][src.analysis.ablation_study][INFO] - [rank: 0]   P    0.9824 +- 0.0000 (n=1)   0.9630 (Glioma)      diffusion_i5_k15/focal
+[2026-09-21 06:17:02,681][src.analysis.ablation_study][WARNING] - [rank: 0] Matrix is INCOMPLETE: {'P': [123, 7]}. Do not quote it as a full ablation.
+[2026-09-21 06:17:02,691][src.analysis.base][INFO] - [rank: 0] [step21_ablation] wrote step21_ablation_summary.json
+[2026-09-21 06:17:02,692][src.utils.utils][INFO] - [rank: 0] Output dir: /kaggle/working/thesis/logs/analyze/runs_swin/step21_ablation

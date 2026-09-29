@@ -1,0 +1,2887 @@
+{
+  "question": "Does adaptively weighting multiple quantum circuit architectures per image improve performance over a single fixed quantum circuit?",
+  "parameters": {
+    "primary_metric": "macro_f1",
+    "evaluation_split": "val",
+    "alpha": 0.05,
+    "confidence_level": 0.95,
+    "n_resamples": 2000,
+    "random_seed": 42,
+    "paired_seed": 42,
+    "seeds": [
+      42,
+      123,
+      7
+    ],
+    "correction": "holm-bonferroni",
+    "family_size": 3,
+    "recipe": null,
+    "recipe_source": "step06_confirm (/kaggle/working/thesis/logs/analyze/runs/step06_confirm/step06_confirm_summary.json)",
+    "parameter_matched": false,
+    "pinned": {
+      "normalize": "imagenet",
+      "augment": false,
+      "use_weighted_sampler": false,
+      "loss": "plain_ce",
+      "channels": 32,
+      "n_qubits": 4,
+      "num_classes": 4,
+      "hidden_dims": [
+        128,
+        64
+      ],
+      "dropout": 0.3
+    }
+  },
+  "matrix": [
+    {
+      "condition": "FIXED_BASIC",
+      "circuit_names": [
+        "fixed"
+      ],
+      "n_circuits": 1,
+      "circuit_description": "2 BasicEntangler layers (8 quantum parameters)",
+      "mixture": "none - a single circuit; the softmax is identically 1.0",
+      "adaptive": false,
+      "total_parameters": 72052,
+      "quantum_parameters": 8,
+      "delta_vs_adaptive": -356,
+      "statistical_role": "primary (H25)",
+      "note": "The traditional fixed circuit, and the same circuit Step 9's Baseline 5 uses - but here inside the Step 12 architecture, so it is actually comparable."
+    },
+    {
+      "condition": "FIXED_DEEP",
+      "circuit_names": [
+        "deep"
+      ],
+      "n_circuits": 1,
+      "circuit_description": "4 BasicEntangler layers (16 quantum parameters)",
+      "mixture": "none - a single circuit; the softmax is identically 1.0",
+      "adaptive": false,
+      "total_parameters": 72060,
+      "quantum_parameters": 16,
+      "delta_vs_adaptive": -348,
+      "statistical_role": "primary (H25)",
+      "note": "Same entanglement pattern as FIXED_BASIC at twice the depth."
+    },
+    {
+      "condition": "FIXED_STRONG",
+      "circuit_names": [
+        "strong"
+      ],
+      "n_circuits": 1,
+      "circuit_description": "2 StronglyEntangling layers (24 quantum parameters)",
+      "mixture": "none - a single circuit; the softmax is identically 1.0",
+      "adaptive": false,
+      "total_parameters": 72068,
+      "quantum_parameters": 24,
+      "delta_vs_adaptive": -340,
+      "statistical_role": "primary (H25)",
+      "note": "Same depth as FIXED_BASIC with a richer entanglement pattern."
+    },
+    {
+      "condition": "ADAPTIVE_QUANTUM",
+      "circuit_names": [
+        "fixed",
+        "deep",
+        "strong",
+        "combined",
+        "reupload"
+      ],
+      "n_circuits": 5,
+      "circuit_description": "all five circuits - fixed, deep, strong, combined, reupload (104 quantum parameters)",
+      "mixture": "adaptive soft mixture: a learned per-image softmax over the five circuits' outputs, conditioned on the classical features",
+      "adaptive": true,
+      "total_parameters": 72408,
+      "quantum_parameters": 104,
+      "delta_vs_adaptive": 0,
+      "statistical_role": "primary (H25)",
+      "note": "Step 12 exactly as it exists. All five circuits execute on every image; none is skipped and no gate is chosen at run time."
+    }
+  ],
+  "conditions": {
+    "FIXED_BASIC": {
+      "condition": "FIXED_BASIC",
+      "circuit_names": [
+        "fixed"
+      ],
+      "n_circuits": 1,
+      "circuit_description": "2 BasicEntangler layers (8 quantum parameters)",
+      "mixture": "none - a single circuit; the softmax is identically 1.0",
+      "adaptive": false,
+      "note": "The traditional fixed circuit, and the same circuit Step 9's Baseline 5 uses - but here inside the Step 12 architecture, so it is actually comparable.",
+      "per_seed": {
+        "42": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.9232323232323232,
+            "balanced_accuracy": 0.9216745673266762,
+            "macro_precision": 0.9253087156621429,
+            "macro_recall_sensitivity": 0.9216745673266762,
+            "macro_f1": 0.9213267404324945,
+            "weighted_f1": 0.9234290103486037,
+            "macro_specificity": 0.9746859454455779,
+            "mcc": 0.8988983092130305,
+            "auc_ovr_macro": 0.9857701016973426
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.9711538461538461,
+              "recall_sensitivity": 0.831275720164609,
+              "f1": 0.8957871396895787,
+              "specificity": 0.9919678714859438,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.813953488372093,
+              "recall_sensitivity": 0.9130434782608695,
+              "f1": 0.860655737704918,
+              "specificity": 0.9368421052631579,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.9612403100775194,
+              "recall_sensitivity": 0.9501915708812261,
+              "f1": 0.9556840077071291,
+              "specificity": 0.9862825788751715,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.9548872180451128,
+              "recall_sensitivity": 0.9921875,
+              "f1": 0.9731800766283525,
+              "specificity": 0.9836512261580381,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                202,
+                39,
+                2,
+                0
+              ],
+              [
+                1,
+                210,
+                7,
+                12
+              ],
+              [
+                5,
+                8,
+                248,
+                0
+              ],
+              [
+                0,
+                1,
+                1,
+                254
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 39
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "No-tumor",
+                "count": 12
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 8
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 7
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Glioma",
+                "count": 5
+              },
+              {
+                "true": "Glioma",
+                "predicted": "Pituitary",
+                "count": 2
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.018064476986124078,
+            "brier_score": 0.12711910403708737,
+            "confidently_wrong_over_0.99": 2
+          },
+          "checkpoint": "/kaggle/working/thesis/logs/train/runs/step25_quantum_circuit_ablation/FIXED_BASIC/seed_42/checkpoints/epoch_023.ckpt",
+          "split": "val",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step25 on the val split from the validation-selected checkpoint; no test metric was read"
+        },
+        "123": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.908080808080808,
+            "balanced_accuracy": 0.9051839579824286,
+            "macro_precision": 0.9058608922379529,
+            "macro_recall_sensitivity": 0.9051839579824286,
+            "macro_f1": 0.9051063424643216,
+            "weighted_f1": 0.9077043003940827,
+            "macro_specificity": 0.9695698785182272,
+            "mcc": 0.8775735950053449,
+            "auc_ovr_macro": 0.987225086083373
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.9247787610619469,
+              "recall_sensitivity": 0.8600823045267489,
+              "f1": 0.8912579957356077,
+              "specificity": 0.9772423025435074,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.8154506437768241,
+              "recall_sensitivity": 0.8260869565217391,
+              "f1": 0.8207343412526998,
+              "specificity": 0.9434210526315789,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.9393939393939394,
+              "recall_sensitivity": 0.9501915708812261,
+              "f1": 0.9447619047619048,
+              "specificity": 0.9780521262002744,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.9438202247191011,
+              "recall_sensitivity": 0.984375,
+              "f1": 0.9636711281070746,
+              "specificity": 0.9795640326975477,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                209,
+                34,
+                0,
+                0
+              ],
+              [
+                11,
+                190,
+                15,
+                14
+              ],
+              [
+                4,
+                8,
+                248,
+                1
+              ],
+              [
+                2,
+                1,
+                1,
+                252
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 34
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 15
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "No-tumor",
+                "count": 14
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 11
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 8
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Glioma",
+                "count": 4
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.016405227388998495,
+            "brier_score": 0.12644666776074223,
+            "confidently_wrong_over_0.99": 2
+          },
+          "checkpoint": "/kaggle/working/thesis/logs/train/runs/step25_quantum_circuit_ablation/FIXED_BASIC/seed_123/checkpoints/epoch_026.ckpt",
+          "split": "val",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step25 on the val split from the validation-selected checkpoint; no test metric was read"
+        },
+        "7": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.9252525252525252,
+            "balanced_accuracy": 0.9225061610784114,
+            "macro_precision": 0.9234327270044043,
+            "macro_recall_sensitivity": 0.9225061610784114,
+            "macro_f1": 0.9226260154181976,
+            "weighted_f1": 0.9245733343142079,
+            "macro_specificity": 0.9751604974345195,
+            "mcc": 0.9004221728917188,
+            "auc_ovr_macro": 0.9888996415010719
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.9401709401709402,
+              "recall_sensitivity": 0.9053497942386831,
+              "f1": 0.9224318658280922,
+              "specificity": 0.9812583668005355,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.8727272727272727,
+              "recall_sensitivity": 0.8347826086956521,
+              "f1": 0.8533333333333334,
+              "specificity": 0.9631578947368421,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.9298892988929889,
+              "recall_sensitivity": 0.9655172413793104,
+              "f1": 0.9473684210526315,
+              "specificity": 0.9739368998628258,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.9509433962264151,
+              "recall_sensitivity": 0.984375,
+              "f1": 0.9673704414587332,
+              "specificity": 0.9822888283378747,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                220,
+                22,
+                1,
+                0
+              ],
+              [
+                8,
+                192,
+                17,
+                13
+              ],
+              [
+                4,
+                5,
+                252,
+                0
+              ],
+              [
+                2,
+                1,
+                1,
+                252
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 22
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 17
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "No-tumor",
+                "count": 13
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 8
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 5
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Glioma",
+                "count": 4
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.01928713821401504,
+            "brier_score": 0.11810565551910417,
+            "confidently_wrong_over_0.99": 1
+          },
+          "checkpoint": "/kaggle/working/thesis/logs/train/runs/step25_quantum_circuit_ablation/FIXED_BASIC/seed_7/checkpoints/epoch_029.ckpt",
+          "split": "val",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step25 on the val split from the validation-selected checkpoint; no test metric was read"
+        }
+      },
+      "across_seeds": {
+        "macro_f1": {
+          "mean": 0.9163530327716712,
+          "std": 0.009761560378555873,
+          "ci_low": 0.905306787327622,
+          "ci_high": 0.9273992782157204,
+          "n": 3
+        },
+        "accuracy": {
+          "mean": 0.9188552188552187,
+          "std": 0.009385427518361177,
+          "ci_low": 0.9082346078110151,
+          "ci_high": 0.9294758298994223,
+          "n": 3
+        },
+        "balanced_accuracy": {
+          "mean": 0.9164548954625054,
+          "std": 0.0097697702532778,
+          "ci_low": 0.9053993596706299,
+          "ci_high": 0.9275104312543808,
+          "n": 3
+        },
+        "macro_precision": {
+          "mean": 0.9182007783014999,
+          "std": 0.01072774088086513,
+          "ci_low": 0.9060611966941864,
+          "ci_high": 0.9303403599088135,
+          "n": 3
+        },
+        "macro_recall_sensitivity": {
+          "mean": 0.9164548954625054,
+          "std": 0.0097697702532778,
+          "ci_low": 0.9053993596706299,
+          "ci_high": 0.9275104312543808,
+          "n": 3
+        },
+        "weighted_f1": {
+          "mean": 0.9185688816856313,
+          "std": 0.00942638394693676,
+          "ci_low": 0.9079019240795039,
+          "ci_high": 0.9292358392917588,
+          "n": 3
+        },
+        "mcc": {
+          "mean": 0.8922980257033647,
+          "std": 0.01277447394859754,
+          "ci_low": 0.8778423475963265,
+          "ci_high": 0.9067537038104029,
+          "n": 3
+        },
+        "per_class_recall": {
+          "Glioma": {
+            "mean": 0.8655692729766803,
+            "std": 0.03734062438632702,
+            "ci_low": 0.8233143786760173,
+            "ci_high": 0.9078241672773433,
+            "n": 3
+          },
+          "Meningioma": {
+            "mean": 0.8579710144927536,
+            "std": 0.047891917802487825,
+            "ci_low": 0.8037762076876169,
+            "ci_high": 0.9121658212978903,
+            "n": 3
+          },
+          "Pituitary": {
+            "mean": 0.9553001277139209,
+            "std": 0.008848279987580481,
+            "ci_low": 0.9452873563218391,
+            "ci_high": 0.9653128991060027,
+            "n": 3
+          },
+          "No-tumor": {
+            "mean": 0.9869791666666666,
+            "std": 0.004510548978043951,
+            "ci_low": 0.9818749999999999,
+            "ci_high": 0.9920833333333333,
+            "n": 3
+          }
+        },
+        "per_class_precision": {
+          "Glioma": {
+            "mean": 0.9453678491289109,
+            "std": 0.023620288447821772,
+            "ci_low": 0.9186389765372853,
+            "ci_high": 0.9720967217205365,
+            "n": 3
+          },
+          "Meningioma": {
+            "mean": 0.8340438016253966,
+            "std": 0.03350923113029812,
+            "ci_low": 0.7961245369431031,
+            "ci_high": 0.87196306630769,
+            "n": 3
+          },
+          "Pituitary": {
+            "mean": 0.9435078494548158,
+            "std": 0.016075281259277402,
+            "ci_low": 0.925316956248624,
+            "ci_high": 0.9616987426610076,
+            "n": 3
+          },
+          "No-tumor": {
+            "mean": 0.9498836129968763,
+            "std": 0.005609094462540771,
+            "ci_low": 0.9435363250890747,
+            "ci_high": 0.9562309009046779,
+            "n": 3
+          }
+        },
+        "per_class_f1": {
+          "Glioma": {
+            "mean": 0.9031590004177595,
+            "std": 0.016843716694439695,
+            "ci_low": 0.8840985406570899,
+            "ci_high": 0.9222194601784292,
+            "n": 3
+          },
+          "Meningioma": {
+            "mean": 0.8449078040969837,
+            "std": 0.02125256762977667,
+            "ci_low": 0.82085825983862,
+            "ci_high": 0.8689573483553474,
+            "n": 3
+          },
+          "Pituitary": {
+            "mean": 0.9492714445072218,
+            "std": 0.0057043147606053515,
+            "ci_low": 0.9428164046885692,
+            "ci_high": 0.9557264843258744,
+            "n": 3
+          },
+          "No-tumor": {
+            "mean": 0.96807388206472,
+            "std": 0.004793344032060689,
+            "ci_low": 0.9626497026689517,
+            "ci_high": 0.9734980614604883,
+            "n": 3
+          }
+        }
+      },
+      "missing_seeds": [],
+      "evaluated": true
+    },
+    "FIXED_DEEP": {
+      "condition": "FIXED_DEEP",
+      "circuit_names": [
+        "deep"
+      ],
+      "n_circuits": 1,
+      "circuit_description": "4 BasicEntangler layers (16 quantum parameters)",
+      "mixture": "none - a single circuit; the softmax is identically 1.0",
+      "adaptive": false,
+      "note": "Same entanglement pattern as FIXED_BASIC at twice the depth.",
+      "per_seed": {
+        "42": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.9202020202020202,
+            "balanced_accuracy": 0.9181584651347166,
+            "macro_precision": 0.9181138714191647,
+            "macro_recall_sensitivity": 0.9181584651347166,
+            "macro_f1": 0.9181127621413625,
+            "weighted_f1": 0.9201336164597268,
+            "macro_specificity": 0.9735877960796497,
+            "mcc": 0.8935327519849301,
+            "auc_ovr_macro": 0.989140936540454
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.9053497942386831,
+              "recall_sensitivity": 0.9053497942386831,
+              "f1": 0.9053497942386831,
+              "specificity": 0.9692101740294511,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.8558951965065502,
+              "recall_sensitivity": 0.8521739130434782,
+              "f1": 0.8540305010893247,
+              "specificity": 0.9565789473684211,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.9573643410852714,
+              "recall_sensitivity": 0.946360153256705,
+              "f1": 0.9518304431599229,
+              "specificity": 0.9849108367626886,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.9538461538461539,
+              "recall_sensitivity": 0.96875,
+              "f1": 0.9612403100775194,
+              "specificity": 0.9836512261580381,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                220,
+                22,
+                1,
+                0
+              ],
+              [
+                13,
+                196,
+                9,
+                12
+              ],
+              [
+                8,
+                6,
+                247,
+                0
+              ],
+              [
+                2,
+                5,
+                1,
+                248
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 22
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 13
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "No-tumor",
+                "count": 12
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 9
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Glioma",
+                "count": 8
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 6
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.01880820815009304,
+            "brier_score": 0.1201134195987501,
+            "confidently_wrong_over_0.99": 0
+          },
+          "checkpoint": "/kaggle/working/thesis/logs/train/runs/step25_quantum_circuit_ablation/FIXED_DEEP/seed_42/checkpoints/epoch_025.ckpt",
+          "split": "val",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step25 on the val split from the validation-selected checkpoint; no test metric was read"
+        },
+        "123": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.9212121212121213,
+            "balanced_accuracy": 0.9184746891600496,
+            "macro_precision": 0.9186737095956183,
+            "macro_recall_sensitivity": 0.9184746891600496,
+            "macro_f1": 0.9184337220205486,
+            "weighted_f1": 0.9206638199150704,
+            "macro_specificity": 0.9738813533481842,
+            "mcc": 0.8949177454221756,
+            "auc_ovr_macro": 0.9894644439620393
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.9201680672268907,
+              "recall_sensitivity": 0.9012345679012346,
+              "f1": 0.9106029106029107,
+              "specificity": 0.9745649263721553,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.8565022421524664,
+              "recall_sensitivity": 0.8304347826086956,
+              "f1": 0.8432671081677704,
+              "specificity": 0.9578947368421052,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.9398496240601504,
+              "recall_sensitivity": 0.9578544061302682,
+              "f1": 0.9487666034155597,
+              "specificity": 0.9780521262002744,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.9581749049429658,
+              "recall_sensitivity": 0.984375,
+              "f1": 0.9710982658959537,
+              "specificity": 0.9850136239782016,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                219,
+                23,
+                1,
+                0
+              ],
+              [
+                14,
+                191,
+                14,
+                11
+              ],
+              [
+                4,
+                7,
+                250,
+                0
+              ],
+              [
+                1,
+                2,
+                1,
+                252
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 23
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 14
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 14
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "No-tumor",
+                "count": 11
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 7
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Glioma",
+                "count": 4
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.01349266559788678,
+            "brier_score": 0.11299462716468323,
+            "confidently_wrong_over_0.99": 2
+          },
+          "checkpoint": "/kaggle/working/thesis/logs/train/runs/step25_quantum_circuit_ablation/FIXED_DEEP/seed_123/checkpoints/epoch_025.ckpt",
+          "split": "val",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step25 on the val split from the validation-selected checkpoint; no test metric was read"
+        },
+        "7": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.9202020202020202,
+            "balanced_accuracy": 0.9171689702506001,
+            "macro_precision": 0.9181915306915307,
+            "macro_recall_sensitivity": 0.9171689702506001,
+            "macro_f1": 0.9172965548667305,
+            "weighted_f1": 0.9194953858655718,
+            "macro_specificity": 0.973494966994099,
+            "mcc": 0.8937102243825121,
+            "auc_ovr_macro": 0.9894359812708731
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.9316239316239316,
+              "recall_sensitivity": 0.897119341563786,
+              "f1": 0.9140461215932913,
+              "specificity": 0.9785809906291834,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.8590909090909091,
+              "recall_sensitivity": 0.8217391304347826,
+              "f1": 0.84,
+              "specificity": 0.9592105263157895,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.9166666666666666,
+              "recall_sensitivity": 0.9693486590038314,
+              "f1": 0.9422718808193669,
+              "specificity": 0.9684499314128944,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.9653846153846154,
+              "recall_sensitivity": 0.98046875,
+              "f1": 0.9728682170542635,
+              "specificity": 0.9877384196185286,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                218,
+                25,
+                0,
+                0
+              ],
+              [
+                11,
+                189,
+                21,
+                9
+              ],
+              [
+                4,
+                4,
+                253,
+                0
+              ],
+              [
+                1,
+                2,
+                2,
+                251
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 25
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 21
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 11
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "No-tumor",
+                "count": 9
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Glioma",
+                "count": 4
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 4
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.025686465941294315,
+            "brier_score": 0.11783227547779374,
+            "confidently_wrong_over_0.99": 2
+          },
+          "checkpoint": "/kaggle/working/thesis/logs/train/runs/step25_quantum_circuit_ablation/FIXED_DEEP/seed_7/checkpoints/epoch_027.ckpt",
+          "split": "val",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step25 on the val split from the validation-selected checkpoint; no test metric was read"
+        }
+      },
+      "across_seeds": {
+        "macro_f1": {
+          "mean": 0.9179476796762138,
+          "std": 0.000586281885406156,
+          "ci_low": 0.9172842392676678,
+          "ci_high": 0.9186111200847599,
+          "n": 3
+        },
+        "accuracy": {
+          "mean": 0.9205387205387207,
+          "std": 0.0005831820900905349,
+          "ci_low": 0.919878787878788,
+          "ci_high": 0.9211986531986533,
+          "n": 3
+        },
+        "balanced_accuracy": {
+          "mean": 0.9179340415151221,
+          "std": 0.000681175409419212,
+          "ci_low": 0.9171632189753748,
+          "ci_high": 0.9187048640548695,
+          "n": 3
+        },
+        "macro_precision": {
+          "mean": 0.9183263705687712,
+          "std": 0.0003033002478146422,
+          "ci_low": 0.9179831540285179,
+          "ci_high": 0.9186695871090245,
+          "n": 3
+        },
+        "macro_recall_sensitivity": {
+          "mean": 0.9179340415151221,
+          "std": 0.000681175409419212,
+          "ci_low": 0.9171632189753748,
+          "ci_high": 0.9187048640548695,
+          "n": 3
+        },
+        "weighted_f1": {
+          "mean": 0.9200976074134563,
+          "std": 0.0005850487334974067,
+          "ci_low": 0.9194355624476597,
+          "ci_high": 0.9207596523792528,
+          "n": 3
+        },
+        "mcc": {
+          "mean": 0.8940535739298726,
+          "std": 0.0007536367752822147,
+          "ci_low": 0.8932007536355151,
+          "ci_high": 0.8949063942242301,
+          "n": 3
+        },
+        "per_class_recall": {
+          "Glioma": {
+            "mean": 0.9012345679012346,
+            "std": 0.004115226337448541,
+            "ci_low": 0.8965777509151783,
+            "ci_high": 0.9058913848872908,
+            "n": 3
+          },
+          "Meningioma": {
+            "mean": 0.8347826086956521,
+            "std": 0.015676309893321663,
+            "ci_low": 0.8170431940915059,
+            "ci_high": 0.8525220232997983,
+            "n": 3
+          },
+          "Pituitary": {
+            "mean": 0.9578544061302682,
+            "std": 0.011494252873563204,
+            "ci_low": 0.9448474345485249,
+            "ci_high": 0.9708613777120114,
+            "n": 3
+          },
+          "No-tumor": {
+            "mean": 0.9778645833333334,
+            "std": 0.008131507810414582,
+            "ci_low": 0.968662916015743,
+            "ci_high": 0.9870662506509238,
+            "n": 3
+          }
+        },
+        "per_class_precision": {
+          "Glioma": {
+            "mean": 0.9190472643631685,
+            "std": 0.013172878316041053,
+            "ci_low": 0.9041407492733023,
+            "ci_high": 0.9339537794530347,
+            "n": 3
+          },
+          "Meningioma": {
+            "mean": 0.8571627825833086,
+            "std": 0.001697168222669857,
+            "ci_low": 0.8552422559440803,
+            "ci_high": 0.8590833092225368,
+            "n": 3
+          },
+          "Pituitary": {
+            "mean": 0.9379602106040293,
+            "std": 0.020414519053282065,
+            "ci_low": 0.9148590075852826,
+            "ci_high": 0.9610614136227761,
+            "n": 3
+          },
+          "No-tumor": {
+            "mean": 0.9591352247245784,
+            "std": 0.005828866461916602,
+            "ci_low": 0.9525392413876969,
+            "ci_high": 0.9657312080614598,
+            "n": 3
+          }
+        },
+        "per_class_f1": {
+          "Glioma": {
+            "mean": 0.9099996088116283,
+            "std": 0.004379441420221325,
+            "ci_low": 0.905043804313213,
+            "ci_high": 0.9149554133100437,
+            "n": 3
+          },
+          "Meningioma": {
+            "mean": 0.845765869752365,
+            "std": 0.007341430194238017,
+            "ci_low": 0.8374582594225599,
+            "ci_high": 0.8540734800821701,
+            "n": 3
+          },
+          "Pituitary": {
+            "mean": 0.9476229757982831,
+            "std": 0.004880823864863642,
+            "ci_low": 0.9420998036526806,
+            "ci_high": 0.9531461479438856,
+            "n": 3
+          },
+          "No-tumor": {
+            "mean": 0.9684022643425788,
+            "std": 0.006265251267651053,
+            "ci_low": 0.9613124651109776,
+            "ci_high": 0.9754920635741801,
+            "n": 3
+          }
+        }
+      },
+      "missing_seeds": [],
+      "evaluated": true
+    },
+    "FIXED_STRONG": {
+      "condition": "FIXED_STRONG",
+      "circuit_names": [
+        "strong"
+      ],
+      "n_circuits": 1,
+      "circuit_description": "2 StronglyEntangling layers (24 quantum parameters)",
+      "mixture": "none - a single circuit; the softmax is identically 1.0",
+      "adaptive": false,
+      "note": "Same depth as FIXED_BASIC with a richer entanglement pattern.",
+      "per_seed": {
+        "42": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.9202020202020202,
+            "balanced_accuracy": 0.9171935841974846,
+            "macro_precision": 0.9176861394826669,
+            "macro_recall_sensitivity": 0.9171935841974846,
+            "macro_f1": 0.9171163248297851,
+            "weighted_f1": 0.9194374924152021,
+            "macro_specificity": 0.9735312350989793,
+            "mcc": 0.8936747773410386,
+            "auc_ovr_macro": 0.9870149722833002
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.927038626609442,
+              "recall_sensitivity": 0.8888888888888888,
+              "f1": 0.907563025210084,
+              "specificity": 0.9772423025435074,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.8558558558558559,
+              "recall_sensitivity": 0.8260869565217391,
+              "f1": 0.8407079646017699,
+              "specificity": 0.9578947368421052,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.9438202247191011,
+              "recall_sensitivity": 0.9655172413793104,
+              "f1": 0.9545454545454546,
+              "specificity": 0.9794238683127572,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.9440298507462687,
+              "recall_sensitivity": 0.98828125,
+              "f1": 0.9656488549618321,
+              "specificity": 0.9795640326975477,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                216,
+                25,
+                2,
+                0
+              ],
+              [
+                13,
+                190,
+                12,
+                15
+              ],
+              [
+                4,
+                5,
+                252,
+                0
+              ],
+              [
+                0,
+                2,
+                1,
+                253
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 25
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "No-tumor",
+                "count": 15
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 13
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 12
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 5
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Glioma",
+                "count": 4
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.021083534396056,
+            "brier_score": 0.12176220979253119,
+            "confidently_wrong_over_0.99": 2
+          },
+          "checkpoint": "/kaggle/working/thesis/logs/train/runs/step25_quantum_circuit_ablation/FIXED_STRONG/seed_42/checkpoints/epoch_022.ckpt",
+          "split": "val",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step25 on the val split from the validation-selected checkpoint; no test metric was read"
+        },
+        "123": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.9282828282828283,
+            "balanced_accuracy": 0.9261089892939333,
+            "macro_precision": 0.926277005826164,
+            "macro_recall_sensitivity": 0.9261089892939333,
+            "macro_f1": 0.926076171094994,
+            "weighted_f1": 0.9279113695650004,
+            "macro_specificity": 0.9762227636069363,
+            "mcc": 0.9043511058770556,
+            "auc_ovr_macro": 0.9912772260728706
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.9102040816326531,
+              "recall_sensitivity": 0.9176954732510288,
+              "f1": 0.9139344262295082,
+              "specificity": 0.9705488621151271,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.8828828828828829,
+              "recall_sensitivity": 0.8521739130434782,
+              "f1": 0.8672566371681416,
+              "specificity": 0.9657894736842105,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.9538461538461539,
+              "recall_sensitivity": 0.9501915708812261,
+              "f1": 0.9520153550863724,
+              "specificity": 0.9835390946502057,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.9581749049429658,
+              "recall_sensitivity": 0.984375,
+              "f1": 0.9710982658959537,
+              "specificity": 0.9850136239782016,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                223,
+                20,
+                0,
+                0
+              ],
+              [
+                12,
+                196,
+                11,
+                11
+              ],
+              [
+                8,
+                5,
+                248,
+                0
+              ],
+              [
+                2,
+                1,
+                1,
+                252
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 20
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 12
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 11
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "No-tumor",
+                "count": 11
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Glioma",
+                "count": 8
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 5
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.01342645739064068,
+            "brier_score": 0.10803584680941627,
+            "confidently_wrong_over_0.99": 1
+          },
+          "checkpoint": "/kaggle/working/thesis/logs/train/runs/step25_quantum_circuit_ablation/FIXED_STRONG/seed_123/checkpoints/epoch_026.ckpt",
+          "split": "val",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step25 on the val split from the validation-selected checkpoint; no test metric was read"
+        },
+        "7": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.9272727272727272,
+            "balanced_accuracy": 0.9250625097366441,
+            "macro_precision": 0.9261942997569509,
+            "macro_recall_sensitivity": 0.9250625097366441,
+            "macro_f1": 0.9251892040250409,
+            "weighted_f1": 0.9271953238154954,
+            "macro_specificity": 0.9759228836684716,
+            "mcc": 0.9032050677265805,
+            "auc_ovr_macro": 0.9894622959114674
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.9555555555555556,
+              "recall_sensitivity": 0.8847736625514403,
+              "f1": 0.9188034188034188,
+              "specificity": 0.9866131191432396,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.847457627118644,
+              "recall_sensitivity": 0.8695652173913043,
+              "f1": 0.8583690987124464,
+              "specificity": 0.9526315789473684,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.947565543071161,
+              "recall_sensitivity": 0.9693486590038314,
+              "f1": 0.9583333333333334,
+              "specificity": 0.9807956104252401,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.9541984732824428,
+              "recall_sensitivity": 0.9765625,
+              "f1": 0.9652509652509652,
+              "specificity": 0.9836512261580381,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                215,
+                27,
+                1,
+                0
+              ],
+              [
+                6,
+                200,
+                12,
+                12
+              ],
+              [
+                3,
+                5,
+                253,
+                0
+              ],
+              [
+                1,
+                4,
+                1,
+                250
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 27
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 12
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "No-tumor",
+                "count": 12
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 6
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 5
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Meningioma",
+                "count": 4
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.015623229561430004,
+            "brier_score": 0.1122318022793646,
+            "confidently_wrong_over_0.99": 2
+          },
+          "checkpoint": "/kaggle/working/thesis/logs/train/runs/step25_quantum_circuit_ablation/FIXED_STRONG/seed_7/checkpoints/epoch_029.ckpt",
+          "split": "val",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step25 on the val split from the validation-selected checkpoint; no test metric was read"
+        }
+      },
+      "across_seeds": {
+        "macro_f1": {
+          "mean": 0.9227938999832733,
+          "std": 0.004936883871778361,
+          "ci_low": 0.9172072899679081,
+          "ci_high": 0.9283805099986385,
+          "n": 3
+        },
+        "accuracy": {
+          "mean": 0.9252525252525253,
+          "std": 0.004402928225798625,
+          "ci_low": 0.9202701429316059,
+          "ci_high": 0.9302349075734447,
+          "n": 3
+        },
+        "balanced_accuracy": {
+          "mean": 0.9227883610760207,
+          "std": 0.004873389591075896,
+          "ci_low": 0.9172736016031644,
+          "ci_high": 0.928303120548877,
+          "n": 3
+        },
+        "macro_precision": {
+          "mean": 0.9233858150219273,
+          "std": 0.004936237029671853,
+          "ci_low": 0.9177999369773122,
+          "ci_high": 0.9289716930665424,
+          "n": 3
+        },
+        "macro_recall_sensitivity": {
+          "mean": 0.9227883610760207,
+          "std": 0.004873389591075896,
+          "ci_low": 0.9172736016031644,
+          "ci_high": 0.928303120548877,
+          "n": 3
+        },
+        "weighted_f1": {
+          "mean": 0.9248480619318994,
+          "std": 0.004699348598487429,
+          "ci_low": 0.9195302483823283,
+          "ci_high": 0.9301658754814704,
+          "n": 3
+        },
+        "mcc": {
+          "mean": 0.9004103169815583,
+          "std": 0.005861226112968548,
+          "ci_low": 0.8937777152523151,
+          "ci_high": 0.9070429187108014,
+          "n": 3
+        },
+        "per_class_recall": {
+          "Glioma": {
+            "mean": 0.897119341563786,
+            "std": 0.017937855734735327,
+            "ci_low": 0.8768207469230032,
+            "ci_high": 0.9174179362045689,
+            "n": 3
+          },
+          "Meningioma": {
+            "mean": 0.8492753623188406,
+            "std": 0.021883578073248533,
+            "ci_low": 0.824511762523653,
+            "ci_high": 0.8740389621140282,
+            "n": 3
+          },
+          "Pituitary": {
+            "mean": 0.9616858237547893,
+            "std": 0.010136978203312589,
+            "ci_low": 0.9502147530496636,
+            "ci_high": 0.9731568944599149,
+            "n": 3
+          },
+          "No-tumor": {
+            "mean": 0.9830729166666666,
+            "std": 0.005966895436140417,
+            "ci_low": 0.9763207388415539,
+            "ci_high": 0.9898250944917794,
+            "n": 3
+          }
+        },
+        "per_class_precision": {
+          "Glioma": {
+            "mean": 0.9309327545992169,
+            "std": 0.02292514386749814,
+            "ci_low": 0.9049905121523194,
+            "ci_high": 0.9568749970461143,
+            "n": 3
+          },
+          "Meningioma": {
+            "mean": 0.8620654552857943,
+            "std": 0.018510984044632858,
+            "ci_low": 0.8411183049083724,
+            "ci_high": 0.8830126056632162,
+            "n": 3
+          },
+          "Pituitary": {
+            "mean": 0.9484106405454721,
+            "std": 0.005066108567824671,
+            "ci_low": 0.9426777990205323,
+            "ci_high": 0.9541434820704119,
+            "n": 3
+          },
+          "No-tumor": {
+            "mean": 0.9521344096572258,
+            "std": 0.007294923477568673,
+            "ci_low": 0.9438794266315815,
+            "ci_high": 0.9603893926828702,
+            "n": 3
+          }
+        },
+        "per_class_f1": {
+          "Glioma": {
+            "mean": 0.913433623414337,
+            "std": 0.005636906476786061,
+            "ci_low": 0.9070548632496694,
+            "ci_high": 0.9198123835790045,
+            "n": 3
+          },
+          "Meningioma": {
+            "mean": 0.8554445668274525,
+            "std": 0.013513795500112596,
+            "ci_low": 0.8401522676267159,
+            "ci_high": 0.8707368660281891,
+            "n": 3
+          },
+          "Pituitary": {
+            "mean": 0.95496471432172,
+            "std": 0.0031797871551825264,
+            "ci_low": 0.9513664464204997,
+            "ci_high": 0.9585629822229403,
+            "n": 3
+          },
+          "No-tumor": {
+            "mean": 0.9673326953695837,
+            "std": 0.003267142497244888,
+            "ci_low": 0.9636355755930639,
+            "ci_high": 0.9710298151461034,
+            "n": 3
+          }
+        }
+      },
+      "missing_seeds": [],
+      "evaluated": true
+    },
+    "ADAPTIVE_QUANTUM": {
+      "condition": "ADAPTIVE_QUANTUM",
+      "circuit_names": [
+        "fixed",
+        "deep",
+        "strong",
+        "combined",
+        "reupload"
+      ],
+      "n_circuits": 5,
+      "circuit_description": "all five circuits - fixed, deep, strong, combined, reupload (104 quantum parameters)",
+      "mixture": "adaptive soft mixture: a learned per-image softmax over the five circuits' outputs, conditioned on the classical features",
+      "adaptive": true,
+      "note": "Step 12 exactly as it exists. All five circuits execute on every image; none is skipped and no gate is chosen at run time.",
+      "per_seed": {
+        "42": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.9272727272727272,
+            "balanced_accuracy": 0.9251521700087456,
+            "macro_precision": 0.9256216953585374,
+            "macro_recall_sensitivity": 0.9251521700087456,
+            "macro_f1": 0.925195080490788,
+            "weighted_f1": 0.9271724004065072,
+            "macro_specificity": 0.9759268805902613,
+            "mcc": 0.9030627228138005,
+            "auc_ovr_macro": 0.9883604250174438
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.935064935064935,
+              "recall_sensitivity": 0.8888888888888888,
+              "f1": 0.9113924050632911,
+              "specificity": 0.9799196787148594,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.8547008547008547,
+              "recall_sensitivity": 0.8695652173913043,
+              "f1": 0.8620689655172413,
+              "specificity": 0.9552631578947368,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.943609022556391,
+              "recall_sensitivity": 0.9616858237547893,
+              "f1": 0.952561669829222,
+              "specificity": 0.9794238683127572,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.9691119691119691,
+              "recall_sensitivity": 0.98046875,
+              "f1": 0.974757281553398,
+              "specificity": 0.989100817438692,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                216,
+                27,
+                0,
+                0
+              ],
+              [
+                8,
+                200,
+                14,
+                8
+              ],
+              [
+                6,
+                4,
+                251,
+                0
+              ],
+              [
+                1,
+                3,
+                1,
+                251
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 27
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 14
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 8
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "No-tumor",
+                "count": 8
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Glioma",
+                "count": 6
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 4
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.01659809853693452,
+            "brier_score": 0.1179847762203454,
+            "confidently_wrong_over_0.99": 0
+          },
+          "checkpoint": "/kaggle/working/thesis/logs/train/runs/step25_quantum_circuit_ablation/ADAPTIVE_QUANTUM/seed_42/checkpoints/epoch_028.ckpt",
+          "split": "val",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step25 on the val split from the validation-selected checkpoint; no test metric was read"
+        },
+        "123": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.9242424242424242,
+            "balanced_accuracy": 0.922492498445993,
+            "macro_precision": 0.9242127082893594,
+            "macro_recall_sensitivity": 0.922492498445993,
+            "macro_f1": 0.9225774720106154,
+            "weighted_f1": 0.9245517324295704,
+            "macro_specificity": 0.974965070389446,
+            "mcc": 0.8993918034345137,
+            "auc_ovr_macro": 0.9888300544831633
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.9592760180995475,
+              "recall_sensitivity": 0.8724279835390947,
+              "f1": 0.9137931034482759,
+              "specificity": 0.9879518072289156,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.8292682926829268,
+              "recall_sensitivity": 0.8869565217391304,
+              "f1": 0.8571428571428571,
+              "specificity": 0.9447368421052632,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.9467680608365019,
+              "recall_sensitivity": 0.9540229885057471,
+              "f1": 0.950381679389313,
+              "specificity": 0.9807956104252401,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.9615384615384616,
+              "recall_sensitivity": 0.9765625,
+              "f1": 0.9689922480620154,
+              "specificity": 0.9863760217983651,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                212,
+                30,
+                1,
+                0
+              ],
+              [
+                4,
+                204,
+                12,
+                10
+              ],
+              [
+                4,
+                8,
+                249,
+                0
+              ],
+              [
+                1,
+                4,
+                1,
+                250
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 30
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 12
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "No-tumor",
+                "count": 10
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 8
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 4
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Glioma",
+                "count": 4
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.020594360792275616,
+            "brier_score": 0.11692928053694326,
+            "confidently_wrong_over_0.99": 1
+          },
+          "checkpoint": "/kaggle/working/thesis/logs/train/runs/step25_quantum_circuit_ablation/ADAPTIVE_QUANTUM/seed_123/checkpoints/epoch_025.ckpt",
+          "split": "val",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step25 on the val split from the validation-selected checkpoint; no test metric was read"
+        },
+        "7": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.9343434343434344,
+            "balanced_accuracy": 0.9322641558271789,
+            "macro_precision": 0.9327960996856046,
+            "macro_recall_sensitivity": 0.9322641558271789,
+            "macro_f1": 0.9324007216118372,
+            "weighted_f1": 0.9341529541380339,
+            "macro_specificity": 0.9782373701146627,
+            "mcc": 0.9124513258212021,
+            "auc_ovr_macro": 0.9909294157922724
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.9487179487179487,
+              "recall_sensitivity": 0.9135802469135802,
+              "f1": 0.9308176100628931,
+              "specificity": 0.9839357429718876,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.8733624454148472,
+              "recall_sensitivity": 0.8695652173913043,
+              "f1": 0.8714596949891068,
+              "specificity": 0.9618421052631579,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.947565543071161,
+              "recall_sensitivity": 0.9693486590038314,
+              "f1": 0.9583333333333334,
+              "specificity": 0.9807956104252401,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.9615384615384616,
+              "recall_sensitivity": 0.9765625,
+              "f1": 0.9689922480620154,
+              "specificity": 0.9863760217983651,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                222,
+                20,
+                1,
+                0
+              ],
+              [
+                8,
+                200,
+                12,
+                10
+              ],
+              [
+                2,
+                6,
+                253,
+                0
+              ],
+              [
+                2,
+                3,
+                1,
+                250
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 20
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 12
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "No-tumor",
+                "count": 10
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 8
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 6
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Meningioma",
+                "count": 3
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.015580798068431925,
+            "brier_score": 0.10559114963881251,
+            "confidently_wrong_over_0.99": 1
+          },
+          "checkpoint": "/kaggle/working/thesis/logs/train/runs/step25_quantum_circuit_ablation/ADAPTIVE_QUANTUM/seed_7/checkpoints/epoch_028.ckpt",
+          "split": "val",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step25 on the val split from the validation-selected checkpoint; no test metric was read"
+        }
+      },
+      "across_seeds": {
+        "macro_f1": {
+          "mean": 0.9267244247044135,
+          "std": 0.0050870648192045415,
+          "ci_low": 0.920967868948618,
+          "ci_high": 0.932480980460209,
+          "n": 3
+        },
+        "accuracy": {
+          "mean": 0.9286195286195286,
+          "std": 0.005183435797421128,
+          "ci_low": 0.9227539188357108,
+          "ci_high": 0.9344851384033463,
+          "n": 3
+        },
+        "balanced_accuracy": {
+          "mean": 0.9266362747606393,
+          "std": 0.005052053758598186,
+          "ci_low": 0.9209193377495645,
+          "ci_high": 0.932353211771714,
+          "n": 3
+        },
+        "macro_precision": {
+          "mean": 0.9275435011111671,
+          "std": 0.004603113617804206,
+          "ci_low": 0.9223345876939217,
+          "ci_high": 0.9327524145284125,
+          "n": 3
+        },
+        "macro_recall_sensitivity": {
+          "mean": 0.9266362747606393,
+          "std": 0.005052053758598186,
+          "ci_low": 0.9209193377495645,
+          "ci_high": 0.932353211771714,
+          "n": 3
+        },
+        "weighted_f1": {
+          "mean": 0.9286256956580372,
+          "std": 0.004962853502759998,
+          "ci_low": 0.9230096982387336,
+          "ci_high": 0.9342416930773408,
+          "n": 3
+        },
+        "mcc": {
+          "mean": 0.9049686173565054,
+          "std": 0.006735139697737399,
+          "ci_low": 0.8973470893101693,
+          "ci_high": 0.9125901454028414,
+          "n": 3
+        },
+        "per_class_recall": {
+          "Glioma": {
+            "mean": 0.8916323731138546,
+            "std": 0.020712851674268142,
+            "ci_low": 0.8681935749538005,
+            "ci_high": 0.9150711712739087,
+            "n": 3
+          },
+          "Meningioma": {
+            "mean": 0.8753623188405797,
+            "std": 0.010040874246776106,
+            "ci_low": 0.864,
+            "ci_high": 0.8867246376811594,
+            "n": 3
+          },
+          "Pituitary": {
+            "mean": 0.9616858237547893,
+            "std": 0.007662835249042155,
+            "ci_low": 0.9530145093669604,
+            "ci_high": 0.9703571381426181,
+            "n": 3
+          },
+          "No-tumor": {
+            "mean": 0.9778645833333334,
+            "std": 0.002255274489021976,
+            "ci_low": 0.9753125,
+            "ci_high": 0.9804166666666667,
+            "n": 3
+          }
+        },
+        "per_class_precision": {
+          "Glioma": {
+            "mean": 0.9476863006274772,
+            "std": 0.012138466079540512,
+            "ci_low": 0.9339503331766763,
+            "ci_high": 0.961422268078278,
+            "n": 3
+          },
+          "Meningioma": {
+            "mean": 0.8524438642662094,
+            "std": 0.02213355101769801,
+            "ci_low": 0.8273973934553566,
+            "ci_high": 0.8774903350770623,
+            "n": 3
+          },
+          "Pituitary": {
+            "mean": 0.945980875488018,
+            "std": 0.0020924290252239902,
+            "ci_low": 0.9436130691445104,
+            "ci_high": 0.9483486818315257,
+            "n": 3
+          },
+          "No-tumor": {
+            "mean": 0.964062964062964,
+            "std": 0.004372566636274224,
+            "ci_low": 0.9591149391149391,
+            "ci_high": 0.9690109890109889,
+            "n": 3
+          }
+        },
+        "per_class_f1": {
+          "Glioma": {
+            "mean": 0.9186677061914867,
+            "std": 0.010590371157198842,
+            "ci_low": 0.9066835730601702,
+            "ci_high": 0.9306518393228033,
+            "n": 3
+          },
+          "Meningioma": {
+            "mean": 0.8635571725497351,
+            "std": 0.007273515766644415,
+            "ci_low": 0.8553264146295139,
+            "ci_high": 0.8717879304699563,
+            "n": 3
+          },
+          "Pituitary": {
+            "mean": 0.9537588941839562,
+            "std": 0.004108796627729376,
+            "ci_low": 0.9491093530993888,
+            "ci_high": 0.9584084352685236,
+            "n": 3
+          },
+          "No-tumor": {
+            "mean": 0.9709139258924763,
+            "std": 0.0033284436381369386,
+            "ci_low": 0.967147437344773,
+            "ci_high": 0.9746804144401795,
+            "n": 3
+          }
+        }
+      },
+      "missing_seeds": [],
+      "evaluated": true
+    }
+  },
+  "capacity": {
+    "FIXED_BASIC": {
+      "spatial_branch": 56227,
+      "reduce": 132,
+      "quantum_experts": 8,
+      "selector": 2177,
+      "classifier": 13508,
+      "total": 72052,
+      "feature_dim": 36,
+      "n_circuits": 1,
+      "delta_vs_adaptive": -356,
+      "percent_vs_adaptive": -0.4917
+    },
+    "FIXED_DEEP": {
+      "spatial_branch": 56227,
+      "reduce": 132,
+      "quantum_experts": 16,
+      "selector": 2177,
+      "classifier": 13508,
+      "total": 72060,
+      "feature_dim": 36,
+      "n_circuits": 1,
+      "delta_vs_adaptive": -348,
+      "percent_vs_adaptive": -0.4806
+    },
+    "FIXED_STRONG": {
+      "spatial_branch": 56227,
+      "reduce": 132,
+      "quantum_experts": 24,
+      "selector": 2177,
+      "classifier": 13508,
+      "total": 72068,
+      "feature_dim": 36,
+      "n_circuits": 1,
+      "delta_vs_adaptive": -340,
+      "percent_vs_adaptive": -0.4696
+    },
+    "ADAPTIVE_QUANTUM": {
+      "spatial_branch": 56227,
+      "reduce": 132,
+      "quantum_experts": 104,
+      "selector": 2437,
+      "classifier": 13508,
+      "total": 72408,
+      "feature_dim": 36,
+      "n_circuits": 5,
+      "delta_vs_adaptive": 0,
+      "percent_vs_adaptive": 0.0
+    }
+  },
+  "primary": [
+    {
+      "comparison": "H25a_vs_basic",
+      "family": "primary",
+      "statistical_status": "formal",
+      "question": "Does the mixture beat a single shallow BasicEntangler circuit?",
+      "condition_a": "ADAPTIVE_QUANTUM",
+      "condition_b": "FIXED_BASIC",
+      "metric": "macro_f1",
+      "split": "val",
+      "observed_delta": 0.003868340058293507,
+      "ci_low": -0.009211423922819336,
+      "ci_high": 0.016375314622490374,
+      "confidence_level": 0.95,
+      "n_samples": 990,
+      "paired_seed": 42,
+      "effect_direction": "favours ADAPTIVE_QUANTUM",
+      "condition_a_ci": {
+        "point_estimate": 0.925195080490788,
+        "ci_lower": 0.9082406690861122,
+        "ci_upper": 0.941143328616896,
+        "confidence": 95.0,
+        "n_resamples": 2000
+      },
+      "condition_b_ci": {
+        "point_estimate": 0.9213267404324945,
+        "ci_lower": 0.9045295126998552,
+        "ci_upper": 0.9369918502935519,
+        "confidence": 95.0,
+        "n_resamples": 2000
+      },
+      "seeds": {
+        "role": "descriptive",
+        "per_seed_delta": {
+          "42": 0.003868340058293507,
+          "123": 0.017471129546293707,
+          "7": 0.009774706193639626
+        },
+        "delta_across_seeds": {
+          "n": 3,
+          "mean": 0.01037139193274228,
+          "std": 0.006820996691624219,
+          "min": 0.003868340058293507,
+          "max": 0.017471129546293707
+        },
+        "missing_seeds": [],
+        "wilcoxon": {
+          "n_pairs": 3,
+          "statistic": null,
+          "p_value": null,
+          "note": "Only 3 training seeds - a two-sided Wilcoxon signed-rank test needs at least 6 pairs to reach p < 0.05 at any effect size (the floor here is 0.250). Reporting mean and standard deviation instead; use a paired bootstrap over samples for a powered test."
+        },
+        "note": "Seed spread is descriptive. A two-sided Wilcoxon needs at least 6 pairs to reach p < 0.05 at any effect size."
+      },
+      "provenance": {
+        "source_stage": "step25_quantum_circuit_ablation",
+        "condition_a_predictions": "step25_predictions_ADAPTIVE_QUANTUM_seed42.npz",
+        "condition_b_predictions": "step25_predictions_FIXED_BASIC_seed42.npz",
+        "split": "val",
+        "note": "Computed by this stage from validation-selected checkpoints on the validation split. No test metric was read."
+      },
+      "mcnemar": {
+        "both_correct": 895,
+        "only_a_correct": 23,
+        "only_b_correct": 19,
+        "both_wrong": 53,
+        "n_discordant": 42,
+        "statistic": 0.21428571428571427,
+        "p_value": 0.6434288435636206,
+        "test": "chi-square with continuity correction",
+        "favours": "a"
+      },
+      "mcnemar_method": "chi-square with continuity correction",
+      "mcnemar_p_value": 0.6434288435636206,
+      "raw_p_value": 0.6434288435636206,
+      "p_value_source": "mcnemar",
+      "adjusted_p_value": 0.8888096144528502,
+      "significant": false,
+      "correction": "holm-bonferroni",
+      "family_size": 3,
+      "interpretation": "The p-value tests discordant errors (McNemar); the effect size and interval are macro-F1 from the paired bootstrap. They answer different questions and should be quoted together.",
+      "holm_rank": 3
+    },
+    {
+      "comparison": "H25b_vs_deep",
+      "family": "primary",
+      "statistical_status": "formal",
+      "question": "Does the mixture beat a single deeper BasicEntangler circuit?",
+      "condition_a": "ADAPTIVE_QUANTUM",
+      "condition_b": "FIXED_DEEP",
+      "metric": "macro_f1",
+      "split": "val",
+      "observed_delta": 0.00708231834942552,
+      "ci_low": -0.005372633588341891,
+      "ci_high": 0.02015039410576864,
+      "confidence_level": 0.95,
+      "n_samples": 990,
+      "paired_seed": 42,
+      "effect_direction": "favours ADAPTIVE_QUANTUM",
+      "condition_a_ci": {
+        "point_estimate": 0.925195080490788,
+        "ci_lower": 0.9082406690861122,
+        "ci_upper": 0.941143328616896,
+        "confidence": 95.0,
+        "n_resamples": 2000
+      },
+      "condition_b_ci": {
+        "point_estimate": 0.9181127621413625,
+        "ci_lower": 0.9008249719820047,
+        "ci_upper": 0.9346517069141423,
+        "confidence": 95.0,
+        "n_resamples": 2000
+      },
+      "seeds": {
+        "role": "descriptive",
+        "per_seed_delta": {
+          "42": 0.00708231834942552,
+          "123": 0.004143749990066725,
+          "7": 0.015104166745106729
+        },
+        "delta_across_seeds": {
+          "n": 3,
+          "mean": 0.008776745028199659,
+          "std": 0.005673270237556693,
+          "min": 0.004143749990066725,
+          "max": 0.015104166745106729
+        },
+        "missing_seeds": [],
+        "wilcoxon": {
+          "n_pairs": 3,
+          "statistic": null,
+          "p_value": null,
+          "note": "Only 3 training seeds - a two-sided Wilcoxon signed-rank test needs at least 6 pairs to reach p < 0.05 at any effect size (the floor here is 0.250). Reporting mean and standard deviation instead; use a paired bootstrap over samples for a powered test."
+        },
+        "note": "Seed spread is descriptive. A two-sided Wilcoxon needs at least 6 pairs to reach p < 0.05 at any effect size."
+      },
+      "provenance": {
+        "source_stage": "step25_quantum_circuit_ablation",
+        "condition_a_predictions": "step25_predictions_ADAPTIVE_QUANTUM_seed42.npz",
+        "condition_b_predictions": "step25_predictions_FIXED_DEEP_seed42.npz",
+        "split": "val",
+        "note": "Computed by this stage from validation-selected checkpoints on the validation split. No test metric was read."
+      },
+      "mcnemar": {
+        "both_correct": 895,
+        "only_a_correct": 23,
+        "only_b_correct": 16,
+        "both_wrong": 56,
+        "n_discordant": 39,
+        "statistic": 0.9230769230769231,
+        "p_value": 0.33666836761003605,
+        "test": "chi-square with continuity correction",
+        "favours": "a"
+      },
+      "mcnemar_method": "chi-square with continuity correction",
+      "mcnemar_p_value": 0.33666836761003605,
+      "raw_p_value": 0.33666836761003605,
+      "p_value_source": "mcnemar",
+      "adjusted_p_value": 0.8888096144528502,
+      "significant": false,
+      "correction": "holm-bonferroni",
+      "family_size": 3,
+      "interpretation": "The p-value tests discordant errors (McNemar); the effect size and interval are macro-F1 from the paired bootstrap. They answer different questions and should be quoted together.",
+      "holm_rank": 2
+    },
+    {
+      "comparison": "H25c_vs_strong",
+      "family": "primary",
+      "statistical_status": "formal",
+      "question": "Does the mixture beat a single StronglyEntangling circuit?",
+      "condition_a": "ADAPTIVE_QUANTUM",
+      "condition_b": "FIXED_STRONG",
+      "metric": "macro_f1",
+      "split": "val",
+      "observed_delta": 0.008078755661002912,
+      "ci_low": -0.0034190832718797607,
+      "ci_high": 0.019917088084951386,
+      "confidence_level": 0.95,
+      "n_samples": 990,
+      "paired_seed": 42,
+      "effect_direction": "favours ADAPTIVE_QUANTUM",
+      "condition_a_ci": {
+        "point_estimate": 0.925195080490788,
+        "ci_lower": 0.9082406690861122,
+        "ci_upper": 0.941143328616896,
+        "confidence": 95.0,
+        "n_resamples": 2000
+      },
+      "condition_b_ci": {
+        "point_estimate": 0.9171163248297851,
+        "ci_lower": 0.8987188753708872,
+        "ci_upper": 0.9336625637891135,
+        "confidence": 95.0,
+        "n_resamples": 2000
+      },
+      "seeds": {
+        "role": "descriptive",
+        "per_seed_delta": {
+          "42": 0.008078755661002912,
+          "123": -0.003498699084378609,
+          "7": 0.007211517586796279
+        },
+        "delta_across_seeds": {
+          "n": 3,
+          "mean": 0.003930524721140194,
+          "std": 0.0064484920899155855,
+          "min": -0.003498699084378609,
+          "max": 0.008078755661002912
+        },
+        "missing_seeds": [],
+        "wilcoxon": {
+          "n_pairs": 3,
+          "statistic": null,
+          "p_value": null,
+          "note": "Only 3 training seeds - a two-sided Wilcoxon signed-rank test needs at least 6 pairs to reach p < 0.05 at any effect size (the floor here is 0.250). Reporting mean and standard deviation instead; use a paired bootstrap over samples for a powered test."
+        },
+        "note": "Seed spread is descriptive. A two-sided Wilcoxon needs at least 6 pairs to reach p < 0.05 at any effect size."
+      },
+      "provenance": {
+        "source_stage": "step25_quantum_circuit_ablation",
+        "condition_a_predictions": "step25_predictions_ADAPTIVE_QUANTUM_seed42.npz",
+        "condition_b_predictions": "step25_predictions_FIXED_STRONG_seed42.npz",
+        "split": "val",
+        "note": "Computed by this stage from validation-selected checkpoints on the validation split. No test metric was read."
+      },
+      "mcnemar": {
+        "both_correct": 898,
+        "only_a_correct": 20,
+        "only_b_correct": 13,
+        "both_wrong": 59,
+        "n_discordant": 33,
+        "statistic": 1.0909090909090908,
+        "p_value": 0.2962698714842834,
+        "test": "chi-square with continuity correction",
+        "favours": "a"
+      },
+      "mcnemar_method": "chi-square with continuity correction",
+      "mcnemar_p_value": 0.2962698714842834,
+      "raw_p_value": 0.2962698714842834,
+      "p_value_source": "mcnemar",
+      "adjusted_p_value": 0.8888096144528502,
+      "significant": false,
+      "correction": "holm-bonferroni",
+      "family_size": 3,
+      "interpretation": "The p-value tests discordant errors (McNemar); the effect size and interval are macro-F1 from the paired bootstrap. They answer different questions and should be quoted together.",
+      "holm_rank": 1
+    }
+  ],
+  "secondary": [
+    {
+      "comparison": "S25a_deep_vs_basic",
+      "family": "secondary",
+      "statistical_status": "descriptive",
+      "question": null,
+      "condition_a": "FIXED_DEEP",
+      "condition_b": "FIXED_BASIC",
+      "metric": "macro_f1",
+      "split": "val",
+      "observed_delta": -0.0032139782911320136,
+      "ci_low": -0.017306091794129615,
+      "ci_high": 0.01068608291308393,
+      "confidence_level": 0.95,
+      "n_samples": 990,
+      "paired_seed": 42,
+      "effect_direction": "favours FIXED_BASIC",
+      "condition_a_ci": {
+        "point_estimate": 0.9181127621413625,
+        "ci_lower": 0.9008249719820047,
+        "ci_upper": 0.9346517069141423,
+        "confidence": 95.0,
+        "n_resamples": 2000
+      },
+      "condition_b_ci": {
+        "point_estimate": 0.9213267404324945,
+        "ci_lower": 0.9045295126998552,
+        "ci_upper": 0.9369918502935519,
+        "confidence": 95.0,
+        "n_resamples": 2000
+      },
+      "seeds": {
+        "role": "descriptive",
+        "per_seed_delta": {
+          "42": -0.0032139782911320136,
+          "123": 0.013327379556226981,
+          "7": -0.005329460551467102
+        },
+        "delta_across_seeds": {
+          "n": 3,
+          "mean": 0.001594646904542622,
+          "std": 0.01021575146063046,
+          "min": -0.005329460551467102,
+          "max": 0.013327379556226981
+        },
+        "missing_seeds": [],
+        "wilcoxon": {
+          "n_pairs": 3,
+          "statistic": null,
+          "p_value": null,
+          "note": "Only 3 training seeds - a two-sided Wilcoxon signed-rank test needs at least 6 pairs to reach p < 0.05 at any effect size (the floor here is 0.250). Reporting mean and standard deviation instead; use a paired bootstrap over samples for a powered test."
+        },
+        "note": "Seed spread is descriptive. A two-sided Wilcoxon needs at least 6 pairs to reach p < 0.05 at any effect size."
+      },
+      "provenance": {
+        "source_stage": "step25_quantum_circuit_ablation",
+        "condition_a_predictions": "step25_predictions_FIXED_DEEP_seed42.npz",
+        "condition_b_predictions": "step25_predictions_FIXED_BASIC_seed42.npz",
+        "split": "val",
+        "note": "Computed by this stage from validation-selected checkpoints on the validation split. No test metric was read."
+      },
+      "mcnemar": null,
+      "mcnemar_method": null,
+      "mcnemar_p_value": null,
+      "raw_p_value": null,
+      "p_value_source": null,
+      "adjusted_p_value": null,
+      "significant": null,
+      "correction": null,
+      "note": "Circuit depth alone, at a fixed entanglement pattern. Descriptive."
+    },
+    {
+      "comparison": "S25b_strong_vs_basic",
+      "family": "secondary",
+      "statistical_status": "descriptive",
+      "question": null,
+      "condition_a": "FIXED_STRONG",
+      "condition_b": "FIXED_BASIC",
+      "metric": "macro_f1",
+      "split": "val",
+      "observed_delta": -0.004210415602709405,
+      "ci_low": -0.018795889599047353,
+      "ci_high": 0.010140748843467886,
+      "confidence_level": 0.95,
+      "n_samples": 990,
+      "paired_seed": 42,
+      "effect_direction": "favours FIXED_BASIC",
+      "condition_a_ci": {
+        "point_estimate": 0.9171163248297851,
+        "ci_lower": 0.8987188753708872,
+        "ci_upper": 0.9336625637891135,
+        "confidence": 95.0,
+        "n_resamples": 2000
+      },
+      "condition_b_ci": {
+        "point_estimate": 0.9213267404324945,
+        "ci_lower": 0.9045295126998552,
+        "ci_upper": 0.9369918502935519,
+        "confidence": 95.0,
+        "n_resamples": 2000
+      },
+      "seeds": {
+        "role": "descriptive",
+        "per_seed_delta": {
+          "42": -0.004210415602709405,
+          "123": 0.020969828630672316,
+          "7": 0.0025631886068433474
+        },
+        "delta_across_seeds": {
+          "n": 3,
+          "mean": 0.006440867211602086,
+          "std": 0.01303029042019176,
+          "min": -0.004210415602709405,
+          "max": 0.020969828630672316
+        },
+        "missing_seeds": [],
+        "wilcoxon": {
+          "n_pairs": 3,
+          "statistic": null,
+          "p_value": null,
+          "note": "Only 3 training seeds - a two-sided Wilcoxon signed-rank test needs at least 6 pairs to reach p < 0.05 at any effect size (the floor here is 0.250). Reporting mean and standard deviation instead; use a paired bootstrap over samples for a powered test."
+        },
+        "note": "Seed spread is descriptive. A two-sided Wilcoxon needs at least 6 pairs to reach p < 0.05 at any effect size."
+      },
+      "provenance": {
+        "source_stage": "step25_quantum_circuit_ablation",
+        "condition_a_predictions": "step25_predictions_FIXED_STRONG_seed42.npz",
+        "condition_b_predictions": "step25_predictions_FIXED_BASIC_seed42.npz",
+        "split": "val",
+        "note": "Computed by this stage from validation-selected checkpoints on the validation split. No test metric was read."
+      },
+      "mcnemar": null,
+      "mcnemar_method": null,
+      "mcnemar_p_value": null,
+      "raw_p_value": null,
+      "p_value_source": null,
+      "adjusted_p_value": null,
+      "significant": null,
+      "correction": null,
+      "note": "Entanglement richness alone, at a fixed depth. Descriptive."
+    },
+    {
+      "comparison": "S25c_strong_vs_deep",
+      "family": "secondary",
+      "statistical_status": "descriptive",
+      "question": null,
+      "condition_a": "FIXED_STRONG",
+      "condition_b": "FIXED_DEEP",
+      "metric": "macro_f1",
+      "split": "val",
+      "observed_delta": -0.0009964373115773917,
+      "ci_low": -0.014699040268814323,
+      "ci_high": 0.011742554564992118,
+      "confidence_level": 0.95,
+      "n_samples": 990,
+      "paired_seed": 42,
+      "effect_direction": "favours FIXED_DEEP",
+      "condition_a_ci": {
+        "point_estimate": 0.9171163248297851,
+        "ci_lower": 0.8987188753708872,
+        "ci_upper": 0.9336625637891135,
+        "confidence": 95.0,
+        "n_resamples": 2000
+      },
+      "condition_b_ci": {
+        "point_estimate": 0.9181127621413625,
+        "ci_lower": 0.9008249719820047,
+        "ci_upper": 0.9346517069141423,
+        "confidence": 95.0,
+        "n_resamples": 2000
+      },
+      "seeds": {
+        "role": "descriptive",
+        "per_seed_delta": {
+          "42": -0.0009964373115773917,
+          "123": 0.007642449074445334,
+          "7": 0.00789264915831045
+        },
+        "delta_across_seeds": {
+          "n": 3,
+          "mean": 0.004846220307059464,
+          "std": 0.005061436165452746,
+          "min": -0.0009964373115773917,
+          "max": 0.00789264915831045
+        },
+        "missing_seeds": [],
+        "wilcoxon": {
+          "n_pairs": 3,
+          "statistic": null,
+          "p_value": null,
+          "note": "Only 3 training seeds - a two-sided Wilcoxon signed-rank test needs at least 6 pairs to reach p < 0.05 at any effect size (the floor here is 0.250). Reporting mean and standard deviation instead; use a paired bootstrap over samples for a powered test."
+        },
+        "note": "Seed spread is descriptive. A two-sided Wilcoxon needs at least 6 pairs to reach p < 0.05 at any effect size."
+      },
+      "provenance": {
+        "source_stage": "step25_quantum_circuit_ablation",
+        "condition_a_predictions": "step25_predictions_FIXED_STRONG_seed42.npz",
+        "condition_b_predictions": "step25_predictions_FIXED_DEEP_seed42.npz",
+        "split": "val",
+        "note": "Computed by this stage from validation-selected checkpoints on the validation split. No test metric was read."
+      },
+      "mcnemar": null,
+      "mcnemar_method": null,
+      "mcnemar_p_value": null,
+      "raw_p_value": null,
+      "p_value_source": null,
+      "adjusted_p_value": null,
+      "significant": null,
+      "correction": null,
+      "note": "Richer entanglement against greater depth. Descriptive."
+    }
+  ],
+  "adaptive_behaviour": {
+    "available": true,
+    "circuits": [
+      "fixed",
+      "deep",
+      "strong",
+      "combined",
+      "reupload"
+    ],
+    "per_seed": {
+      "7": {
+        "n_images": 990,
+        "per_circuit": {
+          "fixed": {
+            "mean": 0.17328950264538176,
+            "std": 0.0005022209500508245,
+            "min": 0.1718016117811203,
+            "max": 0.1762060672044754
+          },
+          "deep": {
+            "mean": 0.17950672027137543,
+            "std": 0.0008463613046847108,
+            "min": 0.1762610375881195,
+            "max": 0.18376269936561584
+          },
+          "strong": {
+            "mean": 0.19873478877725023,
+            "std": 0.0013906776160116398,
+            "min": 0.19381918013095856,
+            "max": 0.20084808766841888
+          },
+          "combined": {
+            "mean": 0.18529024083505977,
+            "std": 0.0005129262110654681,
+            "min": 0.18379883468151093,
+            "max": 0.18799342215061188
+          },
+          "reupload": {
+            "mean": 0.2631787475913462,
+            "std": 0.0011119662701694613,
+            "min": 0.25984326004981995,
+            "max": 0.26734989881515503
+          }
+        },
+        "mean_normalised_entropy": 0.9921749221231406,
+        "max_across_image_std": 0.001389975076125426,
+        "dominant_circuit": "reupload",
+        "max_mean_weight": 0.2631787475913462,
+        "uniform_weight": 0.2,
+        "varies_between_images": true
+      },
+      "42": {
+        "n_images": 990,
+        "per_circuit": {
+          "fixed": {
+            "mean": 0.21136823057225257,
+            "std": 0.0012896379847895329,
+            "min": 0.2086562216281891,
+            "max": 0.21697719395160675
+          },
+          "deep": {
+            "mean": 0.21160575485590732,
+            "std": 0.000916725557286452,
+            "min": 0.21004456281661987,
+            "max": 0.2156442254781723
+          },
+          "strong": {
+            "mean": 0.17787461073109598,
+            "std": 0.0011262956099799804,
+            "min": 0.17538994550704956,
+            "max": 0.1815088540315628
+          },
+          "combined": {
+            "mean": 0.18120364617518706,
+            "std": 0.0005541430902052621,
+            "min": 0.17878010869026184,
+            "max": 0.1841074824333191
+          },
+          "reupload": {
+            "mean": 0.21794775665709468,
+            "std": 0.002192737540103638,
+            "min": 0.20976510643959045,
+            "max": 0.22126972675323486
+          }
+        },
+        "mean_normalised_entropy": 0.9977413805138228,
+        "max_across_image_std": 0.0021916298171028616,
+        "dominant_circuit": "reupload",
+        "max_mean_weight": 0.21794775665709468,
+        "uniform_weight": 0.2,
+        "varies_between_images": true
+      },
+      "123": {
+        "n_images": 990,
+        "per_circuit": {
+          "fixed": {
+            "mean": 0.18950382728468287,
+            "std": 0.00098204117373571,
+            "min": 0.18611887097358704,
+            "max": 0.19274307787418365
+          },
+          "deep": {
+            "mean": 0.18548257606800156,
+            "std": 0.001343692468917647,
+            "min": 0.18218126893043518,
+            "max": 0.19033204019069672
+          },
+          "strong": {
+            "mean": 0.1939384240995754,
+            "std": 0.002292495452656389,
+            "min": 0.18631646037101746,
+            "max": 0.19790807366371155
+          },
+          "combined": {
+            "mean": 0.22185248505286495,
+            "std": 0.0013168363645631532,
+            "min": 0.218821182847023,
+            "max": 0.2275429666042328
+          },
+          "reupload": {
+            "mean": 0.20922269023428058,
+            "std": 0.0010932818012883189,
+            "min": 0.20375798642635345,
+            "max": 0.21488218009471893
+          }
+        },
+        "mean_normalised_entropy": 0.998569033281254,
+        "max_across_image_std": 0.002291337334142139,
+        "dominant_circuit": "combined",
+        "max_mean_weight": 0.22185248505286495,
+        "uniform_weight": 0.2,
+        "varies_between_images": true
+      }
+    },
+    "note": "Weights that differ between images show the selector is input-dependent; they do NOT show the mixture helps. Only the paired comparison answers that. A selector collapsed onto one circuit is a fixed circuit with extra parameters; one that stayed uniform is an unweighted average."
+  },
+  "cost": {
+    "circuits_executed_per_image": {
+      "FIXED_BASIC": 1,
+      "FIXED_DEEP": 1,
+      "FIXED_STRONG": 1,
+      "ADAPTIVE_QUANTUM": 5
+    },
+    "note": "All circuits execute on every forward pass. The adaptive condition does NOT skip circuits and performs no conditional execution, so it costs roughly five simulator evaluations per image against one for each fixed condition."
+  },
+  "integrity": {
+    "expected_conditions": [
+      "FIXED_BASIC",
+      "FIXED_DEEP",
+      "FIXED_STRONG",
+      "ADAPTIVE_QUANTUM"
+    ],
+    "evaluated_conditions": [
+      "FIXED_BASIC",
+      "FIXED_DEEP",
+      "FIXED_STRONG",
+      "ADAPTIVE_QUANTUM"
+    ],
+    "incomplete_conditions": {},
+    "complete": true
+  },
+  "notes": {
+    "terminology": "All circuits execute on every image. The adaptive condition applies a learned per-image softmax over their outputs. This is an adaptive soft mixture of quantum circuits - not dynamic circuit selection, not conditional quantum execution, and not attention.",
+    "scope": "The Step 11 spatial gate is inside the Step 12 branch and is held identical across all four conditions (56,227 parameters, the large majority of the model). This experiment therefore measures circuit-mixture adaptivity ONLY. It does not show that the model as a whole is more powerful because of adaptivity, and must not be reported as though it did.",
+    "capacity": "The conditions are NOT parameter-matched. The adaptive condition carries 104 quantum parameters against 8-24 for the fixed ones, and is the larger model overall by at most 356 parameters (0.49%). The gap runs in the adaptive condition's favour and is reported rather than assumed away.",
+    "quantum_share": "Quantum parameters are a very small fraction of the model. A null result here is unsurprising and remains a valid, reportable outcome.",
+    "split": "Everything is computed on the val split. This is an architecture question, like Steps 6, 8, 13 and 14, so the internal test set stays sealed for Step 16 and no test metric was read.",
+    "family": "Three primary comparisons - the mixture against each fixed circuit - form one Holm-corrected family. The fixed-versus-fixed comparisons are descriptive and carry no p-value; promoting them would double the family."
+  }
+}

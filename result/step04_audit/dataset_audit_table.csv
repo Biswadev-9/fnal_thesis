@@ -1,0 +1,12 @@
+Check,Result,Action Taken
+Images in final split,6597 unique images,Basis for the 70/15/15 stratified split
+Corrupted / unreadable files,0 of 6597,None found - no exclusions needed
+Image dimension consistency,All images 224x224,Resized to a fixed square input in the Step 5 pipeline
+Colour mode consistency,RGB: 6597,Converted to 3-channel RGB for pretrained backbones
+Bit depth,8-bit/channel: 6597,Recorded; no re-quantisation applied
+Intensity range,0-255,Normalised in the Step 5 pipeline
+Exact duplicate images (MD5) within the final split,0 rows,"Duplicates removed BEFORE splitting, so none remain"
+Duplicate groups spanning multiple splits (leakage),0 groups,Prevented by deduplicating before splitting; asserted at build time
+Class distribution and imbalance,train imbalance ratio 1.14,Handled at training time per Step 8 (weighted sampler / loss)
+Final split sizes,Train: 4617 | Val: 990 | Test: 990,"Stratified by class, seed recorded in the split report"
+Background cropping preserves bright tissue,"passed=False, max foreground lost=0.05118",Crop is available but disabled by default; enable only on this evidence

@@ -1,0 +1,15 @@
+[2026-08-19 23:09:39,144][src.utils.utils][INFO] - [rank: 0] Enforcing tags! <cfg.extras.enforce_tags=True>
+[2026-08-19 23:09:39,149][__main__][INFO] - [rank: 0] Instantiating datamodule <src.data.bt_mri_datamodule.BTMRIDataModule>
+[2026-08-19 23:09:39,176][__main__][INFO] - [rank: 0] Instantiating analysis <src.analysis.preprocessing_confirmation.PreprocessingConfirmation>
+[2026-08-19 23:09:39,186][__main__][INFO] - [rank: 0] Running analysis; artefacts will be written to /kaggle/working/thesis/logs/analyze/runs/step06_confirm
+[2026-08-19 23:09:39,227][src.analysis.base][INFO] - [rank: 0] [step06_confirm] wrote step06_confirm_candidates.csv (4 rows)
+[2026-08-19 23:09:39,227][src.analysis.preprocessing_confirmation][INFO] - [rank: 0] === Step 6 confirmation (real backbone, validation only) ===
+[2026-08-19 23:09:39,227][src.analysis.preprocessing_confirmation][INFO] - [rank: 0]   metric: val/f1_macro_best  model: see per-run provenance
+[2026-08-19 23:09:39,228][src.analysis.preprocessing_confirmation][INFO] - [rank: 0]   conventional             0.9917 +- 0.0011 (n=3)
+[2026-08-19 23:09:39,228][src.analysis.preprocessing_confirmation][INFO] - [rank: 0]   diffusion_i5_k15         0.9910 +- 0.0012 (n=3)
+[2026-08-19 23:09:39,228][src.analysis.preprocessing_confirmation][INFO] - [rank: 0]   diffusion_i15_k15        0.9900 +- 0.0016 (n=3)
+[2026-08-19 23:09:39,228][src.analysis.preprocessing_confirmation][INFO] - [rank: 0]   diffusion_i20_k15        0.9889 +- 0.0006 (n=3)
+[2026-08-19 23:09:39,228][src.analysis.preprocessing_confirmation][INFO] - [rank: 0]   CONFIRMED: conventional
+[2026-08-19 23:09:39,228][src.analysis.preprocessing_confirmation][INFO] - [rank: 0]   This supersedes the proxy ranking. Downstream stages should now consume step06_confirm_summary.json.
+[2026-08-19 23:09:39,233][src.analysis.base][INFO] - [rank: 0] [step06_confirm] wrote step06_confirm_summary.json
+[2026-08-19 23:09:39,234][src.utils.utils][INFO] - [rank: 0] Output dir: /kaggle/working/thesis/logs/analyze/runs/step06_confirm

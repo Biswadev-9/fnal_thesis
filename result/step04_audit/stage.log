@@ -1,0 +1,26 @@
+
+=== 2026-08-19T05:26:16+00:00 :: /usr/bin/python3 src/analyze.py analysis=step04_audit data.num_workers=0 data.pin_memory=true extras.print_config=false hydra.run.dir=/kaggle/working/thesis/logs/analyze/runs/step04_audit
+[[36m2026-08-19 05:26:25,279[0m][[34msrc.utils.utils[0m][[32mINFO[0m] - [rank: 0] Enforcing tags! <cfg.extras.enforce_tags=True>[0m
+[[36m2026-08-19 05:26:25,284[0m][[34m__main__[0m][[32mINFO[0m] - [rank: 0] Instantiating datamodule <src.data.bt_mri_datamodule.BTMRIDataModule>[0m
+[[36m2026-08-19 05:26:25,313[0m][[34m__main__[0m][[32mINFO[0m] - [rank: 0] Instantiating analysis <src.analysis.data_audit.DataAuditAnalysis>[0m
+[[36m2026-08-19 05:26:25,321[0m][[34m__main__[0m][[32mINFO[0m] - [rank: 0] Running analysis; artefacts will be written to /kaggle/working/thesis/logs/analyze/runs/step04_audit[0m
+[[36m2026-08-19 05:26:25,321[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Split table already present at /kaggle/working/thesis/data/splits/dataset_split.csv[0m
+[[36m2026-08-19 05:26:39,855[0m][[34msrc.analysis.base[0m][[32mINFO[0m] - [rank: 0] [step04_audit] wrote image_audit.csv (6597 rows)[0m
+[[36m2026-08-19 05:26:39,862[0m][[34msrc.analysis.base[0m][[32mINFO[0m] - [rank: 0] [step04_audit] wrote class_distribution.csv (12 rows)[0m
+[[36m2026-08-19 05:26:41,577[0m][[34msrc.analysis.data_audit[0m][[32mINFO[0m] - [rank: 0] Background-crop validation: passed=False, max foreground lost=0.05118[0m
+[[36m2026-08-19 05:26:41,588[0m][[34msrc.analysis.base[0m][[32mINFO[0m] - [rank: 0] [step04_audit] wrote dataset_audit_table.csv (11 rows)[0m
+[[36m2026-08-19 05:26:41,590[0m][[34msrc.analysis.data_audit[0m][[32mINFO[0m] - [rank: 0] 
+                                              Check                                    Result                                                            Action Taken
+                              Images in final split                        6597 unique images                                 Basis for the 70/15/15 stratified split
+                       Corrupted / unreadable files                                 0 of 6597                                       None found - no exclusions needed
+                        Image dimension consistency                        All images 224x224                  Resized to a fixed square input in the Step 5 pipeline
+                            Colour mode consistency                                 RGB: 6597                     Converted to 3-channel RGB for pretrained backbones
+                                          Bit depth                       8-bit/channel: 6597                                    Recorded; no re-quantisation applied
+                                    Intensity range                                     0-255                                       Normalised in the Step 5 pipeline
+Exact duplicate images (MD5) within the final split                                    0 rows                     Duplicates removed BEFORE splitting, so none remain
+Duplicate groups spanning multiple splits (leakage)                                  0 groups     Prevented by deduplicating before splitting; asserted at build time
+                   Class distribution and imbalance                train imbalance ratio 1.14           Handled at training time per Step 8 (weighted sampler / loss)
+                                  Final split sizes        Train: 4617 | Val: 990 | Test: 990                  Stratified by class, seed recorded in the split report
+        Background cropping preserves bright tissue passed=False, max foreground lost=0.05118 Crop is available but disabled by default; enable only on this evidence[0m
+[[36m2026-08-19 05:26:41,602[0m][[34msrc.analysis.base[0m][[32mINFO[0m] - [rank: 0] [step04_audit] wrote step04_audit_summary.json[0m
+[[36m2026-08-19 05:26:41,603[0m][[34msrc.utils.utils[0m][[32mINFO[0m] - [rank: 0] Output dir: /kaggle/working/thesis/logs/analyze/runs/step04_audit[0m

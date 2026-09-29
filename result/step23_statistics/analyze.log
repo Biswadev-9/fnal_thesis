@@ -1,0 +1,16 @@
+[2026-09-21 06:17:14,524][src.utils.utils][INFO] - [rank: 0] Enforcing tags! <cfg.extras.enforce_tags=True>
+[2026-09-21 06:17:14,528][__main__][INFO] - [rank: 0] Instantiating datamodule <src.data.bt_mri_datamodule.BTMRIDataModule>
+[2026-09-21 06:17:14,555][__main__][INFO] - [rank: 0] Instantiating analysis <src.analysis.statistical_report.StatisticalReport>
+[2026-09-21 06:17:14,562][__main__][INFO] - [rank: 0] Running analysis; artefacts will be written to /kaggle/working/thesis/logs/analyze/runs_swin/step23_statistics
+[2026-09-21 06:18:11,567][src.analysis.base][INFO] - [rank: 0] [step23_statistics] wrote step23_comparisons.csv (7 rows)
+[2026-09-21 06:18:11,568][src.analysis.statistical_report][INFO] - [rank: 0] === Step 23: statistical report ===
+[2026-09-21 06:18:11,568][src.analysis.statistical_report][INFO] - [rank: 0]   Holm-corrected family of 4 at alpha=0.05, 2000 resamples, seed 42
+[2026-09-21 06:18:11,568][src.analysis.statistical_report][INFO] - [rank: 0]   H1 A2 vs A1: delta macro-F1 -0.0010 [-0.0072, +0.0053]  p_raw=1.0000 p_holm=1.0000  not significant
+[2026-09-21 06:18:11,568][src.analysis.statistical_report][INFO] - [rank: 0]   H2 A5 vs A4: delta macro-F1 +0.4576 [+0.4323, +0.4825]  p_raw=0.0000 p_holm=0.0000  SIGNIFICANT
+[2026-09-21 06:18:11,568][src.analysis.statistical_report][INFO] - [rank: 0]   H3 A7 vs A6: delta macro-F1 +0.0043 [-0.0011, +0.0103]  p_raw=0.2891 p_holm=0.5781  not significant
+[2026-09-21 06:18:11,568][src.analysis.statistical_report][INFO] - [rank: 0]   H4 A6 vs A3: delta macro-F1 +0.2075 [+0.1813, +0.2357]  p_raw=0.0000 p_holm=0.0000  SIGNIFICANT
+[2026-09-21 06:18:11,568][src.analysis.statistical_report][INFO] - [rank: 0]   A1_vs_A0 (descriptive): delta +0.0062 [-0.0011, +0.0138]  no significance claim
+[2026-09-21 06:18:11,568][src.analysis.statistical_report][INFO] - [rank: 0]   A3_vs_A2 (descriptive): delta -0.2117 [-0.2391, -0.1868]  no significance claim
+[2026-09-21 06:18:11,568][src.analysis.statistical_report][INFO] - [rank: 0]   A7_vs_P (descriptive): delta +0.0021 [no interval]  no significance claim
+[2026-09-21 06:18:11,574][src.analysis.base][INFO] - [rank: 0] [step23_statistics] wrote step23_statistics_summary.json
+[2026-09-21 06:18:11,575][src.utils.utils][INFO] - [rank: 0] Output dir: /kaggle/working/thesis/logs/analyze/runs_swin/step23_statistics

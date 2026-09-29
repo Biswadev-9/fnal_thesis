@@ -1,0 +1,28 @@
+[2026-08-19 11:57:43,338][src.utils.utils][INFO] - [rank: 0] Enforcing tags! <cfg.extras.enforce_tags=True>
+[2026-08-19 11:57:43,343][__main__][INFO] - [rank: 0] Instantiating datamodule <src.data.bt_mri_datamodule.BTMRIDataModule>
+[2026-08-19 11:57:43,370][__main__][INFO] - [rank: 0] Instantiating analysis <src.analysis.embeddings.EmbeddingAnalysis>
+[2026-08-19 11:57:43,729][__main__][INFO] - [rank: 0] Running analysis; artefacts will be written to /kaggle/working/thesis/logs/analyze/runs/step10_embeddings
+[2026-08-19 11:57:43,909][src.models.components.transfer][INFO] - [rank: 0] efficientnet_b0: fine-tuning 3,155,740/4,007,548 backbone parameters (78.7%)
+[2026-08-19 11:57:44,002][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step10_classical/seed_42/checkpoints/epoch_024.ckpt
+[2026-08-19 11:57:44,297][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at /kaggle/working/thesis/data/splits/dataset_split.csv
+[2026-08-19 11:57:44,352][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-08-19 11:58:16,023][src.analysis.embeddings][INFO] - [rank: 0] train: (4617, 1280) embeddings, silhouette 0.16642838716506958
+[2026-08-19 11:58:21,721][src.analysis.embeddings][INFO] - [rank: 0] val: (990, 1280) embeddings, silhouette 0.20032259821891785
+[2026-08-19 11:58:27,198][src.analysis.embeddings][INFO] - [rank: 0] test: (990, 1280) embeddings, silhouette 0.1936919242143631
+[2026-08-19 11:58:28,859][src.analysis.embeddings][INFO] - [rank: 0] [step10_embeddings] wrote embeddings.npz
+[2026-08-19 11:58:33,174][src.analysis.base][INFO] - [rank: 0] [step10_embeddings] wrote step10_embeddings_summary.json
+[2026-08-19 11:58:33,176][src.utils.utils][INFO] - [rank: 0] Output dir: /kaggle/working/thesis/logs/analyze/runs/step10_embeddings
+[2026-08-20 20:44:03,070][src.utils.utils][INFO] - [rank: 0] Enforcing tags! <cfg.extras.enforce_tags=True>
+[2026-08-20 20:44:03,076][__main__][INFO] - [rank: 0] Instantiating datamodule <src.data.bt_mri_datamodule.BTMRIDataModule>
+[2026-08-20 20:44:03,105][__main__][INFO] - [rank: 0] Instantiating analysis <src.analysis.embeddings.EmbeddingAnalysis>
+[2026-08-20 20:44:03,398][__main__][INFO] - [rank: 0] Running analysis; artefacts will be written to /kaggle/working/thesis/logs/analyze/runs/step10_embeddings
+[2026-08-20 20:44:03,572][src.models.components.transfer][INFO] - [rank: 0] efficientnet_b0: fine-tuning 3,155,740/4,007,548 backbone parameters (78.7%)
+[2026-08-20 20:44:03,745][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step10_classical/seed_42/checkpoints/epoch_024.ckpt
+[2026-08-20 20:44:04,040][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at /kaggle/working/thesis/data/splits/dataset_split.csv
+[2026-08-20 20:44:04,086][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-08-20 20:44:30,145][src.analysis.embeddings][INFO] - [rank: 0] train: (4617, 1280) embeddings, silhouette 0.16694945096969604
+[2026-08-20 20:44:33,655][src.analysis.embeddings][INFO] - [rank: 0] val: (990, 1280) embeddings, silhouette 0.20032259821891785
+[2026-08-20 20:44:37,110][src.analysis.embeddings][INFO] - [rank: 0] test: (990, 1280) embeddings, silhouette 0.1936919242143631
+[2026-08-20 20:44:38,884][src.analysis.embeddings][INFO] - [rank: 0] [step10_embeddings] wrote embeddings.npz
+[2026-08-20 20:44:43,412][src.analysis.base][INFO] - [rank: 0] [step10_embeddings] wrote step10_embeddings_summary.json
+[2026-08-20 20:44:43,413][src.utils.utils][INFO] - [rank: 0] Output dir: /kaggle/working/thesis/logs/analyze/runs/step10_embeddings

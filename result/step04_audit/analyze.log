@@ -1,0 +1,24 @@
+[2026-08-19 05:26:25,279][src.utils.utils][INFO] - [rank: 0] Enforcing tags! <cfg.extras.enforce_tags=True>
+[2026-08-19 05:26:25,284][__main__][INFO] - [rank: 0] Instantiating datamodule <src.data.bt_mri_datamodule.BTMRIDataModule>
+[2026-08-19 05:26:25,313][__main__][INFO] - [rank: 0] Instantiating analysis <src.analysis.data_audit.DataAuditAnalysis>
+[2026-08-19 05:26:25,321][__main__][INFO] - [rank: 0] Running analysis; artefacts will be written to /kaggle/working/thesis/logs/analyze/runs/step04_audit
+[2026-08-19 05:26:25,321][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at /kaggle/working/thesis/data/splits/dataset_split.csv
+[2026-08-19 05:26:39,855][src.analysis.base][INFO] - [rank: 0] [step04_audit] wrote image_audit.csv (6597 rows)
+[2026-08-19 05:26:39,862][src.analysis.base][INFO] - [rank: 0] [step04_audit] wrote class_distribution.csv (12 rows)
+[2026-08-19 05:26:41,577][src.analysis.data_audit][INFO] - [rank: 0] Background-crop validation: passed=False, max foreground lost=0.05118
+[2026-08-19 05:26:41,588][src.analysis.base][INFO] - [rank: 0] [step04_audit] wrote dataset_audit_table.csv (11 rows)
+[2026-08-19 05:26:41,590][src.analysis.data_audit][INFO] - [rank: 0] 
+                                              Check                                    Result                                                            Action Taken
+                              Images in final split                        6597 unique images                                 Basis for the 70/15/15 stratified split
+                       Corrupted / unreadable files                                 0 of 6597                                       None found - no exclusions needed
+                        Image dimension consistency                        All images 224x224                  Resized to a fixed square input in the Step 5 pipeline
+                            Colour mode consistency                                 RGB: 6597                     Converted to 3-channel RGB for pretrained backbones
+                                          Bit depth                       8-bit/channel: 6597                                    Recorded; no re-quantisation applied
+                                    Intensity range                                     0-255                                       Normalised in the Step 5 pipeline
+Exact duplicate images (MD5) within the final split                                    0 rows                     Duplicates removed BEFORE splitting, so none remain
+Duplicate groups spanning multiple splits (leakage)                                  0 groups     Prevented by deduplicating before splitting; asserted at build time
+                   Class distribution and imbalance                train imbalance ratio 1.14           Handled at training time per Step 8 (weighted sampler / loss)
+                                  Final split sizes        Train: 4617 | Val: 990 | Test: 990                  Stratified by class, seed recorded in the split report
+        Background cropping preserves bright tissue passed=False, max foreground lost=0.05118 Crop is available but disabled by default; enable only on this evidence
+[2026-08-19 05:26:41,602][src.analysis.base][INFO] - [rank: 0] [step04_audit] wrote step04_audit_summary.json
+[2026-08-19 05:26:41,603][src.utils.utils][INFO] - [rank: 0] Output dir: /kaggle/working/thesis/logs/analyze/runs/step04_audit

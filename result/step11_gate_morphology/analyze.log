@@ -1,0 +1,13 @@
+[2026-08-22 00:58:42,251][src.utils.utils][INFO] - [rank: 0] Enforcing tags! <cfg.extras.enforce_tags=True>
+[2026-08-22 00:58:42,255][__main__][INFO] - [rank: 0] Instantiating datamodule <src.data.bt_mri_datamodule.BTMRIDataModule>
+[2026-08-22 00:58:42,282][__main__][INFO] - [rank: 0] Instantiating analysis <src.analysis.gate_morphology.GateMorphologyAnalysis>
+[2026-08-22 00:58:42,296][__main__][INFO] - [rank: 0] Running analysis; artefacts will be written to /kaggle/working/thesis/logs/analyze/runs/step11_gate_morphology
+[2026-08-22 00:58:42,361][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step11_arm_ablation/arm6_spatial_gate/seed_42/checkpoints/epoch_029.ckpt
+[2026-08-22 00:58:42,638][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at /kaggle/working/thesis/data/splits/dataset_split.csv
+[2026-08-22 00:58:43,571][src.analysis.base][INFO] - [rank: 0] [step11_gate_morphology] wrote step11_gate_morphology.csv (120 rows)
+[2026-08-22 00:58:45,058][src.analysis.gate_morphology][INFO] - [rank: 0] Pooled Spearman correlation (proxy tumour area vs gate weight):
+[2026-08-22 00:58:45,058][src.analysis.gate_morphology][INFO] - [rank: 0]   3x3 (fine)           rho=-0.035 p=0.7061 (n=120)
+[2026-08-22 00:58:45,058][src.analysis.gate_morphology][INFO] - [rank: 0]   5x5 (medium)         rho=+0.223 p=0.0144 (n=120)
+[2026-08-22 00:58:45,058][src.analysis.gate_morphology][INFO] - [rank: 0]   dilated (broad)      rho=-0.161 p=0.0792 (n=120)
+[2026-08-22 00:58:45,064][src.analysis.base][INFO] - [rank: 0] [step11_gate_morphology] wrote step11_gate_morphology_summary.json
+[2026-08-22 00:58:45,065][src.utils.utils][INFO] - [rank: 0] Output dir: /kaggle/working/thesis/logs/analyze/runs/step11_gate_morphology

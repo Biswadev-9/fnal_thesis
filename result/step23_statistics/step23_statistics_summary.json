@@ -1,0 +1,815 @@
+{
+  "parameters": {
+    "alpha": 0.05,
+    "confidence_level": 0.95,
+    "n_resamples": 2000,
+    "random_seed": 42,
+    "paired_seed": 42,
+    "minimum_wilcoxon_pairs": 6,
+    "primary_metric": "macro_f1",
+    "correction": "holm-bonferroni",
+    "family_size": 4
+  },
+  "primary": [
+    {
+      "comparison": "H1",
+      "family": "primary",
+      "rq": "RQ2",
+      "question": "Does diffusion preprocessing beat the conventional Step 5 pipeline?",
+      "row_a": "A2",
+      "row_b": "A1",
+      "metric": "macro_f1",
+      "observed_delta": -0.0010469762971554442,
+      "ci_low": -0.00720922268113991,
+      "ci_high": 0.005302805049476444,
+      "confidence_level": 0.95,
+      "n_test_samples": 990,
+      "paired_seed": 42,
+      "effect_direction": "favours A1",
+      "per_class_recall_delta": {
+        "Glioma": 0.008230452674897082,
+        "Meningioma": -0.013043478260869601,
+        "Pituitary": 0.0,
+        "No-tumor": 0.0
+      },
+      "row_a_ci": {
+        "point_estimate": 0.9845085411557872,
+        "ci_lower": 0.9763118083410735,
+        "ci_upper": 0.9916883997961504,
+        "confidence": 95.0,
+        "n_resamples": 2000
+      },
+      "row_b_ci": {
+        "point_estimate": 0.9855555174529427,
+        "ci_lower": 0.977651348555392,
+        "ci_upper": 0.9925539265366391,
+        "confidence": 95.0,
+        "n_resamples": 2000
+      },
+      "seeds": {
+        "role": "descriptive",
+        "per_seed_delta": {
+          "42": -0.0010469762971554442,
+          "123": 0.0031460636797387975,
+          "7": -1.1991460683979938e-05
+        },
+        "delta_across_seeds": {
+          "n": 3,
+          "mean": 0.0006956986406331245,
+          "std": 0.002184265327652521,
+          "min": -0.0010469762971554442,
+          "max": 0.0031460636797387975
+        },
+        "missing_seeds": [],
+        "wilcoxon": {
+          "n_pairs": 3,
+          "statistic": null,
+          "p_value": null,
+          "note": "Only 3 training seeds - a two-sided Wilcoxon signed-rank test needs at least 6 pairs to reach p < 0.05 at any effect size (the floor here is 0.250). Reporting mean and standard deviation instead; use a paired bootstrap over samples for a powered test."
+        },
+        "note": "Seed spread is descriptive. A two-sided Wilcoxon needs at least 6 pairs to reach p < 0.05 at any effect size; the powered paired test here is the bootstrap over test samples."
+      },
+      "provenance": {
+        "source": "step21_ablation",
+        "row_a_predictions": "step21_predictions_A2_seed42.npz",
+        "row_b_predictions": "step21_predictions_A1_seed42.npz",
+        "ablation_dir": "logs/analyze/runs_swin/step21_ablation",
+        "note": "Predictions were produced by Step 21 from validation-selected checkpoints. No training metrics were read here."
+      },
+      "mcnemar": {
+        "both_correct": 971,
+        "only_a_correct": 4,
+        "only_b_correct": 5,
+        "both_wrong": 10,
+        "n_discordant": 9,
+        "statistic": 4.0,
+        "p_value": 1.0,
+        "test": "exact binomial",
+        "favours": "b"
+      },
+      "mcnemar_method": "exact binomial",
+      "mcnemar_p_value": 1.0,
+      "raw_p_value": 1.0,
+      "p_value_source": "mcnemar",
+      "adjusted_p_value": 1.0,
+      "significant": false,
+      "correction": "holm-bonferroni",
+      "family_size": 4,
+      "interpretation": "The p-value tests discordant errors (McNemar); the effect size and interval are macro-F1 from the paired bootstrap. They answer different questions and should be quoted together.",
+      "holm_rank": 4
+    },
+    {
+      "comparison": "H2",
+      "family": "primary",
+      "rq": "RQ4",
+      "question": "Does the adaptive quantum branch beat a fixed QCNN?",
+      "row_a": "A5",
+      "row_b": "A4",
+      "metric": "macro_f1",
+      "observed_delta": 0.45760011581208826,
+      "ci_low": 0.4323033446716935,
+      "ci_high": 0.48253970997939494,
+      "confidence_level": 0.95,
+      "n_test_samples": 990,
+      "paired_seed": 42,
+      "effect_direction": "favours A5",
+      "per_class_recall_delta": {
+        "Glioma": 0.8600823045267489,
+        "Meningioma": 0.4782608695652174,
+        "Pituitary": -0.019157088122605415,
+        "No-tumor": 0.2421875
+      },
+      "row_a_ci": {
+        "point_estimate": 0.9026512445900728,
+        "ci_lower": 0.8846688597599173,
+        "ci_upper": 0.9204437985876451,
+        "confidence": 95.0,
+        "n_resamples": 2000
+      },
+      "row_b_ci": {
+        "point_estimate": 0.4450511287779846,
+        "ci_lower": 0.4232237545552582,
+        "ci_upper": 0.4667108106751797,
+        "confidence": 95.0,
+        "n_resamples": 2000
+      },
+      "seeds": {
+        "role": "descriptive",
+        "per_seed_delta": {
+          "42": 0.45760011581208826,
+          "123": 0.5748165818848866,
+          "7": 0.5708238016297376
+        },
+        "delta_across_seeds": {
+          "n": 3,
+          "mean": 0.5344134997755708,
+          "std": 0.06655229177483316,
+          "min": 0.45760011581208826,
+          "max": 0.5748165818848866
+        },
+        "missing_seeds": [],
+        "wilcoxon": {
+          "n_pairs": 3,
+          "statistic": null,
+          "p_value": null,
+          "note": "Only 3 training seeds - a two-sided Wilcoxon signed-rank test needs at least 6 pairs to reach p < 0.05 at any effect size (the floor here is 0.250). Reporting mean and standard deviation instead; use a paired bootstrap over samples for a powered test."
+        },
+        "note": "Seed spread is descriptive. A two-sided Wilcoxon needs at least 6 pairs to reach p < 0.05 at any effect size; the powered paired test here is the bootstrap over test samples."
+      },
+      "provenance": {
+        "source": "step21_ablation",
+        "row_a_predictions": "step21_predictions_A5_seed42.npz",
+        "row_b_predictions": "step21_predictions_A4_seed42.npz",
+        "ablation_dir": "logs/analyze/runs_swin/step21_ablation",
+        "note": "Predictions were produced by Step 21 from validation-selected checkpoints. No training metrics were read here."
+      },
+      "mcnemar": {
+        "both_correct": 508,
+        "only_a_correct": 389,
+        "only_b_correct": 13,
+        "both_wrong": 80,
+        "n_discordant": 402,
+        "statistic": 349.8134328358209,
+        "p_value": 4.653366714365561e-78,
+        "test": "chi-square with continuity correction",
+        "favours": "a"
+      },
+      "mcnemar_method": "chi-square with continuity correction",
+      "mcnemar_p_value": 4.653366714365561e-78,
+      "raw_p_value": 4.653366714365561e-78,
+      "p_value_source": "mcnemar",
+      "adjusted_p_value": 1.8613466857462245e-77,
+      "significant": true,
+      "correction": "holm-bonferroni",
+      "family_size": 4,
+      "interpretation": "The p-value tests discordant errors (McNemar); the effect size and interval are macro-F1 from the paired bootstrap. They answer different questions and should be quoted together.",
+      "holm_rank": 1
+    },
+    {
+      "comparison": "H3",
+      "family": "primary",
+      "rq": "RQ6",
+      "question": "Does the imbalance-aware loss Step 14 selected help?",
+      "row_a": "A7",
+      "row_b": "A6",
+      "metric": "macro_f1",
+      "observed_delta": 0.004253724058357555,
+      "ci_low": -0.0011226508302922867,
+      "ci_high": 0.010274989349986021,
+      "confidence_level": 0.95,
+      "n_test_samples": 990,
+      "paired_seed": 42,
+      "effect_direction": "favours A7",
+      "per_class_recall_delta": {
+        "Glioma": 0.0,
+        "Meningioma": 0.021739130434782594,
+        "Pituitary": -0.003831417624521105,
+        "No-tumor": 0.0
+      },
+      "row_a_ci": {
+        "point_estimate": 0.9845251532779782,
+        "ci_lower": 0.9760248042659787,
+        "ci_upper": 0.9917853420869175,
+        "confidence": 95.0,
+        "n_resamples": 2000
+      },
+      "row_b_ci": {
+        "point_estimate": 0.9802714292196206,
+        "ci_lower": 0.9715091226457676,
+        "ci_upper": 0.9885618804996991,
+        "confidence": 95.0,
+        "n_resamples": 2000
+      },
+      "seeds": {
+        "role": "descriptive",
+        "per_seed_delta": {
+          "42": 0.004253724058357555,
+          "123": 0.0,
+          "7": -0.0010057759223223162
+        },
+        "delta_across_seeds": {
+          "n": 3,
+          "mean": 0.001082649378678413,
+          "std": 0.0027918958199684776,
+          "min": -0.0010057759223223162,
+          "max": 0.004253724058357555
+        },
+        "missing_seeds": [],
+        "wilcoxon": {
+          "n_pairs": 3,
+          "statistic": null,
+          "p_value": null,
+          "note": "Only 3 training seeds - a two-sided Wilcoxon signed-rank test needs at least 6 pairs to reach p < 0.05 at any effect size (the floor here is 0.250). Reporting mean and standard deviation instead; use a paired bootstrap over samples for a powered test."
+        },
+        "note": "Seed spread is descriptive. A two-sided Wilcoxon needs at least 6 pairs to reach p < 0.05 at any effect size; the powered paired test here is the bootstrap over test samples."
+      },
+      "provenance": {
+        "source": "step21_ablation",
+        "row_a_predictions": "step21_predictions_A7_seed42.npz",
+        "row_b_predictions": "step21_predictions_A6_seed42.npz",
+        "ablation_dir": "logs/analyze/runs_swin/step21_ablation",
+        "note": "Predictions were produced by Step 21 from validation-selected checkpoints. No training metrics were read here."
+      },
+      "mcnemar": {
+        "both_correct": 969,
+        "only_a_correct": 6,
+        "only_b_correct": 2,
+        "both_wrong": 13,
+        "n_discordant": 8,
+        "statistic": 2.0,
+        "p_value": 0.2890625,
+        "test": "exact binomial",
+        "favours": "a"
+      },
+      "mcnemar_method": "exact binomial",
+      "mcnemar_p_value": 0.2890625,
+      "raw_p_value": 0.2890625,
+      "p_value_source": "mcnemar",
+      "adjusted_p_value": 0.578125,
+      "significant": false,
+      "correction": "holm-bonferroni",
+      "family_size": 4,
+      "interpretation": "The p-value tests discordant errors (McNemar); the effect size and interval are macro-F1 from the paired bootstrap. They answer different questions and should be quoted together.",
+      "holm_rank": 3
+    },
+    {
+      "comparison": "H4",
+      "family": "primary",
+      "rq": "RQ8",
+      "question": "Does adding the quantum branch and fusion beat the multiscale branch alone?",
+      "row_a": "A6",
+      "row_b": "A3",
+      "metric": "macro_f1",
+      "observed_delta": 0.20746169426907057,
+      "ci_low": 0.1813481994032215,
+      "ci_high": 0.23574066836533727,
+      "confidence_level": 0.95,
+      "n_test_samples": 990,
+      "paired_seed": 42,
+      "effect_direction": "favours A6",
+      "per_class_recall_delta": {
+        "Glioma": 0.2222222222222222,
+        "Meningioma": 0.4173913043478261,
+        "Pituitary": 0.11111111111111116,
+        "No-tumor": 0.0703125
+      },
+      "row_a_ci": {
+        "point_estimate": 0.9802714292196206,
+        "ci_lower": 0.9715091226457676,
+        "ci_upper": 0.9885618804996991,
+        "confidence": 95.0,
+        "n_resamples": 2000
+      },
+      "row_b_ci": {
+        "point_estimate": 0.77280973495055,
+        "ci_lower": 0.74656032165763,
+        "ci_upper": 0.7971543229768229,
+        "confidence": 95.0,
+        "n_resamples": 2000
+      },
+      "seeds": {
+        "role": "descriptive",
+        "per_seed_delta": {
+          "42": 0.20746169426907057,
+          "123": 0.20398256996348008,
+          "7": 0.2322974370253179
+        },
+        "delta_across_seeds": {
+          "n": 3,
+          "mean": 0.2145805670859562,
+          "std": 0.015441557137142353,
+          "min": 0.20398256996348008,
+          "max": 0.2322974370253179
+        },
+        "missing_seeds": [],
+        "wilcoxon": {
+          "n_pairs": 3,
+          "statistic": null,
+          "p_value": null,
+          "note": "Only 3 training seeds - a two-sided Wilcoxon signed-rank test needs at least 6 pairs to reach p < 0.05 at any effect size (the floor here is 0.250). Reporting mean and standard deviation instead; use a paired bootstrap over samples for a powered test."
+        },
+        "note": "Seed spread is descriptive. A two-sided Wilcoxon needs at least 6 pairs to reach p < 0.05 at any effect size; the powered paired test here is the bootstrap over test samples."
+      },
+      "provenance": {
+        "source": "step21_ablation",
+        "row_a_predictions": "step21_predictions_A6_seed42.npz",
+        "row_b_predictions": "step21_predictions_A3_seed42.npz",
+        "ablation_dir": "logs/analyze/runs_swin/step21_ablation",
+        "note": "Predictions were produced by Step 21 from validation-selected checkpoints. No training metrics were read here."
+      },
+      "mcnemar": {
+        "both_correct": 765,
+        "only_a_correct": 206,
+        "only_b_correct": 9,
+        "both_wrong": 10,
+        "n_discordant": 215,
+        "statistic": 178.67906976744186,
+        "p_value": 9.415398909010774e-41,
+        "test": "chi-square with continuity correction",
+        "favours": "a"
+      },
+      "mcnemar_method": "chi-square with continuity correction",
+      "mcnemar_p_value": 9.415398909010774e-41,
+      "raw_p_value": 9.415398909010774e-41,
+      "p_value_source": "mcnemar",
+      "adjusted_p_value": 2.8246196727032323e-40,
+      "significant": true,
+      "correction": "holm-bonferroni",
+      "family_size": 4,
+      "interpretation": "The p-value tests discordant errors (McNemar); the effect size and interval are macro-F1 from the paired bootstrap. They answer different questions and should be quoted together.",
+      "holm_rank": 2
+    }
+  ],
+  "secondary": [
+    {
+      "comparison": "A1_vs_A0",
+      "family": "secondary",
+      "rq": null,
+      "question": null,
+      "row_a": "A1",
+      "row_b": "A0",
+      "metric": "macro_f1",
+      "observed_delta": 0.006154486981292506,
+      "ci_low": -0.0010650790615929495,
+      "ci_high": 0.013802051393953942,
+      "confidence_level": 0.95,
+      "n_test_samples": 990,
+      "paired_seed": 42,
+      "effect_direction": "favours A1",
+      "per_class_recall_delta": {
+        "Glioma": 0.0,
+        "Meningioma": 0.004347826086956608,
+        "Pituitary": 0.00766283524904221,
+        "No-tumor": 0.01171875
+      },
+      "row_a_ci": {
+        "point_estimate": 0.9855555174529427,
+        "ci_lower": 0.977651348555392,
+        "ci_upper": 0.9925539265366391,
+        "confidence": 95.0,
+        "n_resamples": 2000
+      },
+      "row_b_ci": {
+        "point_estimate": 0.9794010304716502,
+        "ci_lower": 0.9699048472015489,
+        "ci_upper": 0.9883254950249387,
+        "confidence": 95.0,
+        "n_resamples": 2000
+      },
+      "seeds": {
+        "role": "descriptive",
+        "per_seed_delta": {
+          "42": 0.006154486981292506,
+          "123": 0.00405345974570015,
+          "7": -0.001001176998452924
+        },
+        "delta_across_seeds": {
+          "n": 3,
+          "mean": 0.0030689232428465774,
+          "std": 0.0036780247201242283,
+          "min": -0.001001176998452924,
+          "max": 0.006154486981292506
+        },
+        "missing_seeds": [],
+        "wilcoxon": {
+          "n_pairs": 3,
+          "statistic": null,
+          "p_value": null,
+          "note": "Only 3 training seeds - a two-sided Wilcoxon signed-rank test needs at least 6 pairs to reach p < 0.05 at any effect size (the floor here is 0.250). Reporting mean and standard deviation instead; use a paired bootstrap over samples for a powered test."
+        },
+        "note": "Seed spread is descriptive. A two-sided Wilcoxon needs at least 6 pairs to reach p < 0.05 at any effect size; the powered paired test here is the bootstrap over test samples."
+      },
+      "provenance": {
+        "source": "step21_ablation",
+        "row_a_predictions": "step21_predictions_A1_seed42.npz",
+        "row_b_predictions": "step21_predictions_A0_seed42.npz",
+        "ablation_dir": "logs/analyze/runs_swin/step21_ablation",
+        "note": "Predictions were produced by Step 21 from validation-selected checkpoints. No training metrics were read here."
+      },
+      "mcnemar": null,
+      "mcnemar_method": null,
+      "mcnemar_p_value": null,
+      "raw_p_value": null,
+      "p_value_source": null,
+      "adjusted_p_value": null,
+      "significant": null,
+      "correction": null,
+      "note": "Intensity treatment alone. Descriptive: not a pre-registered hypothesis."
+    },
+    {
+      "comparison": "A3_vs_A2",
+      "family": "secondary",
+      "rq": null,
+      "question": null,
+      "row_a": "A3",
+      "row_b": "A2",
+      "metric": "macro_f1",
+      "observed_delta": -0.21169880620523718,
+      "ci_low": -0.2390944510019601,
+      "ci_high": -0.18680506305622055,
+      "confidence_level": 0.95,
+      "n_test_samples": 990,
+      "paired_seed": 42,
+      "effect_direction": "favours A2",
+      "per_class_recall_delta": {
+        "Glioma": -0.2222222222222222,
+        "Meningioma": -0.4391304347826087,
+        "Pituitary": -0.10727969348659006,
+        "No-tumor": -0.0703125
+      },
+      "row_a_ci": {
+        "point_estimate": 0.77280973495055,
+        "ci_lower": 0.74656032165763,
+        "ci_upper": 0.7971543229768229,
+        "confidence": 95.0,
+        "n_resamples": 2000
+      },
+      "row_b_ci": {
+        "point_estimate": 0.9845085411557872,
+        "ci_lower": 0.9763118083410735,
+        "ci_upper": 0.9916883997961504,
+        "confidence": 95.0,
+        "n_resamples": 2000
+      },
+      "seeds": {
+        "role": "descriptive",
+        "per_seed_delta": {
+          "42": -0.21169880620523718,
+          "123": -0.20816893336255193,
+          "7": -0.23753393199167738
+        },
+        "delta_across_seeds": {
+          "n": 3,
+          "mean": -0.21913389051982216,
+          "std": 0.01603234683993194,
+          "min": -0.23753393199167738,
+          "max": -0.20816893336255193
+        },
+        "missing_seeds": [],
+        "wilcoxon": {
+          "n_pairs": 3,
+          "statistic": null,
+          "p_value": null,
+          "note": "Only 3 training seeds - a two-sided Wilcoxon signed-rank test needs at least 6 pairs to reach p < 0.05 at any effect size (the floor here is 0.250). Reporting mean and standard deviation instead; use a paired bootstrap over samples for a powered test."
+        },
+        "note": "Seed spread is descriptive. A two-sided Wilcoxon needs at least 6 pairs to reach p < 0.05 at any effect size; the powered paired test here is the bootstrap over test samples."
+      },
+      "provenance": {
+        "source": "step21_ablation",
+        "row_a_predictions": "step21_predictions_A3_seed42.npz",
+        "row_b_predictions": "step21_predictions_A2_seed42.npz",
+        "ablation_dir": "logs/analyze/runs_swin/step21_ablation",
+        "note": "Predictions were produced by Step 21 from validation-selected checkpoints. No training metrics were read here."
+      },
+      "mcnemar": null,
+      "mcnemar_method": null,
+      "mcnemar_p_value": null,
+      "raw_p_value": null,
+      "p_value_source": null,
+      "adjusted_p_value": null,
+      "significant": null,
+      "correction": null,
+      "note": "Adaptive multiscale against the CNN. Confounded - the backbone changes as well as the module - so descriptive only."
+    },
+    {
+      "comparison": "A7_vs_P",
+      "family": "secondary",
+      "rq": null,
+      "question": null,
+      "row_a": "A7",
+      "row_b": "P",
+      "metric": "macro_f1",
+      "observed_delta": 0.002145274924709395,
+      "ci_low": null,
+      "ci_high": null,
+      "confidence_level": 0.95,
+      "n_test_samples": null,
+      "paired_seed": 42,
+      "effect_direction": "favours A7",
+      "per_class_recall_delta": {},
+      "row_a_ci": null,
+      "row_b_ci": null,
+      "seeds": {
+        "role": "descriptive",
+        "per_seed_delta": {},
+        "delta_across_seeds": {
+          "n": 0,
+          "mean": null,
+          "std": null
+        },
+        "missing_seeds": [],
+        "wilcoxon": {
+          "n_pairs": 0,
+          "statistic": null,
+          "p_value": null,
+          "note": "No paired predictions were available."
+        },
+        "note": "Metrics-only comparison; no seed-level pairing is possible."
+      },
+      "mcnemar": null,
+      "mcnemar_method": null,
+      "mcnemar_p_value": null,
+      "raw_p_value": null,
+      "p_value_source": null,
+      "adjusted_p_value": null,
+      "significant": null,
+      "correction": null,
+      "estimation": "metrics-only",
+      "note": "End-to-end preprocessing comparison: A7 is diffusion, P is what Step 6 selected. P is single-seed, so this carries no seed-level claim and is reported descriptively. No prediction file exists for row P: Step 21 reports it from Step 16's summary rather than re-evaluating it. The delta is a difference of point estimates and no interval is reported. Set analysis.step16_predictions to Step 16's test_predictions.npz to obtain a paired descriptive interval without any new evaluation.",
+      "provenance": {
+        "source": "step21_ablation",
+        "row_a_predictions": "step21_predictions_A7_seed42.npz",
+        "row_b_predictions": "step21_ablation_summary.json::rows.P",
+        "ablation_dir": "logs/analyze/runs_swin/step21_ablation",
+        "note": "Row A from Step 21's saved predictions; row B from Step 21's summary, which carries Step 16's reused metrics. Nothing was retrained."
+      }
+    }
+  ],
+  "rows": {
+    "A0": {
+      "row_id": "A0",
+      "n_seeds": 3,
+      "missing_seeds": [],
+      "single_seed": false,
+      "seed_spread": {
+        "n": 3,
+        "mean": 0.9814385995288015,
+        "std": 0.0035732582520175207,
+        "min": 0.979350229605372,
+        "max": 0.9855645385093824
+      },
+      "provenance": {
+        "source": "step21_ablation",
+        "per_seed": {
+          "42": "computed by step21 from the validation-selected checkpoint",
+          "123": "computed by step21 from the validation-selected checkpoint",
+          "7": "computed by step21 from the validation-selected checkpoint"
+        }
+      },
+      "excluded_from_testing": false,
+      "note": ""
+    },
+    "A1": {
+      "row_id": "A1",
+      "n_seeds": 3,
+      "missing_seeds": [],
+      "single_seed": false,
+      "seed_spread": {
+        "n": 3,
+        "mean": 0.984507522771648,
+        "std": 0.0010770002407628969,
+        "min": 0.9834036893510721,
+        "max": 0.9855555174529427
+      },
+      "provenance": {
+        "source": "step21_ablation",
+        "per_seed": {
+          "42": "computed by step21 from the validation-selected checkpoint",
+          "123": "computed by step21 from the validation-selected checkpoint",
+          "7": "computed by step21 from the validation-selected checkpoint"
+        }
+      },
+      "excluded_from_testing": false,
+      "note": ""
+    },
+    "A2": {
+      "row_id": "A2",
+      "n_seeds": 3,
+      "missing_seeds": [],
+      "single_seed": false,
+      "seed_spread": {
+        "n": 3,
+        "mean": 0.9852032214122812,
+        "std": 0.0011663271960840635,
+        "min": 0.9845085411557872,
+        "max": 0.9865497530308109
+      },
+      "provenance": {
+        "source": "step21_ablation",
+        "per_seed": {
+          "42": "computed by step21 from the validation-selected checkpoint",
+          "123": "computed by step21 from the validation-selected checkpoint",
+          "7": "computed by step21 from the validation-selected checkpoint"
+        }
+      },
+      "excluded_from_testing": false,
+      "note": ""
+    },
+    "A3": {
+      "row_id": "A3",
+      "n_seeds": 3,
+      "missing_seeds": [],
+      "single_seed": false,
+      "seed_spread": {
+        "n": 3,
+        "mean": 0.7660693308924591,
+        "std": 0.016732908045182137,
+        "min": 0.7470174380585681,
+        "max": 0.778380819668259
+      },
+      "provenance": {
+        "source": "step21_ablation",
+        "per_seed": {
+          "42": "computed by step21 from the validation-selected checkpoint",
+          "123": "computed by step21 from the validation-selected checkpoint",
+          "7": "computed by step21 from the validation-selected checkpoint"
+        }
+      },
+      "excluded_from_testing": false,
+      "note": ""
+    },
+    "A4": {
+      "row_id": "A4",
+      "n_seeds": 3,
+      "missing_seeds": [],
+      "single_seed": false,
+      "seed_spread": {
+        "n": 3,
+        "mean": 0.3714024616953058,
+        "std": 0.0645446452387263,
+        "min": 0.3246828461114175,
+        "max": 0.4450511287779846
+      },
+      "provenance": {
+        "source": "step21_ablation",
+        "per_seed": {
+          "42": "computed by step21 from the validation-selected checkpoint",
+          "123": "computed by step21 from the validation-selected checkpoint",
+          "7": "computed by step21 from the validation-selected checkpoint"
+        }
+      },
+      "excluded_from_testing": false,
+      "note": ""
+    },
+    "A5": {
+      "row_id": "A5",
+      "n_seeds": 3,
+      "missing_seeds": [],
+      "single_seed": false,
+      "seed_spread": {
+        "n": 3,
+        "mean": 0.9058159614708766,
+        "std": 0.008360865277360892,
+        "min": 0.8994994279963041,
+        "max": 0.9152972118262527
+      },
+      "provenance": {
+        "source": "step21_ablation",
+        "per_seed": {
+          "42": "computed by step21 from the validation-selected checkpoint",
+          "123": "computed by step21 from the validation-selected checkpoint",
+          "7": "computed by step21 from the validation-selected checkpoint"
+        }
+      },
+      "excluded_from_testing": false,
+      "note": ""
+    },
+    "A6": {
+      "row_id": "A6",
+      "n_seeds": 3,
+      "missing_seeds": [],
+      "single_seed": false,
+      "seed_spread": {
+        "n": 3,
+        "mean": 0.9806498979784152,
+        "std": 0.0015590988384818862,
+        "min": 0.979314875083886,
+        "max": 0.9823633896317391
+      },
+      "provenance": {
+        "source": "step21_ablation",
+        "per_seed": {
+          "42": "computed by step21 from the validation-selected checkpoint",
+          "123": "computed by step21 from the validation-selected checkpoint",
+          "7": "computed by step21 from the validation-selected checkpoint"
+        }
+      },
+      "excluded_from_testing": false,
+      "note": ""
+    },
+    "A7": {
+      "row_id": "A7",
+      "n_seeds": 3,
+      "missing_seeds": [],
+      "single_seed": false,
+      "seed_spread": {
+        "n": 3,
+        "mean": 0.9817325473570936,
+        "std": 0.0031556780057791296,
+        "min": 0.9783090991615637,
+        "max": 0.9845251532779782
+      },
+      "provenance": {
+        "source": "step21_ablation",
+        "per_seed": {
+          "42": "computed by step21 from the validation-selected checkpoint",
+          "123": "computed by step21 from the validation-selected checkpoint",
+          "7": "computed by step21 from the validation-selected checkpoint"
+        }
+      },
+      "excluded_from_testing": false,
+      "note": ""
+    },
+    "A8": {
+      "row_id": "A8",
+      "n_seeds": 3,
+      "missing_seeds": [],
+      "single_seed": false,
+      "seed_spread": {
+        "n": 3,
+        "mean": 0.9817325473570936,
+        "std": 0.0031556780057791296,
+        "min": 0.9783090991615637,
+        "max": 0.9845251532779782
+      },
+      "provenance": {
+        "source": "step21_ablation",
+        "per_seed": {
+          "42": "identical to A7 by construction; explanations change no weights",
+          "123": "identical to A7 by construction; explanations change no weights",
+          "7": "identical to A7 by construction; explanations change no weights"
+        }
+      },
+      "excluded_from_testing": true,
+      "note": "Metrics are A7's by construction - explanations change no weights - so no classification comparison is meaningful. Its statistical contribution is the explainability and uncertainty output of Step 19.",
+      "mirrors": "A7"
+    },
+    "P": {
+      "row_id": "P",
+      "n_seeds": 1,
+      "missing_seeds": [
+        123,
+        7
+      ],
+      "single_seed": true,
+      "seed_spread": null,
+      "provenance": {
+        "source": "step21_ablation",
+        "per_seed": {
+          "42": "reused from Step 16 (logs/analyze/runs/step16_internal_swin/seed_42/step16_internal_summary.json)"
+        }
+      },
+      "excluded_from_testing": true,
+      "note": "Single-seed: Step 16 evaluated one checkpoint by design. Its spread is not estimable and is not directly comparable with a three-seed row's, so comparisons involving it are descriptive."
+    }
+  },
+  "integrity": {
+    "complete": true,
+    "incomplete_comparisons": {},
+    "single_seed_rows": [
+      "P"
+    ],
+    "rows_excluded_from_testing": [
+      "A8",
+      "P"
+    ]
+  },
+  "notes": {
+    "family": "Four pre-registered primary comparisons form one Holm-corrected family at alpha=0.05. Everything else is descriptive and carries no significance claim; treating those as hypotheses would invalidate the correction.",
+    "p_values": "Every primary comparison reports both a raw and a Holm-adjusted p-value, and the verdict uses the adjusted one. The p-value is McNemar's, over discordant errors; the effect size and interval are macro-F1.",
+    "seeds": "Three seeds describe variability and do not test it. The powered paired test is the bootstrap over test samples.",
+    "row_p": "Row P is single-seed by Step 16's design. No variance is imputed for it, and A7-vs-P is descriptive.",
+    "row_a8": "Row A8's classification metrics are A7's by construction and it receives no performance test. Its statistical contribution is Step 19's explainability and uncertainty output.",
+    "data": "Every number here derives from predictions Step 21 saved from validation-selected checkpoints. No training metrics.csv was read, no model was retrained, and no checkpoint or split was touched."
+  }
+}

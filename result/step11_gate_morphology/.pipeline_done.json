@@ -1,0 +1,18 @@
+{
+  "stage": "step11_gate_morphology",
+  "status": "done",
+  "returncode": 0,
+  "seconds": 14.1,
+  "out_dir": "/kaggle/working/thesis/logs/analyze/runs/step11_gate_morphology",
+  "overrides": [
+    "analysis=step11_gate_morphology",
+    "model=branch_multiscale",
+    "model.net.arm=arm6_spatial_gate",
+    "analysis.ckpt_path=/kaggle/working/thesis/logs/train/runs/step11_arm_ablation/arm6_spatial_gate/seed_42",
+    "data.num_workers=0",
+    "data.pin_memory=true"
+  ],
+  "profile": "full",
+  "protocol_intact": true,
+  "finished": "2026-08-22T00:58:47+00:00"
+}

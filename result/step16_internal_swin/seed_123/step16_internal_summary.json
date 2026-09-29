@@ -1,0 +1,121 @@
+{
+  "checkpoint": "logs/train/runs/step15_final_swin/seed_123",
+  "n_test_samples": 990,
+  "overall": {
+    "accuracy": 0.9808080808080808,
+    "balanced_accuracy": 0.9803688758919151,
+    "macro_precision": 0.9801247954173486,
+    "macro_recall_sensitivity": 0.9803688758919151,
+    "macro_f1": 0.9802077708621959,
+    "weighted_f1": 0.980847512182281,
+    "macro_specificity": 0.993687675762613,
+    "mcc": 0.9744177616833287,
+    "auc_ovr_macro": 0.9990329836723495
+  },
+  "per_class": [
+    {
+      "class_name": "Glioma",
+      "precision": 0.975,
+      "recall_sensitivity": 0.9629629629629629,
+      "f1": 0.968944099378882,
+      "specificity": 0.9919678714859438,
+      "support": 243
+    },
+    {
+      "class_name": "Meningioma",
+      "precision": 0.9531914893617022,
+      "recall_sensitivity": 0.9739130434782609,
+      "f1": 0.9634408602150538,
+      "specificity": 0.9855263157894737,
+      "support": 230
+    },
+    {
+      "class_name": "Pituitary",
+      "precision": 0.9923076923076923,
+      "recall_sensitivity": 0.9885057471264368,
+      "f1": 0.9904030710172744,
+      "specificity": 0.9972565157750343,
+      "support": 261
+    },
+    {
+      "class_name": "No-tumor",
+      "precision": 1.0,
+      "recall_sensitivity": 0.99609375,
+      "f1": 0.9980430528375733,
+      "specificity": 1.0,
+      "support": 256
+    }
+  ],
+  "confusion": {
+    "matrix": [
+      [
+        234,
+        9,
+        0,
+        0
+      ],
+      [
+        5,
+        224,
+        1,
+        0
+      ],
+      [
+        1,
+        2,
+        258,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        255
+      ]
+    ],
+    "class_names": [
+      "Glioma",
+      "Meningioma",
+      "Pituitary",
+      "No-tumor"
+    ],
+    "top_confusions": [
+      {
+        "true": "Glioma",
+        "predicted": "Meningioma",
+        "count": 9
+      },
+      {
+        "true": "Meningioma",
+        "predicted": "Glioma",
+        "count": 5
+      },
+      {
+        "true": "Pituitary",
+        "predicted": "Meningioma",
+        "count": 2
+      },
+      {
+        "true": "Meningioma",
+        "predicted": "Pituitary",
+        "count": 1
+      },
+      {
+        "true": "Pituitary",
+        "predicted": "Glioma",
+        "count": 1
+      },
+      {
+        "true": "No-tumor",
+        "predicted": "Pituitary",
+        "count": 1
+      }
+    ]
+  },
+  "calibration": {
+    "expected_calibration_error": 0.07571241705104555,
+    "brier_score": 0.040329855370324796,
+    "confidently_wrong_over_0.99": 0
+  },
+  "forced_reevaluation": false
+}

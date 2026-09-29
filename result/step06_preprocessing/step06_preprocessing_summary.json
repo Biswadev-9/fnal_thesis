@@ -1,0 +1,88 @@
+{
+  "selected_recipe": "diffusion_i5_k15",
+  "selected_macro_f1": 0.6148382838080448,
+  "selected_balanced_accuracy": 0.63,
+  "selected_edge_preservation": 0.9368893200183559,
+  "conventional_macro_f1": 0.5472995571679782,
+  "improvement_over_conventional": 0.06753872664006666,
+  "n_candidates": 13,
+  "selection_metric": "validation macro-F1 (proxy model)",
+  "protocol": {
+    "epochs": 5,
+    "image_size": 128,
+    "per_class_train": 200,
+    "per_class_val": 75,
+    "lr": 0.001,
+    "seed": 42,
+    "model": "SmallCNN proxy"
+  },
+  "ranking": [
+    {
+      "recipe": "diffusion_i5_k15",
+      "macro_f1": 0.6148382838080448,
+      "edge_preservation": 0.9368893200183559
+    },
+    {
+      "recipe": "diffusion_i20_k15",
+      "macro_f1": 0.6070517018352333,
+      "edge_preservation": 0.8222974128317453
+    },
+    {
+      "recipe": "diffusion_i15_k15",
+      "macro_f1": 0.6029112398839802,
+      "edge_preservation": 0.8475061888051997
+    },
+    {
+      "recipe": "diffusion_i10_k15",
+      "macro_f1": 0.6025457875457876,
+      "edge_preservation": 0.8832646773759736
+    },
+    {
+      "recipe": "diffusion_i10_k30",
+      "macro_f1": 0.5942643123672324,
+      "edge_preservation": 0.7431507721123685
+    },
+    {
+      "recipe": "diffusion_i15_k30",
+      "macro_f1": 0.5912095166344783,
+      "edge_preservation": 0.6762755609541666
+    },
+    {
+      "recipe": "diffusion_i5_k30",
+      "macro_f1": 0.5893554555565337,
+      "edge_preservation": 0.8547208067928077
+    },
+    {
+      "recipe": "clahe",
+      "macro_f1": 0.5809275525726266,
+      "edge_preservation": 0.942056596090541
+    },
+    {
+      "recipe": "wiener",
+      "macro_f1": 0.5801367714411193,
+      "edge_preservation": 0.9076979733489272
+    },
+    {
+      "recipe": "diffusion_i20_k30",
+      "macro_f1": 0.5562330623306233,
+      "edge_preservation": 0.6330740688038456
+    },
+    {
+      "recipe": "conventional",
+      "macro_f1": 0.5472995571679782,
+      "edge_preservation": 1.0
+    },
+    {
+      "recipe": "log",
+      "macro_f1": 0.4634743043189087,
+      "edge_preservation": 0.6458113368331879
+    },
+    {
+      "recipe": "gamma",
+      "macro_f1": 0.3761024495254248,
+      "edge_preservation": 0.8392940626657278
+    }
+  ],
+  "next_step": "python src/prepare_dataset.py recipe=diffusion_i5_k15  # materialise, then train with data.recipe=<same>",
+  "caveat": "Ranking comes from a reduced-scale proxy (SmallCNN, 128px, 200 images/class). Confirm the top candidates with the real backbone on the full validation split before committing - see docs/DEVIATIONS.md (F5)."
+}

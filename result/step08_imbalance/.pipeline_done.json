@@ -1,0 +1,15 @@
+{
+  "stage": "step08_imbalance",
+  "status": "done",
+  "returncode": 0,
+  "seconds": 133.5,
+  "out_dir": "/kaggle/working/thesis/logs/analyze/runs/step08_imbalance",
+  "overrides": [
+    "analysis=step08_imbalance",
+    "data.num_workers=0",
+    "data.pin_memory=true"
+  ],
+  "profile": "full",
+  "protocol_intact": true,
+  "finished": "2026-08-19T05:41:18+00:00"
+}

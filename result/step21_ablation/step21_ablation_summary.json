@@ -1,0 +1,4727 @@
+{
+  "context": {
+    "diffusion_recipe": "diffusion_i5_k15",
+    "selected_recipe": "diffusion_i5_k15",
+    "step14_loss": "focal"
+  },
+  "seeds": [
+    42,
+    123,
+    7
+  ],
+  "primary_metrics": [
+    "macro_f1",
+    "per_class_recall"
+  ],
+  "rows": {
+    "A0": {
+      "row_id": "A0",
+      "label": "Raw image + baseline CNN",
+      "recipe": "raw",
+      "loss": "plain_ce",
+      "model": "branch_classical",
+      "feature_tag": null,
+      "trains": true,
+      "rqs": [
+        "RQ2",
+        "RQ10"
+      ],
+      "note": "Floor condition: resize and ToTensor only.",
+      "per_seed": {
+        "42": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.9797979797979798,
+            "balanced_accuracy": 0.9798131557292341,
+            "macro_precision": 0.979332173066422,
+            "macro_recall_sensitivity": 0.9798131557292341,
+            "macro_f1": 0.9794010304716502,
+            "weighted_f1": 0.979909919668759,
+            "macro_specificity": 0.9933725137732677,
+            "mcc": 0.9731592950579948,
+            "auc_ovr_macro": 0.9993213869998658
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.9832635983263598,
+              "recall_sensitivity": 0.9670781893004116,
+              "f1": 0.975103734439834,
+              "specificity": 0.9946452476572959,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.941908713692946,
+              "recall_sensitivity": 0.9869565217391304,
+              "f1": 0.9639065817409767,
+              "specificity": 0.9815789473684211,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.9961089494163424,
+              "recall_sensitivity": 0.9808429118773946,
+              "f1": 0.9884169884169884,
+              "specificity": 0.9986282578875172,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.9960474308300395,
+              "recall_sensitivity": 0.984375,
+              "f1": 0.9901768172888016,
+              "specificity": 0.9986376021798365,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                235,
+                8,
+                0,
+                0
+              ],
+              [
+                3,
+                227,
+                0,
+                0
+              ],
+              [
+                1,
+                3,
+                256,
+                1
+              ],
+              [
+                0,
+                3,
+                1,
+                252
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 8
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 3
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 3
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Meningioma",
+                "count": 3
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Glioma",
+                "count": 1
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "No-tumor",
+                "count": 1
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.011651338862650337,
+            "brier_score": 0.03110516216271529,
+            "confidently_wrong_over_0.99": 6
+          },
+          "checkpoint": "logs/train/runs/step21_ablation_swin/A0/seed_42/checkpoints/epoch_014.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step21 from the validation-selected checkpoint"
+        },
+        "123": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.9797979797979798,
+            "balanced_accuracy": 0.979521415507524,
+            "macro_precision": 0.9793654054084896,
+            "macro_recall_sensitivity": 0.979521415507524,
+            "macro_f1": 0.979350229605372,
+            "weighted_f1": 0.9798479531038711,
+            "macro_specificity": 0.9933362739471666,
+            "mcc": 0.9731034469368554,
+            "auc_ovr_macro": 0.9989912746314034
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.9873417721518988,
+              "recall_sensitivity": 0.9629629629629629,
+              "f1": 0.975,
+              "specificity": 0.9959839357429718,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.9493670886075949,
+              "recall_sensitivity": 0.9782608695652174,
+              "f1": 0.9635974304068522,
+              "specificity": 0.9842105263157894,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.9846743295019157,
+              "recall_sensitivity": 0.9846743295019157,
+              "f1": 0.9846743295019157,
+              "specificity": 0.9945130315500685,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.996078431372549,
+              "recall_sensitivity": 0.9921875,
+              "f1": 0.9941291585127201,
+              "specificity": 0.9986376021798365,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                234,
+                9,
+                0,
+                0
+              ],
+              [
+                2,
+                225,
+                3,
+                0
+              ],
+              [
+                1,
+                2,
+                257,
+                1
+              ],
+              [
+                0,
+                1,
+                1,
+                254
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 9
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 3
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 2
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 2
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Glioma",
+                "count": 1
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "No-tumor",
+                "count": 1
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.01151753898822902,
+            "brier_score": 0.03178557122349058,
+            "confidently_wrong_over_0.99": 4
+          },
+          "checkpoint": "logs/train/runs/step21_ablation_swin/A0/seed_123/checkpoints/epoch_010.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step21 from the validation-selected checkpoint"
+        },
+        "7": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.9858585858585859,
+            "balanced_accuracy": 0.9857336968572041,
+            "macro_precision": 0.9854772798998223,
+            "macro_recall_sensitivity": 0.9857336968572041,
+            "macro_f1": 0.9855645385093824,
+            "weighted_f1": 0.9859077322368316,
+            "macro_specificity": 0.9953413230570104,
+            "mcc": 0.9811579215103094,
+            "auc_ovr_macro": 0.9992579442362102
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.991701244813278,
+              "recall_sensitivity": 0.9835390946502057,
+              "f1": 0.987603305785124,
+              "specificity": 0.9973226238286479,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.9617021276595744,
+              "recall_sensitivity": 0.9826086956521739,
+              "f1": 0.9720430107526882,
+              "specificity": 0.9881578947368421,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.9885057471264368,
+              "recall_sensitivity": 0.9885057471264368,
+              "f1": 0.9885057471264368,
+              "specificity": 0.9958847736625515,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 1.0,
+              "recall_sensitivity": 0.98828125,
+              "f1": 0.9941060903732809,
+              "specificity": 1.0,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                239,
+                4,
+                0,
+                0
+              ],
+              [
+                2,
+                226,
+                2,
+                0
+              ],
+              [
+                0,
+                3,
+                258,
+                0
+              ],
+              [
+                0,
+                2,
+                1,
+                253
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 4
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 3
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 2
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 2
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Meningioma",
+                "count": 2
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Pituitary",
+                "count": 1
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.012431513901912801,
+            "brier_score": 0.026286087959851726,
+            "confidently_wrong_over_0.99": 6
+          },
+          "checkpoint": "logs/train/runs/step21_ablation_swin/A0/seed_7/checkpoints/epoch_019.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step21 from the validation-selected checkpoint"
+        }
+      },
+      "across_seeds": {
+        "macro_f1": {
+          "mean": 0.9814385995288015,
+          "std": 0.0035732582520175207,
+          "ci_low": 0.9773950771659763,
+          "ci_high": 0.9854821218916268,
+          "n": 3
+        },
+        "balanced_accuracy": {
+          "mean": 0.9816894226979874,
+          "std": 0.003505480451439129,
+          "ci_low": 0.9777225981367238,
+          "ci_high": 0.985656247259251,
+          "n": 3
+        },
+        "accuracy": {
+          "mean": 0.9818181818181818,
+          "std": 0.003499092540543209,
+          "ci_low": 0.9778585858585859,
+          "ci_high": 0.9857777777777778,
+          "n": 3
+        },
+        "macro_precision": {
+          "mean": 0.9813916194582446,
+          "std": 0.0035383247490930235,
+          "ci_low": 0.9773876280753611,
+          "ci_high": 0.9853956108411281,
+          "n": 3
+        },
+        "macro_recall_sensitivity": {
+          "mean": 0.9816894226979874,
+          "std": 0.003505480451439129,
+          "ci_low": 0.9777225981367238,
+          "ci_high": 0.985656247259251,
+          "n": 3
+        },
+        "weighted_f1": {
+          "mean": 0.9818885350031539,
+          "std": 0.0034808648014815176,
+          "ci_low": 0.9779495656720637,
+          "ci_high": 0.985827504334244,
+          "n": 3
+        },
+        "macro_specificity": {
+          "mean": 0.9940167035924815,
+          "std": 0.0011472972045661965,
+          "ci_low": 0.9927184145866838,
+          "ci_high": 0.9953149925982793,
+          "n": 3
+        },
+        "mcc": {
+          "mean": 0.9758068878350533,
+          "std": 0.004634215230052815,
+          "ci_low": 0.9705627796303682,
+          "ci_high": 0.9810509960397384,
+          "n": 3
+        },
+        "auc_ovr_macro": {
+          "mean": 0.9991902019558264,
+          "std": 0.00017517221916350199,
+          "ci_low": 0.9989919759291648,
+          "ci_high": 0.9993884279824881,
+          "n": 3
+        },
+        "expected_calibration_error": {
+          "mean": 0.011866797250930719,
+          "std": 0.0004936134859595144,
+          "ci_low": 0.011308221008101783,
+          "ci_high": 0.012425373493759655,
+          "n": 3
+        },
+        "brier_score": {
+          "mean": 0.02972560711535253,
+          "std": 0.0029980757392515972,
+          "ci_low": 0.02633296503854125,
+          "ci_high": 0.03311824919216381,
+          "n": 3
+        },
+        "per_class_recall": {
+          "Glioma": {
+            "mean": 0.9711934156378601,
+            "std": 0.010887865477632052,
+            "ci_low": 0.958872635991614,
+            "ci_high": 0.9835141952841062,
+            "n": 3
+          },
+          "Meningioma": {
+            "mean": 0.9826086956521739,
+            "std": 0.004347826086956497,
+            "ci_low": 0.9776886672712537,
+            "ci_high": 0.9875287240330941,
+            "n": 3
+          },
+          "Pituitary": {
+            "mean": 0.9846743295019157,
+            "std": 0.003831417624521105,
+            "ci_low": 0.9803386723080012,
+            "ci_high": 0.9890099866958302,
+            "n": 3
+          },
+          "No-tumor": {
+            "mean": 0.98828125,
+            "std": 0.00390625,
+            "ci_low": 0.9838609120015169,
+            "ci_high": 0.9927015879984831,
+            "n": 3
+          }
+        }
+      },
+      "missing_seeds": [],
+      "evaluated": true
+    },
+    "A1": {
+      "row_id": "A1",
+      "label": "Conventional preprocessing + CNN",
+      "recipe": "conventional",
+      "loss": "plain_ce",
+      "model": "branch_classical",
+      "feature_tag": null,
+      "trains": true,
+      "rqs": [
+        "RQ2",
+        "RQ10"
+      ],
+      "note": "Adds the Step 5 intensity treatment and nothing else.",
+      "per_seed": {
+        "42": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.9858585858585859,
+            "balanced_accuracy": 0.9857455085632338,
+            "macro_precision": 0.9856456726009369,
+            "macro_recall_sensitivity": 0.9857455085632338,
+            "macro_f1": 0.9855555174529427,
+            "weighted_f1": 0.985894564137242,
+            "macro_specificity": 0.9953411202763865,
+            "mcc": 0.9812180253993279,
+            "auc_ovr_macro": 0.9995576616974868
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 1.0,
+              "recall_sensitivity": 0.9670781893004116,
+              "f1": 0.9832635983263598,
+              "specificity": 1.0,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.957983193277311,
+              "recall_sensitivity": 0.991304347826087,
+              "f1": 0.9743589743589743,
+              "specificity": 0.9868421052631579,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.9885057471264368,
+              "recall_sensitivity": 0.9885057471264368,
+              "f1": 0.9885057471264368,
+              "specificity": 0.9958847736625515,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.99609375,
+              "recall_sensitivity": 0.99609375,
+              "f1": 0.99609375,
+              "specificity": 0.9986376021798365,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                235,
+                8,
+                0,
+                0
+              ],
+              [
+                0,
+                228,
+                2,
+                0
+              ],
+              [
+                0,
+                2,
+                258,
+                1
+              ],
+              [
+                0,
+                0,
+                1,
+                255
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 8
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 2
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 2
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "No-tumor",
+                "count": 1
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Pituitary",
+                "count": 1
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.011663576328393186,
+            "brier_score": 0.025589104150147174,
+            "confidently_wrong_over_0.99": 9
+          },
+          "checkpoint": "logs/train/runs/step21_ablation_swin/A1/seed_42/checkpoints/epoch_025.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step21 from the validation-selected checkpoint"
+        },
+        "123": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.9838383838383838,
+            "balanced_accuracy": 0.9836110373632628,
+            "macro_precision": 0.9835212735376885,
+            "macro_recall_sensitivity": 0.9836110373632628,
+            "macro_f1": 0.9834036893510721,
+            "weighted_f1": 0.9839001007865306,
+            "macro_specificity": 0.9946891529731662,
+            "mcc": 0.9785377072921606,
+            "auc_ovr_macro": 0.9993548547237431
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.9957446808510638,
+              "recall_sensitivity": 0.9629629629629629,
+              "f1": 0.9790794979079498,
+              "specificity": 0.998661311914324,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.9497907949790795,
+              "recall_sensitivity": 0.9869565217391304,
+              "f1": 0.9680170575692963,
+              "specificity": 0.9842105263157894,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.9885496183206107,
+              "recall_sensitivity": 0.9923371647509579,
+              "f1": 0.9904397705544933,
+              "specificity": 0.9958847736625515,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 1.0,
+              "recall_sensitivity": 0.9921875,
+              "f1": 0.996078431372549,
+              "specificity": 1.0,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                234,
+                9,
+                0,
+                0
+              ],
+              [
+                1,
+                227,
+                2,
+                0
+              ],
+              [
+                0,
+                2,
+                259,
+                0
+              ],
+              [
+                0,
+                1,
+                1,
+                254
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 9
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 2
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 2
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 1
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Meningioma",
+                "count": 1
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Pituitary",
+                "count": 1
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.01230760939193493,
+            "brier_score": 0.02776415858109761,
+            "confidently_wrong_over_0.99": 4
+          },
+          "checkpoint": "logs/train/runs/step21_ablation_swin/A1/seed_123/checkpoints/epoch_017.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step21 from the validation-selected checkpoint"
+        },
+        "7": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.9848484848484849,
+            "balanced_accuracy": 0.9848980481788426,
+            "macro_precision": 0.9846409731325523,
+            "macro_recall_sensitivity": 0.9848980481788426,
+            "macro_f1": 0.9845633615109295,
+            "weighted_f1": 0.9849195809918547,
+            "macro_specificity": 0.9950261610676651,
+            "mcc": 0.9799140014996214,
+            "auc_ovr_macro": 0.9994513534526365
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 1.0,
+              "recall_sensitivity": 0.9670781893004116,
+              "f1": 0.9832635983263598,
+              "specificity": 1.0,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.950207468879668,
+              "recall_sensitivity": 0.9956521739130435,
+              "f1": 0.9723991507430998,
+              "specificity": 0.9842105263157894,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.9922779922779923,
+              "recall_sensitivity": 0.9846743295019157,
+              "f1": 0.9884615384615385,
+              "specificity": 0.9972565157750343,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.996078431372549,
+              "recall_sensitivity": 0.9921875,
+              "f1": 0.9941291585127201,
+              "specificity": 0.9986376021798365,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                235,
+                8,
+                0,
+                0
+              ],
+              [
+                0,
+                229,
+                1,
+                0
+              ],
+              [
+                0,
+                3,
+                257,
+                1
+              ],
+              [
+                0,
+                1,
+                1,
+                254
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 8
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 3
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 1
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "No-tumor",
+                "count": 1
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Meningioma",
+                "count": 1
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Pituitary",
+                "count": 1
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.01440756519635519,
+            "brier_score": 0.027844087927697637,
+            "confidently_wrong_over_0.99": 9
+          },
+          "checkpoint": "logs/train/runs/step21_ablation_swin/A1/seed_7/checkpoints/epoch_024.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step21 from the validation-selected checkpoint"
+        }
+      },
+      "across_seeds": {
+        "macro_f1": {
+          "mean": 0.9845075227716481,
+          "std": 0.0010770002407628969,
+          "ci_low": 0.9832887822689614,
+          "ci_high": 0.9857262632743348,
+          "n": 3
+        },
+        "balanced_accuracy": {
+          "mean": 0.9847515313684464,
+          "std": 0.0010747521610459448,
+          "ci_low": 0.983535334807442,
+          "ci_high": 0.9859677279294508,
+          "n": 3
+        },
+        "accuracy": {
+          "mean": 0.9848484848484849,
+          "std": 0.0010101010101010166,
+          "ci_low": 0.9837054479519074,
+          "ci_high": 0.9859915217450623,
+          "n": 3
+        },
+        "macro_precision": {
+          "mean": 0.9846026397570592,
+          "std": 0.0010627181803000516,
+          "ci_low": 0.9834000609272201,
+          "ci_high": 0.9858052185868983,
+          "n": 3
+        },
+        "macro_recall_sensitivity": {
+          "mean": 0.9847515313684464,
+          "std": 0.0010747521610459448,
+          "ci_low": 0.983535334807442,
+          "ci_high": 0.9859677279294508,
+          "n": 3
+        },
+        "weighted_f1": {
+          "mean": 0.9849047486385424,
+          "std": 0.0009973144004582148,
+          "ci_low": 0.9837761811529028,
+          "ci_high": 0.986033316124182,
+          "n": 3
+        },
+        "macro_specificity": {
+          "mean": 0.9950188114390727,
+          "std": 0.0003260457849711378,
+          "ci_low": 0.994649855900499,
+          "ci_high": 0.9953877669776463,
+          "n": 3
+        },
+        "mcc": {
+          "mean": 0.9798899113970366,
+          "std": 0.001340321431106777,
+          "ci_low": 0.9783731949164984,
+          "ci_high": 0.9814066278775748,
+          "n": 3
+        },
+        "auc_ovr_macro": {
+          "mean": 0.9994546232912889,
+          "std": 0.00010144301865275852,
+          "ci_low": 0.9993398297092008,
+          "ci_high": 0.999569416873377,
+          "n": 3
+        },
+        "expected_calibration_error": {
+          "mean": 0.012792916972227767,
+          "std": 0.0014349255424906608,
+          "ci_low": 0.011169145861708623,
+          "ci_high": 0.01441668808274691,
+          "n": 3
+        },
+        "brier_score": {
+          "mean": 0.02706578355298081,
+          "std": 0.001279466185241642,
+          "ci_low": 0.02561793126590297,
+          "ci_high": 0.02851363584005865,
+          "n": 3
+        },
+        "per_class_recall": {
+          "Glioma": {
+            "mean": 0.9657064471879288,
+            "std": 0.002375927033702217,
+            "ci_low": 0.9630178326474623,
+            "ci_high": 0.9683950617283952,
+            "n": 3
+          },
+          "Meningioma": {
+            "mean": 0.991304347826087,
+            "std": 0.004347826086956552,
+            "ci_low": 0.9863843194451667,
+            "ci_high": 0.9962243762070073,
+            "n": 3
+          },
+          "Pituitary": {
+            "mean": 0.9885057471264368,
+            "std": 0.003831417624521105,
+            "ci_low": 0.9841700899325223,
+            "ci_high": 0.9928414043203513,
+            "n": 3
+          },
+          "No-tumor": {
+            "mean": 0.9934895833333334,
+            "std": 0.002255274489021976,
+            "ci_low": 0.9909375,
+            "ci_high": 0.9960416666666667,
+            "n": 3
+          }
+        }
+      },
+      "missing_seeds": [],
+      "evaluated": true
+    },
+    "A2": {
+      "row_id": "A2",
+      "label": "Diffusion preprocessing + CNN",
+      "recipe": "diffusion_i5_k15",
+      "loss": "plain_ce",
+      "model": "branch_classical",
+      "feature_tag": null,
+      "trains": true,
+      "rqs": [
+        "RQ2",
+        "RQ10"
+      ],
+      "note": "Same network as A0/A1, so the delta is preprocessing alone. Doubles as A6's classical branch: identical architecture, recipe, protocol, loss and seed.",
+      "per_seed": {
+        "42": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.9848484848484849,
+            "balanced_accuracy": 0.9845422521667407,
+            "macro_precision": 0.9845309024105406,
+            "macro_recall_sensitivity": 0.9845422521667407,
+            "macro_f1": 0.9845085411557872,
+            "weighted_f1": 0.9848642563338732,
+            "macro_specificity": 0.9949867354422698,
+            "mcc": 0.9797999189147025,
+            "auc_ovr_macro": 0.9991721438902885
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.9916317991631799,
+              "recall_sensitivity": 0.9753086419753086,
+              "f1": 0.983402489626556,
+              "specificity": 0.9973226238286479,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.9656652360515021,
+              "recall_sensitivity": 0.9782608695652174,
+              "f1": 0.9719222462203023,
+              "specificity": 0.9894736842105263,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.9847328244274809,
+              "recall_sensitivity": 0.9885057471264368,
+              "f1": 0.9866156787762906,
+              "specificity": 0.9945130315500685,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.99609375,
+              "recall_sensitivity": 0.99609375,
+              "f1": 0.99609375,
+              "specificity": 0.9986376021798365,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                237,
+                6,
+                0,
+                0
+              ],
+              [
+                2,
+                225,
+                3,
+                0
+              ],
+              [
+                0,
+                2,
+                258,
+                1
+              ],
+              [
+                0,
+                0,
+                1,
+                255
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 6
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 3
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 2
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 2
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "No-tumor",
+                "count": 1
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Pituitary",
+                "count": 1
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.01301688076269748,
+            "brier_score": 0.028850294384821087,
+            "confidently_wrong_over_0.99": 7
+          },
+          "checkpoint": "logs/train/runs/step21_ablation_swin/A2/seed_42/checkpoints/epoch_023.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step21 from the validation-selected checkpoint"
+        },
+        "123": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.9868686868686869,
+            "balanced_accuracy": 0.9865683550007404,
+            "macro_precision": 0.9866093413891823,
+            "macro_recall_sensitivity": 0.9865683550007404,
+            "macro_f1": 0.9865497530308109,
+            "weighted_f1": 0.9868816224989289,
+            "macro_specificity": 0.9956562822657318,
+            "mcc": 0.9825034106066086,
+            "auc_ovr_macro": 0.9992968882894123
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.9916317991631799,
+              "recall_sensitivity": 0.9753086419753086,
+              "f1": 0.983402489626556,
+              "specificity": 0.9973226238286479,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.9699570815450643,
+              "recall_sensitivity": 0.9826086956521739,
+              "f1": 0.9762419006479481,
+              "specificity": 0.9907894736842106,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.9848484848484849,
+              "recall_sensitivity": 0.9961685823754789,
+              "f1": 0.9904761904761905,
+              "specificity": 0.9945130315500685,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 1.0,
+              "recall_sensitivity": 0.9921875,
+              "f1": 0.996078431372549,
+              "specificity": 1.0,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                237,
+                6,
+                0,
+                0
+              ],
+              [
+                2,
+                226,
+                2,
+                0
+              ],
+              [
+                0,
+                1,
+                260,
+                0
+              ],
+              [
+                0,
+                0,
+                2,
+                254
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 6
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 2
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 2
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Pituitary",
+                "count": 2
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 1
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.010155407286653578,
+            "brier_score": 0.02320654409960955,
+            "confidently_wrong_over_0.99": 7
+          },
+          "checkpoint": "logs/train/runs/step21_ablation_swin/A2/seed_123/checkpoints/epoch_026.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step21 from the validation-selected checkpoint"
+        },
+        "7": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.9848484848484849,
+            "balanced_accuracy": 0.9848398982414657,
+            "macro_precision": 0.9845279774413327,
+            "macro_recall_sensitivity": 0.9848398982414657,
+            "macro_f1": 0.9845513700502455,
+            "weighted_f1": 0.9849093531244419,
+            "macro_specificity": 0.9950204364146672,
+            "mcc": 0.979867937953933,
+            "auc_ovr_macro": 0.9992173409356204
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.9957805907172996,
+              "recall_sensitivity": 0.9711934156378601,
+              "f1": 0.9833333333333333,
+              "specificity": 0.998661311914324,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.9539748953974896,
+              "recall_sensitivity": 0.991304347826087,
+              "f1": 0.9722814498933902,
+              "specificity": 0.9855263157894737,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.9922779922779923,
+              "recall_sensitivity": 0.9846743295019157,
+              "f1": 0.9884615384615385,
+              "specificity": 0.9972565157750343,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.996078431372549,
+              "recall_sensitivity": 0.9921875,
+              "f1": 0.9941291585127201,
+              "specificity": 0.9986376021798365,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                236,
+                7,
+                0,
+                0
+              ],
+              [
+                1,
+                228,
+                1,
+                0
+              ],
+              [
+                0,
+                3,
+                257,
+                1
+              ],
+              [
+                0,
+                1,
+                1,
+                254
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 7
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 3
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 1
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 1
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "No-tumor",
+                "count": 1
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Meningioma",
+                "count": 1
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.010649824383282895,
+            "brier_score": 0.02471700264270727,
+            "confidently_wrong_over_0.99": 4
+          },
+          "checkpoint": "logs/train/runs/step21_ablation_swin/A2/seed_7/checkpoints/epoch_020.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step21 from the validation-selected checkpoint"
+        }
+      },
+      "across_seeds": {
+        "macro_f1": {
+          "mean": 0.9852032214122812,
+          "std": 0.0011663271960840635,
+          "ci_low": 0.9838833979438615,
+          "ci_high": 0.986523044880701,
+          "n": 3
+        },
+        "balanced_accuracy": {
+          "mean": 0.9853168351363156,
+          "std": 0.0010940177213999485,
+          "ci_low": 0.9840788375414566,
+          "ci_high": 0.9865548327311746,
+          "n": 3
+        },
+        "accuracy": {
+          "mean": 0.9855218855218855,
+          "std": 0.0011663641801810697,
+          "ci_low": 0.9842020202020202,
+          "ci_high": 0.9868417508417507,
+          "n": 3
+        },
+        "macro_precision": {
+          "mean": 0.9852227404136853,
+          "std": 0.001200832560267401,
+          "ci_low": 0.9838638704499181,
+          "ci_high": 0.9865816103774525,
+          "n": 3
+        },
+        "macro_recall_sensitivity": {
+          "mean": 0.9853168351363156,
+          "std": 0.0010940177213999485,
+          "ci_low": 0.9840788375414566,
+          "ci_high": 0.9865548327311746,
+          "n": 3
+        },
+        "weighted_f1": {
+          "mean": 0.9855517439857481,
+          "std": 0.0011519292838516582,
+          "ci_low": 0.9842482132887945,
+          "ci_high": 0.9868552746827016,
+          "n": 3
+        },
+        "macro_specificity": {
+          "mean": 0.995221151374223,
+          "std": 0.0003772109601325236,
+          "ci_low": 0.9947942969894503,
+          "ci_high": 0.9956480057589956,
+          "n": 3
+        },
+        "mcc": {
+          "mean": 0.9807237558250814,
+          "std": 0.0015416014411915994,
+          "ci_low": 0.9789792695712535,
+          "ci_high": 0.9824682420789094,
+          "n": 3
+        },
+        "auc_ovr_macro": {
+          "mean": 0.9992287910384404,
+          "std": 6.315552168362523e-05,
+          "ci_low": 0.9991573238378485,
+          "ci_high": 0.9993002582390323,
+          "n": 3
+        },
+        "expected_calibration_error": {
+          "mean": 0.011274037477544652,
+          "std": 0.0015294571271570738,
+          "ci_low": 0.00954329380875152,
+          "ci_high": 0.013004781146337784,
+          "n": 3
+        },
+        "brier_score": {
+          "mean": 0.025591280375712636,
+          "std": 0.0029216862402178093,
+          "ci_low": 0.022285081154648976,
+          "ci_high": 0.028897479596776295,
+          "n": 3
+        },
+        "per_class_recall": {
+          "Glioma": {
+            "mean": 0.9739368998628257,
+            "std": 0.002375927033702153,
+            "ci_low": 0.9712482853223593,
+            "ci_high": 0.9766255144032921,
+            "n": 3
+          },
+          "Meningioma": {
+            "mean": 0.9840579710144928,
+            "std": 0.0066414140506606606,
+            "ci_low": 0.9765425035221933,
+            "ci_high": 0.9915734385067922,
+            "n": 3
+          },
+          "Pituitary": {
+            "mean": 0.9897828863346104,
+            "std": 0.005852587094451892,
+            "ci_low": 0.9831600605751128,
+            "ci_high": 0.996405712094108,
+            "n": 3
+          },
+          "No-tumor": {
+            "mean": 0.9934895833333334,
+            "std": 0.002255274489021976,
+            "ci_low": 0.9909375,
+            "ci_high": 0.9960416666666667,
+            "n": 3
+          }
+        }
+      },
+      "missing_seeds": [],
+      "evaluated": true
+    },
+    "A3": {
+      "row_id": "A3",
+      "label": "Diffusion + adaptive multiscale branch",
+      "recipe": "diffusion_i5_k15",
+      "loss": "plain_ce",
+      "model": "branch_multiscale",
+      "feature_tag": null,
+      "trains": true,
+      "rqs": [
+        "RQ4",
+        "RQ10"
+      ],
+      "note": "Step 11's per-pixel gated arm, which is the proposed adaptive module.",
+      "per_seed": {
+        "42": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.7818181818181819,
+            "balanced_accuracy": 0.7748060395438855,
+            "macro_precision": 0.7758255907860901,
+            "macro_recall_sensitivity": 0.7748060395438855,
+            "macro_f1": 0.77280973495055,
+            "weighted_f1": 0.7782777097995244,
+            "macro_specificity": 0.9274460757392377,
+            "mcc": 0.7100528069442499,
+            "auc_ovr_macro": 0.9358608327290134
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.7290836653386454,
+              "recall_sensitivity": 0.7530864197530864,
+              "f1": 0.7408906882591093,
+              "specificity": 0.9089692101740294,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.6492146596858639,
+              "recall_sensitivity": 0.5391304347826087,
+              "f1": 0.5890736342042755,
+              "specificity": 0.9118421052631579,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.7615894039735099,
+              "recall_sensitivity": 0.8812260536398467,
+              "f1": 0.8170515097690941,
+              "specificity": 0.9012345679012346,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.9634146341463414,
+              "recall_sensitivity": 0.92578125,
+              "f1": 0.9442231075697212,
+              "specificity": 0.9877384196185286,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                183,
+                45,
+                15,
+                0
+              ],
+              [
+                49,
+                124,
+                48,
+                9
+              ],
+              [
+                15,
+                16,
+                230,
+                0
+              ],
+              [
+                4,
+                6,
+                9,
+                237
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 49
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 48
+              },
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 45
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 16
+              },
+              {
+                "true": "Glioma",
+                "predicted": "Pituitary",
+                "count": 15
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Glioma",
+                "count": 15
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.16652624805768332,
+            "brier_score": 0.3500511696902505,
+            "confidently_wrong_over_0.99": 0
+          },
+          "checkpoint": "logs/train/runs/step21_ablation_swin/A3/seed_42/checkpoints/epoch_029.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step21 from the validation-selected checkpoint"
+        },
+        "123": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.7868686868686868,
+            "balanced_accuracy": 0.7799718413362763,
+            "macro_precision": 0.781393756978924,
+            "macro_recall_sensitivity": 0.7799718413362763,
+            "macro_f1": 0.778380819668259,
+            "weighted_f1": 0.783739227377317,
+            "macro_specificity": 0.9291414847321101,
+            "mcc": 0.7167506571770027,
+            "auc_ovr_macro": 0.9405920435564498
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.743801652892562,
+              "recall_sensitivity": 0.7407407407407407,
+              "f1": 0.7422680412371134,
+              "specificity": 0.9170013386880856,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.6515151515151515,
+              "recall_sensitivity": 0.5608695652173913,
+              "f1": 0.602803738317757,
+              "specificity": 0.9092105263157895,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.7712418300653595,
+              "recall_sensitivity": 0.9042145593869731,
+              "f1": 0.8324514991181657,
+              "specificity": 0.9039780521262003,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.9590163934426229,
+              "recall_sensitivity": 0.9140625,
+              "f1": 0.936,
+              "specificity": 0.9863760217983651,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                180,
+                46,
+                17,
+                0
+              ],
+              [
+                47,
+                129,
+                44,
+                10
+              ],
+              [
+                12,
+                13,
+                236,
+                0
+              ],
+              [
+                3,
+                10,
+                9,
+                234
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 47
+              },
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 46
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 44
+              },
+              {
+                "true": "Glioma",
+                "predicted": "Pituitary",
+                "count": 17
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 13
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Glioma",
+                "count": 12
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.1641025301783976,
+            "brier_score": 0.3401948404770985,
+            "confidently_wrong_over_0.99": 0
+          },
+          "checkpoint": "logs/train/runs/step21_ablation_swin/A3/seed_123/checkpoints/epoch_025.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step21 from the validation-selected checkpoint"
+        },
+        "7": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.7626262626262627,
+            "balanced_accuracy": 0.7531684220582611,
+            "macro_precision": 0.7611543518208082,
+            "macro_recall_sensitivity": 0.7531684220582611,
+            "macro_f1": 0.7470174380585681,
+            "weighted_f1": 0.753148167855861,
+            "macro_specificity": 0.9206622282012894,
+            "mcc": 0.6891765245910637,
+            "auc_ovr_macro": 0.9362717710504962
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.7584745762711864,
+              "recall_sensitivity": 0.7366255144032922,
+              "f1": 0.7473903966597077,
+              "specificity": 0.9236947791164659,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.6493506493506493,
+              "recall_sensitivity": 0.43478260869565216,
+              "f1": 0.5208333333333334,
+              "specificity": 0.9289473684210526,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.6816901408450704,
+              "recall_sensitivity": 0.9272030651340997,
+              "f1": 0.7857142857142857,
+              "specificity": 0.8449931412894376,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.9551020408163265,
+              "recall_sensitivity": 0.9140625,
+              "f1": 0.9341317365269461,
+              "specificity": 0.9850136239782016,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                179,
+                35,
+                29,
+                0
+              ],
+              [
+                44,
+                100,
+                75,
+                11
+              ],
+              [
+                9,
+                10,
+                242,
+                0
+              ],
+              [
+                4,
+                9,
+                9,
+                234
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 75
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 44
+              },
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 35
+              },
+              {
+                "true": "Glioma",
+                "predicted": "Pituitary",
+                "count": 29
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "No-tumor",
+                "count": 11
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 10
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.15974511829289523,
+            "brier_score": 0.364307643974334,
+            "confidently_wrong_over_0.99": 0
+          },
+          "checkpoint": "logs/train/runs/step21_ablation_swin/A3/seed_7/checkpoints/epoch_020.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step21 from the validation-selected checkpoint"
+        }
+      },
+      "across_seeds": {
+        "macro_f1": {
+          "mean": 0.7660693308924591,
+          "std": 0.016732908045182137,
+          "ci_low": 0.7471342629226052,
+          "ci_high": 0.785004398862313,
+          "n": 3
+        },
+        "balanced_accuracy": {
+          "mean": 0.7693154343128077,
+          "std": 0.014220263028542204,
+          "ci_low": 0.7532236918453545,
+          "ci_high": 0.7854071767802608,
+          "n": 3
+        },
+        "accuracy": {
+          "mean": 0.7771043771043771,
+          "std": 0.012790181759745821,
+          "ci_low": 0.7626309239357091,
+          "ci_high": 0.7915778302730451,
+          "n": 3
+        },
+        "macro_precision": {
+          "mean": 0.7727912331952741,
+          "std": 0.010455327578813529,
+          "ci_low": 0.7609599162587705,
+          "ci_high": 0.7846225501317777,
+          "n": 3
+        },
+        "macro_recall_sensitivity": {
+          "mean": 0.7693154343128077,
+          "std": 0.014220263028542204,
+          "ci_low": 0.7532236918453545,
+          "ci_high": 0.7854071767802608,
+          "n": 3
+        },
+        "weighted_f1": {
+          "mean": 0.7717217016775675,
+          "std": 0.016315304549186012,
+          "ci_low": 0.7532591965497363,
+          "ci_high": 0.7901842068053987,
+          "n": 3
+        },
+        "macro_specificity": {
+          "mean": 0.9257499295575458,
+          "std": 0.0044868844124979984,
+          "ci_low": 0.920672541867724,
+          "ci_high": 0.9308273172473676,
+          "n": 3
+        },
+        "mcc": {
+          "mean": 0.7053266629041054,
+          "std": 0.014381777535578845,
+          "ci_low": 0.6890521495661855,
+          "ci_high": 0.7216011762420252,
+          "n": 3
+        },
+        "auc_ovr_macro": {
+          "mean": 0.9375748824453197,
+          "std": 0.0026210042834573974,
+          "ci_low": 0.9346089368892612,
+          "ci_high": 0.9405408280013783,
+          "n": 3
+        },
+        "expected_calibration_error": {
+          "mean": 0.16345796550965871,
+          "std": 0.0034362083654609185,
+          "ci_low": 0.1595695296930693,
+          "ci_high": 0.16734640132624812,
+          "n": 3
+        },
+        "brier_score": {
+          "mean": 0.3515178847138944,
+          "std": 0.012123129251332344,
+          "ci_low": 0.3377992725180068,
+          "ci_high": 0.365236496909782,
+          "n": 3
+        },
+        "per_class_recall": {
+          "Glioma": {
+            "mean": 0.7434842249657064,
+            "std": 0.008566526746774232,
+            "ci_low": 0.7337902873800968,
+            "ci_high": 0.7531781625513161,
+            "n": 3
+          },
+          "Meningioma": {
+            "mean": 0.5115942028985506,
+            "std": 0.0674029910390347,
+            "ci_low": 0.43532053825822825,
+            "ci_high": 0.587867867538873,
+            "n": 3
+          },
+          "Pituitary": {
+            "mean": 0.9042145593869733,
+            "std": 0.022988505747126464,
+            "ci_low": 0.8782006162234867,
+            "ci_high": 0.9302285025504599,
+            "n": 3
+          },
+          "No-tumor": {
+            "mean": 0.91796875,
+            "std": 0.0067658234670659265,
+            "ci_low": 0.9103125,
+            "ci_high": 0.925625,
+            "n": 3
+          }
+        }
+      },
+      "missing_seeds": [],
+      "evaluated": true
+    },
+    "A4": {
+      "row_id": "A4",
+      "label": "Diffusion + fixed QCNN branch",
+      "recipe": "diffusion_i5_k15",
+      "loss": "plain_ce",
+      "model": "baseline_fixed_qcnn",
+      "feature_tag": null,
+      "trains": true,
+      "rqs": [
+        "RQ4",
+        "RQ8",
+        "RQ10"
+      ],
+      "note": "The quantum floor: a fixed circuit, for A5 to be measured against.",
+      "per_seed": {
+        "42": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.5262626262626262,
+            "balanced_accuracy": 0.5123523199337832,
+            "macro_precision": 0.43617891303223094,
+            "macro_recall_sensitivity": 0.5123523199337832,
+            "macro_f1": 0.4450511287779846,
+            "weighted_f1": 0.45438250613948483,
+            "macro_specificity": 0.8410796717477977,
+            "mcc": 0.41325349287590185,
+            "auc_ovr_macro": 0.839531335108319
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.0,
+              "recall_sensitivity": 0.0,
+              "f1": 0.0,
+              "specificity": 1.0,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.36018957345971564,
+              "recall_sensitivity": 0.33043478260869563,
+              "f1": 0.34467120181405897,
+              "specificity": 0.8223684210526315,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.44482758620689655,
+              "recall_sensitivity": 0.9885057471264368,
+              "f1": 0.6135552913198573,
+              "specificity": 0.5582990397805213,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.9396984924623115,
+              "recall_sensitivity": 0.73046875,
+              "f1": 0.8219780219780219,
+              "specificity": 0.9836512261580381,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                0,
+                126,
+                117,
+                0
+              ],
+              [
+                0,
+                76,
+                142,
+                12
+              ],
+              [
+                0,
+                3,
+                258,
+                0
+              ],
+              [
+                0,
+                6,
+                63,
+                187
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 142
+              },
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 126
+              },
+              {
+                "true": "Glioma",
+                "predicted": "Pituitary",
+                "count": 117
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Pituitary",
+                "count": 63
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "No-tumor",
+                "count": 12
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Meningioma",
+                "count": 6
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.15257487471657574,
+            "brier_score": 0.6337338417876933,
+            "confidently_wrong_over_0.99": 0
+          },
+          "checkpoint": "logs/train/runs/step21_ablation_swin/A4/seed_42/checkpoints/epoch_027.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step21 from the validation-selected checkpoint"
+        },
+        "123": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.44646464646464645,
+            "balanced_accuracy": 0.4443359375,
+            "macro_precision": 0.2929639804639805,
+            "macro_recall_sensitivity": 0.4443359375,
+            "macro_f1": 0.3246828461114175,
+            "weighted_f1": 0.329445363731078,
+            "macro_specificity": 0.8163922720856176,
+            "mcc": 0.3804977888250325,
+            "auc_ovr_macro": 0.8021342679477166
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.32142857142857145,
+              "recall_sensitivity": 1.0,
+              "f1": 0.4864864864864865,
+              "specificity": 0.3132530120481928,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.0,
+              "recall_sensitivity": 0.0,
+              "f1": 0.0,
+              "specificity": 1.0,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.0,
+              "recall_sensitivity": 0.0,
+              "f1": 0.0,
+              "specificity": 1.0,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.8504273504273504,
+              "recall_sensitivity": 0.77734375,
+              "f1": 0.8122448979591836,
+              "specificity": 0.952316076294278,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                243,
+                0,
+                0,
+                0
+              ],
+              [
+                214,
+                0,
+                0,
+                16
+              ],
+              [
+                242,
+                0,
+                0,
+                19
+              ],
+              [
+                57,
+                0,
+                0,
+                199
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Pituitary",
+                "predicted": "Glioma",
+                "count": 242
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 214
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Glioma",
+                "count": 57
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "No-tumor",
+                "count": 19
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "No-tumor",
+                "count": 16
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.12374052179582194,
+            "brier_score": 0.6662691650144004,
+            "confidently_wrong_over_0.99": 0
+          },
+          "checkpoint": "logs/train/runs/step21_ablation_swin/A4/seed_123/checkpoints/epoch_010.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step21 from the validation-selected checkpoint"
+        },
+        "7": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.46565656565656566,
+            "balanced_accuracy": 0.4466614999791771,
+            "macro_precision": 0.5332429948015722,
+            "macro_recall_sensitivity": 0.4466614999791771,
+            "macro_f1": 0.3444734101965152,
+            "weighted_f1": 0.3568253037103308,
+            "macro_specificity": 0.8187132535704541,
+            "mcc": 0.3699886193064922,
+            "auc_ovr_macro": 0.780320556464478
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.0,
+              "recall_sensitivity": 0.0,
+              "f1": 0.0,
+              "specificity": 1.0,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 1.0,
+              "recall_sensitivity": 0.0391304347826087,
+              "f1": 0.07531380753138076,
+              "specificity": 1.0,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.33751743375174337,
+              "recall_sensitivity": 0.9272030651340997,
+              "f1": 0.4948875255623722,
+              "specificity": 0.3484224965706447,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.7954545454545454,
+              "recall_sensitivity": 0.8203125,
+              "f1": 0.8076923076923077,
+              "specificity": 0.9264305177111717,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                0,
+                0,
+                241,
+                2
+              ],
+              [
+                0,
+                9,
+                188,
+                33
+              ],
+              [
+                0,
+                0,
+                242,
+                19
+              ],
+              [
+                0,
+                0,
+                46,
+                210
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Glioma",
+                "predicted": "Pituitary",
+                "count": 241
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 188
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Pituitary",
+                "count": 46
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "No-tumor",
+                "count": 33
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "No-tumor",
+                "count": 19
+              },
+              {
+                "true": "Glioma",
+                "predicted": "No-tumor",
+                "count": 2
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.10969073832637131,
+            "brier_score": 0.6357693179202952,
+            "confidently_wrong_over_0.99": 0
+          },
+          "checkpoint": "logs/train/runs/step21_ablation_swin/A4/seed_7/checkpoints/epoch_023.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step21 from the validation-selected checkpoint"
+        }
+      },
+      "across_seeds": {
+        "macro_f1": {
+          "mean": 0.3714024616953058,
+          "std": 0.0645446452387263,
+          "ci_low": 0.2983633198207838,
+          "ci_high": 0.44444160356982776,
+          "n": 3
+        },
+        "balanced_accuracy": {
+          "mean": 0.4677832524709868,
+          "std": 0.038615455339651404,
+          "ci_low": 0.42408575114194047,
+          "ci_high": 0.5114807538000331,
+          "n": 3
+        },
+        "accuracy": {
+          "mean": 0.4794612794612794,
+          "std": 0.0416516144630942,
+          "ci_low": 0.43232804064927755,
+          "ci_high": 0.5265945182732813,
+          "n": 3
+        },
+        "macro_precision": {
+          "mean": 0.4207952960992612,
+          "std": 0.12087594026611094,
+          "ci_low": 0.28401129306293216,
+          "ci_high": 0.5575792991355902,
+          "n": 3
+        },
+        "macro_recall_sensitivity": {
+          "mean": 0.4677832524709868,
+          "std": 0.038615455339651404,
+          "ci_low": 0.42408575114194047,
+          "ci_high": 0.5114807538000331,
+          "n": 3
+        },
+        "weighted_f1": {
+          "mean": 0.3802177245269645,
+          "std": 0.06567135145587832,
+          "ci_low": 0.30590359454241267,
+          "ci_high": 0.45453185451151634,
+          "n": 3
+        },
+        "macro_specificity": {
+          "mean": 0.8253950658012897,
+          "std": 0.013632750512503422,
+          "ci_low": 0.8099681563320396,
+          "ci_high": 0.8408219752705399,
+          "n": 3
+        },
+        "mcc": {
+          "mean": 0.38791330033580884,
+          "std": 0.02256556401841295,
+          "ci_low": 0.3623779607933338,
+          "ci_high": 0.4134486398782839,
+          "n": 3
+        },
+        "auc_ovr_macro": {
+          "mean": 0.8073287198401712,
+          "std": 0.029945213720221717,
+          "ci_low": 0.7734425205236418,
+          "ci_high": 0.8412149191567005,
+          "n": 3
+        },
+        "expected_calibration_error": {
+          "mean": 0.128668711612923,
+          "std": 0.021862698361328772,
+          "ci_low": 0.10392873943603849,
+          "ci_high": 0.15340868378980754,
+          "n": 3
+        },
+        "brier_score": {
+          "mean": 0.6452574415741296,
+          "std": 0.018225125026166893,
+          "ci_low": 0.6246337711279804,
+          "ci_high": 0.6658811120202788,
+          "n": 3
+        },
+        "per_class_recall": {
+          "Glioma": {
+            "mean": 0.3333333333333333,
+            "std": 0.5773502691896258,
+            "ci_low": -0.3200000000000001,
+            "ci_high": 0.9866666666666668,
+            "n": 3
+          },
+          "Meningioma": {
+            "mean": 0.12318840579710144,
+            "std": 0.1805438818063879,
+            "ci_low": -0.08111622937535629,
+            "ci_high": 0.32749304096955917,
+            "n": 3
+          },
+          "Pituitary": {
+            "mean": 0.6385696040868455,
+            "std": 0.5538662827367147,
+            "ci_low": 0.011810903117970284,
+            "ci_high": 1.2653283050557207,
+            "n": 3
+          },
+          "No-tumor": {
+            "mean": 0.7760416666666666,
+            "std": 0.04493602585087864,
+            "ci_low": 0.7251917664888857,
+            "ci_high": 0.8268915668444475,
+            "n": 3
+          }
+        }
+      },
+      "missing_seeds": [],
+      "evaluated": true
+    },
+    "A5": {
+      "row_id": "A5",
+      "label": "Diffusion + adaptive quantum branch",
+      "recipe": "diffusion_i5_k15",
+      "loss": "plain_ce",
+      "model": "branch_adaptive_quantum",
+      "feature_tag": null,
+      "trains": true,
+      "rqs": [
+        "RQ4",
+        "RQ8",
+        "RQ10"
+      ],
+      "note": "Supplies both the spatial and the quantum features for A6, exactly as Step 12 does for the shipped model - the spatial branch lives inside this network.",
+      "per_seed": {
+        "42": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.906060606060606,
+            "balanced_accuracy": 0.9026957164261233,
+            "macro_precision": 0.903300213691566,
+            "macro_recall_sensitivity": 0.9026957164261233,
+            "macro_f1": 0.9026512445900728,
+            "weighted_f1": 0.9054679097255692,
+            "macro_specificity": 0.968883129456992,
+            "mcc": 0.8748227424784053,
+            "auc_ovr_macro": 0.98744661446199
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.9126637554585153,
+              "recall_sensitivity": 0.8600823045267489,
+              "f1": 0.885593220338983,
+              "specificity": 0.9732262382864793,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.8157894736842105,
+              "recall_sensitivity": 0.808695652173913,
+              "f1": 0.8122270742358079,
+              "specificity": 0.9447368421052632,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.9233576642335767,
+              "recall_sensitivity": 0.9693486590038314,
+              "f1": 0.9457943925233645,
+              "specificity": 0.9711934156378601,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.9613899613899614,
+              "recall_sensitivity": 0.97265625,
+              "f1": 0.9669902912621359,
+              "specificity": 0.9863760217983651,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                209,
+                34,
+                0,
+                0
+              ],
+              [
+                16,
+                186,
+                19,
+                9
+              ],
+              [
+                1,
+                6,
+                253,
+                1
+              ],
+              [
+                3,
+                2,
+                2,
+                249
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 34
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 19
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 16
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "No-tumor",
+                "count": 9
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 6
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Glioma",
+                "count": 3
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.014531745693900387,
+            "brier_score": 0.1283483037950708,
+            "confidently_wrong_over_0.99": 0
+          },
+          "checkpoint": "logs/train/runs/step21_ablation_swin/A5/seed_42/checkpoints/epoch_027.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step21 from the validation-selected checkpoint"
+        },
+        "123": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.902020202020202,
+            "balanced_accuracy": 0.8992408285633418,
+            "macro_precision": 0.9010090441476826,
+            "macro_recall_sensitivity": 0.8992408285633418,
+            "macro_f1": 0.8994994279963041,
+            "weighted_f1": 0.902273461894344,
+            "macro_specificity": 0.9676078181155412,
+            "mcc": 0.8696409852294261,
+            "auc_ovr_macro": 0.9856084187787427
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.9237668161434978,
+              "recall_sensitivity": 0.8477366255144033,
+              "f1": 0.8841201716738197,
+              "specificity": 0.9772423025435074,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.7892561983471075,
+              "recall_sensitivity": 0.8304347826086956,
+              "f1": 0.809322033898305,
+              "specificity": 0.9328947368421052,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.922509225092251,
+              "recall_sensitivity": 0.9578544061302682,
+              "f1": 0.9398496240601504,
+              "specificity": 0.9711934156378601,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.968503937007874,
+              "recall_sensitivity": 0.9609375,
+              "f1": 0.9647058823529412,
+              "specificity": 0.989100817438692,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                206,
+                37,
+                0,
+                0
+              ],
+              [
+                14,
+                191,
+                18,
+                7
+              ],
+              [
+                1,
+                9,
+                250,
+                1
+              ],
+              [
+                2,
+                5,
+                3,
+                246
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 37
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 18
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 14
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 9
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "No-tumor",
+                "count": 7
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Meningioma",
+                "count": 5
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.02674562891926427,
+            "brier_score": 0.1309554553688979,
+            "confidently_wrong_over_0.99": 1
+          },
+          "checkpoint": "logs/train/runs/step21_ablation_swin/A5/seed_123/checkpoints/epoch_025.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step21 from the validation-selected checkpoint"
+        },
+        "7": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.9181818181818182,
+            "balanced_accuracy": 0.915325248737514,
+            "macro_precision": 0.9156644071884679,
+            "macro_recall_sensitivity": 0.915325248737514,
+            "macro_f1": 0.9152972118262527,
+            "weighted_f1": 0.9178931530215668,
+            "macro_specificity": 0.97294579173556,
+            "mcc": 0.8909271415402507,
+            "auc_ovr_macro": 0.9873376964986971
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.9177489177489178,
+              "recall_sensitivity": 0.8724279835390947,
+              "f1": 0.8945147679324894,
+              "specificity": 0.9745649263721553,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.8318965517241379,
+              "recall_sensitivity": 0.8391304347826087,
+              "f1": 0.8354978354978355,
+              "specificity": 0.9486842105263158,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.9477611940298507,
+              "recall_sensitivity": 0.9731800766283525,
+              "f1": 0.9603024574669187,
+              "specificity": 0.9807956104252401,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.9652509652509652,
+              "recall_sensitivity": 0.9765625,
+              "f1": 0.970873786407767,
+              "specificity": 0.9877384196185286,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                212,
+                31,
+                0,
+                0
+              ],
+              [
+                17,
+                193,
+                12,
+                8
+              ],
+              [
+                0,
+                6,
+                254,
+                1
+              ],
+              [
+                2,
+                2,
+                2,
+                250
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 31
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 17
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 12
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "No-tumor",
+                "count": 8
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 6
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Glioma",
+                "count": 2
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.018045051350738053,
+            "brier_score": 0.11903029682435907,
+            "confidently_wrong_over_0.99": 1
+          },
+          "checkpoint": "logs/train/runs/step21_ablation_swin/A5/seed_7/checkpoints/epoch_028.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step21 from the validation-selected checkpoint"
+        }
+      },
+      "across_seeds": {
+        "macro_f1": {
+          "mean": 0.9058159614708766,
+          "std": 0.008360865277360892,
+          "ci_low": 0.8963547517465333,
+          "ci_high": 0.9152771711952199,
+          "n": 3
+        },
+        "balanced_accuracy": {
+          "mean": 0.9057539312423263,
+          "std": 0.00846709226838602,
+          "ci_low": 0.8961725143615303,
+          "ci_high": 0.9153353481231222,
+          "n": 3
+        },
+        "accuracy": {
+          "mean": 0.9087542087542088,
+          "std": 0.008410771715014687,
+          "ci_low": 0.8992365245792465,
+          "ci_high": 0.918271892929171,
+          "n": 3
+        },
+        "macro_precision": {
+          "mean": 0.9066578883425721,
+          "std": 0.007883552546968332,
+          "ci_low": 0.8977368088196531,
+          "ci_high": 0.9155789678654911,
+          "n": 3
+        },
+        "macro_recall_sensitivity": {
+          "mean": 0.9057539312423263,
+          "std": 0.00846709226838602,
+          "ci_low": 0.8961725143615303,
+          "ci_high": 0.9153353481231222,
+          "n": 3
+        },
+        "weighted_f1": {
+          "mean": 0.90854484154716,
+          "std": 0.008251928247597613,
+          "ci_low": 0.8992069056767954,
+          "ci_high": 0.9178827774175246,
+          "n": 3
+        },
+        "macro_specificity": {
+          "mean": 0.9698122464360311,
+          "std": 0.0027876395682652484,
+          "ci_low": 0.9666577353039536,
+          "ci_high": 0.9729667575681087,
+          "n": 3
+        },
+        "mcc": {
+          "mean": 0.878463623082694,
+          "std": 0.011100320774789715,
+          "ci_low": 0.8659024276353585,
+          "ci_high": 0.8910248185300295,
+          "n": 3
+        },
+        "auc_ovr_macro": {
+          "mean": 0.9867975765798099,
+          "std": 0.001031279781417836,
+          "ci_low": 0.9856305736473636,
+          "ci_high": 0.9879645795122562,
+          "n": 3
+        },
+        "expected_calibration_error": {
+          "mean": 0.019774141987967567,
+          "std": 0.006287849527821287,
+          "ci_low": 0.012658770417645064,
+          "ci_high": 0.02688951355829007,
+          "n": 3
+        },
+        "brier_score": {
+          "mean": 0.12611135199610926,
+          "std": 0.006269395233294427,
+          "ci_low": 0.11901686342593581,
+          "ci_high": 0.1332058405662827,
+          "n": 3
+        },
+        "per_class_recall": {
+          "Glioma": {
+            "mean": 0.8600823045267489,
+            "std": 0.012345679012345678,
+            "ci_low": 0.8461118535685802,
+            "ci_high": 0.8740527554849177,
+            "n": 3
+          },
+          "Meningioma": {
+            "mean": 0.8260869565217391,
+            "std": 0.015676309893321708,
+            "ci_low": 0.808347541917593,
+            "ci_high": 0.8438263711258853,
+            "n": 3
+          },
+          "Pituitary": {
+            "mean": 0.966794380587484,
+            "std": 0.00797573179872082,
+            "ci_low": 0.9577689904215716,
+            "ci_high": 0.9758197707533964,
+            "n": 3
+          },
+          "No-tumor": {
+            "mean": 0.9700520833333334,
+            "std": 0.008131507810414582,
+            "ci_low": 0.960850416015743,
+            "ci_high": 0.9792537506509238,
+            "n": 3
+          }
+        }
+      },
+      "missing_seeds": [],
+      "evaluated": true
+    },
+    "A6": {
+      "row_id": "A6",
+      "label": "Diffusion + adaptive multiscale + adaptive quantum + fusion",
+      "recipe": "diffusion_i5_k15",
+      "loss": "plain_ce",
+      "model": "final_classifier",
+      "feature_tag": "a6_diffusion_swin",
+      "trains": true,
+      "rqs": [
+        "RQ8",
+        "RQ10"
+      ],
+      "note": "The specification's full model. Not the shipped model - see row P.",
+      "per_seed": {
+        "42": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.9808080808080808,
+            "balanced_accuracy": 0.9800653239641753,
+            "macro_precision": 0.980546512274059,
+            "macro_recall_sensitivity": 0.9800653239641753,
+            "macro_f1": 0.9802714292196206,
+            "weighted_f1": 0.9807824011417143,
+            "macro_specificity": 0.9936234596171126,
+            "mcc": 0.974410387157202,
+            "auc_ovr_macro": 0.9980284595230918
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.9793388429752066,
+              "recall_sensitivity": 0.9753086419753086,
+              "f1": 0.977319587628866,
+              "specificity": 0.9933065595716198,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.9691629955947136,
+              "recall_sensitivity": 0.9565217391304348,
+              "f1": 0.962800875273523,
+              "specificity": 0.9907894736842106,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.9736842105263158,
+              "recall_sensitivity": 0.9923371647509579,
+              "f1": 0.9829222011385199,
+              "specificity": 0.99039780521262,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 1.0,
+              "recall_sensitivity": 0.99609375,
+              "f1": 0.9980430528375733,
+              "specificity": 1.0,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                237,
+                6,
+                0,
+                0
+              ],
+              [
+                4,
+                220,
+                6,
+                0
+              ],
+              [
+                1,
+                1,
+                259,
+                0
+              ],
+              [
+                0,
+                0,
+                1,
+                255
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 6
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 6
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 4
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Glioma",
+                "count": 1
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 1
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Pituitary",
+                "count": 1
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.045524617818870884,
+            "brier_score": 0.03266097788074082,
+            "confidently_wrong_over_0.99": 0
+          },
+          "checkpoint": "logs/train/runs/step21_ablation_swin/A6/seed_42/checkpoints/epoch_004.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step21 from the validation-selected checkpoint"
+        },
+        "123": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.9828282828282828,
+            "balanced_accuracy": 0.9823101891858854,
+            "macro_precision": 0.9824206892876797,
+            "macro_recall_sensitivity": 0.9823101891858854,
+            "macro_f1": 0.9823633896317391,
+            "weighted_f1": 0.9828185376680109,
+            "macro_specificity": 0.9943116667464339,
+            "mcc": 0.9770866303241499,
+            "auc_ovr_macro": 0.9988239107065696
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.9794238683127572,
+              "recall_sensitivity": 0.9794238683127572,
+              "f1": 0.9794238683127572,
+              "specificity": 0.9933065595716198,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.9694323144104804,
+              "recall_sensitivity": 0.9652173913043478,
+              "f1": 0.9673202614379085,
+              "specificity": 0.9907894736842106,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.9847328244274809,
+              "recall_sensitivity": 0.9885057471264368,
+              "f1": 0.9866156787762906,
+              "specificity": 0.9945130315500685,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.99609375,
+              "recall_sensitivity": 0.99609375,
+              "f1": 0.99609375,
+              "specificity": 0.9986376021798365,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                238,
+                5,
+                0,
+                0
+              ],
+              [
+                5,
+                222,
+                3,
+                0
+              ],
+              [
+                0,
+                2,
+                258,
+                1
+              ],
+              [
+                0,
+                0,
+                1,
+                255
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 5
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 5
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 3
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 2
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "No-tumor",
+                "count": 1
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Pituitary",
+                "count": 1
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.04884286161625019,
+            "brier_score": 0.03289731345328513,
+            "confidently_wrong_over_0.99": 0
+          },
+          "checkpoint": "logs/train/runs/step21_ablation_swin/A6/seed_123/checkpoints/epoch_003.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step21 from the validation-selected checkpoint"
+        },
+        "7": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.9797979797979798,
+            "balanced_accuracy": 0.9790887614641753,
+            "macro_precision": 0.9796348229383602,
+            "macro_recall_sensitivity": 0.9790887614641753,
+            "macro_f1": 0.979314875083886,
+            "weighted_f1": 0.9797835936564803,
+            "macro_specificity": 0.9932805240889919,
+            "mcc": 0.973071369599597,
+            "auc_ovr_macro": 0.9986079182350905
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.9793388429752066,
+              "recall_sensitivity": 0.9753086419753086,
+              "f1": 0.977319587628866,
+              "specificity": 0.9933065595716198,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.9691629955947136,
+              "recall_sensitivity": 0.9565217391304348,
+              "f1": 0.962800875273523,
+              "specificity": 0.9907894736842106,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.9700374531835206,
+              "recall_sensitivity": 0.9923371647509579,
+              "f1": 0.9810606060606061,
+              "specificity": 0.9890260631001372,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 1.0,
+              "recall_sensitivity": 0.9921875,
+              "f1": 0.996078431372549,
+              "specificity": 1.0,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                237,
+                6,
+                0,
+                0
+              ],
+              [
+                4,
+                220,
+                6,
+                0
+              ],
+              [
+                1,
+                1,
+                259,
+                0
+              ],
+              [
+                0,
+                0,
+                2,
+                254
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 6
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 6
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 4
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Pituitary",
+                "count": 2
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Glioma",
+                "count": 1
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 1
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.05226984316050402,
+            "brier_score": 0.03513883266141731,
+            "confidently_wrong_over_0.99": 0
+          },
+          "checkpoint": "logs/train/runs/step21_ablation_swin/A6/seed_7/checkpoints/epoch_003.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step21 from the validation-selected checkpoint"
+        }
+      },
+      "across_seeds": {
+        "macro_f1": {
+          "mean": 0.9806498979784153,
+          "std": 0.0015590988384818862,
+          "ci_low": 0.9788856115555974,
+          "ci_high": 0.9824141844012332,
+          "n": 3
+        },
+        "balanced_accuracy": {
+          "mean": 0.9804880915380787,
+          "std": 0.0016518015794000948,
+          "ci_low": 0.9786189020885103,
+          "ci_high": 0.9823572809876471,
+          "n": 3
+        },
+        "accuracy": {
+          "mean": 0.981144781144781,
+          "std": 0.0015429547794464206,
+          "ci_low": 0.9793987634445498,
+          "ci_high": 0.9828907988450122,
+          "n": 3
+        },
+        "macro_precision": {
+          "mean": 0.980867341500033,
+          "std": 0.0014203736738080213,
+          "ci_low": 0.979260037379104,
+          "ci_high": 0.9824746456209619,
+          "n": 3
+        },
+        "macro_recall_sensitivity": {
+          "mean": 0.9804880915380787,
+          "std": 0.0016518015794000948,
+          "ci_low": 0.9786189020885103,
+          "ci_high": 0.9823572809876471,
+          "n": 3
+        },
+        "weighted_f1": {
+          "mean": 0.9811281774887352,
+          "std": 0.00154673599877311,
+          "ci_low": 0.9793778809360315,
+          "ci_high": 0.9828784740414388,
+          "n": 3
+        },
+        "macro_specificity": {
+          "mean": 0.9937385501508461,
+          "std": 0.0005251172899604666,
+          "ci_low": 0.9931443239977651,
+          "ci_high": 0.9943327763039271,
+          "n": 3
+        },
+        "mcc": {
+          "mean": 0.9748561290269828,
+          "std": 0.0020444055449913116,
+          "ci_low": 0.9725426663671851,
+          "ci_high": 0.9771695916867805,
+          "n": 3
+        },
+        "auc_ovr_macro": {
+          "mean": 0.998486762821584,
+          "std": 0.0004113327387778795,
+          "ci_low": 0.9980212960093625,
+          "ci_high": 0.9989522296338055,
+          "n": 3
+        },
+        "expected_calibration_error": {
+          "mean": 0.04887910753187504,
+          "std": 0.0033727587450264043,
+          "ci_low": 0.045062471719943833,
+          "ci_high": 0.05269574334380625,
+          "n": 3
+        },
+        "brier_score": {
+          "mean": 0.03356570799848109,
+          "std": 0.0013674810892901291,
+          "ci_low": 0.03201825747145487,
+          "ci_high": 0.03511315852550731,
+          "n": 3
+        },
+        "per_class_recall": {
+          "Glioma": {
+            "mean": 0.9766803840877915,
+            "std": 0.002375927033702153,
+            "ci_low": 0.973991769547325,
+            "ci_high": 0.9793689986282579,
+            "n": 3
+          },
+          "Meningioma": {
+            "mean": 0.9594202898550724,
+            "std": 0.005020437123388021,
+            "ci_low": 0.9537391304347826,
+            "ci_high": 0.9651014492753622,
+            "n": 3
+          },
+          "Pituitary": {
+            "mean": 0.9910600255427843,
+            "std": 0.0022120699968951364,
+            "ci_low": 0.9885568326947638,
+            "ci_high": 0.9935632183908047,
+            "n": 3
+          },
+          "No-tumor": {
+            "mean": 0.9947916666666666,
+            "std": 0.002255274489021976,
+            "ci_low": 0.9922395833333333,
+            "ci_high": 0.99734375,
+            "n": 3
+          }
+        }
+      },
+      "missing_seeds": [],
+      "evaluated": true
+    },
+    "A7": {
+      "row_id": "A7",
+      "label": "Core model + imbalance-aware loss",
+      "recipe": "diffusion_i5_k15",
+      "loss": "focal",
+      "model": "final_classifier",
+      "feature_tag": "a6_diffusion_swin",
+      "trains": true,
+      "rqs": [
+        "RQ6",
+        "RQ10"
+      ],
+      "note": "A6 with Step 14's loss. The only difference from A6 is the criterion.",
+      "per_seed": {
+        "42": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.9848484848484849,
+            "balanced_accuracy": 0.9845422521667407,
+            "macro_precision": 0.9845714070926439,
+            "macro_recall_sensitivity": 0.9845422521667407,
+            "macro_f1": 0.9845251532779782,
+            "weighted_f1": 0.984871929607994,
+            "macro_specificity": 0.99498439936919,
+            "mcc": 0.9798024493028095,
+            "auc_ovr_macro": 0.996032014002285
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.9916317991631799,
+              "recall_sensitivity": 0.9753086419753086,
+              "f1": 0.983402489626556,
+              "specificity": 0.9973226238286479,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.9656652360515021,
+              "recall_sensitivity": 0.9782608695652174,
+              "f1": 0.9719222462203023,
+              "specificity": 0.9894736842105263,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.9809885931558935,
+              "recall_sensitivity": 0.9885057471264368,
+              "f1": 0.9847328244274809,
+              "specificity": 0.9931412894375857,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 1.0,
+              "recall_sensitivity": 0.99609375,
+              "f1": 0.9980430528375733,
+              "specificity": 1.0,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                237,
+                6,
+                0,
+                0
+              ],
+              [
+                1,
+                225,
+                4,
+                0
+              ],
+              [
+                1,
+                2,
+                258,
+                0
+              ],
+              [
+                0,
+                0,
+                1,
+                255
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 6
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 4
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 2
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 1
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Glioma",
+                "count": 1
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Pituitary",
+                "count": 1
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.06476140720675685,
+            "brier_score": 0.0345506539678275,
+            "confidently_wrong_over_0.99": 0
+          },
+          "checkpoint": "logs/train/runs/step21_ablation_swin/A7/seed_42/checkpoints/epoch_016.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step21 from the validation-selected checkpoint"
+        },
+        "123": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.9828282828282828,
+            "balanced_accuracy": 0.9823101891858854,
+            "macro_precision": 0.9824206892876797,
+            "macro_recall_sensitivity": 0.9823101891858854,
+            "macro_f1": 0.9823633896317391,
+            "weighted_f1": 0.9828185376680109,
+            "macro_specificity": 0.9943116667464339,
+            "mcc": 0.9770866303241499,
+            "auc_ovr_macro": 0.9988401512679977
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.9794238683127572,
+              "recall_sensitivity": 0.9794238683127572,
+              "f1": 0.9794238683127572,
+              "specificity": 0.9933065595716198,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.9694323144104804,
+              "recall_sensitivity": 0.9652173913043478,
+              "f1": 0.9673202614379085,
+              "specificity": 0.9907894736842106,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.9847328244274809,
+              "recall_sensitivity": 0.9885057471264368,
+              "f1": 0.9866156787762906,
+              "specificity": 0.9945130315500685,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.99609375,
+              "recall_sensitivity": 0.99609375,
+              "f1": 0.99609375,
+              "specificity": 0.9986376021798365,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                238,
+                5,
+                0,
+                0
+              ],
+              [
+                5,
+                222,
+                3,
+                0
+              ],
+              [
+                0,
+                2,
+                258,
+                1
+              ],
+              [
+                0,
+                0,
+                1,
+                255
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 5
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 5
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 3
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 2
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "No-tumor",
+                "count": 1
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Pituitary",
+                "count": 1
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.12451301481988691,
+            "brier_score": 0.0534191909340403,
+            "confidently_wrong_over_0.99": 0
+          },
+          "checkpoint": "logs/train/runs/step21_ablation_swin/A7/seed_123/checkpoints/epoch_003.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step21 from the validation-selected checkpoint"
+        },
+        "7": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.9787878787878788,
+            "balanced_accuracy": 0.9781181048171902,
+            "macro_precision": 0.9786722621480792,
+            "macro_recall_sensitivity": 0.9781181048171902,
+            "macro_f1": 0.9783090991615637,
+            "weighted_f1": 0.9788151157925464,
+            "macro_specificity": 0.992954762519865,
+            "mcc": 0.971751004992403,
+            "auc_ovr_macro": 0.9985249711712607
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.9915611814345991,
+              "recall_sensitivity": 0.9670781893004116,
+              "f1": 0.9791666666666666,
+              "specificity": 0.9973226238286479,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.9567099567099567,
+              "recall_sensitivity": 0.9608695652173913,
+              "f1": 0.9587852494577006,
+              "specificity": 0.9868421052631579,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.9664179104477612,
+              "recall_sensitivity": 0.9923371647509579,
+              "f1": 0.9792060491493384,
+              "specificity": 0.9876543209876543,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 1.0,
+              "recall_sensitivity": 0.9921875,
+              "f1": 0.996078431372549,
+              "specificity": 1.0,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                235,
+                8,
+                0,
+                0
+              ],
+              [
+                2,
+                221,
+                7,
+                0
+              ],
+              [
+                0,
+                2,
+                259,
+                0
+              ],
+              [
+                0,
+                0,
+                2,
+                254
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 8
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 7
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 2
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 2
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Pituitary",
+                "count": 2
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.19426502952672012,
+            "brier_score": 0.08841625636919649,
+            "confidently_wrong_over_0.99": 0
+          },
+          "checkpoint": "logs/train/runs/step21_ablation_swin/A7/seed_7/checkpoints/epoch_001.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step21 from the validation-selected checkpoint"
+        }
+      },
+      "across_seeds": {
+        "macro_f1": {
+          "mean": 0.9817325473570936,
+          "std": 0.0031556780057791296,
+          "ci_low": 0.9781615615267134,
+          "ci_high": 0.9853035331874738,
+          "n": 3
+        },
+        "balanced_accuracy": {
+          "mean": 0.9816568487232722,
+          "std": 0.003261526883570048,
+          "ci_low": 0.9779660836118433,
+          "ci_high": 0.985347613834701,
+          "n": 3
+        },
+        "accuracy": {
+          "mean": 0.9821548821548821,
+          "std": 0.0030859095588928417,
+          "ci_low": 0.9786628467544197,
+          "ci_high": 0.9856469175553445,
+          "n": 3
+        },
+        "macro_precision": {
+          "mean": 0.9818881195094676,
+          "std": 0.0029854146606031746,
+          "ci_low": 0.9785098047919015,
+          "ci_high": 0.9852664342270337,
+          "n": 3
+        },
+        "macro_recall_sensitivity": {
+          "mean": 0.9816568487232722,
+          "std": 0.003261526883570048,
+          "ci_low": 0.9779660836118433,
+          "ci_high": 0.985347613834701,
+          "n": 3
+        },
+        "weighted_f1": {
+          "mean": 0.9821685276895171,
+          "std": 0.0030802813390752386,
+          "ci_low": 0.9786828612193392,
+          "ci_high": 0.985654194159695,
+          "n": 3
+        },
+        "macro_specificity": {
+          "mean": 0.994083609545163,
+          "std": 0.0010338587912878236,
+          "ci_low": 0.9929136881883129,
+          "ci_high": 0.995253530902013,
+          "n": 3
+        },
+        "mcc": {
+          "mean": 0.9762133615397874,
+          "std": 0.00409614302096505,
+          "ci_low": 0.9715781393592324,
+          "ci_high": 0.9808485837203424,
+          "n": 3
+        },
+        "auc_ovr_macro": {
+          "mean": 0.9977990454805145,
+          "std": 0.001538387079747862,
+          "ci_low": 0.9960581966190784,
+          "ci_high": 0.9995398943419506,
+          "n": 3
+        },
+        "expected_calibration_error": {
+          "mean": 0.1278464838511213,
+          "std": 0.06481613271658972,
+          "ci_low": 0.05450012497448428,
+          "ci_high": 0.2011928427277583,
+          "n": 3
+        },
+        "brier_score": {
+          "mean": 0.058795367090354766,
+          "std": 0.027332274568052057,
+          "ci_low": 0.027865986774672714,
+          "ci_high": 0.08972474740603682,
+          "n": 3
+        },
+        "per_class_recall": {
+          "Glioma": {
+            "mean": 0.9739368998628258,
+            "std": 0.006286112064411274,
+            "ci_low": 0.9668234944174395,
+            "ci_high": 0.9810503053082121,
+            "n": 3
+          },
+          "Meningioma": {
+            "mean": 0.9681159420289855,
+            "std": 0.009050721736809283,
+            "ci_low": 0.9578740862320153,
+            "ci_high": 0.9783577978259558,
+            "n": 3
+          },
+          "Pituitary": {
+            "mean": 0.9897828863346105,
+            "std": 0.0022120699968951364,
+            "ci_low": 0.9872796934865901,
+            "ci_high": 0.992286079182631,
+            "n": 3
+          },
+          "No-tumor": {
+            "mean": 0.9947916666666666,
+            "std": 0.002255274489021976,
+            "ci_low": 0.9922395833333333,
+            "ci_high": 0.99734375,
+            "n": 3
+          }
+        }
+      },
+      "missing_seeds": [],
+      "evaluated": true
+    },
+    "A8": {
+      "row_id": "A8",
+      "label": "Core model + explainability and uncertainty",
+      "recipe": "diffusion_i5_k15",
+      "loss": "focal",
+      "model": "final_classifier",
+      "feature_tag": "a6_diffusion_swin",
+      "trains": false,
+      "rqs": [
+        "RQ3",
+        "RQ9"
+      ],
+      "note": "Explanations change no weights, so its classification metrics are identical to A7's by construction. Reported qualitatively - deletion/insertion and MC-dropout uncertainty on A7's checkpoint - rather than as a delta.",
+      "per_seed": {
+        "42": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.9848484848484849,
+            "balanced_accuracy": 0.9845422521667407,
+            "macro_precision": 0.9845714070926439,
+            "macro_recall_sensitivity": 0.9845422521667407,
+            "macro_f1": 0.9845251532779782,
+            "weighted_f1": 0.984871929607994,
+            "macro_specificity": 0.99498439936919,
+            "mcc": 0.9798024493028095,
+            "auc_ovr_macro": 0.996032014002285
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.9916317991631799,
+              "recall_sensitivity": 0.9753086419753086,
+              "f1": 0.983402489626556,
+              "specificity": 0.9973226238286479,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.9656652360515021,
+              "recall_sensitivity": 0.9782608695652174,
+              "f1": 0.9719222462203023,
+              "specificity": 0.9894736842105263,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.9809885931558935,
+              "recall_sensitivity": 0.9885057471264368,
+              "f1": 0.9847328244274809,
+              "specificity": 0.9931412894375857,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 1.0,
+              "recall_sensitivity": 0.99609375,
+              "f1": 0.9980430528375733,
+              "specificity": 1.0,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                237,
+                6,
+                0,
+                0
+              ],
+              [
+                1,
+                225,
+                4,
+                0
+              ],
+              [
+                1,
+                2,
+                258,
+                0
+              ],
+              [
+                0,
+                0,
+                1,
+                255
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 6
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 4
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 2
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 1
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Glioma",
+                "count": 1
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Pituitary",
+                "count": 1
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.06476140720675685,
+            "brier_score": 0.0345506539678275,
+            "confidently_wrong_over_0.99": 0
+          },
+          "checkpoint": "logs/train/runs/step21_ablation_swin/A7/seed_42/checkpoints/epoch_016.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "identical to A7 by construction; explanations change no weights"
+        },
+        "123": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.9828282828282828,
+            "balanced_accuracy": 0.9823101891858854,
+            "macro_precision": 0.9824206892876797,
+            "macro_recall_sensitivity": 0.9823101891858854,
+            "macro_f1": 0.9823633896317391,
+            "weighted_f1": 0.9828185376680109,
+            "macro_specificity": 0.9943116667464339,
+            "mcc": 0.9770866303241499,
+            "auc_ovr_macro": 0.9988401512679977
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.9794238683127572,
+              "recall_sensitivity": 0.9794238683127572,
+              "f1": 0.9794238683127572,
+              "specificity": 0.9933065595716198,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.9694323144104804,
+              "recall_sensitivity": 0.9652173913043478,
+              "f1": 0.9673202614379085,
+              "specificity": 0.9907894736842106,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.9847328244274809,
+              "recall_sensitivity": 0.9885057471264368,
+              "f1": 0.9866156787762906,
+              "specificity": 0.9945130315500685,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.99609375,
+              "recall_sensitivity": 0.99609375,
+              "f1": 0.99609375,
+              "specificity": 0.9986376021798365,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                238,
+                5,
+                0,
+                0
+              ],
+              [
+                5,
+                222,
+                3,
+                0
+              ],
+              [
+                0,
+                2,
+                258,
+                1
+              ],
+              [
+                0,
+                0,
+                1,
+                255
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 5
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 5
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 3
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 2
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "No-tumor",
+                "count": 1
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Pituitary",
+                "count": 1
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.12451301481988691,
+            "brier_score": 0.0534191909340403,
+            "confidently_wrong_over_0.99": 0
+          },
+          "checkpoint": "logs/train/runs/step21_ablation_swin/A7/seed_123/checkpoints/epoch_003.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "identical to A7 by construction; explanations change no weights"
+        },
+        "7": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.9787878787878788,
+            "balanced_accuracy": 0.9781181048171902,
+            "macro_precision": 0.9786722621480792,
+            "macro_recall_sensitivity": 0.9781181048171902,
+            "macro_f1": 0.9783090991615637,
+            "weighted_f1": 0.9788151157925464,
+            "macro_specificity": 0.992954762519865,
+            "mcc": 0.971751004992403,
+            "auc_ovr_macro": 0.9985249711712607
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.9915611814345991,
+              "recall_sensitivity": 0.9670781893004116,
+              "f1": 0.9791666666666666,
+              "specificity": 0.9973226238286479,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.9567099567099567,
+              "recall_sensitivity": 0.9608695652173913,
+              "f1": 0.9587852494577006,
+              "specificity": 0.9868421052631579,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.9664179104477612,
+              "recall_sensitivity": 0.9923371647509579,
+              "f1": 0.9792060491493384,
+              "specificity": 0.9876543209876543,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 1.0,
+              "recall_sensitivity": 0.9921875,
+              "f1": 0.996078431372549,
+              "specificity": 1.0,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                235,
+                8,
+                0,
+                0
+              ],
+              [
+                2,
+                221,
+                7,
+                0
+              ],
+              [
+                0,
+                2,
+                259,
+                0
+              ],
+              [
+                0,
+                0,
+                2,
+                254
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 8
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 7
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 2
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 2
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Pituitary",
+                "count": 2
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.19426502952672012,
+            "brier_score": 0.08841625636919649,
+            "confidently_wrong_over_0.99": 0
+          },
+          "checkpoint": "logs/train/runs/step21_ablation_swin/A7/seed_7/checkpoints/epoch_001.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "identical to A7 by construction; explanations change no weights"
+        }
+      },
+      "across_seeds": {
+        "macro_f1": {
+          "mean": 0.9817325473570936,
+          "std": 0.0031556780057791296,
+          "ci_low": 0.9781615615267134,
+          "ci_high": 0.9853035331874738,
+          "n": 3
+        },
+        "balanced_accuracy": {
+          "mean": 0.9816568487232722,
+          "std": 0.003261526883570048,
+          "ci_low": 0.9779660836118433,
+          "ci_high": 0.985347613834701,
+          "n": 3
+        },
+        "accuracy": {
+          "mean": 0.9821548821548821,
+          "std": 0.0030859095588928417,
+          "ci_low": 0.9786628467544197,
+          "ci_high": 0.9856469175553445,
+          "n": 3
+        },
+        "macro_precision": {
+          "mean": 0.9818881195094676,
+          "std": 0.0029854146606031746,
+          "ci_low": 0.9785098047919015,
+          "ci_high": 0.9852664342270337,
+          "n": 3
+        },
+        "macro_recall_sensitivity": {
+          "mean": 0.9816568487232722,
+          "std": 0.003261526883570048,
+          "ci_low": 0.9779660836118433,
+          "ci_high": 0.985347613834701,
+          "n": 3
+        },
+        "weighted_f1": {
+          "mean": 0.9821685276895171,
+          "std": 0.0030802813390752386,
+          "ci_low": 0.9786828612193392,
+          "ci_high": 0.985654194159695,
+          "n": 3
+        },
+        "macro_specificity": {
+          "mean": 0.994083609545163,
+          "std": 0.0010338587912878236,
+          "ci_low": 0.9929136881883129,
+          "ci_high": 0.995253530902013,
+          "n": 3
+        },
+        "mcc": {
+          "mean": 0.9762133615397874,
+          "std": 0.00409614302096505,
+          "ci_low": 0.9715781393592324,
+          "ci_high": 0.9808485837203424,
+          "n": 3
+        },
+        "auc_ovr_macro": {
+          "mean": 0.9977990454805145,
+          "std": 0.001538387079747862,
+          "ci_low": 0.9960581966190784,
+          "ci_high": 0.9995398943419506,
+          "n": 3
+        },
+        "expected_calibration_error": {
+          "mean": 0.1278464838511213,
+          "std": 0.06481613271658972,
+          "ci_low": 0.05450012497448428,
+          "ci_high": 0.2011928427277583,
+          "n": 3
+        },
+        "brier_score": {
+          "mean": 0.058795367090354766,
+          "std": 0.027332274568052057,
+          "ci_low": 0.027865986774672714,
+          "ci_high": 0.08972474740603682,
+          "n": 3
+        },
+        "per_class_recall": {
+          "Glioma": {
+            "mean": 0.9739368998628258,
+            "std": 0.006286112064411274,
+            "ci_low": 0.9668234944174395,
+            "ci_high": 0.9810503053082121,
+            "n": 3
+          },
+          "Meningioma": {
+            "mean": 0.9681159420289855,
+            "std": 0.009050721736809283,
+            "ci_low": 0.9578740862320153,
+            "ci_high": 0.9783577978259558,
+            "n": 3
+          },
+          "Pituitary": {
+            "mean": 0.9897828863346105,
+            "std": 0.0022120699968951364,
+            "ci_low": 0.9872796934865901,
+            "ci_high": 0.992286079182631,
+            "n": 3
+          },
+          "No-tumor": {
+            "mean": 0.9947916666666666,
+            "std": 0.002255274489021976,
+            "ci_low": 0.9922395833333333,
+            "ci_high": 0.99734375,
+            "n": 3
+          }
+        }
+      },
+      "missing_seeds": [],
+      "evaluated": true,
+      "mirrors": "A7"
+    },
+    "P": {
+      "row_id": "P",
+      "label": "Proposed model as shipped",
+      "recipe": "diffusion_i5_k15",
+      "loss": "focal",
+      "model": "final_classifier",
+      "feature_tag": "swin",
+      "trains": false,
+      "rqs": [
+        "RQ1",
+        "RQ2",
+        "RQ10"
+      ],
+      "note": "The model the study actually ships, trained on the recipe Step 6 selected. Reuses the validated Step 15 checkpoints and the Step 16 test result; nothing is retrained. A7 against P is the end-to-end preprocessing comparison Step 6's proxy caveat asks for.",
+      "per_seed": {
+        "42": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.9828282828282828,
+            "balanced_accuracy": 0.9825240808415237,
+            "macro_precision": 0.9825288468271379,
+            "macro_recall_sensitivity": 0.9825240808415237,
+            "macro_f1": 0.9823798783532688,
+            "weighted_f1": 0.9828894938802384,
+            "macro_specificity": 0.9943462174450455,
+            "mcc": 0.9771796553526976,
+            "auc_ovr_macro": 0.9986131343969784
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.9957446808510638,
+              "recall_sensitivity": 0.9629629629629629,
+              "f1": 0.9790794979079498,
+              "specificity": 0.998661311914324,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.9495798319327731,
+              "recall_sensitivity": 0.9826086956521739,
+              "f1": 0.9658119658119658,
+              "specificity": 0.9842105263157894,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.9847908745247148,
+              "recall_sensitivity": 0.9923371647509579,
+              "f1": 0.9885496183206107,
+              "specificity": 0.9945130315500685,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 1.0,
+              "recall_sensitivity": 0.9921875,
+              "f1": 0.996078431372549,
+              "specificity": 1.0,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                234,
+                9,
+                0,
+                0
+              ],
+              [
+                1,
+                226,
+                3,
+                0
+              ],
+              [
+                0,
+                2,
+                259,
+                0
+              ],
+              [
+                0,
+                1,
+                1,
+                254
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 9
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 3
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 2
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 1
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Meningioma",
+                "count": 1
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Pituitary",
+                "count": 1
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.08515397207905544,
+            "brier_score": 0.04317887340932518,
+            "confidently_wrong_over_0.99": 0
+          },
+          "checkpoint": "logs/train/runs/step15_final_swin/seed_42",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "reused from Step 16 (logs/analyze/runs/step16_internal_swin/seed_42/step16_internal_summary.json)"
+        }
+      },
+      "across_seeds": {
+        "macro_f1": {
+          "mean": 0.9823798783532688,
+          "std": 0.0,
+          "ci_low": null,
+          "ci_high": null,
+          "n": 1
+        },
+        "balanced_accuracy": {
+          "mean": 0.9825240808415237,
+          "std": 0.0,
+          "ci_low": null,
+          "ci_high": null,
+          "n": 1
+        },
+        "accuracy": {
+          "mean": 0.9828282828282828,
+          "std": 0.0,
+          "ci_low": null,
+          "ci_high": null,
+          "n": 1
+        },
+        "macro_precision": {
+          "mean": 0.9825288468271379,
+          "std": 0.0,
+          "ci_low": null,
+          "ci_high": null,
+          "n": 1
+        },
+        "macro_recall_sensitivity": {
+          "mean": 0.9825240808415237,
+          "std": 0.0,
+          "ci_low": null,
+          "ci_high": null,
+          "n": 1
+        },
+        "weighted_f1": {
+          "mean": 0.9828894938802384,
+          "std": 0.0,
+          "ci_low": null,
+          "ci_high": null,
+          "n": 1
+        },
+        "macro_specificity": {
+          "mean": 0.9943462174450455,
+          "std": 0.0,
+          "ci_low": null,
+          "ci_high": null,
+          "n": 1
+        },
+        "mcc": {
+          "mean": 0.9771796553526976,
+          "std": 0.0,
+          "ci_low": null,
+          "ci_high": null,
+          "n": 1
+        },
+        "auc_ovr_macro": {
+          "mean": 0.9986131343969784,
+          "std": 0.0,
+          "ci_low": null,
+          "ci_high": null,
+          "n": 1
+        },
+        "expected_calibration_error": {
+          "mean": 0.08515397207905544,
+          "std": 0.0,
+          "ci_low": null,
+          "ci_high": null,
+          "n": 1
+        },
+        "brier_score": {
+          "mean": 0.04317887340932518,
+          "std": 0.0,
+          "ci_low": null,
+          "ci_high": null,
+          "n": 1
+        },
+        "per_class_recall": {
+          "Glioma": {
+            "mean": 0.9629629629629629,
+            "std": 0.0,
+            "ci_low": null,
+            "ci_high": null,
+            "n": 1
+          },
+          "Meningioma": {
+            "mean": 0.9826086956521739,
+            "std": 0.0,
+            "ci_low": null,
+            "ci_high": null,
+            "n": 1
+          },
+          "Pituitary": {
+            "mean": 0.9923371647509579,
+            "std": 0.0,
+            "ci_low": null,
+            "ci_high": null,
+            "n": 1
+          },
+          "No-tumor": {
+            "mean": 0.9921875,
+            "std": 0.0,
+            "ci_low": null,
+            "ci_high": null,
+            "n": 1
+          }
+        }
+      },
+      "missing_seeds": [
+        123,
+        7
+      ],
+      "evaluated": true,
+      "reused_from": "step16_internal"
+    }
+  },
+  "coverage": {
+    "expected_rows": [
+      "A0",
+      "A1",
+      "A2",
+      "A3",
+      "A4",
+      "A5",
+      "A6",
+      "A7",
+      "A8",
+      "P"
+    ],
+    "evaluated_rows": [
+      "A0",
+      "A1",
+      "A2",
+      "A3",
+      "A4",
+      "A5",
+      "A6",
+      "A7",
+      "A8",
+      "P"
+    ],
+    "incomplete_rows": {
+      "P": [
+        123,
+        7
+      ]
+    },
+    "complete": false
+  },
+  "notes": {
+    "test_set": "Every metric here was computed by this analysis from a checkpoint the training run selected on val/f1_macro. No test metric influenced any checkpoint, epoch or row choice, and the test/* columns written into each training run's metrics.csv were not read.",
+    "a6_vs_p": "A6 follows the specification and uses diffusion_i5_k15; row P is the shipped model and uses diffusion_i5_k15, which is what Step 6 selected. They are different configurations and A6 is not the proposed model.",
+    "a8": "A8's classification metrics are A7's by construction. Its contribution is qualitative - deletion/insertion and MC-dropout uncertainty from Step 19.",
+    "row_p_seeds": "Row P is reported from Step 16, which evaluated one checkpoint by design. Its across-seed spread is therefore not comparable with a three-seed A-row's; treat the P comparison as single-seed.",
+    "imbalance_settings": "Every A-row pins augment=false and use_weighted_sampler=false, matching the observed Step 8 'baseline' selection. If a full-profile Step 8 selects otherwise, the rows do NOT follow it - the conflict is reported rather than silently applied."
+  }
+}

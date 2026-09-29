@@ -1,0 +1,4 @@
+- analysis=step06_preprocessing
+- data.num_workers=0
+- data.pin_memory=true
+- extras.print_config=false

@@ -1,0 +1,8 @@
+- analysis=step25_quantum_circuit_ablation
+- analysis.run_root=/kaggle/working/thesis/logs/train/runs/step25_quantum_circuit_ablation
+- analysis.recipe=null
+- analysis.confirmation_summary=/kaggle/working/thesis/logs/analyze/runs/step06_confirm/step06_confirm_summary.json
+- analysis.seeds=[42,123,7]
+- data.num_workers=0
+- data.pin_memory=true
+- extras.print_config=false

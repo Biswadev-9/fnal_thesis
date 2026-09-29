@@ -1,0 +1,36 @@
+[2026-09-18 20:12:20,638][src.utils.utils][INFO] - [rank: 0] Enforcing tags! <cfg.extras.enforce_tags=True>
+[2026-09-18 20:12:20,643][__main__][INFO] - [rank: 0] Instantiating datamodule <src.data.bt_mri_datamodule.BTMRIDataModule>
+[2026-09-18 20:12:20,676][__main__][INFO] - [rank: 0] Instantiating analysis <src.analysis.internal_test.InternalTest>
+[2026-09-18 20:12:20,692][__main__][INFO] - [rank: 0] Running analysis; artefacts will be written to /kaggle/working/thesis/logs/analyze/runs/step16_internal_swin/seed_42
+[2026-09-18 20:12:21,265][src.models.components.transfer][INFO] - [rank: 0] swin_t: fine-tuning 15,366,576/27,519,354 backbone parameters (55.8%)
+[2026-09-18 20:12:21,488][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step10_classical_swin/seed_42/checkpoints/epoch_021.ckpt
+[2026-09-18 20:12:22,751][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step12_adaptive_quantum/seed_42/checkpoints/epoch_027.ckpt
+[2026-09-18 20:12:22,768][src.utils.checkpoints][INFO] - [rank: 0] Loaded weights from logs/train/runs/step15_final_swin/seed_42/checkpoints/epoch_008.ckpt
+[2026-09-18 20:12:23,092][src.models.full_pipeline][INFO] - [rank: 0] Full pipeline assembled on cuda (27,680,090 parameters)
+[2026-09-18 20:12:23,093][src.data.bt_mri_datamodule][INFO] - [rank: 0] Split table already present at /kaggle/working/thesis/data/splits/dataset_split.csv
+[2026-09-18 20:12:23,168][src.data.bt_mri_datamodule][INFO] - [rank: 0] Datasets ready - train 4617, val 990, test 990
+[2026-09-18 20:12:23,168][src.analysis.internal_test][INFO] - [rank: 0] Evaluating on the internal test set - this consumes the once-only budget
+[2026-09-18 20:12:33,057][src.analysis.base][INFO] - [rank: 0] [step16_internal] wrote step16_per_class.csv (4 rows)
+[2026-09-18 20:12:33,059][src.analysis.base][INFO] - [rank: 0] [step16_internal] wrote step16_confusion_matrix.csv (4 rows)
+[2026-09-18 20:12:33,302][src.analysis.base][INFO] - [rank: 0] [step16_internal] wrote step16_calibration_bins.csv (7 rows)
+[2026-09-18 20:12:33,309][src.analysis.internal_test][INFO] - [rank: 0] Test-set lock written to logs/train/runs/step15_final_swin/seed_42/test_evaluated.lock
+[2026-09-18 20:12:33,309][src.analysis.internal_test][INFO] - [rank: 0] === Step 16: internal test results ===
+[2026-09-18 20:12:33,309][src.analysis.internal_test][INFO] - [rank: 0]   accuracy                     0.9828
+[2026-09-18 20:12:33,309][src.analysis.internal_test][INFO] - [rank: 0]   balanced_accuracy            0.9825
+[2026-09-18 20:12:33,309][src.analysis.internal_test][INFO] - [rank: 0]   macro_precision              0.9825
+[2026-09-18 20:12:33,309][src.analysis.internal_test][INFO] - [rank: 0]   macro_recall_sensitivity     0.9825
+[2026-09-18 20:12:33,310][src.analysis.internal_test][INFO] - [rank: 0]   macro_f1                     0.9824
+[2026-09-18 20:12:33,310][src.analysis.internal_test][INFO] - [rank: 0]   weighted_f1                  0.9829
+[2026-09-18 20:12:33,310][src.analysis.internal_test][INFO] - [rank: 0]   macro_specificity            0.9943
+[2026-09-18 20:12:33,310][src.analysis.internal_test][INFO] - [rank: 0]   mcc                          0.9772
+[2026-09-18 20:12:33,310][src.analysis.internal_test][INFO] - [rank: 0]   auc_ovr_macro                0.9986
+[2026-09-18 20:12:33,310][src.analysis.internal_test][INFO] - [rank: 0] Calibration:
+[2026-09-18 20:12:33,310][src.analysis.internal_test][INFO] - [rank: 0]   expected_calibration_error   0.08515397207905544
+[2026-09-18 20:12:33,310][src.analysis.internal_test][INFO] - [rank: 0]   brier_score                  0.04317887340932518
+[2026-09-18 20:12:33,310][src.analysis.internal_test][INFO] - [rank: 0]   confidently_wrong_over_0.99  0
+[2026-09-18 20:12:33,310][src.analysis.internal_test][INFO] - [rank: 0] Most confused pairs:
+[2026-09-18 20:12:33,310][src.analysis.internal_test][INFO] - [rank: 0]   Glioma -> Meningioma: 9
+[2026-09-18 20:12:33,310][src.analysis.internal_test][INFO] - [rank: 0]   Meningioma -> Pituitary: 3
+[2026-09-18 20:12:33,311][src.analysis.internal_test][INFO] - [rank: 0]   Pituitary -> Meningioma: 2
+[2026-09-18 20:12:33,316][src.analysis.base][INFO] - [rank: 0] [step16_internal] wrote step16_internal_summary.json
+[2026-09-18 20:12:33,317][src.utils.utils][INFO] - [rank: 0] Output dir: /kaggle/working/thesis/logs/analyze/runs/step16_internal_swin/seed_42

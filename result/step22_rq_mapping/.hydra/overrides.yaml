@@ -1,0 +1,4 @@
+- analysis=step22_rq_mapping
+- analysis.analyze_root=logs/analyze/runs_swin
+- data.num_workers=0
+- extras.print_config=false

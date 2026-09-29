@@ -1,0 +1,2982 @@
+{
+  "question": "Does spatially adaptive selection among multiple receptive fields improve classification over fixed-receptive-field convolution and over ungated multi-scale fusion?",
+  "parameters": {
+    "primary_metric": "macro_f1",
+    "alpha": 0.05,
+    "confidence_level": 0.95,
+    "n_resamples": 2000,
+    "random_seed": 42,
+    "paired_seed": 42,
+    "seeds": [
+      42,
+      123,
+      7
+    ],
+    "correction": "holm-bonferroni",
+    "family_size": 1,
+    "recipe": null,
+    "recipe_source": "step06_confirm (/kaggle/working/thesis/logs/analyze/runs/step06_confirm/step06_confirm_summary.json)",
+    "parameter_matched": false,
+    "pinned": {
+      "normalize": "imagenet",
+      "augment": false,
+      "use_weighted_sampler": false,
+      "loss": "plain_ce"
+    }
+  },
+  "matrix": [
+    {
+      "condition": "FIXED_3X3",
+      "receptive_field_strategy": "single 3x3 convolution (3x3 effective)",
+      "fusion": "n/a - single path",
+      "adaptive": false,
+      "arm": "arm1_fixed_3x3",
+      "total_parameters": 19716,
+      "delta_vs_adaptive": -36643,
+      "statistical_role": "supporting",
+      "note": "Conventional fixed receptive field, and the smallest model in the ladder."
+    },
+    {
+      "condition": "FIXED_5X5",
+      "receptive_field_strategy": "single 5x5 convolution (5x5 effective)",
+      "fusion": "n/a - single path",
+      "adaptive": false,
+      "arm": "arm2_fixed_5x5",
+      "total_parameters": 36100,
+      "delta_vs_adaptive": -20259,
+      "statistical_role": "supporting",
+      "note": "A wider fixed field, at roughly 2.8x the fine path's parameter cost."
+    },
+    {
+      "condition": "FIXED_DILATED_3X3",
+      "receptive_field_strategy": "single 3x3 convolution, dilation 3 (7x7 effective)",
+      "fusion": "n/a - single path",
+      "adaptive": false,
+      "arm": "arm3_fixed_dilated",
+      "total_parameters": 19716,
+      "delta_vs_adaptive": -36643,
+      "statistical_role": "supporting",
+      "note": "The broad field at 3x3 parameter cost. NOT a literal 7x7 convolution - substituting one would change the condition's capacity and stop it matching the same path inside the multi-scale conditions."
+    },
+    {
+      "condition": "MULTISCALE_NO_GATE",
+      "receptive_field_strategy": "parallel 3x3 + 5x5 + dilated 3x3",
+      "fusion": "ungated: concatenation followed by a learned 1x1 projection",
+      "adaptive": false,
+      "arm": "arm4_concat_nogate",
+      "total_parameters": 57828,
+      "delta_vs_adaptive": 1469,
+      "statistical_role": "primary (H24)",
+      "note": "The control for H24: the same three receptive fields, combined without any gate. Its mixer is learned but input-INDEPENDENT once trained, and it is a projection rather than an average - so it must not be described as equal-weight fusion."
+    },
+    {
+      "condition": "ADAPTIVE_MULTISCALE",
+      "receptive_field_strategy": "parallel 3x3 + 5x5 + dilated 3x3",
+      "fusion": "spatially adaptive: per-pixel softmax over the three paths, fused as a convex combination",
+      "adaptive": true,
+      "arm": "arm6_spatial_gate",
+      "total_parameters": 56359,
+      "delta_vs_adaptive": 0,
+      "statistical_role": "primary (H24)",
+      "note": "The proposed module. The convolutions are fixed; what adapts is the per-pixel weighting over their outputs, computed from the input on every forward pass."
+    }
+  ],
+  "conditions": {
+    "FIXED_3X3": {
+      "condition": "FIXED_3X3",
+      "arm": "arm1_fixed_3x3",
+      "receptive_field_strategy": "single 3x3 convolution (3x3 effective)",
+      "fusion": "n/a - single path",
+      "adaptive": false,
+      "note": "Conventional fixed receptive field, and the smallest model in the ladder.",
+      "per_seed": {
+        "42": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.7383838383838384,
+            "balanced_accuracy": 0.7285016333943368,
+            "macro_precision": 0.7398588102969302,
+            "macro_recall_sensitivity": 0.7285016333943368,
+            "macro_f1": 0.7214540453266465,
+            "weighted_f1": 0.727624279833717,
+            "macro_specificity": 0.9124455505805287,
+            "mcc": 0.6579372352538612,
+            "auc_ovr_macro": 0.9200521602283372
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.7155172413793104,
+              "recall_sensitivity": 0.6831275720164609,
+              "f1": 0.6989473684210527,
+              "specificity": 0.9116465863453815,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.6573426573426573,
+              "recall_sensitivity": 0.40869565217391307,
+              "f1": 0.5040214477211796,
+              "specificity": 0.9355263157894737,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.6465753424657534,
+              "recall_sensitivity": 0.9042145593869731,
+              "f1": 0.7539936102236422,
+              "specificity": 0.823045267489712,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.94,
+              "recall_sensitivity": 0.91796875,
+              "f1": 0.9288537549407114,
+              "specificity": 0.9795640326975477,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                166,
+                34,
+                42,
+                1
+              ],
+              [
+                49,
+                94,
+                73,
+                14
+              ],
+              [
+                13,
+                12,
+                236,
+                0
+              ],
+              [
+                4,
+                3,
+                14,
+                235
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 73
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 49
+              },
+              {
+                "true": "Glioma",
+                "predicted": "Pituitary",
+                "count": 42
+              },
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 34
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "No-tumor",
+                "count": 14
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Pituitary",
+                "count": 14
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.20456283658441868,
+            "brier_score": 0.4284220591409323,
+            "confidently_wrong_over_0.99": 0
+          },
+          "checkpoint": "/kaggle/working/thesis/logs/train/runs/step24_receptive_field/FIXED_3X3/seed_42/checkpoints/epoch_015.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step24 from the validation-selected checkpoint; no training metrics were read"
+        },
+        "123": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.7363636363636363,
+            "balanced_accuracy": 0.7287346199585393,
+            "macro_precision": 0.7408300984094258,
+            "macro_recall_sensitivity": 0.7287346199585393,
+            "macro_f1": 0.7270354617519496,
+            "weighted_f1": 0.7322030408958196,
+            "macro_specificity": 0.9119794262751939,
+            "mcc": 0.6525692946760449,
+            "auc_ovr_macro": 0.9244892664620931
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.7073170731707317,
+              "recall_sensitivity": 0.7160493827160493,
+              "f1": 0.7116564417177914,
+              "specificity": 0.9036144578313253,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.6374269005847953,
+              "recall_sensitivity": 0.47391304347826085,
+              "f1": 0.543640897755611,
+              "specificity": 0.9184210526315789,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.6628242074927954,
+              "recall_sensitivity": 0.8812260536398467,
+              "f1": 0.756578947368421,
+              "specificity": 0.8395061728395061,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.9557522123893806,
+              "recall_sensitivity": 0.84375,
+              "f1": 0.8962655601659751,
+              "specificity": 0.9863760217983651,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                174,
+                42,
+                27,
+                0
+              ],
+              [
+                40,
+                109,
+                71,
+                10
+              ],
+              [
+                14,
+                17,
+                230,
+                0
+              ],
+              [
+                18,
+                3,
+                19,
+                216
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 71
+              },
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 42
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 40
+              },
+              {
+                "true": "Glioma",
+                "predicted": "Pituitary",
+                "count": 27
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Pituitary",
+                "count": 19
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Glioma",
+                "count": 18
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.19083857018538194,
+            "brier_score": 0.41153796049341584,
+            "confidently_wrong_over_0.99": 0
+          },
+          "checkpoint": "/kaggle/working/thesis/logs/train/runs/step24_receptive_field/FIXED_3X3/seed_123/checkpoints/epoch_024.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step24 from the validation-selected checkpoint; no training metrics were read"
+        },
+        "7": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.7464646464646465,
+            "balanced_accuracy": 0.7385358066047994,
+            "macro_precision": 0.7498272239930455,
+            "macro_recall_sensitivity": 0.7385358066047994,
+            "macro_f1": 0.7362969688048167,
+            "weighted_f1": 0.741507553418959,
+            "macro_specificity": 0.9153170332564678,
+            "mcc": 0.6662843831102778,
+            "auc_ovr_macro": 0.9267785962876476
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.7310924369747899,
+              "recall_sensitivity": 0.7160493827160493,
+              "f1": 0.7234927234927235,
+              "specificity": 0.9143239625167336,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.6470588235294118,
+              "recall_sensitivity": 0.4782608695652174,
+              "f1": 0.55,
+              "specificity": 0.9210526315789473,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.6685714285714286,
+              "recall_sensitivity": 0.896551724137931,
+              "f1": 0.7659574468085106,
+              "specificity": 0.840877914951989,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.9525862068965517,
+              "recall_sensitivity": 0.86328125,
+              "f1": 0.9057377049180327,
+              "specificity": 0.9850136239782016,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                174,
+                43,
+                26,
+                0
+              ],
+              [
+                38,
+                110,
+                71,
+                11
+              ],
+              [
+                13,
+                14,
+                234,
+                0
+              ],
+              [
+                13,
+                3,
+                19,
+                221
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 71
+              },
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 43
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 38
+              },
+              {
+                "true": "Glioma",
+                "predicted": "Pituitary",
+                "count": 26
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Pituitary",
+                "count": 19
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 14
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.2070470419495997,
+            "brier_score": 0.412028366794207,
+            "confidently_wrong_over_0.99": 0
+          },
+          "checkpoint": "/kaggle/working/thesis/logs/train/runs/step24_receptive_field/FIXED_3X3/seed_7/checkpoints/epoch_021.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step24 from the validation-selected checkpoint; no training metrics were read"
+        }
+      },
+      "across_seeds": {
+        "macro_f1": {
+          "mean": 0.7282621586278042,
+          "std": 0.007497111661408518,
+          "ci_low": 0.7197783781335207,
+          "ci_high": 0.7367459391220876,
+          "n": 3
+        },
+        "accuracy": {
+          "mean": 0.7404040404040404,
+          "std": 0.005344952143564864,
+          "ci_low": 0.7343556576686104,
+          "ci_high": 0.7464524231394704,
+          "n": 3
+        },
+        "balanced_accuracy": {
+          "mean": 0.7319240199858918,
+          "std": 0.0057271600645737945,
+          "ci_low": 0.7254431282721433,
+          "ci_high": 0.7384049116996404,
+          "n": 3
+        },
+        "macro_precision": {
+          "mean": 0.7435053775664672,
+          "std": 0.0054963767001816165,
+          "ci_low": 0.737285641814329,
+          "ci_high": 0.7497251133186054,
+          "n": 3
+        },
+        "macro_recall_sensitivity": {
+          "mean": 0.7319240199858918,
+          "std": 0.0057271600645737945,
+          "ci_low": 0.7254431282721433,
+          "ci_high": 0.7384049116996404,
+          "n": 3
+        },
+        "weighted_f1": {
+          "mean": 0.733778291382832,
+          "std": 0.007074417427130938,
+          "ci_low": 0.7257728344432409,
+          "ci_high": 0.7417837483224231,
+          "n": 3
+        },
+        "mcc": {
+          "mean": 0.658930304346728,
+          "std": 0.006911262717992507,
+          "ci_low": 0.6511094743410085,
+          "ci_high": 0.6667511343524474,
+          "n": 3
+        },
+        "per_class_recall": {
+          "Glioma": {
+            "mean": 0.7050754458161865,
+            "std": 0.019007416269617286,
+            "ci_low": 0.6835665294924554,
+            "ci_high": 0.7265843621399176,
+            "n": 3
+          },
+          "Meningioma": {
+            "mean": 0.4536231884057971,
+            "std": 0.0389690714775326,
+            "ci_low": 0.40952553274685555,
+            "ci_high": 0.4977208440647386,
+            "n": 3
+          },
+          "Pituitary": {
+            "mean": 0.8939974457215837,
+            "std": 0.011705174188903796,
+            "ci_low": 0.8807517942025885,
+            "ci_high": 0.9072430972405788,
+            "n": 3
+          },
+          "No-tumor": {
+            "mean": 0.875,
+            "std": 0.03847210078826603,
+            "ci_low": 0.8314647196170643,
+            "ci_high": 0.9185352803829357,
+            "n": 3
+          }
+        },
+        "per_class_precision": {
+          "Glioma": {
+            "mean": 0.7179755838416106,
+            "std": 0.012076819397105,
+            "ci_low": 0.7043093761790594,
+            "ci_high": 0.7316417915041619,
+            "n": 3
+          },
+          "Meningioma": {
+            "mean": 0.6472761271522881,
+            "std": 0.009959656492970394,
+            "ci_low": 0.6360057148520729,
+            "ci_high": 0.6585465394525033,
+            "n": 3
+          },
+          "Pituitary": {
+            "mean": 0.6593236595099925,
+            "std": 0.011408213187304927,
+            "ci_low": 0.6464140509988527,
+            "ci_high": 0.6722332680211323,
+            "n": 3
+          },
+          "No-tumor": {
+            "mean": 0.9494461397619774,
+            "std": 0.008332350508545855,
+            "ci_low": 0.9400171975361585,
+            "ci_high": 0.9588750819877964,
+            "n": 3
+          }
+        },
+        "per_class_f1": {
+          "Glioma": {
+            "mean": 0.7113655112105225,
+            "std": 0.012275263513205925,
+            "ci_low": 0.6974747428908253,
+            "ci_high": 0.7252562795302196,
+            "n": 3
+          },
+          "Meningioma": {
+            "mean": 0.5325541151589303,
+            "std": 0.02491373875341883,
+            "ci_low": 0.5043615657583498,
+            "ci_high": 0.5607466645595107,
+            "n": 3
+          },
+          "Pituitary": {
+            "mean": 0.7588433348001913,
+            "std": 0.006295151649343205,
+            "ci_low": 0.7517197001014891,
+            "ci_high": 0.7659669694988934,
+            "n": 3
+          },
+          "No-tumor": {
+            "mean": 0.9102856733415731,
+            "std": 0.016763371446555063,
+            "ci_low": 0.8913161327878724,
+            "ci_high": 0.9292552138952738,
+            "n": 3
+          }
+        }
+      },
+      "missing_seeds": [],
+      "evaluated": true
+    },
+    "FIXED_5X5": {
+      "condition": "FIXED_5X5",
+      "arm": "arm2_fixed_5x5",
+      "receptive_field_strategy": "single 5x5 convolution (5x5 effective)",
+      "fusion": "n/a - single path",
+      "adaptive": false,
+      "note": "A wider fixed field, at roughly 2.8x the fine path's parameter cost.",
+      "per_seed": {
+        "42": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.7838383838383839,
+            "balanced_accuracy": 0.7766695042717838,
+            "macro_precision": 0.7785782116307953,
+            "macro_recall_sensitivity": 0.7766695042717838,
+            "macro_f1": 0.7744321683293496,
+            "weighted_f1": 0.7795427083786378,
+            "macro_specificity": 0.9279889566066257,
+            "mcc": 0.7132321433778952,
+            "auc_ovr_macro": 0.9393044368467853
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.7878787878787878,
+              "recall_sensitivity": 0.7489711934156379,
+              "f1": 0.7679324894514767,
+              "specificity": 0.9344042838018741,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.6492146596858639,
+              "recall_sensitivity": 0.5391304347826087,
+              "f1": 0.5890736342042755,
+              "specificity": 0.9118421052631579,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.7365079365079366,
+              "recall_sensitivity": 0.8888888888888888,
+              "f1": 0.8055555555555556,
+              "specificity": 0.8861454046639232,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.9407114624505929,
+              "recall_sensitivity": 0.9296875,
+              "f1": 0.9351669941060904,
+              "specificity": 0.9795640326975477,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                182,
+                42,
+                16,
+                3
+              ],
+              [
+                37,
+                124,
+                57,
+                12
+              ],
+              [
+                10,
+                19,
+                232,
+                0
+              ],
+              [
+                2,
+                6,
+                10,
+                238
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 57
+              },
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 42
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 37
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 19
+              },
+              {
+                "true": "Glioma",
+                "predicted": "Pituitary",
+                "count": 16
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "No-tumor",
+                "count": 12
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.20030317956751043,
+            "brier_score": 0.3641642720451576,
+            "confidently_wrong_over_0.99": 0
+          },
+          "checkpoint": "/kaggle/working/thesis/logs/train/runs/step24_receptive_field/FIXED_5X5/seed_42/checkpoints/epoch_022.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step24 from the validation-selected checkpoint; no training metrics were read"
+        },
+        "123": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.7747474747474747,
+            "balanced_accuracy": 0.7676458609526255,
+            "macro_precision": 0.7769604803239007,
+            "macro_recall_sensitivity": 0.7676458609526255,
+            "macro_f1": 0.7673103567882553,
+            "weighted_f1": 0.7721010994085478,
+            "macro_specificity": 0.9248665101330015,
+            "mcc": 0.7024982251130522,
+            "auc_ovr_macro": 0.9350145653889117
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.8169014084507042,
+              "recall_sensitivity": 0.7160493827160493,
+              "f1": 0.7631578947368421,
+              "specificity": 0.9477911646586346,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.6395939086294417,
+              "recall_sensitivity": 0.5478260869565217,
+              "f1": 0.5901639344262295,
+              "specificity": 0.906578947368421,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.6964285714285714,
+              "recall_sensitivity": 0.896551724137931,
+              "f1": 0.7839195979899497,
+              "specificity": 0.8600823045267489,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.9549180327868853,
+              "recall_sensitivity": 0.91015625,
+              "f1": 0.932,
+              "specificity": 0.9850136239782016,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                174,
+                46,
+                22,
+                1
+              ],
+              [
+                28,
+                126,
+                66,
+                10
+              ],
+              [
+                7,
+                20,
+                234,
+                0
+              ],
+              [
+                4,
+                5,
+                14,
+                233
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 66
+              },
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 46
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 28
+              },
+              {
+                "true": "Glioma",
+                "predicted": "Pituitary",
+                "count": 22
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 20
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Pituitary",
+                "count": 14
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.19836044443978204,
+            "brier_score": 0.37652827760746493,
+            "confidently_wrong_over_0.99": 0
+          },
+          "checkpoint": "/kaggle/working/thesis/logs/train/runs/step24_receptive_field/FIXED_5X5/seed_123/checkpoints/epoch_022.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step24 from the validation-selected checkpoint; no training metrics were read"
+        },
+        "7": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.7848484848484848,
+            "balanced_accuracy": 0.7771721163434486,
+            "macro_precision": 0.7836812159147634,
+            "macro_recall_sensitivity": 0.7771721163434486,
+            "macro_f1": 0.7744433350388333,
+            "weighted_f1": 0.7794664000543965,
+            "macro_specificity": 0.9281792776655123,
+            "mcc": 0.716358143279439,
+            "auc_ovr_macro": 0.939958421180342
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.788135593220339,
+              "recall_sensitivity": 0.7654320987654321,
+              "f1": 0.7766179540709812,
+              "specificity": 0.9330655957161981,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.68,
+              "recall_sensitivity": 0.5173913043478261,
+              "f1": 0.5876543209876544,
+              "specificity": 0.9263157894736842,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.7155688622754491,
+              "recall_sensitivity": 0.9157088122605364,
+              "f1": 0.8033613445378152,
+              "specificity": 0.869684499314129,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.9510204081632653,
+              "recall_sensitivity": 0.91015625,
+              "f1": 0.9301397205588823,
+              "specificity": 0.9836512261580381,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                186,
+                39,
+                18,
+                0
+              ],
+              [
+                37,
+                119,
+                62,
+                12
+              ],
+              [
+                8,
+                14,
+                239,
+                0
+              ],
+              [
+                5,
+                3,
+                15,
+                233
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 62
+              },
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 39
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 37
+              },
+              {
+                "true": "Glioma",
+                "predicted": "Pituitary",
+                "count": 18
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Pituitary",
+                "count": 15
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 14
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.1972023462406313,
+            "brier_score": 0.36259999711021246,
+            "confidently_wrong_over_0.99": 0
+          },
+          "checkpoint": "/kaggle/working/thesis/logs/train/runs/step24_receptive_field/FIXED_5X5/seed_7/checkpoints/epoch_028.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step24 from the validation-selected checkpoint; no training metrics were read"
+        }
+      },
+      "across_seeds": {
+        "macro_f1": {
+          "mean": 0.7720619533854794,
+          "std": 0.004115007149558047,
+          "ci_low": 0.7674053844338709,
+          "ci_high": 0.776718522337088,
+          "n": 3
+        },
+        "accuracy": {
+          "mean": 0.7811447811447811,
+          "std": 0.0055632025730162635,
+          "ci_low": 0.7748494247987299,
+          "ci_high": 0.7874401374908324,
+          "n": 3
+        },
+        "balanced_accuracy": {
+          "mean": 0.7738291605226193,
+          "std": 0.005360788179256834,
+          "ci_low": 0.7677628576258289,
+          "ci_high": 0.7798954634194097,
+          "n": 3
+        },
+        "macro_precision": {
+          "mean": 0.7797399692898198,
+          "std": 0.0035077531789306964,
+          "ci_low": 0.7757705728952913,
+          "ci_high": 0.7837093656843483,
+          "n": 3
+        },
+        "macro_recall_sensitivity": {
+          "mean": 0.7738291605226193,
+          "std": 0.005360788179256834,
+          "ci_low": 0.7677628576258289,
+          "ci_high": 0.7798954634194097,
+          "n": 3
+        },
+        "weighted_f1": {
+          "mean": 0.777036735947194,
+          "std": 0.004274556909353548,
+          "ci_low": 0.772199619445922,
+          "ci_high": 0.7818738524484661,
+          "n": 3
+        },
+        "mcc": {
+          "mean": 0.7106961705901288,
+          "std": 0.0072696424520023,
+          "ci_low": 0.7024697957380401,
+          "ci_high": 0.7189225454422175,
+          "n": 3
+        },
+        "per_class_recall": {
+          "Glioma": {
+            "mean": 0.7434842249657064,
+            "std": 0.025144448257645217,
+            "ci_low": 0.7150306031841613,
+            "ci_high": 0.7719378467472515,
+            "n": 3
+          },
+          "Meningioma": {
+            "mean": 0.5347826086956521,
+            "std": 0.015676309893321663,
+            "ci_low": 0.5170431940915059,
+            "ci_high": 0.5525220232997983,
+            "n": 3
+          },
+          "Pituitary": {
+            "mean": 0.9003831417624522,
+            "std": 0.013814372702927156,
+            "ci_low": 0.8847507074369594,
+            "ci_high": 0.9160155760879449,
+            "n": 3
+          },
+          "No-tumor": {
+            "mean": 0.9166666666666666,
+            "std": 0.01127637244510988,
+            "ci_low": 0.9039062499999999,
+            "ci_high": 0.9294270833333333,
+            "n": 3
+          }
+        },
+        "per_class_precision": {
+          "Glioma": {
+            "mean": 0.7976385965166104,
+            "std": 0.016682578636172066,
+            "ci_low": 0.7787604816345232,
+            "ci_high": 0.8165167113986976,
+            "n": 3
+          },
+          "Meningioma": {
+            "mean": 0.6562695227717685,
+            "std": 0.021106666596886474,
+            "ci_low": 0.6323850810746087,
+            "ci_high": 0.6801539644689284,
+            "n": 3
+          },
+          "Pituitary": {
+            "mean": 0.7161684567373191,
+            "std": 0.020046408941012044,
+            "ci_low": 0.693483809524497,
+            "ci_high": 0.7388531039501413,
+            "n": 3
+          },
+          "No-tumor": {
+            "mean": 0.9488833011335811,
+            "std": 0.007340441405136989,
+            "ci_low": 0.9405768097239772,
+            "ci_high": 0.957189792543185,
+            "n": 3
+          }
+        },
+        "per_class_f1": {
+          "Glioma": {
+            "mean": 0.7692361127531,
+            "std": 0.006824065841127085,
+            "ci_low": 0.7615139553024288,
+            "ci_high": 0.7769582702037712,
+            "n": 3
+          },
+          "Meningioma": {
+            "mean": 0.5889639632060532,
+            "std": 0.0012583960817872716,
+            "ci_low": 0.5875399539855818,
+            "ci_high": 0.5903879724265245,
+            "n": 3
+          },
+          "Pituitary": {
+            "mean": 0.7976121660277734,
+            "std": 0.011908755396783426,
+            "ci_low": 0.7841361406850427,
+            "ci_high": 0.8110881913705041,
+            "n": 3
+          },
+          "No-tumor": {
+            "mean": 0.9324355715549909,
+            "std": 0.0025417831859252805,
+            "ci_low": 0.9295592731100243,
+            "ci_high": 0.9353118699999575,
+            "n": 3
+          }
+        }
+      },
+      "missing_seeds": [],
+      "evaluated": true
+    },
+    "FIXED_DILATED_3X3": {
+      "condition": "FIXED_DILATED_3X3",
+      "arm": "arm3_fixed_dilated",
+      "receptive_field_strategy": "single 3x3 convolution, dilation 3 (7x7 effective)",
+      "fusion": "n/a - single path",
+      "adaptive": false,
+      "note": "The broad field at 3x3 parameter cost. NOT a literal 7x7 convolution - substituting one would change the condition's capacity and stop it matching the same path inside the multi-scale conditions.",
+      "per_seed": {
+        "42": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.7727272727272727,
+            "balanced_accuracy": 0.7648164801665525,
+            "macro_precision": 0.767599031851813,
+            "macro_recall_sensitivity": 0.7648164801665525,
+            "macro_f1": 0.7614353198406206,
+            "weighted_f1": 0.7669667416012643,
+            "macro_specificity": 0.9242331542069825,
+            "mcc": 0.699227808776585,
+            "auc_ovr_macro": 0.9325711715720907
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.7416666666666667,
+              "recall_sensitivity": 0.7325102880658436,
+              "f1": 0.7370600414078675,
+              "specificity": 0.9170013386880856,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.655367231638418,
+              "recall_sensitivity": 0.5043478260869565,
+              "f1": 0.5700245700245701,
+              "specificity": 0.9197368421052632,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.7213622291021672,
+              "recall_sensitivity": 0.89272030651341,
+              "f1": 0.797945205479452,
+              "specificity": 0.8765432098765432,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.952,
+              "recall_sensitivity": 0.9296875,
+              "f1": 0.9407114624505929,
+              "specificity": 0.9836512261580381,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                178,
+                42,
+                22,
+                1
+              ],
+              [
+                47,
+                116,
+                56,
+                11
+              ],
+              [
+                13,
+                15,
+                233,
+                0
+              ],
+              [
+                2,
+                4,
+                12,
+                238
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 56
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 47
+              },
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 42
+              },
+              {
+                "true": "Glioma",
+                "predicted": "Pituitary",
+                "count": 22
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 15
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Glioma",
+                "count": 13
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.18925104222514416,
+            "brier_score": 0.3741731482601337,
+            "confidently_wrong_over_0.99": 0
+          },
+          "checkpoint": "/kaggle/working/thesis/logs/train/runs/step24_receptive_field/FIXED_DILATED_3X3/seed_42/checkpoints/epoch_027.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step24 from the validation-selected checkpoint; no training metrics were read"
+        },
+        "123": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.7626262626262627,
+            "balanced_accuracy": 0.7552775490630457,
+            "macro_precision": 0.7620007808778227,
+            "macro_recall_sensitivity": 0.7552775490630457,
+            "macro_f1": 0.7535823007371335,
+            "weighted_f1": 0.7587240236502243,
+            "macro_specificity": 0.9208518936191202,
+            "mcc": 0.686047485928765,
+            "auc_ovr_macro": 0.9313640146723996
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.7302904564315352,
+              "recall_sensitivity": 0.7242798353909465,
+              "f1": 0.7272727272727273,
+              "specificity": 0.9129852744310576,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.6538461538461539,
+              "recall_sensitivity": 0.5173913043478261,
+              "f1": 0.5776699029126213,
+              "specificity": 0.9171052631578948,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.706060606060606,
+              "recall_sensitivity": 0.89272030651341,
+              "f1": 0.7884940778341794,
+              "specificity": 0.8669410150891632,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.9578059071729957,
+              "recall_sensitivity": 0.88671875,
+              "f1": 0.920892494929006,
+              "specificity": 0.9863760217983651,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                176,
+                43,
+                24,
+                0
+              ],
+              [
+                44,
+                119,
+                57,
+                10
+              ],
+              [
+                11,
+                17,
+                233,
+                0
+              ],
+              [
+                10,
+                3,
+                16,
+                227
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 57
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 44
+              },
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 43
+              },
+              {
+                "true": "Glioma",
+                "predicted": "Pituitary",
+                "count": 24
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 17
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Pituitary",
+                "count": 16
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.18828601180905047,
+            "brier_score": 0.38303589096427476,
+            "confidently_wrong_over_0.99": 0
+          },
+          "checkpoint": "/kaggle/working/thesis/logs/train/runs/step24_receptive_field/FIXED_DILATED_3X3/seed_123/checkpoints/epoch_026.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step24 from the validation-selected checkpoint; no training metrics were read"
+        },
+        "7": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.7747474747474747,
+            "balanced_accuracy": 0.7662720759122753,
+            "macro_precision": 0.774451134904519,
+            "macro_recall_sensitivity": 0.7662720759122753,
+            "macro_f1": 0.762881086611849,
+            "weighted_f1": 0.7684170132727101,
+            "macro_specificity": 0.9247954782239463,
+            "mcc": 0.7040144075216942,
+            "auc_ovr_macro": 0.9348246029045196
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.7763157894736842,
+              "recall_sensitivity": 0.7283950617283951,
+              "f1": 0.7515923566878981,
+              "specificity": 0.9317269076305221,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.6589595375722543,
+              "recall_sensitivity": 0.4956521739130435,
+              "f1": 0.56575682382134,
+              "specificity": 0.9223684210526316,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.7040229885057471,
+              "recall_sensitivity": 0.9386973180076629,
+              "f1": 0.8045977011494253,
+              "specificity": 0.8587105624142661,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.9585062240663901,
+              "recall_sensitivity": 0.90234375,
+              "f1": 0.9295774647887324,
+              "specificity": 0.9863760217983651,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                177,
+                47,
+                19,
+                0
+              ],
+              [
+                37,
+                114,
+                69,
+                10
+              ],
+              [
+                6,
+                10,
+                245,
+                0
+              ],
+              [
+                8,
+                2,
+                15,
+                231
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 69
+              },
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 47
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 37
+              },
+              {
+                "true": "Glioma",
+                "predicted": "Pituitary",
+                "count": 19
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Pituitary",
+                "count": 15
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "No-tumor",
+                "count": 10
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.18808325812070056,
+            "brier_score": 0.37300623356731727,
+            "confidently_wrong_over_0.99": 0
+          },
+          "checkpoint": "/kaggle/working/thesis/logs/train/runs/step24_receptive_field/FIXED_DILATED_3X3/seed_7/checkpoints/epoch_025.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step24 from the validation-selected checkpoint; no training metrics were read"
+        }
+      },
+      "across_seeds": {
+        "macro_f1": {
+          "mean": 0.7592995690632011,
+          "std": 0.005003791384878889,
+          "ci_low": 0.7536372460692651,
+          "ci_high": 0.764961892057137,
+          "n": 3
+        },
+        "accuracy": {
+          "mean": 0.7700336700336701,
+          "std": 0.006494040916493551,
+          "ci_low": 0.7626849709419887,
+          "ci_high": 0.7773823691253514,
+          "n": 3
+        },
+        "balanced_accuracy": {
+          "mean": 0.7621220350472911,
+          "std": 0.005972012310364168,
+          "ci_low": 0.7553640669339058,
+          "ci_high": 0.7688800031606765,
+          "n": 3
+        },
+        "macro_precision": {
+          "mean": 0.7680169825447183,
+          "std": 0.006235690894663789,
+          "ci_low": 0.7609606340241482,
+          "ci_high": 0.7750733310652884,
+          "n": 3
+        },
+        "macro_recall_sensitivity": {
+          "mean": 0.7621220350472911,
+          "std": 0.005972012310364168,
+          "ci_low": 0.7553640669339058,
+          "ci_high": 0.7688800031606765,
+          "n": 3
+        },
+        "weighted_f1": {
+          "mean": 0.7647025928413996,
+          "std": 0.005228124822582383,
+          "ci_low": 0.7587864126649968,
+          "ci_high": 0.7706187730178025,
+          "n": 3
+        },
+        "mcc": {
+          "mean": 0.696429900742348,
+          "std": 0.00930450347453599,
+          "ci_low": 0.6859008638743777,
+          "ci_high": 0.7069589376103184,
+          "n": 3
+        },
+        "per_class_recall": {
+          "Glioma": {
+            "mean": 0.7283950617283951,
+            "std": 0.004115226337448541,
+            "ci_low": 0.7237382447423388,
+            "ci_high": 0.7330518787144513,
+            "n": 3
+          },
+          "Meningioma": {
+            "mean": 0.5057971014492754,
+            "std": 0.01094178903662427,
+            "ci_low": 0.49341530155168156,
+            "ci_high": 0.5181789013468692,
+            "n": 3
+          },
+          "Pituitary": {
+            "mean": 0.9080459770114943,
+            "std": 0.026544839962741446,
+            "ci_low": 0.878007662835249,
+            "ci_high": 0.9380842911877395,
+            "n": 3
+          },
+          "No-tumor": {
+            "mean": 0.90625,
+            "std": 0.02174907954230477,
+            "ci_low": 0.8816385996203826,
+            "ci_high": 0.9308614003796174,
+            "n": 3
+          }
+        },
+        "per_class_precision": {
+          "Glioma": {
+            "mean": 0.7494243041906287,
+            "std": 0.023973287746470433,
+            "ci_low": 0.7222959752884099,
+            "ci_high": 0.7765526330928474,
+            "n": 3
+          },
+          "Meningioma": {
+            "mean": 0.656057641018942,
+            "std": 0.0026256755544286146,
+            "ci_low": 0.6530864094221602,
+            "ci_high": 0.6590288726157238,
+            "n": 3
+          },
+          "Pituitary": {
+            "mean": 0.7104819412228401,
+            "std": 0.00947752444353172,
+            "ci_low": 0.6997571126969405,
+            "ci_high": 0.7212067697487398,
+            "n": 3
+          },
+          "No-tumor": {
+            "mean": 0.956104043746462,
+            "std": 0.0035714131996240034,
+            "ci_low": 0.952062609256969,
+            "ci_high": 0.960145478235955,
+            "n": 3
+          }
+        },
+        "per_class_f1": {
+          "Glioma": {
+            "mean": 0.7386417084561643,
+            "std": 0.01223672124024903,
+            "ci_low": 0.7247945548241341,
+            "ci_high": 0.7524888620881944,
+            "n": 3
+          },
+          "Meningioma": {
+            "mean": 0.5711504322528438,
+            "std": 0.006035812925909102,
+            "ci_low": 0.5643202669464422,
+            "ci_high": 0.5779805975592454,
+            "n": 3
+          },
+          "Pituitary": {
+            "mean": 0.7970123281543522,
+            "std": 0.00809224110167247,
+            "ci_low": 0.7878550953006922,
+            "ci_high": 0.8061695610080122,
+            "n": 3
+          },
+          "No-tumor": {
+            "mean": 0.9303938073894438,
+            "std": 0.00993467059528049,
+            "ci_low": 0.9191516692941527,
+            "ci_high": 0.9416359454847348,
+            "n": 3
+          }
+        }
+      },
+      "missing_seeds": [],
+      "evaluated": true
+    },
+    "MULTISCALE_NO_GATE": {
+      "condition": "MULTISCALE_NO_GATE",
+      "arm": "arm4_concat_nogate",
+      "receptive_field_strategy": "parallel 3x3 + 5x5 + dilated 3x3",
+      "fusion": "ungated: concatenation followed by a learned 1x1 projection",
+      "adaptive": false,
+      "note": "The control for H24: the same three receptive fields, combined without any gate. Its mixer is learned but input-INDEPENDENT once trained, and it is a projection rather than an average - so it must not be described as equal-weight fusion.",
+      "per_seed": {
+        "42": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.8131313131313131,
+            "balanced_accuracy": 0.8063868299742876,
+            "macro_precision": 0.8119065849815026,
+            "macro_recall_sensitivity": 0.8063868299742876,
+            "macro_f1": 0.8056459392267596,
+            "weighted_f1": 0.8105074501451044,
+            "macro_specificity": 0.9378160334764433,
+            "mcc": 0.7528096526580277,
+            "auc_ovr_macro": 0.9556913693853271
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.8423423423423423,
+              "recall_sensitivity": 0.7695473251028807,
+              "f1": 0.8043010752688172,
+              "specificity": 0.9531459170013387,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.6682926829268293,
+              "recall_sensitivity": 0.5956521739130435,
+              "f1": 0.6298850574712643,
+              "specificity": 0.9105263157894737,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.7701863354037267,
+              "recall_sensitivity": 0.9501915708812261,
+              "f1": 0.8507718696397941,
+              "specificity": 0.8984910836762688,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.966804979253112,
+              "recall_sensitivity": 0.91015625,
+              "f1": 0.937625754527163,
+              "specificity": 0.989100817438692,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                187,
+                47,
+                8,
+                1
+              ],
+              [
+                32,
+                137,
+                54,
+                7
+              ],
+              [
+                3,
+                10,
+                248,
+                0
+              ],
+              [
+                0,
+                11,
+                12,
+                233
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 54
+              },
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 47
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 32
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Pituitary",
+                "count": 12
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Meningioma",
+                "count": 11
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 10
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.06680593011957227,
+            "brier_score": 0.2667087869349499,
+            "confidently_wrong_over_0.99": 0
+          },
+          "checkpoint": "/kaggle/working/thesis/logs/train/runs/step24_receptive_field/MULTISCALE_NO_GATE/seed_42/checkpoints/epoch_029.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step24 from the validation-selected checkpoint; no training metrics were read"
+        },
+        "123": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.8141414141414142,
+            "balanced_accuracy": 0.8073821005681573,
+            "macro_precision": 0.8116845894595113,
+            "macro_recall_sensitivity": 0.8073821005681573,
+            "macro_f1": 0.8062821740838982,
+            "weighted_f1": 0.8111231690120579,
+            "macro_specificity": 0.93814413111865,
+            "mcc": 0.7539511589076513,
+            "auc_ovr_macro": 0.9556446251933821
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.8311111111111111,
+              "recall_sensitivity": 0.7695473251028807,
+              "f1": 0.7991452991452992,
+              "specificity": 0.9491298527443106,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.6782178217821783,
+              "recall_sensitivity": 0.5956521739130435,
+              "f1": 0.6342592592592593,
+              "specificity": 0.9144736842105263,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.774294670846395,
+              "recall_sensitivity": 0.946360153256705,
+              "f1": 0.8517241379310345,
+              "specificity": 0.9012345679012346,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.9631147540983607,
+              "recall_sensitivity": 0.91796875,
+              "f1": 0.94,
+              "specificity": 0.9877384196185286,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                187,
+                47,
+                8,
+                1
+              ],
+              [
+                33,
+                137,
+                52,
+                8
+              ],
+              [
+                4,
+                10,
+                247,
+                0
+              ],
+              [
+                1,
+                8,
+                12,
+                235
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 52
+              },
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 47
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 33
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Pituitary",
+                "count": 12
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 10
+              },
+              {
+                "true": "Glioma",
+                "predicted": "Pituitary",
+                "count": 8
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.07190292733486253,
+            "brier_score": 0.2669967904320391,
+            "confidently_wrong_over_0.99": 0
+          },
+          "checkpoint": "/kaggle/working/thesis/logs/train/runs/step24_receptive_field/MULTISCALE_NO_GATE/seed_123/checkpoints/epoch_022.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step24 from the validation-selected checkpoint; no training metrics were read"
+        },
+        "7": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.8222222222222222,
+            "balanced_accuracy": 0.8166543367976505,
+            "macro_precision": 0.8239452007236358,
+            "macro_recall_sensitivity": 0.8166543367976505,
+            "macro_f1": 0.8173015550798455,
+            "weighted_f1": 0.8215287619433924,
+            "macro_specificity": 0.9409005613214164,
+            "mcc": 0.7646022364876905,
+            "auc_ovr_macro": 0.9583939358696981
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.8685446009389671,
+              "recall_sensitivity": 0.7613168724279835,
+              "f1": 0.8114035087719298,
+              "specificity": 0.9625167336010709,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.6771300448430493,
+              "recall_sensitivity": 0.6565217391304348,
+              "f1": 0.6666666666666666,
+              "specificity": 0.9052631578947369,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.7834394904458599,
+              "recall_sensitivity": 0.9425287356321839,
+              "f1": 0.8556521739130435,
+              "specificity": 0.906721536351166,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.9666666666666667,
+              "recall_sensitivity": 0.90625,
+              "f1": 0.9354838709677419,
+              "specificity": 0.989100817438692,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                185,
+                50,
+                7,
+                1
+              ],
+              [
+                24,
+                151,
+                49,
+                6
+              ],
+              [
+                4,
+                10,
+                246,
+                1
+              ],
+              [
+                0,
+                12,
+                12,
+                232
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 50
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 49
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 24
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Meningioma",
+                "count": 12
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Pituitary",
+                "count": 12
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 10
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.07458132664964656,
+            "brier_score": 0.2548957133123163,
+            "confidently_wrong_over_0.99": 0
+          },
+          "checkpoint": "/kaggle/working/thesis/logs/train/runs/step24_receptive_field/MULTISCALE_NO_GATE/seed_7/checkpoints/epoch_028.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step24 from the validation-selected checkpoint; no training metrics were read"
+        }
+      },
+      "across_seeds": {
+        "macro_f1": {
+          "mean": 0.8097432227968344,
+          "std": 0.0065534333653180996,
+          "ci_low": 0.8023273148223724,
+          "ci_high": 0.8171591307712964,
+          "n": 3
+        },
+        "accuracy": {
+          "mean": 0.8164983164983165,
+          "std": 0.004982709961935572,
+          "ci_low": 0.8108598493801945,
+          "ci_high": 0.8221367836164385,
+          "n": 3
+        },
+        "balanced_accuracy": {
+          "mean": 0.8101410891133652,
+          "std": 0.0056625469036814475,
+          "ci_low": 0.8037333140742521,
+          "ci_high": 0.8165488641524784,
+          "n": 3
+        },
+        "macro_precision": {
+          "mean": 0.8158454583882166,
+          "std": 0.00701546077803039,
+          "ci_low": 0.8079067171775939,
+          "ci_high": 0.8237841995988394,
+          "n": 3
+        },
+        "macro_recall_sensitivity": {
+          "mean": 0.8101410891133652,
+          "std": 0.0056625469036814475,
+          "ci_low": 0.8037333140742521,
+          "ci_high": 0.8165488641524784,
+          "n": 3
+        },
+        "weighted_f1": {
+          "mean": 0.8143864603668516,
+          "std": 0.006193071232310661,
+          "ci_low": 0.8073783405344048,
+          "ci_high": 0.8213945801992983,
+          "n": 3
+        },
+        "mcc": {
+          "mean": 0.7571210160177898,
+          "std": 0.006504018290174806,
+          "ci_low": 0.7497610264649224,
+          "ci_high": 0.7644810055706572,
+          "n": 3
+        },
+        "per_class_recall": {
+          "Glioma": {
+            "mean": 0.7668038408779151,
+            "std": 0.00475185406740437,
+            "ci_low": 0.7614266117969822,
+            "ci_high": 0.7721810699588479,
+            "n": 3
+          },
+          "Meningioma": {
+            "mean": 0.6159420289855072,
+            "std": 0.03514305986371634,
+            "ci_low": 0.5761739130434782,
+            "ci_high": 0.6557101449275362,
+            "n": 3
+          },
+          "Pituitary": {
+            "mean": 0.946360153256705,
+            "std": 0.003831417624521105,
+            "ci_low": 0.9420244960627905,
+            "ci_high": 0.9506958104506195,
+            "n": 3
+          },
+          "No-tumor": {
+            "mean": 0.9114583333333334,
+            "std": 0.005966895436140416,
+            "ci_low": 0.9047061555082206,
+            "ci_high": 0.9182105111584461,
+            "n": 3
+          }
+        },
+        "per_class_precision": {
+          "Glioma": {
+            "mean": 0.8473326847974736,
+            "std": 0.019209221185088773,
+            "ci_low": 0.8255954047140908,
+            "ci_high": 0.8690699648808564,
+            "n": 3
+          },
+          "Meningioma": {
+            "mean": 0.6745468498506857,
+            "std": 0.005443506921178566,
+            "ci_low": 0.6683869418855808,
+            "ci_high": 0.6807067578157906,
+            "n": 3
+          },
+          "Pituitary": {
+            "mean": 0.7759734988986606,
+            "std": 0.006784200569301474,
+            "ci_low": 0.7682964532498123,
+            "ci_high": 0.7836505445475089,
+            "n": 3
+          },
+          "No-tumor": {
+            "mean": 0.9655288000060466,
+            "std": 0.0020917685881098767,
+            "ci_low": 0.9631617410174884,
+            "ci_high": 0.9678958589946047,
+            "n": 3
+          }
+        },
+        "per_class_f1": {
+          "Glioma": {
+            "mean": 0.8049499610620154,
+            "std": 0.0061548123766745,
+            "ci_low": 0.7979851352003455,
+            "ci_high": 0.8119147869236853,
+            "n": 3
+          },
+          "Meningioma": {
+            "mean": 0.6436036611323968,
+            "std": 0.02009253788165763,
+            "ci_low": 0.6208668141092283,
+            "ci_high": 0.6663405081555652,
+            "n": 3
+          },
+          "Pituitary": {
+            "mean": 0.852716060494624,
+            "std": 0.002586943221060819,
+            "ci_low": 0.8497886586591108,
+            "ci_high": 0.8556434623301372,
+            "n": 3
+          },
+          "No-tumor": {
+            "mean": 0.9377032084983016,
+            "std": 0.002259060578478341,
+            "ci_low": 0.9351468408014253,
+            "ci_high": 0.9402595761951779,
+            "n": 3
+          }
+        }
+      },
+      "missing_seeds": [],
+      "evaluated": true
+    },
+    "ADAPTIVE_MULTISCALE": {
+      "condition": "ADAPTIVE_MULTISCALE",
+      "arm": "arm6_spatial_gate",
+      "receptive_field_strategy": "parallel 3x3 + 5x5 + dilated 3x3",
+      "fusion": "spatially adaptive: per-pixel softmax over the three paths, fused as a convex combination",
+      "adaptive": true,
+      "note": "The proposed module. The convolutions are fixed; what adapts is the per-pixel weighting over their outputs, computed from the input on every forward pass.",
+      "per_seed": {
+        "42": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.7818181818181819,
+            "balanced_accuracy": 0.7735800647130138,
+            "macro_precision": 0.7768918986416636,
+            "macro_recall_sensitivity": 0.7735800647130138,
+            "macro_f1": 0.769553222323372,
+            "weighted_f1": 0.7752743110453041,
+            "macro_specificity": 0.9272513326139994,
+            "mcc": 0.7120289526885069,
+            "auc_ovr_macro": 0.941290645894712
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.768595041322314,
+              "recall_sensitivity": 0.7654320987654321,
+              "f1": 0.7670103092783506,
+              "specificity": 0.9250334672021419,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.653179190751445,
+              "recall_sensitivity": 0.49130434782608695,
+              "f1": 0.5607940446650124,
+              "specificity": 0.9210526315789473,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.7264437689969605,
+              "recall_sensitivity": 0.9157088122605364,
+              "f1": 0.8101694915254237,
+              "specificity": 0.8765432098765432,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.959349593495935,
+              "recall_sensitivity": 0.921875,
+              "f1": 0.9402390438247012,
+              "specificity": 0.9863760217983651,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                186,
+                43,
+                13,
+                1
+              ],
+              [
+                41,
+                113,
+                67,
+                9
+              ],
+              [
+                12,
+                10,
+                239,
+                0
+              ],
+              [
+                3,
+                7,
+                10,
+                236
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 67
+              },
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 43
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 41
+              },
+              {
+                "true": "Glioma",
+                "predicted": "Pituitary",
+                "count": 13
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Glioma",
+                "count": 12
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 10
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.1693434705637922,
+            "brier_score": 0.34055872072989785,
+            "confidently_wrong_over_0.99": 0
+          },
+          "checkpoint": "/kaggle/working/thesis/logs/train/runs/step24_receptive_field/ADAPTIVE_MULTISCALE/seed_42/checkpoints/epoch_022.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step24 from the validation-selected checkpoint; no training metrics were read"
+        },
+        "123": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.7838383838383839,
+            "balanced_accuracy": 0.776821365792798,
+            "macro_precision": 0.7798098544067621,
+            "macro_recall_sensitivity": 0.776821365792798,
+            "macro_f1": 0.7753125127764514,
+            "weighted_f1": 0.7806126819259901,
+            "macro_specificity": 0.928080029682189,
+            "mcc": 0.7131432574203787,
+            "auc_ovr_macro": 0.9448239442189719
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.743801652892562,
+              "recall_sensitivity": 0.7407407407407407,
+              "f1": 0.7422680412371134,
+              "specificity": 0.9170013386880856,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.654639175257732,
+              "recall_sensitivity": 0.5521739130434783,
+              "f1": 0.5990566037735849,
+              "specificity": 0.9118421052631579,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.7539936102236422,
+              "recall_sensitivity": 0.9042145593869731,
+              "f1": 0.8222996515679443,
+              "specificity": 0.8943758573388203,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.966804979253112,
+              "recall_sensitivity": 0.91015625,
+              "f1": 0.937625754527163,
+              "specificity": 0.989100817438692,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                180,
+                45,
+                17,
+                1
+              ],
+              [
+                46,
+                127,
+                50,
+                7
+              ],
+              [
+                13,
+                12,
+                236,
+                0
+              ],
+              [
+                3,
+                10,
+                10,
+                233
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 50
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 46
+              },
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 45
+              },
+              {
+                "true": "Glioma",
+                "predicted": "Pituitary",
+                "count": 17
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Glioma",
+                "count": 13
+              },
+              {
+                "true": "Pituitary",
+                "predicted": "Meningioma",
+                "count": 12
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.16227118327762144,
+            "brier_score": 0.3365083783503075,
+            "confidently_wrong_over_0.99": 0
+          },
+          "checkpoint": "/kaggle/working/thesis/logs/train/runs/step24_receptive_field/ADAPTIVE_MULTISCALE/seed_123/checkpoints/epoch_026.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step24 from the validation-selected checkpoint; no training metrics were read"
+        },
+        "7": {
+          "n_samples": 990,
+          "overall": {
+            "accuracy": 0.7707070707070707,
+            "balanced_accuracy": 0.7615221155818696,
+            "macro_precision": 0.7708826300206986,
+            "macro_recall_sensitivity": 0.7615221155818696,
+            "macro_f1": 0.756930876826138,
+            "weighted_f1": 0.7627721551145249,
+            "macro_specificity": 0.923370766491335,
+            "mcc": 0.6998570766423308,
+            "auc_ovr_macro": 0.9407487638914618
+          },
+          "per_class": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.7927927927927928,
+              "recall_sensitivity": 0.7242798353909465,
+              "f1": 0.7569892473118279,
+              "specificity": 0.9384203480589023,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.6484848484848484,
+              "recall_sensitivity": 0.4652173913043478,
+              "f1": 0.5417721518987342,
+              "specificity": 0.9236842105263158,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.6871508379888268,
+              "recall_sensitivity": 0.9425287356321839,
+              "f1": 0.7948303715670436,
+              "specificity": 0.8463648834019204,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 0.9551020408163265,
+              "recall_sensitivity": 0.9140625,
+              "f1": 0.9341317365269461,
+              "specificity": 0.9850136239782016,
+              "support": 256
+            }
+          ],
+          "confusion": {
+            "matrix": [
+              [
+                176,
+                40,
+                27,
+                0
+              ],
+              [
+                37,
+                107,
+                75,
+                11
+              ],
+              [
+                6,
+                9,
+                246,
+                0
+              ],
+              [
+                3,
+                9,
+                10,
+                234
+              ]
+            ],
+            "class_names": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary",
+              "No-tumor"
+            ],
+            "top_confusions": [
+              {
+                "true": "Meningioma",
+                "predicted": "Pituitary",
+                "count": 75
+              },
+              {
+                "true": "Glioma",
+                "predicted": "Meningioma",
+                "count": 40
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "Glioma",
+                "count": 37
+              },
+              {
+                "true": "Glioma",
+                "predicted": "Pituitary",
+                "count": 27
+              },
+              {
+                "true": "Meningioma",
+                "predicted": "No-tumor",
+                "count": 11
+              },
+              {
+                "true": "No-tumor",
+                "predicted": "Pituitary",
+                "count": 10
+              }
+            ]
+          },
+          "calibration": {
+            "expected_calibration_error": 0.16561505607884341,
+            "brier_score": 0.35664522917626335,
+            "confidently_wrong_over_0.99": 0
+          },
+          "checkpoint": "/kaggle/working/thesis/logs/train/runs/step24_receptive_field/ADAPTIVE_MULTISCALE/seed_7/checkpoints/epoch_020.ckpt",
+          "selection": "val/f1_macro (training-time ModelCheckpoint)",
+          "provenance": "computed by step24 from the validation-selected checkpoint; no training metrics were read"
+        }
+      },
+      "across_seeds": {
+        "macro_f1": {
+          "mean": 0.7672655373086538,
+          "std": 0.009401928637114195,
+          "ci_low": 0.7566262534907563,
+          "ci_high": 0.7779048211265512,
+          "n": 3
+        },
+        "accuracy": {
+          "mean": 0.7787878787878788,
+          "std": 0.007070707070707115,
+          "ci_low": 0.7707866205118367,
+          "ci_high": 0.786789137063921,
+          "n": 3
+        },
+        "balanced_accuracy": {
+          "mean": 0.770641182029227,
+          "std": 0.008061918991527053,
+          "ci_low": 0.7615182618733386,
+          "ci_high": 0.7797641021851155,
+          "n": 3
+        },
+        "macro_precision": {
+          "mean": 0.7758614610230414,
+          "std": 0.0045519429998832,
+          "ci_low": 0.7707104526110574,
+          "ci_high": 0.7810124694350254,
+          "n": 3
+        },
+        "macro_recall_sensitivity": {
+          "mean": 0.770641182029227,
+          "std": 0.008061918991527053,
+          "ci_low": 0.7615182618733386,
+          "ci_high": 0.7797641021851155,
+          "n": 3
+        },
+        "weighted_f1": {
+          "mean": 0.772886382695273,
+          "std": 0.009156841736172669,
+          "ci_low": 0.762524440814313,
+          "ci_high": 0.783248324576233,
+          "n": 3
+        },
+        "mcc": {
+          "mean": 0.7083430955837388,
+          "std": 0.007370197206609832,
+          "ci_low": 0.7000029323149538,
+          "ci_high": 0.7166832588525237,
+          "n": 3
+        },
+        "per_class_recall": {
+          "Glioma": {
+            "mean": 0.7434842249657064,
+            "std": 0.02071285167426814,
+            "ci_low": 0.7200454268056524,
+            "ci_high": 0.7669230231257604,
+            "n": 3
+          },
+          "Meningioma": {
+            "mean": 0.5028985507246376,
+            "std": 0.04462262121258163,
+            "ci_low": 0.45240330128133743,
+            "ci_high": 0.5533938001679378,
+            "n": 3
+          },
+          "Pituitary": {
+            "mean": 0.9208173690932311,
+            "std": 0.019661308197114494,
+            "ci_low": 0.8985685043959916,
+            "ci_high": 0.9430662337904706,
+            "n": 3
+          },
+          "No-tumor": {
+            "mean": 0.9153645833333334,
+            "std": 0.005966895436140416,
+            "ci_low": 0.9086124055082206,
+            "ci_high": 0.9221167611584461,
+            "n": 3
+          }
+        },
+        "per_class_precision": {
+          "Glioma": {
+            "mean": 0.768396495669223,
+            "std": 0.024496173424910037,
+            "ci_low": 0.7406764659200873,
+            "ci_high": 0.7961165254183586,
+            "n": 3
+          },
+          "Meningioma": {
+            "mean": 0.6521010714980084,
+            "std": 0.003215694380741223,
+            "ci_low": 0.6484621707459575,
+            "ci_high": 0.6557399722500594,
+            "n": 3
+          },
+          "Pituitary": {
+            "mean": 0.7225294057364765,
+            "std": 0.03359286724604082,
+            "ci_low": 0.6845154978796646,
+            "ci_high": 0.7605433135932884,
+            "n": 3
+          },
+          "No-tumor": {
+            "mean": 0.9604188711884579,
+            "std": 0.005924289670635048,
+            "ci_low": 0.9537149063257049,
+            "ci_high": 0.967122836051211,
+            "n": 3
+          }
+        },
+        "per_class_f1": {
+          "Glioma": {
+            "mean": 0.7554225326090972,
+            "std": 0.012445316515698602,
+            "ci_low": 0.7413393312017393,
+            "ci_high": 0.7695057340164551,
+            "n": 3
+          },
+          "Meningioma": {
+            "mean": 0.5672076001124439,
+            "std": 0.029175801218792288,
+            "ci_low": 0.5341920730049581,
+            "ci_high": 0.6002231272199297,
+            "n": 3
+          },
+          "Pituitary": {
+            "mean": 0.8090998382201372,
+            "std": 0.013765843765897642,
+            "ci_low": 0.793522319556565,
+            "ci_high": 0.8246773568837094,
+            "n": 3
+          },
+          "No-tumor": {
+            "mean": 0.9373321782929368,
+            "std": 0.003064219453838126,
+            "ci_low": 0.933864687556939,
+            "ci_high": 0.9407996690289346,
+            "n": 3
+          }
+        }
+      },
+      "missing_seeds": [],
+      "evaluated": true
+    }
+  },
+  "capacity": {
+    "FIXED_3X3": {
+      "total_parameters": 19716,
+      "delta_vs_adaptive": -36643,
+      "ratio_vs_adaptive": 0.3498
+    },
+    "FIXED_5X5": {
+      "total_parameters": 36100,
+      "delta_vs_adaptive": -20259,
+      "ratio_vs_adaptive": 0.6405
+    },
+    "FIXED_DILATED_3X3": {
+      "total_parameters": 19716,
+      "delta_vs_adaptive": -36643,
+      "ratio_vs_adaptive": 0.3498
+    },
+    "MULTISCALE_NO_GATE": {
+      "total_parameters": 57828,
+      "delta_vs_adaptive": 1469,
+      "ratio_vs_adaptive": 1.0261
+    },
+    "ADAPTIVE_MULTISCALE": {
+      "total_parameters": 56359,
+      "delta_vs_adaptive": 0,
+      "ratio_vs_adaptive": 1.0
+    }
+  },
+  "primary": {
+    "comparison": "H24",
+    "family": "primary",
+    "statistical_status": "formal",
+    "rq": "RQ4",
+    "question": "Does spatially adaptive gating improve performance over ungated multi-scale fusion of the same three receptive fields?",
+    "condition_a": "ADAPTIVE_MULTISCALE",
+    "condition_b": "MULTISCALE_NO_GATE",
+    "metric": "macro_f1",
+    "observed_delta": -0.03609271690338767,
+    "ci_low": -0.0543325590383234,
+    "ci_high": -0.018941434525811922,
+    "confidence_level": 0.95,
+    "n_test_samples": 990,
+    "paired_seed": 42,
+    "effect_direction": "favours MULTISCALE_NO_GATE",
+    "mcnemar": {
+      "both_correct": 754,
+      "only_a_correct": 20,
+      "only_b_correct": 51,
+      "both_wrong": 165,
+      "n_discordant": 71,
+      "statistic": 12.67605633802817,
+      "p_value": 0.00037036791242240486,
+      "test": "chi-square with continuity correction",
+      "favours": "b"
+    },
+    "mcnemar_method": "chi-square with continuity correction",
+    "mcnemar_p_value": 0.00037036791242240486,
+    "raw_p_value": 0.00037036791242240486,
+    "p_value_source": "mcnemar",
+    "adjusted_p_value": 0.00037036791242240486,
+    "significant": true,
+    "correction": "holm-bonferroni",
+    "family_size": 1,
+    "correction_note": "Holm over a family of one leaves the p-value unchanged; the adjusted value is reported so it cannot be mistaken for a correction that happened. This family is separate from Phase 8's registered H1-H4.",
+    "interpretation": "The p-value tests discordant errors (McNemar); the effect size and interval are macro-F1 from the paired bootstrap. They answer different questions and should be quoted together.",
+    "capacity_note": "MULTISCALE_NO_GATE carries +1,469 parameters relative to ADAPTIVE_MULTISCALE. The control is the larger of the two, which is what determines whether a win here could be explained by capacity rather than by gating.",
+    "largest_condition": "MULTISCALE_NO_GATE",
+    "condition_a_ci": {
+      "point_estimate": 0.769553222323372,
+      "ci_lower": 0.742995970331006,
+      "ci_upper": 0.7938634708607664,
+      "confidence": 95.0,
+      "n_resamples": 2000
+    },
+    "condition_b_ci": {
+      "point_estimate": 0.8056459392267596,
+      "ci_lower": 0.7808710454123146,
+      "ci_upper": 0.8290686172957337,
+      "confidence": 95.0,
+      "n_resamples": 2000
+    },
+    "seeds": {
+      "role": "descriptive",
+      "per_seed_delta": {
+        "42": -0.03609271690338767,
+        "123": -0.030969661307446827,
+        "7": -0.060370678253707455
+      },
+      "delta_across_seeds": {
+        "n": 3,
+        "mean": -0.04247768548818065,
+        "std": 0.015706075806520583,
+        "min": -0.060370678253707455,
+        "max": -0.030969661307446827
+      },
+      "missing_seeds": [],
+      "wilcoxon": {
+        "n_pairs": 3,
+        "statistic": null,
+        "p_value": null,
+        "note": "Only 3 training seeds - a two-sided Wilcoxon signed-rank test needs at least 6 pairs to reach p < 0.05 at any effect size (the floor here is 0.250). Reporting mean and standard deviation instead; use a paired bootstrap over samples for a powered test."
+      },
+      "note": "Seed spread is descriptive. A two-sided Wilcoxon needs at least 6 pairs to reach p < 0.05 at any effect size."
+    },
+    "provenance": {
+      "source_stage": "step24_receptive_field",
+      "condition_a_predictions": "step24_predictions_ADAPTIVE_MULTISCALE_seed42.npz",
+      "condition_b_predictions": "step24_predictions_MULTISCALE_NO_GATE_seed42.npz",
+      "run_root": "/kaggle/working/thesis/logs/train/runs/step24_receptive_field",
+      "note": "Predictions were computed by this stage from validation-selected checkpoints. No training metrics.csv was read."
+    }
+  },
+  "supporting": [
+    {
+      "comparison": "S24a_vs_fixed_3x3",
+      "family": "supporting",
+      "statistical_status": "descriptive",
+      "condition_a": "ADAPTIVE_MULTISCALE",
+      "condition_b": "FIXED_3X3",
+      "metric": "macro_f1",
+      "observed_delta": 0.0480991769967255,
+      "ci_low": 0.03126296520662693,
+      "ci_high": 0.06575620007068583,
+      "confidence_level": 0.95,
+      "n_test_samples": 990,
+      "paired_seed": 42,
+      "effect_direction": "favours ADAPTIVE_MULTISCALE",
+      "mcnemar": null,
+      "mcnemar_method": null,
+      "mcnemar_p_value": null,
+      "raw_p_value": null,
+      "p_value_source": null,
+      "adjusted_p_value": null,
+      "significant": null,
+      "correction": null,
+      "note": "Adaptive multi-scale against a conventional fine kernel. Descriptive: the adaptive condition also carries roughly three times the parameters.",
+      "seeds": {
+        "role": "descriptive",
+        "per_seed_delta": {
+          "42": 0.0480991769967255,
+          "123": 0.04827705102450186,
+          "7": 0.020633908021321368
+        },
+        "delta_across_seeds": {
+          "n": 3,
+          "mean": 0.039003378680849576,
+          "std": 0.015908676847113657,
+          "min": 0.020633908021321368,
+          "max": 0.04827705102450186
+        },
+        "missing_seeds": [],
+        "wilcoxon": {
+          "n_pairs": 3,
+          "statistic": null,
+          "p_value": null,
+          "note": "Only 3 training seeds - a two-sided Wilcoxon signed-rank test needs at least 6 pairs to reach p < 0.05 at any effect size (the floor here is 0.250). Reporting mean and standard deviation instead; use a paired bootstrap over samples for a powered test."
+        },
+        "note": "Seed spread is descriptive. A two-sided Wilcoxon needs at least 6 pairs to reach p < 0.05 at any effect size."
+      },
+      "provenance": {
+        "source_stage": "step24_receptive_field",
+        "condition_a_predictions": "step24_predictions_ADAPTIVE_MULTISCALE_seed42.npz",
+        "condition_b_predictions": "step24_predictions_FIXED_3X3_seed42.npz",
+        "run_root": "/kaggle/working/thesis/logs/train/runs/step24_receptive_field",
+        "note": "Predictions were computed by this stage from validation-selected checkpoints. No training metrics.csv was read."
+      }
+    },
+    {
+      "comparison": "S24b_vs_fixed_5x5",
+      "family": "supporting",
+      "statistical_status": "descriptive",
+      "condition_a": "ADAPTIVE_MULTISCALE",
+      "condition_b": "FIXED_5X5",
+      "metric": "macro_f1",
+      "observed_delta": -0.004878946005977602,
+      "ci_low": -0.017557713051256824,
+      "ci_high": 0.008516708762900914,
+      "confidence_level": 0.95,
+      "n_test_samples": 990,
+      "paired_seed": 42,
+      "effect_direction": "favours FIXED_5X5",
+      "mcnemar": null,
+      "mcnemar_method": null,
+      "mcnemar_p_value": null,
+      "raw_p_value": null,
+      "p_value_source": null,
+      "adjusted_p_value": null,
+      "significant": null,
+      "correction": null,
+      "note": "Adaptive multi-scale against a single wider kernel. Descriptive: capacity and receptive field both change.",
+      "seeds": {
+        "role": "descriptive",
+        "per_seed_delta": {
+          "42": -0.004878946005977602,
+          "123": 0.008002155988196091,
+          "7": -0.017512458212695314
+        },
+        "delta_across_seeds": {
+          "n": 3,
+          "mean": -0.004796416076825609,
+          "std": 0.012757507313224897,
+          "min": -0.017512458212695314,
+          "max": 0.008002155988196091
+        },
+        "missing_seeds": [],
+        "wilcoxon": {
+          "n_pairs": 3,
+          "statistic": null,
+          "p_value": null,
+          "note": "Only 3 training seeds - a two-sided Wilcoxon signed-rank test needs at least 6 pairs to reach p < 0.05 at any effect size (the floor here is 0.250). Reporting mean and standard deviation instead; use a paired bootstrap over samples for a powered test."
+        },
+        "note": "Seed spread is descriptive. A two-sided Wilcoxon needs at least 6 pairs to reach p < 0.05 at any effect size."
+      },
+      "provenance": {
+        "source_stage": "step24_receptive_field",
+        "condition_a_predictions": "step24_predictions_ADAPTIVE_MULTISCALE_seed42.npz",
+        "condition_b_predictions": "step24_predictions_FIXED_5X5_seed42.npz",
+        "run_root": "/kaggle/working/thesis/logs/train/runs/step24_receptive_field",
+        "note": "Predictions were computed by this stage from validation-selected checkpoints. No training metrics.csv was read."
+      }
+    },
+    {
+      "comparison": "S24c_vs_fixed_dilated",
+      "family": "supporting",
+      "statistical_status": "descriptive",
+      "condition_a": "ADAPTIVE_MULTISCALE",
+      "condition_b": "FIXED_DILATED_3X3",
+      "metric": "macro_f1",
+      "observed_delta": 0.008117902482751349,
+      "ci_low": -0.005893895924930459,
+      "ci_high": 0.02142936190192963,
+      "confidence_level": 0.95,
+      "n_test_samples": 990,
+      "paired_seed": 42,
+      "effect_direction": "favours ADAPTIVE_MULTISCALE",
+      "mcnemar": null,
+      "mcnemar_method": null,
+      "mcnemar_p_value": null,
+      "raw_p_value": null,
+      "p_value_source": null,
+      "adjusted_p_value": null,
+      "significant": null,
+      "correction": null,
+      "note": "Adaptive multi-scale against the broad field alone. Descriptive: capacity and receptive field both change.",
+      "seeds": {
+        "role": "descriptive",
+        "per_seed_delta": {
+          "42": 0.008117902482751349,
+          "123": 0.02173021203931791,
+          "7": -0.005950209785710925
+        },
+        "delta_across_seeds": {
+          "n": 3,
+          "mean": 0.007965968245452778,
+          "std": 0.01384083635884157,
+          "min": -0.005950209785710925,
+          "max": 0.02173021203931791
+        },
+        "missing_seeds": [],
+        "wilcoxon": {
+          "n_pairs": 3,
+          "statistic": null,
+          "p_value": null,
+          "note": "Only 3 training seeds - a two-sided Wilcoxon signed-rank test needs at least 6 pairs to reach p < 0.05 at any effect size (the floor here is 0.250). Reporting mean and standard deviation instead; use a paired bootstrap over samples for a powered test."
+        },
+        "note": "Seed spread is descriptive. A two-sided Wilcoxon needs at least 6 pairs to reach p < 0.05 at any effect size."
+      },
+      "provenance": {
+        "source_stage": "step24_receptive_field",
+        "condition_a_predictions": "step24_predictions_ADAPTIVE_MULTISCALE_seed42.npz",
+        "condition_b_predictions": "step24_predictions_FIXED_DILATED_3X3_seed42.npz",
+        "run_root": "/kaggle/working/thesis/logs/train/runs/step24_receptive_field",
+        "note": "Predictions were computed by this stage from validation-selected checkpoints. No training metrics.csv was read."
+      }
+    }
+  ],
+  "integrity": {
+    "expected_conditions": [
+      "FIXED_3X3",
+      "FIXED_5X5",
+      "FIXED_DILATED_3X3",
+      "MULTISCALE_NO_GATE",
+      "ADAPTIVE_MULTISCALE"
+    ],
+    "evaluated_conditions": [
+      "FIXED_3X3",
+      "FIXED_5X5",
+      "FIXED_DILATED_3X3",
+      "MULTISCALE_NO_GATE",
+      "ADAPTIVE_MULTISCALE"
+    ],
+    "incomplete_conditions": {},
+    "complete": true
+  },
+  "notes": {
+    "terminology": "The convolutions are fixed in every condition. What adapts in ADAPTIVE_MULTISCALE is the per-pixel softmax weighting over the three paths' outputs, computed from the input on every forward pass. This is spatially adaptive receptive-field selection, not a dynamic kernel and not query-key attention.",
+    "ungated_control": "MULTISCALE_NO_GATE fuses by concatenation followed by a learned 1x1 projection. The mixer is learned but input-independent once trained; it is not equal-weight averaging and must not be described as such.",
+    "capacity": "The five conditions are NOT parameter-matched. The fixed conditions are smaller because a single path is smaller, which is why their comparisons are descriptive. For the formal hypothesis the relationship runs the other way: MULTISCALE_NO_GATE has 57,828 parameters against 56,359 for ADAPTIVE_MULTISCALE.",
+    "family": "One formal hypothesis, in its own family of one, entirely separate from Phase 8's registered H1-H4. The three fixed-kernel comparisons are descriptive and carry no p-value.",
+    "test_set": "Every metric was computed by this stage from a checkpoint the training run selected on val/f1_macro. No test metric influenced any checkpoint or condition choice, and no training metrics.csv was read.",
+    "outcome": "The verdict is derived from the predictions. A result showing the adaptive condition equal to or worse than the ungated control is a valid outcome of this experiment, not a failure of it."
+  }
+}

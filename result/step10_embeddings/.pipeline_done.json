@@ -1,0 +1,17 @@
+{
+  "stage": "step10_embeddings",
+  "status": "done",
+  "returncode": 0,
+  "seconds": 52.6,
+  "out_dir": "/kaggle/working/thesis/logs/analyze/runs/step10_embeddings",
+  "overrides": [
+    "analysis=step10_embeddings",
+    "model=branch_classical",
+    "analysis.ckpt_path=/kaggle/working/thesis/logs/train/runs/step10_classical/seed_42",
+    "data.num_workers=0",
+    "data.pin_memory=true"
+  ],
+  "profile": "full",
+  "protocol_intact": true,
+  "finished": "2026-08-20T20:44:46+00:00"
+}

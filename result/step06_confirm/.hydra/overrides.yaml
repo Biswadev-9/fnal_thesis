@@ -1,0 +1,3 @@
+- analysis=step06_confirm
+- analysis.run_root=/kaggle/working/thesis/logs/train/runs/step06_confirm
+- extras.print_config=false

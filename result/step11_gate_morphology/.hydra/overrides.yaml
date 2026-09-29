@@ -1,0 +1,7 @@
+- analysis=step11_gate_morphology
+- model=branch_multiscale
+- model.net.arm=arm6_spatial_gate
+- analysis.ckpt_path=/kaggle/working/thesis/logs/train/runs/step11_arm_ablation/arm6_spatial_gate/seed_42
+- data.num_workers=0
+- data.pin_memory=true
+- extras.print_config=false

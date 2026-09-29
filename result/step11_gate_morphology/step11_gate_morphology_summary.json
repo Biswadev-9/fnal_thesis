@@ -1,0 +1,84 @@
+{
+  "checkpoint": "/kaggle/working/thesis/logs/train/runs/step11_arm_ablation/arm6_spatial_gate/seed_42/checkpoints/epoch_029.ckpt",
+  "n_samples": 120,
+  "pooled": {
+    "3x3 (fine)": {
+      "rho": -0.0347768413671149,
+      "p_value": 0.7061083423470114,
+      "n": 120
+    },
+    "5x5 (medium)": {
+      "rho": 0.22282527545545638,
+      "p_value": 0.014436394918661707,
+      "n": 120
+    },
+    "dilated (broad)": {
+      "rho": -0.16086589647258756,
+      "p_value": 0.07922460937692542,
+      "n": 120
+    }
+  },
+  "per_class": {
+    "Glioma": {
+      "3x3 (fine)": {
+        "rho": -0.47917448405253293,
+        "p_value": 0.0017586446356009074,
+        "n": 40
+      },
+      "5x5 (medium)": {
+        "rho": 0.11951219512195123,
+        "p_value": 0.4626245816795941,
+        "n": 40
+      },
+      "dilated (broad)": {
+        "rho": 0.26397748592870546,
+        "p_value": 0.09977578444475381,
+        "n": 40
+      }
+    },
+    "Meningioma": {
+      "3x3 (fine)": {
+        "rho": -0.06604127579737337,
+        "p_value": 0.6855660540819256,
+        "n": 40
+      },
+      "5x5 (medium)": {
+        "rho": 0.29587242026266425,
+        "p_value": 0.06378653982336985,
+        "n": 40
+      },
+      "dilated (broad)": {
+        "rho": -0.2838649155722327,
+        "p_value": 0.07588026107937416,
+        "n": 40
+      }
+    },
+    "Pituitary": {
+      "3x3 (fine)": {
+        "rho": 0.52619728938229,
+        "p_value": 0.0004876281556118284,
+        "n": 40
+      },
+      "5x5 (medium)": {
+        "rho": 0.3697171541193805,
+        "p_value": 0.01887319522615893,
+        "n": 40
+      },
+      "dilated (broad)": {
+        "rho": -0.5762934477937971,
+        "p_value": 9.958576245893582e-05,
+        "n": 40
+      }
+    }
+  },
+  "mean_weights": {
+    "3x3 (fine)": 0.16774564605827133,
+    "5x5 (medium)": 0.23751333622882764,
+    "dilated (broad)": 0.5947410159123441
+  },
+  "limitations": [
+    "Tumour region is an Otsu intensity proxy, not a segmentation mask; this dataset ships none.",
+    "The three path weights are a softmax and sum to 1, so they are not independent - a negative correlation on one path is partly the arithmetic consequence of positive correlations on the others.",
+    "Pooled correlations can be driven by between-class differences; only directions that also hold within each class should be claimed."
+  ]
+}

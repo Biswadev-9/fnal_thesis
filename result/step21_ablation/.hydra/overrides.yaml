@@ -1,0 +1,7 @@
+- analysis=step21_ablation_swin
+- analysis.step06_summary=logs/analyze/runs/step06_preprocessing/step06_preprocessing_summary.json
+- analysis.step14_summary=logs/analyze/runs/step14_loss_selection_swin/step14_loss_selection_summary.json
+- analysis.step16_summary=logs/analyze/runs/step16_internal_swin/seed_42/step16_internal_summary.json
+- analysis.seeds=[42,123,7]
+- data.num_workers=0
+- extras.print_config=false

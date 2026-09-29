@@ -1,0 +1,242 @@
+task_name: analyze
+tags:
+- analysis
+seed: 42
+data:
+  _target_: src.data.bt_mri_datamodule.BTMRIDataModule
+  data_dir: ${paths.data_dir}
+  raw_subdir: raw/bt_mri
+  split_subpath: splits/dataset_split.csv
+  recipe: null
+  image_size: 224
+  normalize: imagenet
+  crop_background: false
+  augment: true
+  use_weighted_sampler: true
+  batch_size: 32
+  num_workers: 0
+  pin_memory: false
+  seed: 42
+  val_frac: 0.15
+  test_frac: 0.15
+model:
+  criterion:
+    _target_: src.models.components.losses.CrossEntropyLoss
+    use_class_weights: true
+    label_smoothing: 0.0
+  _target_: src.models.mri_classification_module.MRIClassificationModule
+  optimizer:
+    _target_: torch.optim.AdamW
+    _partial_: true
+    lr: 0.0001
+    weight_decay: 0.0001
+  scheduler:
+    _target_: torch.optim.lr_scheduler.CosineAnnealingLR
+    _partial_: true
+    T_max: 30
+  net:
+    _target_: src.models.components.multiscale.MultiscaleClassifier.from_arm
+    arm: arm6_spatial_gate
+    num_classes: 4
+    channels: 32
+    dropout: 0.3
+  num_classes: 4
+  class_names:
+  - Glioma
+  - Meningioma
+  - Pituitary
+  - No-tumor
+  compile: false
+analysis:
+  model_defs:
+    branch_classical:
+      criterion:
+        _target_: src.models.components.losses.CrossEntropyLoss
+        use_class_weights: true
+        label_smoothing: 0.0
+      _target_: src.models.mri_classification_module.MRIClassificationModule
+      optimizer:
+        _target_: torch.optim.AdamW
+        _partial_: true
+        lr: 0.0001
+        weight_decay: 0.0001
+      scheduler:
+        _target_: torch.optim.lr_scheduler.CosineAnnealingLR
+        _partial_: true
+        T_max: 30
+      net:
+        _target_: src.models.components.transfer.TransferBackbone
+        arch: swin_t
+        num_classes: 4
+        weights: DEFAULT
+        freeze_backbone: true
+        dropout: 0.3
+      num_classes: 4
+      class_names:
+      - Glioma
+      - Meningioma
+      - Pituitary
+      - No-tumor
+      compile: false
+    branch_multiscale:
+      criterion:
+        _target_: src.models.components.losses.CrossEntropyLoss
+        use_class_weights: true
+        label_smoothing: 0.0
+      _target_: src.models.mri_classification_module.MRIClassificationModule
+      optimizer:
+        _target_: torch.optim.AdamW
+        _partial_: true
+        lr: 0.0001
+        weight_decay: 0.0001
+      scheduler:
+        _target_: torch.optim.lr_scheduler.CosineAnnealingLR
+        _partial_: true
+        T_max: 30
+      net:
+        _target_: src.models.components.multiscale.MultiscaleClassifier.from_arm
+        arm: arm6_spatial_gate
+        num_classes: 4
+        channels: 32
+        dropout: 0.3
+      num_classes: 4
+      class_names:
+      - Glioma
+      - Meningioma
+      - Pituitary
+      - No-tumor
+      compile: false
+    fixed_qcnn:
+      criterion:
+        _target_: src.models.components.losses.CrossEntropyLoss
+        use_class_weights: true
+        label_smoothing: 0.0
+      _target_: src.models.mri_classification_module.MRIClassificationModule
+      optimizer:
+        _target_: torch.optim.AdamW
+        _partial_: true
+        lr: 0.0001
+        weight_decay: 0.0001
+      scheduler:
+        _target_: torch.optim.lr_scheduler.CosineAnnealingLR
+        _partial_: true
+        T_max: 30
+      net:
+        _target_: src.models.components.quantum.FixedQCNN
+        num_classes: 4
+        n_qubits: 4
+        channels:
+        - 16
+        - 32
+        circuit_name: fixed
+      num_classes: 4
+      class_names:
+      - Glioma
+      - Meningioma
+      - Pituitary
+      - No-tumor
+      compile: false
+    adaptive_quantum:
+      criterion:
+        _target_: src.models.components.losses.CrossEntropyLoss
+        use_class_weights: true
+        label_smoothing: 0.0
+      _target_: src.models.mri_classification_module.MRIClassificationModule
+      optimizer:
+        _target_: torch.optim.AdamW
+        _partial_: true
+        lr: 0.0001
+        weight_decay: 0.0001
+      scheduler:
+        _target_: torch.optim.lr_scheduler.CosineAnnealingLR
+        _partial_: true
+        T_max: 30
+      net:
+        _target_: src.models.components.quantum.AdaptiveQuantumClassifier
+        channels: 32
+        num_classes: 4
+        n_qubits: 4
+        circuit_names: null
+        hidden_dims:
+        - 128
+        - 64
+        dropout: 0.3
+      num_classes: 4
+      class_names:
+      - Glioma
+      - Meningioma
+      - Pituitary
+      - No-tumor
+      compile: false
+    final_classifier:
+      criterion:
+        _target_: src.models.components.losses.CrossEntropyLoss
+        use_class_weights: true
+        label_smoothing: 0.0
+      _target_: src.models.feature_fusion_module.FeatureFusionModule
+      optimizer:
+        _target_: torch.optim.AdamW
+        _partial_: true
+        lr: 0.001
+        weight_decay: 0.0001
+      scheduler:
+        _target_: torch.optim.lr_scheduler.CosineAnnealingLR
+        _partial_: true
+        T_max: 30
+      net:
+        _target_: src.models.components.fusion.FusedFeatureClassifier
+        classical_dim: 768
+        spatial_dim: 32
+        quantum_dim: 4
+        proj_dim: 64
+        hidden_dims:
+        - 128
+        - 64
+        num_classes: 4
+        dropout: 0.4
+      num_classes: 4
+      class_names:
+      - Glioma
+      - Meningioma
+      - Pituitary
+      - No-tumor
+      compile: false
+  _target_: src.analysis.ablation_study.AblationStudy
+  name: step21_ablation
+  _recursive_: false
+  step06_summary: logs/analyze/runs/step06_preprocessing/step06_preprocessing_summary.json
+  step14_summary: logs/analyze/runs/step14_loss_selection_swin/step14_loss_selection_summary.json
+  step16_summary: logs/analyze/runs/step16_internal_swin/seed_42/step16_internal_summary.json
+  seeds:
+  - 42
+  - 123
+  - 7
+  run_root: logs/train/runs/step21_ablation_swin
+  feature_tags:
+    A6: a6_diffusion_swin
+    A7: a6_diffusion_swin
+    A8: a6_diffusion_swin
+    P: swin
+  row_models:
+    A0: ${analysis.model_defs.branch_classical}
+    A1: ${analysis.model_defs.branch_classical}
+    A2: ${analysis.model_defs.branch_classical}
+    A3: ${analysis.model_defs.branch_multiscale}
+    A4: ${analysis.model_defs.fixed_qcnn}
+    A5: ${analysis.model_defs.adaptive_quantum}
+    A6: ${analysis.model_defs.final_classifier}
+    A7: ${analysis.model_defs.final_classifier}
+    A8: ${analysis.model_defs.final_classifier}
+  n_calibration_bins: 10
+  strict: false
+  accelerator: auto
+paths:
+  root_dir: ${oc.env:PROJECT_ROOT}
+  data_dir: ${paths.root_dir}/data/
+  log_dir: ${paths.root_dir}/logs/
+  output_dir: ${hydra:runtime.output_dir}
+  work_dir: ${hydra:runtime.cwd}
+extras:
+  ignore_warnings: false
+  enforce_tags: true
+  print_config: false

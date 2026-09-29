@@ -1,0 +1,109 @@
+{
+  "tag": "swin",
+  "loss_provenance": {
+    "loss": "focal",
+    "source": "Step 14 selection (logs/analyze/runs/step14_loss_selection_swin/step14_loss_selection_summary.json)",
+    "criterion": "FocalLoss"
+  },
+  "seed_check": {
+    "control_seed": 42,
+    "checkpoint_seed": 42,
+    "seeds_match": true
+  },
+  "performance": {
+    "full_macro_f1": 0.9823798783532688,
+    "no_quantum_macro_f1": 0.9823359600811119,
+    "mcnemar": {
+      "both_correct": 972,
+      "only_a_correct": 1,
+      "only_b_correct": 1,
+      "both_wrong": 16,
+      "n_discordant": 2,
+      "statistic": 1.0,
+      "p_value": 1.0,
+      "test": "exact binomial",
+      "favours": "neither"
+    },
+    "paired_bootstrap": {
+      "observed_delta": 4.3918272156884264e-05,
+      "ci_lower": -0.0029801153674391566,
+      "ci_upper": 0.0031652622138826627,
+      "fraction_favouring_a": 0.494,
+      "n_resamples": 2000,
+      "significant": false
+    },
+    "full_macro_f1_ci": {
+      "point_estimate": 0.9823798783532688,
+      "ci_lower": 0.9734056128496538,
+      "ci_upper": 0.9898457118467653,
+      "confidence": 95.0,
+      "n_resamples": 2000
+    },
+    "no_quantum_macro_f1_ci": {
+      "point_estimate": 0.9823359600811119,
+      "ci_lower": 0.9736282812393304,
+      "ci_upper": 0.9903588205713042,
+      "confidence": 95.0,
+      "n_resamples": 2000
+    },
+    "delta_macro_f1": 4.3918272156884264e-05
+  },
+  "separability": {
+    "silhouette_with_quantum": 0.3370147943496704,
+    "silhouette_without_quantum": 0.33701497316360474,
+    "delta": -1.7881393432617188e-07
+  },
+  "efficiency": {
+    "per_model": [
+      {
+        "model": "full",
+        "trainable_parameters": 85252,
+        "inference_seconds_per_batch": 0.0006551330000093003
+      },
+      {
+        "model": "no_quantum",
+        "trainable_parameters": 85252,
+        "inference_seconds_per_batch": 0.000631442999747378
+      }
+    ],
+    "from_training_runs": {
+      "classical": {
+        "training_time_sec": 1175.575,
+        "epochs_completed": 30,
+        "mean_epoch_time_sec": 38.636,
+        "peak_memory_mib": 764.1,
+        "total_parameters": 27522430,
+        "trainable_parameters": 15369652
+      },
+      "quantum": {
+        "training_time_sec": 8718.572,
+        "epochs_completed": 30,
+        "mean_epoch_time_sec": 290.527,
+        "peak_memory_mib": 0.0,
+        "total_parameters": 72408,
+        "trainable_parameters": 72408
+      },
+      "fusion": {
+        "training_time_sec": 31.58,
+        "epochs_completed": 21,
+        "mean_epoch_time_sec": 1.452,
+        "peak_memory_mib": 19.05,
+        "total_parameters": 85252,
+        "trainable_parameters": 85252
+      }
+    },
+    "note": null
+  },
+  "verdict": {
+    "headline": "The quantum branch is nominally better (+0.0000 macro-F1) but the paired bootstrap interval spans zero, so the difference is not distinguishable from noise on this test set.",
+    "statistically_significant": false,
+    "mcnemar_p_value": 1.0,
+    "delta_macro_f1": 4.3918272156884264e-05,
+    "fallback_criteria": {
+      "parameter_efficiency": "The circuit adds few trainable parameters, but its inference cost is the CPU simulator - see the efficiency table before claiming efficiency.",
+      "separability": "Silhouette changes by -0.0000 when the quantum features are included.",
+      "robustness": "See Step 18; robustness is not evidence this step can supply."
+    },
+    "note": "A negative result here is a valid contribution: it answers empirically whether quantum advantage emerges in this hybrid design, rather than assuming it."
+  }
+}

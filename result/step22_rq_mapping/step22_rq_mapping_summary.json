@@ -1,0 +1,4913 @@
+{
+  "research_questions": [
+    {
+      "rq_id": "RQ1",
+      "rq_question": "Improve multiclass classification",
+      "spec_experiment": "Compare proposed model with all baselines on internal and external test sets.",
+      "spec_evidence": "Macro-F1, balanced accuracy, class-wise recall.",
+      "status": "descriptive_only",
+      "evidence": [
+        {
+          "source_stage": "step16_internal",
+          "source_path": "logs/analyze/runs_swin/step16_internal/step16_internal_summary.json",
+          "comparison_or_analysis": "step16_internal",
+          "metric": null,
+          "value": {
+            "checkpoint": "logs/train/runs/step15_final_swin/seed_42",
+            "n_test_samples": 990,
+            "overall": {
+              "accuracy": 0.9828282828282828,
+              "balanced_accuracy": 0.9825240808415237,
+              "macro_precision": 0.9825288468271379,
+              "macro_recall_sensitivity": 0.9825240808415237,
+              "macro_f1": 0.9823798783532688,
+              "weighted_f1": 0.9828894938802384,
+              "macro_specificity": 0.9943462174450455,
+              "mcc": 0.9771796553526976,
+              "auc_ovr_macro": 0.9986131343969784
+            },
+            "per_class": [
+              {
+                "class_name": "Glioma",
+                "precision": 0.9957446808510638,
+                "recall_sensitivity": 0.9629629629629629,
+                "f1": 0.9790794979079498,
+                "specificity": 0.998661311914324,
+                "support": 243
+              },
+              {
+                "class_name": "Meningioma",
+                "precision": 0.9495798319327731,
+                "recall_sensitivity": 0.9826086956521739,
+                "f1": 0.9658119658119658,
+                "specificity": 0.9842105263157894,
+                "support": 230
+              },
+              {
+                "class_name": "Pituitary",
+                "precision": 0.9847908745247148,
+                "recall_sensitivity": 0.9923371647509579,
+                "f1": 0.9885496183206107,
+                "specificity": 0.9945130315500685,
+                "support": 261
+              },
+              {
+                "class_name": "No-tumor",
+                "precision": 1.0,
+                "recall_sensitivity": 0.9921875,
+                "f1": 0.996078431372549,
+                "specificity": 1.0,
+                "support": 256
+              }
+            ],
+            "confusion": {
+              "matrix": [
+                [
+                  234,
+                  9,
+                  0,
+                  0
+                ],
+                [
+                  1,
+                  226,
+                  3,
+                  0
+                ],
+                [
+                  0,
+                  2,
+                  259,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  1,
+                  254
+                ]
+              ],
+              "class_names": [
+                "Glioma",
+                "Meningioma",
+                "Pituitary",
+                "No-tumor"
+              ],
+              "top_confusions": [
+                {
+                  "true": "Glioma",
+                  "predicted": "Meningioma",
+                  "count": 9
+                },
+                {
+                  "true": "Meningioma",
+                  "predicted": "Pituitary",
+                  "count": 3
+                },
+                {
+                  "true": "Pituitary",
+                  "predicted": "Meningioma",
+                  "count": 2
+                },
+                {
+                  "true": "Meningioma",
+                  "predicted": "Glioma",
+                  "count": 1
+                },
+                {
+                  "true": "No-tumor",
+                  "predicted": "Meningioma",
+                  "count": 1
+                },
+                {
+                  "true": "No-tumor",
+                  "predicted": "Pituitary",
+                  "count": 1
+                }
+              ]
+            },
+            "calibration": {
+              "expected_calibration_error": 0.08515397207905544,
+              "brier_score": 0.04317887340932518,
+              "confidently_wrong_over_0.99": 0
+            },
+            "forced_reevaluation": false
+          },
+          "statistical_status": "descriptive",
+          "role": "secondary",
+          "interpretation": "The shipped model's internal test result. This is the study's headline claim, from the single evaluation Step 16 is permitted.",
+          "provenance": {
+            "source_stage": "step16_internal",
+            "source_path": "logs/analyze/runs_swin/step16_internal/step16_internal_summary.json",
+            "comparison": "step16_internal",
+            "rq": "RQ1",
+            "kind": "stage_summary"
+          }
+        },
+        {
+          "source_stage": "step17_external",
+          "source_path": "logs/analyze/runs_swin/step17_external/step17_external_summary.json",
+          "comparison_or_analysis": "step17_external",
+          "metric": null,
+          "value": {
+            "n_external_samples": 3064,
+            "present_classes": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary"
+            ],
+            "restricted": {
+              "accuracy": 0.9441906005221932,
+              "balanced_accuracy": 0.9337167164549673,
+              "macro_precision": 0.9402563208509918,
+              "macro_recall": 0.9337167164549673,
+              "macro_f1": 0.9362616989977434,
+              "mcc": 0.9127195889258678
+            },
+            "unrestricted": {
+              "accuracy": 0.9428851174934726,
+              "balanced_accuracy": 0.932295306693291,
+              "macro_precision": 0.9422037239682894,
+              "macro_recall": 0.932295306693291,
+              "macro_f1": 0.9365626015521736,
+              "mcc": 0.9108009024260141
+            },
+            "predicted_absent_class_count": 11,
+            "restriction_effect_macro_f1": -0.00030090255443027125,
+            "performance_drop": {
+              "internal_macro_f1_same_classes": 0.9778136940135087,
+              "external_macro_f1": 0.9362616989977434,
+              "drop": 0.04155199501576534
+            },
+            "domain_shift_notes": [
+              "Figshare scans are 16-bit with varying intensity ranges and are min-max normalised per image before the shared pipeline; the internal set is 8-bit and natively 224x224.",
+              "Acquisition differs in scanner, sequence weighting and slice orientation, none of which is controlled for.",
+              "Figshare provides one label per slice and multiple slices per patient (PID); slice-level metrics therefore treat correlated slices as independent.",
+              "No non-tumour class exists externally, so the restricted score forgives every case the model would have answered No-tumor - see 'predicted_absent_class_count'."
+            ]
+          },
+          "statistical_status": "descriptive",
+          "role": "secondary",
+          "interpretation": "The shipped model on the external dataset, which is the second half of \"internal and external test sets\".",
+          "provenance": {
+            "source_stage": "step17_external",
+            "source_path": "logs/analyze/runs_swin/step17_external/step17_external_summary.json",
+            "comparison": "step17_external",
+            "rq": "RQ1",
+            "kind": "stage_summary"
+          }
+        },
+        {
+          "source_stage": "step18_robustness",
+          "source_path": "logs/analyze/runs_swin/step18_robustness/step18_robustness_summary.json",
+          "comparison_or_analysis": "step18_robustness",
+          "metric": "clean_scores",
+          "value": {
+            "proposed": 0.9823798783532688,
+            "efficientnet_b0": 0.9782516666363597,
+            "vit": 0.9824043443677792
+          },
+          "statistical_status": "descriptive",
+          "role": "secondary",
+          "interpretation": "The shipped model against the EfficientNet-B0 and ViT baselines on undegraded data. Two of the seven Step 9 baselines - see the limitation.",
+          "provenance": {
+            "source_stage": "step18_robustness",
+            "source_path": "logs/analyze/runs_swin/step18_robustness/step18_robustness_summary.json",
+            "comparison": "step18_robustness",
+            "rq": "RQ1",
+            "kind": "stage_summary"
+          }
+        },
+        {
+          "source_stage": "step21_ablation",
+          "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+          "comparison_or_analysis": "P",
+          "metric": null,
+          "value": {
+            "across_seeds": {
+              "macro_f1": {
+                "mean": 0.9823798783532688,
+                "std": 0.0,
+                "ci_low": null,
+                "ci_high": null,
+                "n": 1
+              },
+              "balanced_accuracy": {
+                "mean": 0.9825240808415237,
+                "std": 0.0,
+                "ci_low": null,
+                "ci_high": null,
+                "n": 1
+              },
+              "accuracy": {
+                "mean": 0.9828282828282828,
+                "std": 0.0,
+                "ci_low": null,
+                "ci_high": null,
+                "n": 1
+              },
+              "macro_precision": {
+                "mean": 0.9825288468271379,
+                "std": 0.0,
+                "ci_low": null,
+                "ci_high": null,
+                "n": 1
+              },
+              "macro_recall_sensitivity": {
+                "mean": 0.9825240808415237,
+                "std": 0.0,
+                "ci_low": null,
+                "ci_high": null,
+                "n": 1
+              },
+              "weighted_f1": {
+                "mean": 0.9828894938802384,
+                "std": 0.0,
+                "ci_low": null,
+                "ci_high": null,
+                "n": 1
+              },
+              "macro_specificity": {
+                "mean": 0.9943462174450455,
+                "std": 0.0,
+                "ci_low": null,
+                "ci_high": null,
+                "n": 1
+              },
+              "mcc": {
+                "mean": 0.9771796553526976,
+                "std": 0.0,
+                "ci_low": null,
+                "ci_high": null,
+                "n": 1
+              },
+              "auc_ovr_macro": {
+                "mean": 0.9986131343969784,
+                "std": 0.0,
+                "ci_low": null,
+                "ci_high": null,
+                "n": 1
+              },
+              "expected_calibration_error": {
+                "mean": 0.08515397207905544,
+                "std": 0.0,
+                "ci_low": null,
+                "ci_high": null,
+                "n": 1
+              },
+              "brier_score": {
+                "mean": 0.04317887340932518,
+                "std": 0.0,
+                "ci_low": null,
+                "ci_high": null,
+                "n": 1
+              },
+              "per_class_recall": {
+                "Glioma": {
+                  "mean": 0.9629629629629629,
+                  "std": 0.0,
+                  "ci_low": null,
+                  "ci_high": null,
+                  "n": 1
+                },
+                "Meningioma": {
+                  "mean": 0.9826086956521739,
+                  "std": 0.0,
+                  "ci_low": null,
+                  "ci_high": null,
+                  "n": 1
+                },
+                "Pituitary": {
+                  "mean": 0.9923371647509579,
+                  "std": 0.0,
+                  "ci_low": null,
+                  "ci_high": null,
+                  "n": 1
+                },
+                "No-tumor": {
+                  "mean": 0.9921875,
+                  "std": 0.0,
+                  "ci_low": null,
+                  "ci_high": null,
+                  "n": 1
+                }
+              }
+            },
+            "recipe": "diffusion_i5_k15",
+            "loss": "focal",
+            "missing_seeds": [
+              123,
+              7
+            ]
+          },
+          "statistical_status": "descriptive",
+          "role": "secondary",
+          "interpretation": "The shipped model as it appears in the ablation ladder.",
+          "provenance": {
+            "source_stage": "step21_ablation",
+            "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+            "comparison": "P",
+            "rq": "RQ1",
+            "kind": "step21_row"
+          }
+        }
+      ],
+      "primary_evidence": [],
+      "secondary_evidence": [
+        "step16_internal",
+        "step17_external",
+        "step18_robustness",
+        "P"
+      ],
+      "conclusion": null,
+      "limitations": [
+        "Only two of the seven Step 9 baselines (EfficientNet-B0, ViT) appear in a permitted artefact, via Step 18's clean scores. The other five recorded their test metrics only in their training runs' metrics.csv, which Step 22 does not read, so \"all baselines\" is not fully evidenced here."
+      ],
+      "provenance": {
+        "source_stages": [
+          "step16_internal",
+          "step17_external",
+          "step18_robustness",
+          "step21_ablation"
+        ],
+        "analyze_root": "logs/analyze/runs_swin",
+        "note": "Every value is read from the named artefact. Step 22 computes no metric and reaches no conclusion Steps 21 and 23 have not reached."
+      }
+    },
+    {
+      "rq_id": "RQ2",
+      "rq_question": "Diffusion preprocessing",
+      "spec_experiment": "Compare no preprocessing, conventional preprocessing, and diffusion preprocessing.",
+      "spec_evidence": "Image quality, macro-F1, robustness under noise.",
+      "status": "descriptive_only",
+      "evidence": [
+        {
+          "source_stage": "step23_statistics",
+          "source_path": "logs/analyze/runs_swin/step23_statistics/step23_statistics_summary.json",
+          "comparison_or_analysis": "H1",
+          "metric": "macro_f1",
+          "value": {
+            "observed_delta": -0.0010469762971554442,
+            "ci_low": -0.00720922268113991,
+            "ci_high": 0.005302805049476444,
+            "raw_p_value": 1.0,
+            "adjusted_p_value": 1.0,
+            "significant": false,
+            "effect_direction": "favours A1",
+            "mcnemar_method": "exact binomial",
+            "row_a": "A2",
+            "row_b": "A1"
+          },
+          "statistical_status": "formal",
+          "role": "primary",
+          "interpretation": "Diffusion against conventional preprocessing, the pre-registered test of this question. Holm-corrected within the four-member primary family.",
+          "provenance": {
+            "source_stage": "step23_statistics",
+            "source_path": "logs/analyze/runs_swin/step23_statistics/step23_statistics_summary.json",
+            "comparison": "H1",
+            "rq": "RQ2",
+            "kind": "step23_comparison"
+          }
+        },
+        {
+          "source_stage": "step23_statistics",
+          "source_path": "logs/analyze/runs_swin/step23_statistics/step23_statistics_summary.json",
+          "comparison_or_analysis": "A1_vs_A0",
+          "metric": "macro_f1",
+          "value": {
+            "observed_delta": 0.006154486981292506,
+            "ci_low": -0.0010650790615929495,
+            "ci_high": 0.013802051393953942,
+            "raw_p_value": null,
+            "adjusted_p_value": null,
+            "significant": null,
+            "effect_direction": "favours A1",
+            "mcnemar_method": null,
+            "row_a": "A1",
+            "row_b": "A0"
+          },
+          "statistical_status": "descriptive",
+          "role": "secondary",
+          "interpretation": "Conventional preprocessing against raw images. Descriptive: the intensity treatment alone, not a registered hypothesis.",
+          "provenance": {
+            "source_stage": "step23_statistics",
+            "source_path": "logs/analyze/runs_swin/step23_statistics/step23_statistics_summary.json",
+            "comparison": "A1_vs_A0",
+            "rq": "RQ2",
+            "kind": "step23_comparison"
+          }
+        },
+        {
+          "source_stage": "step21_ablation",
+          "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+          "comparison_or_analysis": "A0",
+          "metric": null,
+          "value": {
+            "across_seeds": {
+              "macro_f1": {
+                "mean": 0.9814385995288015,
+                "std": 0.0035732582520175207,
+                "ci_low": 0.9773950771659763,
+                "ci_high": 0.9854821218916268,
+                "n": 3
+              },
+              "balanced_accuracy": {
+                "mean": 0.9816894226979874,
+                "std": 0.003505480451439129,
+                "ci_low": 0.9777225981367238,
+                "ci_high": 0.985656247259251,
+                "n": 3
+              },
+              "accuracy": {
+                "mean": 0.9818181818181818,
+                "std": 0.003499092540543209,
+                "ci_low": 0.9778585858585859,
+                "ci_high": 0.9857777777777778,
+                "n": 3
+              },
+              "macro_precision": {
+                "mean": 0.9813916194582446,
+                "std": 0.0035383247490930235,
+                "ci_low": 0.9773876280753611,
+                "ci_high": 0.9853956108411281,
+                "n": 3
+              },
+              "macro_recall_sensitivity": {
+                "mean": 0.9816894226979874,
+                "std": 0.003505480451439129,
+                "ci_low": 0.9777225981367238,
+                "ci_high": 0.985656247259251,
+                "n": 3
+              },
+              "weighted_f1": {
+                "mean": 0.9818885350031539,
+                "std": 0.0034808648014815176,
+                "ci_low": 0.9779495656720637,
+                "ci_high": 0.985827504334244,
+                "n": 3
+              },
+              "macro_specificity": {
+                "mean": 0.9940167035924815,
+                "std": 0.0011472972045661965,
+                "ci_low": 0.9927184145866838,
+                "ci_high": 0.9953149925982793,
+                "n": 3
+              },
+              "mcc": {
+                "mean": 0.9758068878350533,
+                "std": 0.004634215230052815,
+                "ci_low": 0.9705627796303682,
+                "ci_high": 0.9810509960397384,
+                "n": 3
+              },
+              "auc_ovr_macro": {
+                "mean": 0.9991902019558264,
+                "std": 0.00017517221916350199,
+                "ci_low": 0.9989919759291648,
+                "ci_high": 0.9993884279824881,
+                "n": 3
+              },
+              "expected_calibration_error": {
+                "mean": 0.011866797250930719,
+                "std": 0.0004936134859595144,
+                "ci_low": 0.011308221008101783,
+                "ci_high": 0.012425373493759655,
+                "n": 3
+              },
+              "brier_score": {
+                "mean": 0.02972560711535253,
+                "std": 0.0029980757392515972,
+                "ci_low": 0.02633296503854125,
+                "ci_high": 0.03311824919216381,
+                "n": 3
+              },
+              "per_class_recall": {
+                "Glioma": {
+                  "mean": 0.9711934156378601,
+                  "std": 0.010887865477632052,
+                  "ci_low": 0.958872635991614,
+                  "ci_high": 0.9835141952841062,
+                  "n": 3
+                },
+                "Meningioma": {
+                  "mean": 0.9826086956521739,
+                  "std": 0.004347826086956497,
+                  "ci_low": 0.9776886672712537,
+                  "ci_high": 0.9875287240330941,
+                  "n": 3
+                },
+                "Pituitary": {
+                  "mean": 0.9846743295019157,
+                  "std": 0.003831417624521105,
+                  "ci_low": 0.9803386723080012,
+                  "ci_high": 0.9890099866958302,
+                  "n": 3
+                },
+                "No-tumor": {
+                  "mean": 0.98828125,
+                  "std": 0.00390625,
+                  "ci_low": 0.9838609120015169,
+                  "ci_high": 0.9927015879984831,
+                  "n": 3
+                }
+              }
+            },
+            "recipe": "raw",
+            "loss": "plain_ce",
+            "missing_seeds": []
+          },
+          "statistical_status": "descriptive",
+          "role": "secondary",
+          "interpretation": "The no-preprocessing condition.",
+          "provenance": {
+            "source_stage": "step21_ablation",
+            "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+            "comparison": "A0",
+            "rq": "RQ2",
+            "kind": "step21_row"
+          }
+        },
+        {
+          "source_stage": "step21_ablation",
+          "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+          "comparison_or_analysis": "A1",
+          "metric": null,
+          "value": {
+            "across_seeds": {
+              "macro_f1": {
+                "mean": 0.9845075227716481,
+                "std": 0.0010770002407628969,
+                "ci_low": 0.9832887822689614,
+                "ci_high": 0.9857262632743348,
+                "n": 3
+              },
+              "balanced_accuracy": {
+                "mean": 0.9847515313684464,
+                "std": 0.0010747521610459448,
+                "ci_low": 0.983535334807442,
+                "ci_high": 0.9859677279294508,
+                "n": 3
+              },
+              "accuracy": {
+                "mean": 0.9848484848484849,
+                "std": 0.0010101010101010166,
+                "ci_low": 0.9837054479519074,
+                "ci_high": 0.9859915217450623,
+                "n": 3
+              },
+              "macro_precision": {
+                "mean": 0.9846026397570592,
+                "std": 0.0010627181803000516,
+                "ci_low": 0.9834000609272201,
+                "ci_high": 0.9858052185868983,
+                "n": 3
+              },
+              "macro_recall_sensitivity": {
+                "mean": 0.9847515313684464,
+                "std": 0.0010747521610459448,
+                "ci_low": 0.983535334807442,
+                "ci_high": 0.9859677279294508,
+                "n": 3
+              },
+              "weighted_f1": {
+                "mean": 0.9849047486385424,
+                "std": 0.0009973144004582148,
+                "ci_low": 0.9837761811529028,
+                "ci_high": 0.986033316124182,
+                "n": 3
+              },
+              "macro_specificity": {
+                "mean": 0.9950188114390727,
+                "std": 0.0003260457849711378,
+                "ci_low": 0.994649855900499,
+                "ci_high": 0.9953877669776463,
+                "n": 3
+              },
+              "mcc": {
+                "mean": 0.9798899113970366,
+                "std": 0.001340321431106777,
+                "ci_low": 0.9783731949164984,
+                "ci_high": 0.9814066278775748,
+                "n": 3
+              },
+              "auc_ovr_macro": {
+                "mean": 0.9994546232912889,
+                "std": 0.00010144301865275852,
+                "ci_low": 0.9993398297092008,
+                "ci_high": 0.999569416873377,
+                "n": 3
+              },
+              "expected_calibration_error": {
+                "mean": 0.012792916972227767,
+                "std": 0.0014349255424906608,
+                "ci_low": 0.011169145861708623,
+                "ci_high": 0.01441668808274691,
+                "n": 3
+              },
+              "brier_score": {
+                "mean": 0.02706578355298081,
+                "std": 0.001279466185241642,
+                "ci_low": 0.02561793126590297,
+                "ci_high": 0.02851363584005865,
+                "n": 3
+              },
+              "per_class_recall": {
+                "Glioma": {
+                  "mean": 0.9657064471879288,
+                  "std": 0.002375927033702217,
+                  "ci_low": 0.9630178326474623,
+                  "ci_high": 0.9683950617283952,
+                  "n": 3
+                },
+                "Meningioma": {
+                  "mean": 0.991304347826087,
+                  "std": 0.004347826086956552,
+                  "ci_low": 0.9863843194451667,
+                  "ci_high": 0.9962243762070073,
+                  "n": 3
+                },
+                "Pituitary": {
+                  "mean": 0.9885057471264368,
+                  "std": 0.003831417624521105,
+                  "ci_low": 0.9841700899325223,
+                  "ci_high": 0.9928414043203513,
+                  "n": 3
+                },
+                "No-tumor": {
+                  "mean": 0.9934895833333334,
+                  "std": 0.002255274489021976,
+                  "ci_low": 0.9909375,
+                  "ci_high": 0.9960416666666667,
+                  "n": 3
+                }
+              }
+            },
+            "recipe": "conventional",
+            "loss": "plain_ce",
+            "missing_seeds": []
+          },
+          "statistical_status": "descriptive",
+          "role": "secondary",
+          "interpretation": "The conventional Step 5 pipeline.",
+          "provenance": {
+            "source_stage": "step21_ablation",
+            "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+            "comparison": "A1",
+            "rq": "RQ2",
+            "kind": "step21_row"
+          }
+        },
+        {
+          "source_stage": "step21_ablation",
+          "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+          "comparison_or_analysis": "A2",
+          "metric": null,
+          "value": {
+            "across_seeds": {
+              "macro_f1": {
+                "mean": 0.9852032214122812,
+                "std": 0.0011663271960840635,
+                "ci_low": 0.9838833979438615,
+                "ci_high": 0.986523044880701,
+                "n": 3
+              },
+              "balanced_accuracy": {
+                "mean": 0.9853168351363156,
+                "std": 0.0010940177213999485,
+                "ci_low": 0.9840788375414566,
+                "ci_high": 0.9865548327311746,
+                "n": 3
+              },
+              "accuracy": {
+                "mean": 0.9855218855218855,
+                "std": 0.0011663641801810697,
+                "ci_low": 0.9842020202020202,
+                "ci_high": 0.9868417508417507,
+                "n": 3
+              },
+              "macro_precision": {
+                "mean": 0.9852227404136853,
+                "std": 0.001200832560267401,
+                "ci_low": 0.9838638704499181,
+                "ci_high": 0.9865816103774525,
+                "n": 3
+              },
+              "macro_recall_sensitivity": {
+                "mean": 0.9853168351363156,
+                "std": 0.0010940177213999485,
+                "ci_low": 0.9840788375414566,
+                "ci_high": 0.9865548327311746,
+                "n": 3
+              },
+              "weighted_f1": {
+                "mean": 0.9855517439857481,
+                "std": 0.0011519292838516582,
+                "ci_low": 0.9842482132887945,
+                "ci_high": 0.9868552746827016,
+                "n": 3
+              },
+              "macro_specificity": {
+                "mean": 0.995221151374223,
+                "std": 0.0003772109601325236,
+                "ci_low": 0.9947942969894503,
+                "ci_high": 0.9956480057589956,
+                "n": 3
+              },
+              "mcc": {
+                "mean": 0.9807237558250814,
+                "std": 0.0015416014411915994,
+                "ci_low": 0.9789792695712535,
+                "ci_high": 0.9824682420789094,
+                "n": 3
+              },
+              "auc_ovr_macro": {
+                "mean": 0.9992287910384404,
+                "std": 6.315552168362523e-05,
+                "ci_low": 0.9991573238378485,
+                "ci_high": 0.9993002582390323,
+                "n": 3
+              },
+              "expected_calibration_error": {
+                "mean": 0.011274037477544652,
+                "std": 0.0015294571271570738,
+                "ci_low": 0.00954329380875152,
+                "ci_high": 0.013004781146337784,
+                "n": 3
+              },
+              "brier_score": {
+                "mean": 0.025591280375712636,
+                "std": 0.0029216862402178093,
+                "ci_low": 0.022285081154648976,
+                "ci_high": 0.028897479596776295,
+                "n": 3
+              },
+              "per_class_recall": {
+                "Glioma": {
+                  "mean": 0.9739368998628257,
+                  "std": 0.002375927033702153,
+                  "ci_low": 0.9712482853223593,
+                  "ci_high": 0.9766255144032921,
+                  "n": 3
+                },
+                "Meningioma": {
+                  "mean": 0.9840579710144928,
+                  "std": 0.0066414140506606606,
+                  "ci_low": 0.9765425035221933,
+                  "ci_high": 0.9915734385067922,
+                  "n": 3
+                },
+                "Pituitary": {
+                  "mean": 0.9897828863346104,
+                  "std": 0.005852587094451892,
+                  "ci_low": 0.9831600605751128,
+                  "ci_high": 0.996405712094108,
+                  "n": 3
+                },
+                "No-tumor": {
+                  "mean": 0.9934895833333334,
+                  "std": 0.002255274489021976,
+                  "ci_low": 0.9909375,
+                  "ci_high": 0.9960416666666667,
+                  "n": 3
+                }
+              }
+            },
+            "recipe": "diffusion_i5_k15",
+            "loss": "plain_ce",
+            "missing_seeds": []
+          },
+          "statistical_status": "descriptive",
+          "role": "secondary",
+          "interpretation": "The diffusion condition.",
+          "provenance": {
+            "source_stage": "step21_ablation",
+            "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+            "comparison": "A2",
+            "rq": "RQ2",
+            "kind": "step21_row"
+          }
+        },
+        {
+          "source_stage": "step18_robustness",
+          "source_path": "logs/analyze/runs_swin/step18_robustness/step18_robustness_summary.json",
+          "comparison_or_analysis": "step18_robustness",
+          "metric": null,
+          "value": {
+            "models": [
+              "proposed",
+              "efficientnet_b0",
+              "vit"
+            ],
+            "categories": [
+              "clean",
+              "gaussian_noise",
+              "contrast_shift",
+              "blur",
+              "resolution",
+              "intensity_shift"
+            ],
+            "clean_scores": {
+              "proposed": 0.9823798783532688,
+              "efficientnet_b0": 0.9782516666363597,
+              "vit": 0.9824043443677792
+            },
+            "mean_drop_by_model": {
+              "efficientnet_b0": 0.35238821672401754,
+              "proposed": 0.12093244142085782,
+              "vit": 0.16124316437027397
+            },
+            "most_damaging": {
+              "worst_category": "gaussian_noise",
+              "worst_mean_drop": 0.4181083574082685,
+              "by_category": {
+                "intensity_shift": 0.029342749936974572,
+                "contrast_shift": 0.03910888939805298,
+                "blur": 0.24709944064418066,
+                "resolution": 0.32394693347110554,
+                "gaussian_noise": 0.4181083574082685
+              }
+            },
+            "diffusion_verdict": {
+              "answered": false,
+              "reason": "Needs two model entries differing only in 'preprocess' - one with a diffusion recipe and one without. Configure both to answer whether diffusion preprocessing improves robustness under noise."
+            },
+            "results": [
+              {
+                "model": "proposed",
+                "category": "clean",
+                "severity": "none",
+                "macro_f1": 0.9823798783532688,
+                "drop_from_clean": 0.0
+              },
+              {
+                "model": "efficientnet_b0",
+                "category": "clean",
+                "severity": "none",
+                "macro_f1": 0.9782516666363597,
+                "drop_from_clean": 0.0
+              },
+              {
+                "model": "vit",
+                "category": "clean",
+                "severity": "none",
+                "macro_f1": 0.9824043443677792,
+                "drop_from_clean": 0.0
+              },
+              {
+                "model": "proposed",
+                "category": "gaussian_noise",
+                "severity": "sigma=10",
+                "macro_f1": 0.965870084919253,
+                "drop_from_clean": 0.016509793434015818
+              },
+              {
+                "model": "efficientnet_b0",
+                "category": "gaussian_noise",
+                "severity": "sigma=10",
+                "macro_f1": 0.2574833585518462,
+                "drop_from_clean": 0.7207683080845135
+              },
+              {
+                "model": "vit",
+                "category": "gaussian_noise",
+                "severity": "sigma=10",
+                "macro_f1": 0.9193661337755153,
+                "drop_from_clean": 0.06303821059226389
+              },
+              {
+                "model": "proposed",
+                "category": "gaussian_noise",
+                "severity": "sigma=25",
+                "macro_f1": 0.8670801256160239,
+                "drop_from_clean": 0.11529975273724491
+              },
+              {
+                "model": "efficientnet_b0",
+                "category": "gaussian_noise",
+                "severity": "sigma=25",
+                "macro_f1": 0.23475762889652163,
+                "drop_from_clean": 0.743494037739838
+              },
+              {
+                "model": "vit",
+                "category": "gaussian_noise",
+                "severity": "sigma=25",
+                "macro_f1": 0.6972411380282879,
+                "drop_from_clean": 0.2851632063394913
+              },
+              {
+                "model": "proposed",
+                "category": "gaussian_noise",
+                "severity": "sigma=40",
+                "macro_f1": 0.4949420230436077,
+                "drop_from_clean": 0.4874378553096611
+              },
+              {
+                "model": "efficientnet_b0",
+                "category": "gaussian_noise",
+                "severity": "sigma=40",
+                "macro_f1": 0.18415234096669303,
+                "drop_from_clean": 0.7940993256696667
+              },
+              {
+                "model": "vit",
+                "category": "gaussian_noise",
+                "severity": "sigma=40",
+                "macro_f1": 0.4452396176000579,
+                "drop_from_clean": 0.5371647267677213
+              },
+              {
+                "model": "proposed",
+                "category": "contrast_shift",
+                "severity": "0.7x",
+                "macro_f1": 0.9833753183271804,
+                "drop_from_clean": -0.0009954399739116049
+              },
+              {
+                "model": "efficientnet_b0",
+                "category": "contrast_shift",
+                "severity": "0.7x",
+                "macro_f1": 0.9740171609496576,
+                "drop_from_clean": 0.004234505686702028
+              },
+              {
+                "model": "vit",
+                "category": "contrast_shift",
+                "severity": "0.7x",
+                "macro_f1": 0.980320920486633,
+                "drop_from_clean": 0.0020834238811462402
+              },
+              {
+                "model": "proposed",
+                "category": "contrast_shift",
+                "severity": "0.5x",
+                "macro_f1": 0.977151814442467,
+                "drop_from_clean": 0.005228063910801772
+              },
+              {
+                "model": "efficientnet_b0",
+                "category": "contrast_shift",
+                "severity": "0.5x",
+                "macro_f1": 0.952675668518521,
+                "drop_from_clean": 0.025575998117838616
+              },
+              {
+                "model": "vit",
+                "category": "contrast_shift",
+                "severity": "0.5x",
+                "macro_f1": 0.9667023833863958,
+                "drop_from_clean": 0.015701960981383434
+              },
+              {
+                "model": "proposed",
+                "category": "contrast_shift",
+                "severity": "0.3x",
+                "macro_f1": 0.9729534190436738,
+                "drop_from_clean": 0.009426459309594959
+              },
+              {
+                "model": "efficientnet_b0",
+                "category": "contrast_shift",
+                "severity": "0.3x",
+                "macro_f1": 0.7482398772954874,
+                "drop_from_clean": 0.2300117893408723
+              },
+              {
+                "model": "vit",
+                "category": "contrast_shift",
+                "severity": "0.3x",
+                "macro_f1": 0.9216911010397302,
+                "drop_from_clean": 0.06071324332804906
+              },
+              {
+                "model": "proposed",
+                "category": "blur",
+                "severity": "radius=1",
+                "macro_f1": 0.9600092609968838,
+                "drop_from_clean": 0.022370617356385014
+              },
+              {
+                "model": "efficientnet_b0",
+                "category": "blur",
+                "severity": "radius=1",
+                "macro_f1": 0.924743300322312,
+                "drop_from_clean": 0.05350836631404765
+              },
+              {
+                "model": "vit",
+                "category": "blur",
+                "severity": "radius=1",
+                "macro_f1": 0.9523671039300383,
+                "drop_from_clean": 0.03003724043774092
+              },
+              {
+                "model": "proposed",
+                "category": "blur",
+                "severity": "radius=2",
+                "macro_f1": 0.8733772130658335,
+                "drop_from_clean": 0.1090026652874353
+              },
+              {
+                "model": "efficientnet_b0",
+                "category": "blur",
+                "severity": "radius=2",
+                "macro_f1": 0.5095910114780304,
+                "drop_from_clean": 0.4686606551583292
+              },
+              {
+                "model": "vit",
+                "category": "blur",
+                "severity": "radius=2",
+                "macro_f1": 0.8015860008186172,
+                "drop_from_clean": 0.18081834354916204
+              },
+              {
+                "model": "proposed",
+                "category": "blur",
+                "severity": "radius=3",
+                "macro_f1": 0.6645719664950435,
+                "drop_from_clean": 0.3178079118582253
+              },
+              {
+                "model": "efficientnet_b0",
+                "category": "blur",
+                "severity": "radius=3",
+                "macro_f1": 0.3319361278363647,
+                "drop_from_clean": 0.6463155387999949
+              },
+              {
+                "model": "vit",
+                "category": "blur",
+                "severity": "radius=3",
+                "macro_f1": 0.5870307173314737,
+                "drop_from_clean": 0.3953736270363055
+              },
+              {
+                "model": "proposed",
+                "category": "resolution",
+                "severity": "0.5x",
+                "macro_f1": 0.9387546674152789,
+                "drop_from_clean": 0.04362521093798988
+              },
+              {
+                "model": "efficientnet_b0",
+                "category": "resolution",
+                "severity": "0.5x",
+                "macro_f1": 0.8764597658283511,
+                "drop_from_clean": 0.1017919008080086
+              },
+              {
+                "model": "vit",
+                "category": "resolution",
+                "severity": "0.5x",
+                "macro_f1": 0.9313021159554946,
+                "drop_from_clean": 0.05110222841228462
+              },
+              {
+                "model": "proposed",
+                "category": "resolution",
+                "severity": "0.25x",
+                "macro_f1": 0.7924680809225852,
+                "drop_from_clean": 0.18991179743068354
+              },
+              {
+                "model": "efficientnet_b0",
+                "category": "resolution",
+                "severity": "0.25x",
+                "macro_f1": 0.4391214537854084,
+                "drop_from_clean": 0.5391302128509512
+              },
+              {
+                "model": "vit",
+                "category": "resolution",
+                "severity": "0.25x",
+                "macro_f1": 0.7898394443184932,
+                "drop_from_clean": 0.19256490004928606
+              },
+              {
+                "model": "proposed",
+                "category": "resolution",
+                "severity": "0.125x",
+                "macro_f1": 0.49153787355973627,
+                "drop_from_clean": 0.4908420047935325
+              },
+              {
+                "model": "efficientnet_b0",
+                "category": "resolution",
+                "severity": "0.125x",
+                "macro_f1": 0.24837653379721852,
+                "drop_from_clean": 0.7298751328391411
+              },
+              {
+                "model": "vit",
+                "category": "resolution",
+                "severity": "0.125x",
+                "macro_f1": 0.4057253312497071,
+                "drop_from_clean": 0.5766790131180721
+              },
+              {
+                "model": "proposed",
+                "category": "intensity_shift",
+                "severity": "+20",
+                "macro_f1": 0.9823480558074631,
+                "drop_from_clean": 3.18225458056931e-05
+              },
+              {
+                "model": "efficientnet_b0",
+                "category": "intensity_shift",
+                "severity": "+20",
+                "macro_f1": 0.9761593265481074,
+                "drop_from_clean": 0.002092340088252209
+              },
+              {
+                "model": "vit",
+                "category": "intensity_shift",
+                "severity": "+20",
+                "macro_f1": 0.9793422393742826,
+                "drop_from_clean": 0.0030621049934966837
+              },
+              {
+                "model": "proposed",
+                "category": "intensity_shift",
+                "severity": "+40",
+                "macro_f1": 0.9812956993007396,
+                "drop_from_clean": 0.0010841790525292216
+              },
+              {
+                "model": "efficientnet_b0",
+                "category": "intensity_shift",
+                "severity": "+40",
+                "macro_f1": 0.7954261066300482,
+                "drop_from_clean": 0.18282556000631145
+              },
+              {
+                "model": "vit",
+                "category": "intensity_shift",
+                "severity": "+40",
+                "macro_f1": 0.9752389457388019,
+                "drop_from_clean": 0.00716539862897736
+              },
+              {
+                "model": "proposed",
+                "category": "intensity_shift",
+                "severity": "-30",
+                "macro_f1": 0.9759759510303951,
+                "drop_from_clean": 0.006403927322873648
+              },
+              {
+                "model": "efficientnet_b0",
+                "category": "intensity_shift",
+                "severity": "-30",
+                "macro_f1": 0.9348120872805638,
+                "drop_from_clean": 0.0434395793557959
+              },
+              {
+                "model": "vit",
+                "category": "intensity_shift",
+                "severity": "-30",
+                "macro_f1": 0.9644245069290502,
+                "drop_from_clean": 0.017979837438728996
+              }
+            ],
+            "excluded_data_note": "The archive's pre-degraded 'Challenging Datasets' were not used: their filenames do not correspond to the primary set, so degraded copies of training images cannot be excluded."
+          },
+          "statistical_status": "descriptive",
+          "role": "secondary",
+          "interpretation": "Robustness under noise, which the specification names for this question.",
+          "provenance": {
+            "source_stage": "step18_robustness",
+            "source_path": "logs/analyze/runs_swin/step18_robustness/step18_robustness_summary.json",
+            "comparison": "step18_robustness",
+            "rq": "RQ2",
+            "kind": "stage_summary"
+          }
+        },
+        {
+          "source_stage": "step23_statistics",
+          "source_path": "logs/analyze/runs_swin/step23_statistics/step23_statistics_summary.json",
+          "comparison_or_analysis": "A7_vs_P",
+          "metric": "macro_f1",
+          "value": {
+            "observed_delta": 0.002145274924709395,
+            "ci_low": null,
+            "ci_high": null,
+            "raw_p_value": null,
+            "adjusted_p_value": null,
+            "significant": null,
+            "effect_direction": "favours A7",
+            "mcnemar_method": null,
+            "row_a": "A7",
+            "row_b": "P"
+          },
+          "statistical_status": "descriptive",
+          "role": "secondary",
+          "interpretation": "End-to-end: the diffusion ladder's top row against the shipped model, which uses the recipe Step 6 selected. Descriptive only - P is single-seed, so no seed-level claim is supported. Row P is single-seed, so this carries no seed-level claim.",
+          "provenance": {
+            "source_stage": "step23_statistics",
+            "source_path": "logs/analyze/runs_swin/step23_statistics/step23_statistics_summary.json",
+            "comparison": "A7_vs_P",
+            "rq": "RQ2",
+            "kind": "step23_comparison"
+          }
+        },
+        {
+          "source_stage": "step06_preprocessing",
+          "source_path": "logs/analyze/runs_swin/step06_preprocessing/step06_preprocessing_summary.json",
+          "comparison_or_analysis": "step06_preprocessing",
+          "metric": null,
+          "value": {
+            "selected_recipe": "diffusion_i5_k15",
+            "selected_macro_f1": 0.6148382838080448,
+            "selected_balanced_accuracy": 0.63,
+            "selected_edge_preservation": 0.9368893200183559,
+            "conventional_macro_f1": 0.5472995571679782,
+            "improvement_over_conventional": 0.06753872664006666,
+            "n_candidates": 13,
+            "selection_metric": "validation macro-F1 (proxy model)",
+            "protocol": {
+              "epochs": 5,
+              "image_size": 128,
+              "per_class_train": 200,
+              "per_class_val": 75,
+              "lr": 0.001,
+              "seed": 42,
+              "model": "SmallCNN proxy"
+            },
+            "ranking": [
+              {
+                "recipe": "diffusion_i5_k15",
+                "macro_f1": 0.6148382838080448,
+                "edge_preservation": 0.9368893200183559
+              },
+              {
+                "recipe": "diffusion_i20_k15",
+                "macro_f1": 0.6070517018352333,
+                "edge_preservation": 0.8222974128317453
+              },
+              {
+                "recipe": "diffusion_i15_k15",
+                "macro_f1": 0.6029112398839802,
+                "edge_preservation": 0.8475061888051997
+              },
+              {
+                "recipe": "diffusion_i10_k15",
+                "macro_f1": 0.6025457875457876,
+                "edge_preservation": 0.8832646773759736
+              },
+              {
+                "recipe": "diffusion_i10_k30",
+                "macro_f1": 0.5942643123672324,
+                "edge_preservation": 0.7431507721123685
+              },
+              {
+                "recipe": "diffusion_i15_k30",
+                "macro_f1": 0.5912095166344783,
+                "edge_preservation": 0.6762755609541666
+              },
+              {
+                "recipe": "diffusion_i5_k30",
+                "macro_f1": 0.5893554555565337,
+                "edge_preservation": 0.8547208067928077
+              },
+              {
+                "recipe": "clahe",
+                "macro_f1": 0.5809275525726266,
+                "edge_preservation": 0.942056596090541
+              },
+              {
+                "recipe": "wiener",
+                "macro_f1": 0.5801367714411193,
+                "edge_preservation": 0.9076979733489272
+              },
+              {
+                "recipe": "diffusion_i20_k30",
+                "macro_f1": 0.5562330623306233,
+                "edge_preservation": 0.6330740688038456
+              },
+              {
+                "recipe": "conventional",
+                "macro_f1": 0.5472995571679782,
+                "edge_preservation": 1.0
+              },
+              {
+                "recipe": "log",
+                "macro_f1": 0.4634743043189087,
+                "edge_preservation": 0.6458113368331879
+              },
+              {
+                "recipe": "gamma",
+                "macro_f1": 0.3761024495254248,
+                "edge_preservation": 0.8392940626657278
+              }
+            ],
+            "next_step": "python src/prepare_dataset.py recipe=diffusion_i5_k15  # materialise, then train with data.recipe=<same>",
+            "caveat": "Ranking comes from a reduced-scale proxy (SmallCNN, 128px, 200 images/class). Confirm the top candidates with the real backbone on the full validation split before committing - see docs/DEVIATIONS.md (F5)."
+          },
+          "statistical_status": "descriptive",
+          "role": "secondary",
+          "interpretation": "The image-quality and edge-preservation ranking, which is the \"image quality\" half of the specification's evidence column.",
+          "provenance": {
+            "source_stage": "step06_preprocessing",
+            "source_path": "logs/analyze/runs_swin/step06_preprocessing/step06_preprocessing_summary.json",
+            "comparison": "step06_preprocessing",
+            "rq": "RQ2",
+            "kind": "stage_summary"
+          }
+        }
+      ],
+      "primary_evidence": [
+        "H1"
+      ],
+      "secondary_evidence": [
+        "A1_vs_A0",
+        "A0",
+        "A1",
+        "A2",
+        "step18_robustness",
+        "A7_vs_P",
+        "step06_preprocessing"
+      ],
+      "conclusion": "H1 (favours A1): not significant after Holm correction",
+      "limitations": [],
+      "provenance": {
+        "source_stages": [
+          "step06_preprocessing",
+          "step18_robustness",
+          "step21_ablation",
+          "step23_statistics"
+        ],
+        "analyze_root": "logs/analyze/runs_swin",
+        "note": "Every value is read from the named artefact. Step 22 computes no metric and reaches no conclusion Steps 21 and 23 have not reached."
+      }
+    },
+    {
+      "rq_id": "RQ3",
+      "rq_question": "Boundary and texture preservation",
+      "spec_experiment": "Assess explanations and performance on difficult cases; use masks if available.",
+      "spec_evidence": "Grad-CAM localization, deletion/insertion tests.",
+      "status": "partially_supported",
+      "evidence": [
+        {
+          "source_stage": "step19_explainability",
+          "source_path": "logs/analyze/runs_swin/step19_explainability/step19_explainability_summary.json",
+          "comparison_or_analysis": "step19_explainability",
+          "metric": null,
+          "value": {
+            "n_examples": 8,
+            "grad_cam": {
+              "sanity_checks": [
+                {
+                  "class_name": "Glioma",
+                  "correctness": "correct",
+                  "confidence": 0.9098960161209106,
+                  "predicted_name": "Glioma",
+                  "original_confidence": 0.9098960161209106,
+                  "deletion_confidence": 0.9061926603317261,
+                  "deletion_drop": 0.0037033557891845703,
+                  "insertion_confidence": 0.6812742948532104
+                },
+                {
+                  "class_name": "Glioma",
+                  "correctness": "incorrect",
+                  "confidence": 0.6450648903846741,
+                  "predicted_name": "Meningioma",
+                  "original_confidence": 0.30325284600257874,
+                  "deletion_confidence": 0.11460167914628983,
+                  "deletion_drop": 0.1886511668562889,
+                  "insertion_confidence": 0.7825282216072083
+                },
+                {
+                  "class_name": "Meningioma",
+                  "correctness": "correct",
+                  "confidence": 0.987976610660553,
+                  "predicted_name": "Meningioma",
+                  "original_confidence": 0.987976610660553,
+                  "deletion_confidence": 0.9435473680496216,
+                  "deletion_drop": 0.044429242610931396,
+                  "insertion_confidence": 0.10665971040725708
+                },
+                {
+                  "class_name": "Meningioma",
+                  "correctness": "incorrect",
+                  "confidence": 0.5476058721542358,
+                  "predicted_name": "Pituitary",
+                  "original_confidence": 0.3496668338775635,
+                  "deletion_confidence": 0.8127760291099548,
+                  "deletion_drop": -0.46310919523239136,
+                  "insertion_confidence": 0.4042344093322754
+                },
+                {
+                  "class_name": "Pituitary",
+                  "correctness": "correct",
+                  "confidence": 0.9035145044326782,
+                  "predicted_name": "Pituitary",
+                  "original_confidence": 0.9035145044326782,
+                  "deletion_confidence": 0.31575101613998413,
+                  "deletion_drop": 0.5877634882926941,
+                  "insertion_confidence": 0.11044874787330627
+                },
+                {
+                  "class_name": "Pituitary",
+                  "correctness": "incorrect",
+                  "confidence": 0.9588329792022705,
+                  "predicted_name": "Meningioma",
+                  "original_confidence": 0.029272260144352913,
+                  "deletion_confidence": 0.019155353307724,
+                  "deletion_drop": 0.010116906836628914,
+                  "insertion_confidence": 0.08094915747642517
+                },
+                {
+                  "class_name": "No-tumor",
+                  "correctness": "correct",
+                  "confidence": 0.9511228799819946,
+                  "predicted_name": "No-tumor",
+                  "original_confidence": 0.9511228799819946,
+                  "deletion_confidence": 0.9495769143104553,
+                  "deletion_drop": 0.0015459656715393066,
+                  "insertion_confidence": 0.9333116412162781
+                },
+                {
+                  "class_name": "No-tumor",
+                  "correctness": "incorrect",
+                  "confidence": 0.402299702167511,
+                  "predicted_name": "Meningioma",
+                  "original_confidence": 0.3426545560359955,
+                  "deletion_confidence": 0.28476735949516296,
+                  "deletion_drop": 0.05788719654083252,
+                  "insertion_confidence": 0.5487525463104248
+                }
+              ],
+              "mean_deletion_drop": 0.053873515920713544,
+              "mean_insertion_recovery": 0.4560198411345482,
+              "figure": "step19_grad_cam.png"
+            },
+            "mc_dropout": {
+              "n_samples": 300,
+              "n_dropout_layers": 30,
+              "forward_passes": 30,
+              "mean_variance_correct": 0.010168931367379442,
+              "mean_variance_incorrect": 0.014312813446546594,
+              "variance_ratio_incorrect_over_correct": 1.4075041840148677,
+              "usable_as_triage_signal": false
+            },
+            "shap": {
+              "n_background": 50,
+              "n_explained": 25,
+              "branch_share": {
+                "classical": 0.7171993501551579,
+                "spatial": 0.15190829526680127,
+                "quantum": 0.13089235457804085
+              },
+              "caveat": "KernelExplainer approximates on a small background sample in a 192-dimensional space, so treat the shares as an ordering rather than exact percentages. Corroborate against Step 13's ablation."
+            },
+            "interpretation": [
+              "MC-dropout variance is only 1.4x higher on incorrect predictions, which is too weak to triage on reliably.",
+              "Deleting the top-scoring region cost 0.054 confidence on average, so the highlighted region is genuinely load-bearing.",
+              "SHAP attributes 72% of the fused vector's influence to the classical branch. Compare against Step 13's ablation - agreement between two independent methods is much stronger than either alone."
+            ]
+          },
+          "statistical_status": "descriptive",
+          "role": "secondary",
+          "interpretation": "Grad-CAM panels with deletion and insertion sanity checks. These are the specification's named evidence for this question.",
+          "provenance": {
+            "source_stage": "step19_explainability",
+            "source_path": "logs/analyze/runs_swin/step19_explainability/step19_explainability_summary.json",
+            "comparison": "step19_explainability",
+            "rq": "RQ3",
+            "kind": "stage_summary"
+          }
+        },
+        {
+          "source_stage": "step21_ablation",
+          "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+          "comparison_or_analysis": "A8",
+          "metric": null,
+          "value": {
+            "across_seeds": {
+              "macro_f1": {
+                "mean": 0.9817325473570936,
+                "std": 0.0031556780057791296,
+                "ci_low": 0.9781615615267134,
+                "ci_high": 0.9853035331874738,
+                "n": 3
+              },
+              "balanced_accuracy": {
+                "mean": 0.9816568487232722,
+                "std": 0.003261526883570048,
+                "ci_low": 0.9779660836118433,
+                "ci_high": 0.985347613834701,
+                "n": 3
+              },
+              "accuracy": {
+                "mean": 0.9821548821548821,
+                "std": 0.0030859095588928417,
+                "ci_low": 0.9786628467544197,
+                "ci_high": 0.9856469175553445,
+                "n": 3
+              },
+              "macro_precision": {
+                "mean": 0.9818881195094676,
+                "std": 0.0029854146606031746,
+                "ci_low": 0.9785098047919015,
+                "ci_high": 0.9852664342270337,
+                "n": 3
+              },
+              "macro_recall_sensitivity": {
+                "mean": 0.9816568487232722,
+                "std": 0.003261526883570048,
+                "ci_low": 0.9779660836118433,
+                "ci_high": 0.985347613834701,
+                "n": 3
+              },
+              "weighted_f1": {
+                "mean": 0.9821685276895171,
+                "std": 0.0030802813390752386,
+                "ci_low": 0.9786828612193392,
+                "ci_high": 0.985654194159695,
+                "n": 3
+              },
+              "macro_specificity": {
+                "mean": 0.994083609545163,
+                "std": 0.0010338587912878236,
+                "ci_low": 0.9929136881883129,
+                "ci_high": 0.995253530902013,
+                "n": 3
+              },
+              "mcc": {
+                "mean": 0.9762133615397874,
+                "std": 0.00409614302096505,
+                "ci_low": 0.9715781393592324,
+                "ci_high": 0.9808485837203424,
+                "n": 3
+              },
+              "auc_ovr_macro": {
+                "mean": 0.9977990454805145,
+                "std": 0.001538387079747862,
+                "ci_low": 0.9960581966190784,
+                "ci_high": 0.9995398943419506,
+                "n": 3
+              },
+              "expected_calibration_error": {
+                "mean": 0.1278464838511213,
+                "std": 0.06481613271658972,
+                "ci_low": 0.05450012497448428,
+                "ci_high": 0.2011928427277583,
+                "n": 3
+              },
+              "brier_score": {
+                "mean": 0.058795367090354766,
+                "std": 0.027332274568052057,
+                "ci_low": 0.027865986774672714,
+                "ci_high": 0.08972474740603682,
+                "n": 3
+              },
+              "per_class_recall": {
+                "Glioma": {
+                  "mean": 0.9739368998628258,
+                  "std": 0.006286112064411274,
+                  "ci_low": 0.9668234944174395,
+                  "ci_high": 0.9810503053082121,
+                  "n": 3
+                },
+                "Meningioma": {
+                  "mean": 0.9681159420289855,
+                  "std": 0.009050721736809283,
+                  "ci_low": 0.9578740862320153,
+                  "ci_high": 0.9783577978259558,
+                  "n": 3
+                },
+                "Pituitary": {
+                  "mean": 0.9897828863346105,
+                  "std": 0.0022120699968951364,
+                  "ci_low": 0.9872796934865901,
+                  "ci_high": 0.992286079182631,
+                  "n": 3
+                },
+                "No-tumor": {
+                  "mean": 0.9947916666666666,
+                  "std": 0.002255274489021976,
+                  "ci_low": 0.9922395833333333,
+                  "ci_high": 0.99734375,
+                  "n": 3
+                }
+              }
+            },
+            "recipe": "diffusion_i5_k15",
+            "loss": "focal",
+            "missing_seeds": [],
+            "mirrors": "A7"
+          },
+          "statistical_status": "identical_by_construction",
+          "role": "secondary",
+          "interpretation": "The explainability row. Its classification metrics are A7's by construction, so its contribution here is qualitative rather than a performance delta. Classification metrics are identical to A7's by construction.",
+          "provenance": {
+            "source_stage": "step21_ablation",
+            "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+            "comparison": "A8",
+            "rq": "RQ3",
+            "kind": "step21_row"
+          }
+        },
+        {
+          "source_stage": "not_available",
+          "source_path": null,
+          "comparison_or_analysis": "segmentation_masks",
+          "metric": null,
+          "value": null,
+          "statistical_status": "evidence_missing",
+          "role": "secondary",
+          "interpretation": "The specification allows \"use masks if available\". The dataset ships no segmentation masks, so localization cannot be scored against ground truth.",
+          "provenance": {
+            "source_stage": "not_available",
+            "source_path": null,
+            "comparison": "segmentation_masks",
+            "rq": "RQ3",
+            "kind": "absent"
+          }
+        }
+      ],
+      "primary_evidence": [],
+      "secondary_evidence": [
+        "step19_explainability",
+        "A8",
+        "segmentation_masks"
+      ],
+      "conclusion": null,
+      "limitations": [
+        "No segmentation masks are available, so Grad-CAM localization is assessed by deletion/insertion sanity checks rather than against annotated boundaries."
+      ],
+      "provenance": {
+        "source_stages": [
+          "not_available",
+          "step19_explainability",
+          "step21_ablation"
+        ],
+        "analyze_root": "logs/analyze/runs_swin",
+        "note": "Every value is read from the named artefact. Step 22 computes no metric and reaches no conclusion Steps 21 and 23 have not reached."
+      }
+    },
+    {
+      "rq_id": "RQ4",
+      "rq_question": "Adaptive kernels/circuits",
+      "spec_experiment": "Compare fixed kernels/circuits with adaptive modules.",
+      "spec_evidence": "Performance gain and learned scale/circuit weights.",
+      "status": "supported",
+      "evidence": [
+        {
+          "source_stage": "step23_statistics",
+          "source_path": "logs/analyze/runs_swin/step23_statistics/step23_statistics_summary.json",
+          "comparison_or_analysis": "H2",
+          "metric": "macro_f1",
+          "value": {
+            "observed_delta": 0.45760011581208826,
+            "ci_low": 0.4323033446716935,
+            "ci_high": 0.48253970997939494,
+            "raw_p_value": 4.653366714365561e-78,
+            "adjusted_p_value": 1.8613466857462245e-77,
+            "significant": true,
+            "effect_direction": "favours A5",
+            "mcnemar_method": "chi-square with continuity correction",
+            "row_a": "A5",
+            "row_b": "A4"
+          },
+          "statistical_status": "formal",
+          "role": "primary",
+          "interpretation": "The adaptive quantum branch against the fixed QCNN - the circuits half of this question, and a Holm-corrected primary hypothesis.",
+          "provenance": {
+            "source_stage": "step23_statistics",
+            "source_path": "logs/analyze/runs_swin/step23_statistics/step23_statistics_summary.json",
+            "comparison": "H2",
+            "rq": "RQ4",
+            "kind": "step23_comparison"
+          }
+        },
+        {
+          "source_stage": "step21_ablation",
+          "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+          "comparison_or_analysis": "A3",
+          "metric": null,
+          "value": {
+            "across_seeds": {
+              "macro_f1": {
+                "mean": 0.7660693308924591,
+                "std": 0.016732908045182137,
+                "ci_low": 0.7471342629226052,
+                "ci_high": 0.785004398862313,
+                "n": 3
+              },
+              "balanced_accuracy": {
+                "mean": 0.7693154343128077,
+                "std": 0.014220263028542204,
+                "ci_low": 0.7532236918453545,
+                "ci_high": 0.7854071767802608,
+                "n": 3
+              },
+              "accuracy": {
+                "mean": 0.7771043771043771,
+                "std": 0.012790181759745821,
+                "ci_low": 0.7626309239357091,
+                "ci_high": 0.7915778302730451,
+                "n": 3
+              },
+              "macro_precision": {
+                "mean": 0.7727912331952741,
+                "std": 0.010455327578813529,
+                "ci_low": 0.7609599162587705,
+                "ci_high": 0.7846225501317777,
+                "n": 3
+              },
+              "macro_recall_sensitivity": {
+                "mean": 0.7693154343128077,
+                "std": 0.014220263028542204,
+                "ci_low": 0.7532236918453545,
+                "ci_high": 0.7854071767802608,
+                "n": 3
+              },
+              "weighted_f1": {
+                "mean": 0.7717217016775675,
+                "std": 0.016315304549186012,
+                "ci_low": 0.7532591965497363,
+                "ci_high": 0.7901842068053987,
+                "n": 3
+              },
+              "macro_specificity": {
+                "mean": 0.9257499295575458,
+                "std": 0.0044868844124979984,
+                "ci_low": 0.920672541867724,
+                "ci_high": 0.9308273172473676,
+                "n": 3
+              },
+              "mcc": {
+                "mean": 0.7053266629041054,
+                "std": 0.014381777535578845,
+                "ci_low": 0.6890521495661855,
+                "ci_high": 0.7216011762420252,
+                "n": 3
+              },
+              "auc_ovr_macro": {
+                "mean": 0.9375748824453197,
+                "std": 0.0026210042834573974,
+                "ci_low": 0.9346089368892612,
+                "ci_high": 0.9405408280013783,
+                "n": 3
+              },
+              "expected_calibration_error": {
+                "mean": 0.16345796550965871,
+                "std": 0.0034362083654609185,
+                "ci_low": 0.1595695296930693,
+                "ci_high": 0.16734640132624812,
+                "n": 3
+              },
+              "brier_score": {
+                "mean": 0.3515178847138944,
+                "std": 0.012123129251332344,
+                "ci_low": 0.3377992725180068,
+                "ci_high": 0.365236496909782,
+                "n": 3
+              },
+              "per_class_recall": {
+                "Glioma": {
+                  "mean": 0.7434842249657064,
+                  "std": 0.008566526746774232,
+                  "ci_low": 0.7337902873800968,
+                  "ci_high": 0.7531781625513161,
+                  "n": 3
+                },
+                "Meningioma": {
+                  "mean": 0.5115942028985506,
+                  "std": 0.0674029910390347,
+                  "ci_low": 0.43532053825822825,
+                  "ci_high": 0.587867867538873,
+                  "n": 3
+                },
+                "Pituitary": {
+                  "mean": 0.9042145593869733,
+                  "std": 0.022988505747126464,
+                  "ci_low": 0.8782006162234867,
+                  "ci_high": 0.9302285025504599,
+                  "n": 3
+                },
+                "No-tumor": {
+                  "mean": 0.91796875,
+                  "std": 0.0067658234670659265,
+                  "ci_low": 0.9103125,
+                  "ci_high": 0.925625,
+                  "n": 3
+                }
+              }
+            },
+            "recipe": "diffusion_i5_k15",
+            "loss": "plain_ce",
+            "missing_seeds": []
+          },
+          "statistical_status": "descriptive",
+          "role": "secondary",
+          "interpretation": "The adaptive multiscale branch. Compared against A1 descriptively: the backbone changes as well as the module, so the contrast is confounded and is not a registered hypothesis.",
+          "provenance": {
+            "source_stage": "step21_ablation",
+            "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+            "comparison": "A3",
+            "rq": "RQ4",
+            "kind": "step21_row"
+          }
+        },
+        {
+          "source_stage": "step21_ablation",
+          "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+          "comparison_or_analysis": "A1",
+          "metric": null,
+          "value": {
+            "across_seeds": {
+              "macro_f1": {
+                "mean": 0.9845075227716481,
+                "std": 0.0010770002407628969,
+                "ci_low": 0.9832887822689614,
+                "ci_high": 0.9857262632743348,
+                "n": 3
+              },
+              "balanced_accuracy": {
+                "mean": 0.9847515313684464,
+                "std": 0.0010747521610459448,
+                "ci_low": 0.983535334807442,
+                "ci_high": 0.9859677279294508,
+                "n": 3
+              },
+              "accuracy": {
+                "mean": 0.9848484848484849,
+                "std": 0.0010101010101010166,
+                "ci_low": 0.9837054479519074,
+                "ci_high": 0.9859915217450623,
+                "n": 3
+              },
+              "macro_precision": {
+                "mean": 0.9846026397570592,
+                "std": 0.0010627181803000516,
+                "ci_low": 0.9834000609272201,
+                "ci_high": 0.9858052185868983,
+                "n": 3
+              },
+              "macro_recall_sensitivity": {
+                "mean": 0.9847515313684464,
+                "std": 0.0010747521610459448,
+                "ci_low": 0.983535334807442,
+                "ci_high": 0.9859677279294508,
+                "n": 3
+              },
+              "weighted_f1": {
+                "mean": 0.9849047486385424,
+                "std": 0.0009973144004582148,
+                "ci_low": 0.9837761811529028,
+                "ci_high": 0.986033316124182,
+                "n": 3
+              },
+              "macro_specificity": {
+                "mean": 0.9950188114390727,
+                "std": 0.0003260457849711378,
+                "ci_low": 0.994649855900499,
+                "ci_high": 0.9953877669776463,
+                "n": 3
+              },
+              "mcc": {
+                "mean": 0.9798899113970366,
+                "std": 0.001340321431106777,
+                "ci_low": 0.9783731949164984,
+                "ci_high": 0.9814066278775748,
+                "n": 3
+              },
+              "auc_ovr_macro": {
+                "mean": 0.9994546232912889,
+                "std": 0.00010144301865275852,
+                "ci_low": 0.9993398297092008,
+                "ci_high": 0.999569416873377,
+                "n": 3
+              },
+              "expected_calibration_error": {
+                "mean": 0.012792916972227767,
+                "std": 0.0014349255424906608,
+                "ci_low": 0.011169145861708623,
+                "ci_high": 0.01441668808274691,
+                "n": 3
+              },
+              "brier_score": {
+                "mean": 0.02706578355298081,
+                "std": 0.001279466185241642,
+                "ci_low": 0.02561793126590297,
+                "ci_high": 0.02851363584005865,
+                "n": 3
+              },
+              "per_class_recall": {
+                "Glioma": {
+                  "mean": 0.9657064471879288,
+                  "std": 0.002375927033702217,
+                  "ci_low": 0.9630178326474623,
+                  "ci_high": 0.9683950617283952,
+                  "n": 3
+                },
+                "Meningioma": {
+                  "mean": 0.991304347826087,
+                  "std": 0.004347826086956552,
+                  "ci_low": 0.9863843194451667,
+                  "ci_high": 0.9962243762070073,
+                  "n": 3
+                },
+                "Pituitary": {
+                  "mean": 0.9885057471264368,
+                  "std": 0.003831417624521105,
+                  "ci_low": 0.9841700899325223,
+                  "ci_high": 0.9928414043203513,
+                  "n": 3
+                },
+                "No-tumor": {
+                  "mean": 0.9934895833333334,
+                  "std": 0.002255274489021976,
+                  "ci_low": 0.9909375,
+                  "ci_high": 0.9960416666666667,
+                  "n": 3
+                }
+              }
+            },
+            "recipe": "conventional",
+            "loss": "plain_ce",
+            "missing_seeds": []
+          },
+          "statistical_status": "descriptive",
+          "role": "secondary",
+          "interpretation": "The fixed-kernel CNN the adaptive multiscale branch is read against.",
+          "provenance": {
+            "source_stage": "step21_ablation",
+            "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+            "comparison": "A1",
+            "rq": "RQ4",
+            "kind": "step21_row"
+          }
+        },
+        {
+          "source_stage": "step11_gate_morphology",
+          "source_path": "logs/analyze/runs_swin/step11_gate_morphology/step11_gate_morphology_summary.json",
+          "comparison_or_analysis": "step11_gate_morphology",
+          "metric": null,
+          "value": {
+            "checkpoint": "/kaggle/working/thesis/logs/train/runs/step11_arm_ablation/arm6_spatial_gate/seed_42/checkpoints/epoch_029.ckpt",
+            "n_samples": 120,
+            "pooled": {
+              "3x3 (fine)": {
+                "rho": -0.0347768413671149,
+                "p_value": 0.7061083423470114,
+                "n": 120
+              },
+              "5x5 (medium)": {
+                "rho": 0.22282527545545638,
+                "p_value": 0.014436394918661707,
+                "n": 120
+              },
+              "dilated (broad)": {
+                "rho": -0.16086589647258756,
+                "p_value": 0.07922460937692542,
+                "n": 120
+              }
+            },
+            "per_class": {
+              "Glioma": {
+                "3x3 (fine)": {
+                  "rho": -0.47917448405253293,
+                  "p_value": 0.0017586446356009074,
+                  "n": 40
+                },
+                "5x5 (medium)": {
+                  "rho": 0.11951219512195123,
+                  "p_value": 0.4626245816795941,
+                  "n": 40
+                },
+                "dilated (broad)": {
+                  "rho": 0.26397748592870546,
+                  "p_value": 0.09977578444475381,
+                  "n": 40
+                }
+              },
+              "Meningioma": {
+                "3x3 (fine)": {
+                  "rho": -0.06604127579737337,
+                  "p_value": 0.6855660540819256,
+                  "n": 40
+                },
+                "5x5 (medium)": {
+                  "rho": 0.29587242026266425,
+                  "p_value": 0.06378653982336985,
+                  "n": 40
+                },
+                "dilated (broad)": {
+                  "rho": -0.2838649155722327,
+                  "p_value": 0.07588026107937416,
+                  "n": 40
+                }
+              },
+              "Pituitary": {
+                "3x3 (fine)": {
+                  "rho": 0.52619728938229,
+                  "p_value": 0.0004876281556118284,
+                  "n": 40
+                },
+                "5x5 (medium)": {
+                  "rho": 0.3697171541193805,
+                  "p_value": 0.01887319522615893,
+                  "n": 40
+                },
+                "dilated (broad)": {
+                  "rho": -0.5762934477937971,
+                  "p_value": 9.958576245893582e-05,
+                  "n": 40
+                }
+              }
+            },
+            "mean_weights": {
+              "3x3 (fine)": 0.16774564605827133,
+              "5x5 (medium)": 0.23751333622882764,
+              "dilated (broad)": 0.5947410159123441
+            },
+            "limitations": [
+              "Tumour region is an Otsu intensity proxy, not a segmentation mask; this dataset ships none.",
+              "The three path weights are a softmax and sum to 1, so they are not independent - a negative correlation on one path is partly the arithmetic consequence of positive correlations on the others.",
+              "Pooled correlations can be driven by between-class differences; only directions that also hold within each class should be claimed."
+            ]
+          },
+          "statistical_status": "descriptive",
+          "role": "secondary",
+          "interpretation": "The learned scale weights, which the specification names explicitly as evidence for this question.",
+          "provenance": {
+            "source_stage": "step11_gate_morphology",
+            "source_path": "logs/analyze/runs_swin/step11_gate_morphology/step11_gate_morphology_summary.json",
+            "comparison": "step11_gate_morphology",
+            "rq": "RQ4",
+            "kind": "stage_summary"
+          }
+        }
+      ],
+      "primary_evidence": [
+        "H2"
+      ],
+      "secondary_evidence": [
+        "A3",
+        "A1",
+        "step11_gate_morphology"
+      ],
+      "conclusion": "H2 (favours A5): significant after Holm correction",
+      "limitations": [
+        "A3 against A1 changes the backbone as well as the multiscale module, so it is reported descriptively rather than as a test of adaptivity alone. Step 11's eight-arm ablation is the controlled comparison for kernels."
+      ],
+      "provenance": {
+        "source_stages": [
+          "step11_gate_morphology",
+          "step21_ablation",
+          "step23_statistics"
+        ],
+        "analyze_root": "logs/analyze/runs_swin",
+        "note": "Every value is read from the named artefact. Step 22 computes no metric and reaches no conclusion Steps 21 and 23 have not reached."
+      }
+    },
+    {
+      "rq_id": "RQ5",
+      "rq_question": "Tumor variation handling",
+      "spec_experiment": "Analyze performance by tumor size/appearance if metadata or masks are available.",
+      "spec_evidence": "Class-wise metrics and subgroup performance.",
+      "status": "partially_supported",
+      "evidence": [
+        {
+          "source_stage": "step16_internal",
+          "source_path": "logs/analyze/runs_swin/step16_internal/step16_internal_summary.json",
+          "comparison_or_analysis": "step16_internal",
+          "metric": "per_class",
+          "value": [
+            {
+              "class_name": "Glioma",
+              "precision": 0.9957446808510638,
+              "recall_sensitivity": 0.9629629629629629,
+              "f1": 0.9790794979079498,
+              "specificity": 0.998661311914324,
+              "support": 243
+            },
+            {
+              "class_name": "Meningioma",
+              "precision": 0.9495798319327731,
+              "recall_sensitivity": 0.9826086956521739,
+              "f1": 0.9658119658119658,
+              "specificity": 0.9842105263157894,
+              "support": 230
+            },
+            {
+              "class_name": "Pituitary",
+              "precision": 0.9847908745247148,
+              "recall_sensitivity": 0.9923371647509579,
+              "f1": 0.9885496183206107,
+              "specificity": 0.9945130315500685,
+              "support": 261
+            },
+            {
+              "class_name": "No-tumor",
+              "precision": 1.0,
+              "recall_sensitivity": 0.9921875,
+              "f1": 0.996078431372549,
+              "specificity": 1.0,
+              "support": 256
+            }
+          ],
+          "statistical_status": "descriptive",
+          "role": "secondary",
+          "interpretation": "Class-wise metrics for the shipped model, which is the half of this question the available data can answer.",
+          "provenance": {
+            "source_stage": "step16_internal",
+            "source_path": "logs/analyze/runs_swin/step16_internal/step16_internal_summary.json",
+            "comparison": "step16_internal",
+            "rq": "RQ5",
+            "kind": "stage_summary"
+          }
+        },
+        {
+          "source_stage": "step21_ablation",
+          "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+          "comparison_or_analysis": "P",
+          "metric": null,
+          "value": {
+            "across_seeds": {
+              "macro_f1": {
+                "mean": 0.9823798783532688,
+                "std": 0.0,
+                "ci_low": null,
+                "ci_high": null,
+                "n": 1
+              },
+              "balanced_accuracy": {
+                "mean": 0.9825240808415237,
+                "std": 0.0,
+                "ci_low": null,
+                "ci_high": null,
+                "n": 1
+              },
+              "accuracy": {
+                "mean": 0.9828282828282828,
+                "std": 0.0,
+                "ci_low": null,
+                "ci_high": null,
+                "n": 1
+              },
+              "macro_precision": {
+                "mean": 0.9825288468271379,
+                "std": 0.0,
+                "ci_low": null,
+                "ci_high": null,
+                "n": 1
+              },
+              "macro_recall_sensitivity": {
+                "mean": 0.9825240808415237,
+                "std": 0.0,
+                "ci_low": null,
+                "ci_high": null,
+                "n": 1
+              },
+              "weighted_f1": {
+                "mean": 0.9828894938802384,
+                "std": 0.0,
+                "ci_low": null,
+                "ci_high": null,
+                "n": 1
+              },
+              "macro_specificity": {
+                "mean": 0.9943462174450455,
+                "std": 0.0,
+                "ci_low": null,
+                "ci_high": null,
+                "n": 1
+              },
+              "mcc": {
+                "mean": 0.9771796553526976,
+                "std": 0.0,
+                "ci_low": null,
+                "ci_high": null,
+                "n": 1
+              },
+              "auc_ovr_macro": {
+                "mean": 0.9986131343969784,
+                "std": 0.0,
+                "ci_low": null,
+                "ci_high": null,
+                "n": 1
+              },
+              "expected_calibration_error": {
+                "mean": 0.08515397207905544,
+                "std": 0.0,
+                "ci_low": null,
+                "ci_high": null,
+                "n": 1
+              },
+              "brier_score": {
+                "mean": 0.04317887340932518,
+                "std": 0.0,
+                "ci_low": null,
+                "ci_high": null,
+                "n": 1
+              },
+              "per_class_recall": {
+                "Glioma": {
+                  "mean": 0.9629629629629629,
+                  "std": 0.0,
+                  "ci_low": null,
+                  "ci_high": null,
+                  "n": 1
+                },
+                "Meningioma": {
+                  "mean": 0.9826086956521739,
+                  "std": 0.0,
+                  "ci_low": null,
+                  "ci_high": null,
+                  "n": 1
+                },
+                "Pituitary": {
+                  "mean": 0.9923371647509579,
+                  "std": 0.0,
+                  "ci_low": null,
+                  "ci_high": null,
+                  "n": 1
+                },
+                "No-tumor": {
+                  "mean": 0.9921875,
+                  "std": 0.0,
+                  "ci_low": null,
+                  "ci_high": null,
+                  "n": 1
+                }
+              }
+            },
+            "recipe": "diffusion_i5_k15",
+            "loss": "focal",
+            "missing_seeds": [
+              123,
+              7
+            ]
+          },
+          "statistical_status": "descriptive",
+          "role": "secondary",
+          "interpretation": "Class-wise recall across the ablation, per row and per seed.",
+          "provenance": {
+            "source_stage": "step21_ablation",
+            "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+            "comparison": "P",
+            "rq": "RQ5",
+            "kind": "step21_row"
+          }
+        },
+        {
+          "source_stage": "not_available",
+          "source_path": null,
+          "comparison_or_analysis": "tumour_size_subgroups",
+          "metric": null,
+          "value": null,
+          "statistical_status": "evidence_missing",
+          "role": "secondary",
+          "interpretation": "The specification conditions this on metadata being available. The dataset ships no tumour-size or appearance annotations, so subgroup performance cannot be computed and is reported as absent rather than approximated.",
+          "provenance": {
+            "source_stage": "not_available",
+            "source_path": null,
+            "comparison": "tumour_size_subgroups",
+            "rq": "RQ5",
+            "kind": "absent"
+          }
+        }
+      ],
+      "primary_evidence": [],
+      "secondary_evidence": [
+        "step16_internal",
+        "P",
+        "tumour_size_subgroups"
+      ],
+      "conclusion": null,
+      "limitations": [
+        "Metadata-limited. The dataset provides no tumour size or appearance annotations and no segmentation masks, so the subgroup half of this question is not assessable. Only class-wise metrics are reported; no proxy for tumour size has been substituted."
+      ],
+      "provenance": {
+        "source_stages": [
+          "not_available",
+          "step16_internal",
+          "step21_ablation"
+        ],
+        "analyze_root": "logs/analyze/runs_swin",
+        "note": "Every value is read from the named artefact. Step 22 computes no metric and reaches no conclusion Steps 21 and 23 have not reached."
+      }
+    },
+    {
+      "rq_id": "RQ6",
+      "rq_question": "Imbalance strategy",
+      "spec_experiment": "Compare class weights, focal loss, sampler, and augmentation.",
+      "spec_evidence": "Minority-class recall, macro-F1, calibration.",
+      "status": "descriptive_only",
+      "evidence": [
+        {
+          "source_stage": "step23_statistics",
+          "source_path": "logs/analyze/runs_swin/step23_statistics/step23_statistics_summary.json",
+          "comparison_or_analysis": "H3",
+          "metric": "macro_f1",
+          "value": {
+            "observed_delta": 0.004253724058357555,
+            "ci_low": -0.0011226508302922867,
+            "ci_high": 0.010274989349986021,
+            "raw_p_value": 0.2890625,
+            "adjusted_p_value": 0.578125,
+            "significant": false,
+            "effect_direction": "favours A7",
+            "mcnemar_method": "exact binomial",
+            "row_a": "A7",
+            "row_b": "A6"
+          },
+          "statistical_status": "formal",
+          "role": "primary",
+          "interpretation": "The imbalance-aware loss Step 14 selected against plain cross-entropy, on the otherwise identical core model. A Holm-corrected primary hypothesis.",
+          "provenance": {
+            "source_stage": "step23_statistics",
+            "source_path": "logs/analyze/runs_swin/step23_statistics/step23_statistics_summary.json",
+            "comparison": "H3",
+            "rq": "RQ6",
+            "kind": "step23_comparison"
+          }
+        },
+        {
+          "source_stage": "step08_imbalance",
+          "source_path": "logs/analyze/runs_swin/step08_imbalance/step08_imbalance_summary.json",
+          "comparison_or_analysis": "step08_imbalance",
+          "metric": null,
+          "value": {
+            "selected_strategy": "focal_loss_legacy",
+            "selection_rationale": "highest validation macro-F1 among all tested strategies",
+            "selected_macro_f1": 0.6208414224867734,
+            "selected_min_class_recall": 0.4666666666666667,
+            "n_strategies": 7,
+            "recipe": "conventional",
+            "protocol": {
+              "epochs": 5,
+              "image_size": 128,
+              "per_class_train": 200,
+              "per_class_val": 75,
+              "lr": 0.001,
+              "seed": 42,
+              "model": "SmallCNN proxy"
+            },
+            "ranking": [
+              {
+                "strategy": "focal_loss_legacy",
+                "macro_f1": 0.6208414224867734,
+                "balanced_accuracy": 0.6233333333333333,
+                "min_class_recall": 0.4666666666666667
+              },
+              {
+                "strategy": "class_weighting",
+                "macro_f1": 0.6057931967022876,
+                "balanced_accuracy": 0.6233333333333333,
+                "min_class_recall": 0.38666666666666666
+              },
+              {
+                "strategy": "focal_loss",
+                "macro_f1": 0.6043093422049118,
+                "balanced_accuracy": 0.6133333333333334,
+                "min_class_recall": 0.4266666666666667
+              },
+              {
+                "strategy": "baseline",
+                "macro_f1": 0.5905991985637659,
+                "balanced_accuracy": 0.6033333333333333,
+                "min_class_recall": 0.38666666666666666
+              },
+              {
+                "strategy": "augmentation",
+                "macro_f1": 0.5658920773653807,
+                "balanced_accuracy": 0.5900000000000001,
+                "min_class_recall": 0.2
+              },
+              {
+                "strategy": "weighted_sampler",
+                "macro_f1": 0.5485389444402067,
+                "balanced_accuracy": 0.5866666666666667,
+                "min_class_recall": 0.17333333333333334
+              },
+              {
+                "strategy": "combined_sampler_weighting",
+                "macro_f1": 0.48114383254854576,
+                "balanced_accuracy": 0.5533333333333333,
+                "min_class_recall": 0.0
+              }
+            ],
+            "focal_correction_delta_macro_f1": -0.016532080281861594,
+            "caveat": "Ranking comes from a reduced-scale proxy (SmallCNN, 128px, 200 images/class), matching the reference protocol. It selects a strategy; it is not reportable performance."
+          },
+          "statistical_status": "descriptive",
+          "role": "secondary",
+          "interpretation": "The full strategy sweep - class weights, focal loss, sampler and augmentation - which is the comparison the specification describes.",
+          "provenance": {
+            "source_stage": "step08_imbalance",
+            "source_path": "logs/analyze/runs_swin/step08_imbalance/step08_imbalance_summary.json",
+            "comparison": "step08_imbalance",
+            "rq": "RQ6",
+            "kind": "stage_summary"
+          }
+        },
+        {
+          "source_stage": "step14_loss_selection",
+          "source_path": "logs/analyze/runs_swin/step14_loss_selection/step14_loss_selection_summary.json",
+          "comparison_or_analysis": "step14_loss_selection",
+          "metric": null,
+          "value": {
+            "tag": "swin",
+            "selected_loss": "focal",
+            "selection_rationale": "higher validation macro_f1 than weighted_ce (0.9836 vs 0.9795); selected on validation only",
+            "selectable_candidates": [
+              "weighted_ce",
+              "focal"
+            ],
+            "reference_candidates": [
+              "plain_ce"
+            ],
+            "tie_break_order": [
+              "macro_f1",
+              "balanced_accuracy",
+              "ece"
+            ],
+            "results": [
+              {
+                "loss": "focal",
+                "selectable": true,
+                "macro_f1": 0.983569177407779,
+                "balanced_accuracy": 0.9840367504326539,
+                "min_class_recall": 0.9693486590038314,
+                "recall_Glioma": 0.9876543209876543,
+                "recall_Meningioma": 0.9869565217391304,
+                "recall_Pituitary": 0.9693486590038314,
+                "recall_No-tumor": 0.9921875,
+                "best_val_f1": 0.9845835566520691,
+                "ece": 0.007365305074537657,
+                "trainable_parameters": 85252
+              },
+              {
+                "loss": "plain_ce",
+                "selectable": false,
+                "macro_f1": 0.9804838500615713,
+                "balanced_accuracy": 0.9809631329204225,
+                "min_class_recall": 0.9655172413793104,
+                "recall_Glioma": 0.9835390946502057,
+                "recall_Meningioma": 0.9826086956521739,
+                "recall_Pituitary": 0.9655172413793104,
+                "recall_No-tumor": 0.9921875,
+                "best_val_f1": 0.9855534434318542,
+                "ece": 0.01439274031706528,
+                "trainable_parameters": 85252
+              },
+              {
+                "loss": "weighted_ce",
+                "selectable": true,
+                "macro_f1": 0.9794979327899566,
+                "balanced_accuracy": 0.9800634284516693,
+                "min_class_recall": 0.9616858237547893,
+                "recall_Glioma": 0.9794238683127572,
+                "recall_Meningioma": 0.9869565217391304,
+                "recall_Pituitary": 0.9616858237547893,
+                "recall_No-tumor": 0.9921875,
+                "best_val_f1": 0.9835600852966309,
+                "ece": 0.01596895432231407,
+                "trainable_parameters": 85252
+              }
+            ],
+            "protocol": {
+              "epochs": 25,
+              "lr": 0.001,
+              "seed": 42
+            },
+            "next_step": "python src/train.py -m experiment=step15_final_protocol seed=42,123,7 loss@model.criterion=focal",
+            "caveat": "Selection used validation metrics only. The internal test set has not been read; Step 16 evaluates it exactly once."
+          },
+          "statistical_status": "descriptive",
+          "role": "secondary",
+          "interpretation": "The validation-only choice between the permitted losses.",
+          "provenance": {
+            "source_stage": "step14_loss_selection",
+            "source_path": "logs/analyze/runs_swin/step14_loss_selection/step14_loss_selection_summary.json",
+            "comparison": "step14_loss_selection",
+            "rq": "RQ6",
+            "kind": "stage_summary"
+          }
+        }
+      ],
+      "primary_evidence": [
+        "H3"
+      ],
+      "secondary_evidence": [
+        "step08_imbalance",
+        "step14_loss_selection"
+      ],
+      "conclusion": "H3 (favours A7): not significant after Holm correction",
+      "limitations": [],
+      "provenance": {
+        "source_stages": [
+          "step08_imbalance",
+          "step14_loss_selection",
+          "step23_statistics"
+        ],
+        "analyze_root": "logs/analyze/runs_swin",
+        "note": "Every value is read from the named artefact. Step 22 computes no metric and reaches no conclusion Steps 21 and 23 have not reached."
+      }
+    },
+    {
+      "rq_id": "RQ7",
+      "rq_question": "External dataset performance",
+      "spec_experiment": "Train on primary dataset and test on external dataset.",
+      "spec_evidence": "Performance drop, cross-dataset macro-F1.",
+      "status": "descriptive_only",
+      "evidence": [
+        {
+          "source_stage": "step17_external",
+          "source_path": "logs/analyze/runs_swin/step17_external/step17_external_summary.json",
+          "comparison_or_analysis": "step17_external",
+          "metric": null,
+          "value": {
+            "n_external_samples": 3064,
+            "present_classes": [
+              "Glioma",
+              "Meningioma",
+              "Pituitary"
+            ],
+            "restricted": {
+              "accuracy": 0.9441906005221932,
+              "balanced_accuracy": 0.9337167164549673,
+              "macro_precision": 0.9402563208509918,
+              "macro_recall": 0.9337167164549673,
+              "macro_f1": 0.9362616989977434,
+              "mcc": 0.9127195889258678
+            },
+            "unrestricted": {
+              "accuracy": 0.9428851174934726,
+              "balanced_accuracy": 0.932295306693291,
+              "macro_precision": 0.9422037239682894,
+              "macro_recall": 0.932295306693291,
+              "macro_f1": 0.9365626015521736,
+              "mcc": 0.9108009024260141
+            },
+            "predicted_absent_class_count": 11,
+            "restriction_effect_macro_f1": -0.00030090255443027125,
+            "performance_drop": {
+              "internal_macro_f1_same_classes": 0.9778136940135087,
+              "external_macro_f1": 0.9362616989977434,
+              "drop": 0.04155199501576534
+            },
+            "domain_shift_notes": [
+              "Figshare scans are 16-bit with varying intensity ranges and are min-max normalised per image before the shared pipeline; the internal set is 8-bit and natively 224x224.",
+              "Acquisition differs in scanner, sequence weighting and slice orientation, none of which is controlled for.",
+              "Figshare provides one label per slice and multiple slices per patient (PID); slice-level metrics therefore treat correlated slices as independent.",
+              "No non-tumour class exists externally, so the restricted score forgives every case the model would have answered No-tumor - see 'predicted_absent_class_count'."
+            ]
+          },
+          "statistical_status": "descriptive",
+          "role": "secondary",
+          "interpretation": "Cross-dataset macro-F1 and the performance drop, reported both restricted to the classes the external set contains and unrestricted.",
+          "provenance": {
+            "source_stage": "step17_external",
+            "source_path": "logs/analyze/runs_swin/step17_external/step17_external_summary.json",
+            "comparison": "step17_external",
+            "rq": "RQ7",
+            "kind": "stage_summary"
+          }
+        }
+      ],
+      "primary_evidence": [],
+      "secondary_evidence": [
+        "step17_external"
+      ],
+      "conclusion": null,
+      "limitations": [],
+      "provenance": {
+        "source_stages": [
+          "step17_external"
+        ],
+        "analyze_root": "logs/analyze/runs_swin",
+        "note": "Every value is read from the named artefact. Step 22 computes no metric and reaches no conclusion Steps 21 and 23 have not reached."
+      }
+    },
+    {
+      "rq_id": "RQ8",
+      "rq_question": "Quantum benefit",
+      "spec_experiment": "Remove or replace quantum branch and compare.",
+      "spec_evidence": "Accuracy, macro-F1, parameter count, time.",
+      "status": "supported",
+      "evidence": [
+        {
+          "source_stage": "step23_statistics",
+          "source_path": "logs/analyze/runs_swin/step23_statistics/step23_statistics_summary.json",
+          "comparison_or_analysis": "H4",
+          "metric": "macro_f1",
+          "value": {
+            "observed_delta": 0.20746169426907057,
+            "ci_low": 0.1813481994032215,
+            "ci_high": 0.23574066836533727,
+            "raw_p_value": 9.415398909010774e-41,
+            "adjusted_p_value": 2.8246196727032323e-40,
+            "significant": true,
+            "effect_direction": "favours A6",
+            "mcnemar_method": "chi-square with continuity correction",
+            "row_a": "A6",
+            "row_b": "A3"
+          },
+          "statistical_status": "formal",
+          "role": "primary",
+          "interpretation": "The full fused model against the multiscale branch alone - adding the quantum branch and fusion. A Holm-corrected primary hypothesis.",
+          "provenance": {
+            "source_stage": "step23_statistics",
+            "source_path": "logs/analyze/runs_swin/step23_statistics/step23_statistics_summary.json",
+            "comparison": "H4",
+            "rq": "RQ8",
+            "kind": "step23_comparison"
+          }
+        },
+        {
+          "source_stage": "step20_quantum_advantage",
+          "source_path": "logs/analyze/runs_swin/step20_quantum_advantage/step20_quantum_advantage_summary.json",
+          "comparison_or_analysis": "step20_quantum_advantage",
+          "metric": null,
+          "value": {
+            "tag": "swin",
+            "loss_provenance": {
+              "loss": "focal",
+              "source": "Step 14 selection (logs/analyze/runs/step14_loss_selection_swin/step14_loss_selection_summary.json)",
+              "criterion": "FocalLoss"
+            },
+            "seed_check": {
+              "control_seed": 42,
+              "checkpoint_seed": 42,
+              "seeds_match": true
+            },
+            "performance": {
+              "full_macro_f1": 0.9823798783532688,
+              "no_quantum_macro_f1": 0.9823359600811119,
+              "mcnemar": {
+                "both_correct": 972,
+                "only_a_correct": 1,
+                "only_b_correct": 1,
+                "both_wrong": 16,
+                "n_discordant": 2,
+                "statistic": 1.0,
+                "p_value": 1.0,
+                "test": "exact binomial",
+                "favours": "neither"
+              },
+              "paired_bootstrap": {
+                "observed_delta": 4.3918272156884264e-05,
+                "ci_lower": -0.0029801153674391566,
+                "ci_upper": 0.0031652622138826627,
+                "fraction_favouring_a": 0.494,
+                "n_resamples": 2000,
+                "significant": false
+              },
+              "full_macro_f1_ci": {
+                "point_estimate": 0.9823798783532688,
+                "ci_lower": 0.9734056128496538,
+                "ci_upper": 0.9898457118467653,
+                "confidence": 95.0,
+                "n_resamples": 2000
+              },
+              "no_quantum_macro_f1_ci": {
+                "point_estimate": 0.9823359600811119,
+                "ci_lower": 0.9736282812393304,
+                "ci_upper": 0.9903588205713042,
+                "confidence": 95.0,
+                "n_resamples": 2000
+              },
+              "delta_macro_f1": 4.3918272156884264e-05
+            },
+            "separability": {
+              "silhouette_with_quantum": 0.3370147943496704,
+              "silhouette_without_quantum": 0.33701497316360474,
+              "delta": -1.7881393432617188e-07
+            },
+            "efficiency": {
+              "per_model": [
+                {
+                  "model": "full",
+                  "trainable_parameters": 85252,
+                  "inference_seconds_per_batch": 0.0006551330000093003
+                },
+                {
+                  "model": "no_quantum",
+                  "trainable_parameters": 85252,
+                  "inference_seconds_per_batch": 0.000631442999747378
+                }
+              ],
+              "from_training_runs": {
+                "classical": {
+                  "training_time_sec": 1175.575,
+                  "epochs_completed": 30,
+                  "mean_epoch_time_sec": 38.636,
+                  "peak_memory_mib": 764.1,
+                  "total_parameters": 27522430,
+                  "trainable_parameters": 15369652
+                },
+                "quantum": {
+                  "training_time_sec": 8718.572,
+                  "epochs_completed": 30,
+                  "mean_epoch_time_sec": 290.527,
+                  "peak_memory_mib": 0.0,
+                  "total_parameters": 72408,
+                  "trainable_parameters": 72408
+                },
+                "fusion": {
+                  "training_time_sec": 31.58,
+                  "epochs_completed": 21,
+                  "mean_epoch_time_sec": 1.452,
+                  "peak_memory_mib": 19.05,
+                  "total_parameters": 85252,
+                  "trainable_parameters": 85252
+                }
+              },
+              "note": null
+            },
+            "verdict": {
+              "headline": "The quantum branch is nominally better (+0.0000 macro-F1) but the paired bootstrap interval spans zero, so the difference is not distinguishable from noise on this test set.",
+              "statistically_significant": false,
+              "mcnemar_p_value": 1.0,
+              "delta_macro_f1": 4.3918272156884264e-05,
+              "fallback_criteria": {
+                "parameter_efficiency": "The circuit adds few trainable parameters, but its inference cost is the CPU simulator - see the efficiency table before claiming efficiency.",
+                "separability": "Silhouette changes by -0.0000 when the quantum features are included.",
+                "robustness": "See Step 18; robustness is not evidence this step can supply."
+              },
+              "note": "A negative result here is a valid contribution: it answers empirically whether quantum advantage emerges in this hybrid design, rather than assuming it."
+            }
+          },
+          "statistical_status": "descriptive",
+          "role": "secondary",
+          "interpretation": "The dedicated quantum-advantage analysis: a retrained no-quantum control, the efficiency table with parameter count and time, and feature separability.",
+          "provenance": {
+            "source_stage": "step20_quantum_advantage",
+            "source_path": "logs/analyze/runs_swin/step20_quantum_advantage/step20_quantum_advantage_summary.json",
+            "comparison": "step20_quantum_advantage",
+            "rq": "RQ8",
+            "kind": "stage_summary"
+          }
+        },
+        {
+          "source_stage": "step21_ablation",
+          "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+          "comparison_or_analysis": "A4",
+          "metric": null,
+          "value": {
+            "across_seeds": {
+              "macro_f1": {
+                "mean": 0.3714024616953058,
+                "std": 0.0645446452387263,
+                "ci_low": 0.2983633198207838,
+                "ci_high": 0.44444160356982776,
+                "n": 3
+              },
+              "balanced_accuracy": {
+                "mean": 0.4677832524709868,
+                "std": 0.038615455339651404,
+                "ci_low": 0.42408575114194047,
+                "ci_high": 0.5114807538000331,
+                "n": 3
+              },
+              "accuracy": {
+                "mean": 0.4794612794612794,
+                "std": 0.0416516144630942,
+                "ci_low": 0.43232804064927755,
+                "ci_high": 0.5265945182732813,
+                "n": 3
+              },
+              "macro_precision": {
+                "mean": 0.4207952960992612,
+                "std": 0.12087594026611094,
+                "ci_low": 0.28401129306293216,
+                "ci_high": 0.5575792991355902,
+                "n": 3
+              },
+              "macro_recall_sensitivity": {
+                "mean": 0.4677832524709868,
+                "std": 0.038615455339651404,
+                "ci_low": 0.42408575114194047,
+                "ci_high": 0.5114807538000331,
+                "n": 3
+              },
+              "weighted_f1": {
+                "mean": 0.3802177245269645,
+                "std": 0.06567135145587832,
+                "ci_low": 0.30590359454241267,
+                "ci_high": 0.45453185451151634,
+                "n": 3
+              },
+              "macro_specificity": {
+                "mean": 0.8253950658012897,
+                "std": 0.013632750512503422,
+                "ci_low": 0.8099681563320396,
+                "ci_high": 0.8408219752705399,
+                "n": 3
+              },
+              "mcc": {
+                "mean": 0.38791330033580884,
+                "std": 0.02256556401841295,
+                "ci_low": 0.3623779607933338,
+                "ci_high": 0.4134486398782839,
+                "n": 3
+              },
+              "auc_ovr_macro": {
+                "mean": 0.8073287198401712,
+                "std": 0.029945213720221717,
+                "ci_low": 0.7734425205236418,
+                "ci_high": 0.8412149191567005,
+                "n": 3
+              },
+              "expected_calibration_error": {
+                "mean": 0.128668711612923,
+                "std": 0.021862698361328772,
+                "ci_low": 0.10392873943603849,
+                "ci_high": 0.15340868378980754,
+                "n": 3
+              },
+              "brier_score": {
+                "mean": 0.6452574415741296,
+                "std": 0.018225125026166893,
+                "ci_low": 0.6246337711279804,
+                "ci_high": 0.6658811120202788,
+                "n": 3
+              },
+              "per_class_recall": {
+                "Glioma": {
+                  "mean": 0.3333333333333333,
+                  "std": 0.5773502691896258,
+                  "ci_low": -0.3200000000000001,
+                  "ci_high": 0.9866666666666668,
+                  "n": 3
+                },
+                "Meningioma": {
+                  "mean": 0.12318840579710144,
+                  "std": 0.1805438818063879,
+                  "ci_low": -0.08111622937535629,
+                  "ci_high": 0.32749304096955917,
+                  "n": 3
+                },
+                "Pituitary": {
+                  "mean": 0.6385696040868455,
+                  "std": 0.5538662827367147,
+                  "ci_low": 0.011810903117970284,
+                  "ci_high": 1.2653283050557207,
+                  "n": 3
+                },
+                "No-tumor": {
+                  "mean": 0.7760416666666666,
+                  "std": 0.04493602585087864,
+                  "ci_low": 0.7251917664888857,
+                  "ci_high": 0.8268915668444475,
+                  "n": 3
+                }
+              }
+            },
+            "recipe": "diffusion_i5_k15",
+            "loss": "plain_ce",
+            "missing_seeds": []
+          },
+          "statistical_status": "descriptive",
+          "role": "secondary",
+          "interpretation": "The fixed-circuit condition.",
+          "provenance": {
+            "source_stage": "step21_ablation",
+            "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+            "comparison": "A4",
+            "rq": "RQ8",
+            "kind": "step21_row"
+          }
+        },
+        {
+          "source_stage": "step21_ablation",
+          "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+          "comparison_or_analysis": "A5",
+          "metric": null,
+          "value": {
+            "across_seeds": {
+              "macro_f1": {
+                "mean": 0.9058159614708766,
+                "std": 0.008360865277360892,
+                "ci_low": 0.8963547517465333,
+                "ci_high": 0.9152771711952199,
+                "n": 3
+              },
+              "balanced_accuracy": {
+                "mean": 0.9057539312423263,
+                "std": 0.00846709226838602,
+                "ci_low": 0.8961725143615303,
+                "ci_high": 0.9153353481231222,
+                "n": 3
+              },
+              "accuracy": {
+                "mean": 0.9087542087542088,
+                "std": 0.008410771715014687,
+                "ci_low": 0.8992365245792465,
+                "ci_high": 0.918271892929171,
+                "n": 3
+              },
+              "macro_precision": {
+                "mean": 0.9066578883425721,
+                "std": 0.007883552546968332,
+                "ci_low": 0.8977368088196531,
+                "ci_high": 0.9155789678654911,
+                "n": 3
+              },
+              "macro_recall_sensitivity": {
+                "mean": 0.9057539312423263,
+                "std": 0.00846709226838602,
+                "ci_low": 0.8961725143615303,
+                "ci_high": 0.9153353481231222,
+                "n": 3
+              },
+              "weighted_f1": {
+                "mean": 0.90854484154716,
+                "std": 0.008251928247597613,
+                "ci_low": 0.8992069056767954,
+                "ci_high": 0.9178827774175246,
+                "n": 3
+              },
+              "macro_specificity": {
+                "mean": 0.9698122464360311,
+                "std": 0.0027876395682652484,
+                "ci_low": 0.9666577353039536,
+                "ci_high": 0.9729667575681087,
+                "n": 3
+              },
+              "mcc": {
+                "mean": 0.878463623082694,
+                "std": 0.011100320774789715,
+                "ci_low": 0.8659024276353585,
+                "ci_high": 0.8910248185300295,
+                "n": 3
+              },
+              "auc_ovr_macro": {
+                "mean": 0.9867975765798099,
+                "std": 0.001031279781417836,
+                "ci_low": 0.9856305736473636,
+                "ci_high": 0.9879645795122562,
+                "n": 3
+              },
+              "expected_calibration_error": {
+                "mean": 0.019774141987967567,
+                "std": 0.006287849527821287,
+                "ci_low": 0.012658770417645064,
+                "ci_high": 0.02688951355829007,
+                "n": 3
+              },
+              "brier_score": {
+                "mean": 0.12611135199610926,
+                "std": 0.006269395233294427,
+                "ci_low": 0.11901686342593581,
+                "ci_high": 0.1332058405662827,
+                "n": 3
+              },
+              "per_class_recall": {
+                "Glioma": {
+                  "mean": 0.8600823045267489,
+                  "std": 0.012345679012345678,
+                  "ci_low": 0.8461118535685802,
+                  "ci_high": 0.8740527554849177,
+                  "n": 3
+                },
+                "Meningioma": {
+                  "mean": 0.8260869565217391,
+                  "std": 0.015676309893321708,
+                  "ci_low": 0.808347541917593,
+                  "ci_high": 0.8438263711258853,
+                  "n": 3
+                },
+                "Pituitary": {
+                  "mean": 0.966794380587484,
+                  "std": 0.00797573179872082,
+                  "ci_low": 0.9577689904215716,
+                  "ci_high": 0.9758197707533964,
+                  "n": 3
+                },
+                "No-tumor": {
+                  "mean": 0.9700520833333334,
+                  "std": 0.008131507810414582,
+                  "ci_low": 0.960850416015743,
+                  "ci_high": 0.9792537506509238,
+                  "n": 3
+                }
+              }
+            },
+            "recipe": "diffusion_i5_k15",
+            "loss": "plain_ce",
+            "missing_seeds": []
+          },
+          "statistical_status": "descriptive",
+          "role": "secondary",
+          "interpretation": "The adaptive-circuit condition.",
+          "provenance": {
+            "source_stage": "step21_ablation",
+            "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+            "comparison": "A5",
+            "rq": "RQ8",
+            "kind": "step21_row"
+          }
+        }
+      ],
+      "primary_evidence": [
+        "H4"
+      ],
+      "secondary_evidence": [
+        "step20_quantum_advantage",
+        "A4",
+        "A5"
+      ],
+      "conclusion": "H4 (favours A6): significant after Holm correction",
+      "limitations": [],
+      "provenance": {
+        "source_stages": [
+          "step20_quantum_advantage",
+          "step21_ablation",
+          "step23_statistics"
+        ],
+        "analyze_root": "logs/analyze/runs_swin",
+        "note": "Every value is read from the named artefact. Step 22 computes no metric and reaches no conclusion Steps 21 and 23 have not reached."
+      }
+    },
+    {
+      "rq_id": "RQ9",
+      "rq_question": "Explainability",
+      "spec_experiment": "Generate and evaluate class-specific explanations.",
+      "spec_evidence": "Clinically relevant heatmaps and sanity checks.",
+      "status": "descriptive_only",
+      "evidence": [
+        {
+          "source_stage": "step19_explainability",
+          "source_path": "logs/analyze/runs_swin/step19_explainability/step19_explainability_summary.json",
+          "comparison_or_analysis": "step19_explainability",
+          "metric": null,
+          "value": {
+            "n_examples": 8,
+            "grad_cam": {
+              "sanity_checks": [
+                {
+                  "class_name": "Glioma",
+                  "correctness": "correct",
+                  "confidence": 0.9098960161209106,
+                  "predicted_name": "Glioma",
+                  "original_confidence": 0.9098960161209106,
+                  "deletion_confidence": 0.9061926603317261,
+                  "deletion_drop": 0.0037033557891845703,
+                  "insertion_confidence": 0.6812742948532104
+                },
+                {
+                  "class_name": "Glioma",
+                  "correctness": "incorrect",
+                  "confidence": 0.6450648903846741,
+                  "predicted_name": "Meningioma",
+                  "original_confidence": 0.30325284600257874,
+                  "deletion_confidence": 0.11460167914628983,
+                  "deletion_drop": 0.1886511668562889,
+                  "insertion_confidence": 0.7825282216072083
+                },
+                {
+                  "class_name": "Meningioma",
+                  "correctness": "correct",
+                  "confidence": 0.987976610660553,
+                  "predicted_name": "Meningioma",
+                  "original_confidence": 0.987976610660553,
+                  "deletion_confidence": 0.9435473680496216,
+                  "deletion_drop": 0.044429242610931396,
+                  "insertion_confidence": 0.10665971040725708
+                },
+                {
+                  "class_name": "Meningioma",
+                  "correctness": "incorrect",
+                  "confidence": 0.5476058721542358,
+                  "predicted_name": "Pituitary",
+                  "original_confidence": 0.3496668338775635,
+                  "deletion_confidence": 0.8127760291099548,
+                  "deletion_drop": -0.46310919523239136,
+                  "insertion_confidence": 0.4042344093322754
+                },
+                {
+                  "class_name": "Pituitary",
+                  "correctness": "correct",
+                  "confidence": 0.9035145044326782,
+                  "predicted_name": "Pituitary",
+                  "original_confidence": 0.9035145044326782,
+                  "deletion_confidence": 0.31575101613998413,
+                  "deletion_drop": 0.5877634882926941,
+                  "insertion_confidence": 0.11044874787330627
+                },
+                {
+                  "class_name": "Pituitary",
+                  "correctness": "incorrect",
+                  "confidence": 0.9588329792022705,
+                  "predicted_name": "Meningioma",
+                  "original_confidence": 0.029272260144352913,
+                  "deletion_confidence": 0.019155353307724,
+                  "deletion_drop": 0.010116906836628914,
+                  "insertion_confidence": 0.08094915747642517
+                },
+                {
+                  "class_name": "No-tumor",
+                  "correctness": "correct",
+                  "confidence": 0.9511228799819946,
+                  "predicted_name": "No-tumor",
+                  "original_confidence": 0.9511228799819946,
+                  "deletion_confidence": 0.9495769143104553,
+                  "deletion_drop": 0.0015459656715393066,
+                  "insertion_confidence": 0.9333116412162781
+                },
+                {
+                  "class_name": "No-tumor",
+                  "correctness": "incorrect",
+                  "confidence": 0.402299702167511,
+                  "predicted_name": "Meningioma",
+                  "original_confidence": 0.3426545560359955,
+                  "deletion_confidence": 0.28476735949516296,
+                  "deletion_drop": 0.05788719654083252,
+                  "insertion_confidence": 0.5487525463104248
+                }
+              ],
+              "mean_deletion_drop": 0.053873515920713544,
+              "mean_insertion_recovery": 0.4560198411345482,
+              "figure": "step19_grad_cam.png"
+            },
+            "mc_dropout": {
+              "n_samples": 300,
+              "n_dropout_layers": 30,
+              "forward_passes": 30,
+              "mean_variance_correct": 0.010168931367379442,
+              "mean_variance_incorrect": 0.014312813446546594,
+              "variance_ratio_incorrect_over_correct": 1.4075041840148677,
+              "usable_as_triage_signal": false
+            },
+            "shap": {
+              "n_background": 50,
+              "n_explained": 25,
+              "branch_share": {
+                "classical": 0.7171993501551579,
+                "spatial": 0.15190829526680127,
+                "quantum": 0.13089235457804085
+              },
+              "caveat": "KernelExplainer approximates on a small background sample in a 192-dimensional space, so treat the shares as an ordering rather than exact percentages. Corroborate against Step 13's ablation."
+            },
+            "interpretation": [
+              "MC-dropout variance is only 1.4x higher on incorrect predictions, which is too weak to triage on reliably.",
+              "Deleting the top-scoring region cost 0.054 confidence on average, so the highlighted region is genuinely load-bearing.",
+              "SHAP attributes 72% of the fused vector's influence to the classical branch. Compare against Step 13's ablation - agreement between two independent methods is much stronger than either alone."
+            ]
+          },
+          "statistical_status": "descriptive",
+          "role": "secondary",
+          "interpretation": "Class-specific Grad-CAM panels covering correct and incorrect cases, with deletion/insertion sanity checks and MC-dropout uncertainty. Explainability is assessed, not significance-tested.",
+          "provenance": {
+            "source_stage": "step19_explainability",
+            "source_path": "logs/analyze/runs_swin/step19_explainability/step19_explainability_summary.json",
+            "comparison": "step19_explainability",
+            "rq": "RQ9",
+            "kind": "stage_summary"
+          }
+        }
+      ],
+      "primary_evidence": [],
+      "secondary_evidence": [
+        "step19_explainability"
+      ],
+      "conclusion": null,
+      "limitations": [],
+      "provenance": {
+        "source_stages": [
+          "step19_explainability"
+        ],
+        "analyze_root": "logs/analyze/runs_swin",
+        "note": "Every value is read from the named artefact. Step 22 computes no metric and reaches no conclusion Steps 21 and 23 have not reached."
+      }
+    },
+    {
+      "rq_id": "RQ10",
+      "rq_question": "Component contribution",
+      "spec_experiment": "Full ablation study.",
+      "spec_evidence": "Delta in metrics for each module.",
+      "status": "supported",
+      "evidence": [
+        {
+          "source_stage": "step21_ablation",
+          "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+          "comparison_or_analysis": "A0",
+          "metric": null,
+          "value": {
+            "across_seeds": {
+              "macro_f1": {
+                "mean": 0.9814385995288015,
+                "std": 0.0035732582520175207,
+                "ci_low": 0.9773950771659763,
+                "ci_high": 0.9854821218916268,
+                "n": 3
+              },
+              "balanced_accuracy": {
+                "mean": 0.9816894226979874,
+                "std": 0.003505480451439129,
+                "ci_low": 0.9777225981367238,
+                "ci_high": 0.985656247259251,
+                "n": 3
+              },
+              "accuracy": {
+                "mean": 0.9818181818181818,
+                "std": 0.003499092540543209,
+                "ci_low": 0.9778585858585859,
+                "ci_high": 0.9857777777777778,
+                "n": 3
+              },
+              "macro_precision": {
+                "mean": 0.9813916194582446,
+                "std": 0.0035383247490930235,
+                "ci_low": 0.9773876280753611,
+                "ci_high": 0.9853956108411281,
+                "n": 3
+              },
+              "macro_recall_sensitivity": {
+                "mean": 0.9816894226979874,
+                "std": 0.003505480451439129,
+                "ci_low": 0.9777225981367238,
+                "ci_high": 0.985656247259251,
+                "n": 3
+              },
+              "weighted_f1": {
+                "mean": 0.9818885350031539,
+                "std": 0.0034808648014815176,
+                "ci_low": 0.9779495656720637,
+                "ci_high": 0.985827504334244,
+                "n": 3
+              },
+              "macro_specificity": {
+                "mean": 0.9940167035924815,
+                "std": 0.0011472972045661965,
+                "ci_low": 0.9927184145866838,
+                "ci_high": 0.9953149925982793,
+                "n": 3
+              },
+              "mcc": {
+                "mean": 0.9758068878350533,
+                "std": 0.004634215230052815,
+                "ci_low": 0.9705627796303682,
+                "ci_high": 0.9810509960397384,
+                "n": 3
+              },
+              "auc_ovr_macro": {
+                "mean": 0.9991902019558264,
+                "std": 0.00017517221916350199,
+                "ci_low": 0.9989919759291648,
+                "ci_high": 0.9993884279824881,
+                "n": 3
+              },
+              "expected_calibration_error": {
+                "mean": 0.011866797250930719,
+                "std": 0.0004936134859595144,
+                "ci_low": 0.011308221008101783,
+                "ci_high": 0.012425373493759655,
+                "n": 3
+              },
+              "brier_score": {
+                "mean": 0.02972560711535253,
+                "std": 0.0029980757392515972,
+                "ci_low": 0.02633296503854125,
+                "ci_high": 0.03311824919216381,
+                "n": 3
+              },
+              "per_class_recall": {
+                "Glioma": {
+                  "mean": 0.9711934156378601,
+                  "std": 0.010887865477632052,
+                  "ci_low": 0.958872635991614,
+                  "ci_high": 0.9835141952841062,
+                  "n": 3
+                },
+                "Meningioma": {
+                  "mean": 0.9826086956521739,
+                  "std": 0.004347826086956497,
+                  "ci_low": 0.9776886672712537,
+                  "ci_high": 0.9875287240330941,
+                  "n": 3
+                },
+                "Pituitary": {
+                  "mean": 0.9846743295019157,
+                  "std": 0.003831417624521105,
+                  "ci_low": 0.9803386723080012,
+                  "ci_high": 0.9890099866958302,
+                  "n": 3
+                },
+                "No-tumor": {
+                  "mean": 0.98828125,
+                  "std": 0.00390625,
+                  "ci_low": 0.9838609120015169,
+                  "ci_high": 0.9927015879984831,
+                  "n": 3
+                }
+              }
+            },
+            "mirrors": null,
+            "missing_seeds": []
+          },
+          "statistical_status": "descriptive",
+          "role": "secondary",
+          "interpretation": "The complete A0 to A8 ladder. A8's classification metrics are A7's by construction, so it contributes no delta of its own.",
+          "provenance": {
+            "source_stage": "step21_ablation",
+            "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+            "comparison": "A0",
+            "rq": "RQ10",
+            "kind": "step21_ladder"
+          }
+        },
+        {
+          "source_stage": "step21_ablation",
+          "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+          "comparison_or_analysis": "A1",
+          "metric": null,
+          "value": {
+            "across_seeds": {
+              "macro_f1": {
+                "mean": 0.9845075227716481,
+                "std": 0.0010770002407628969,
+                "ci_low": 0.9832887822689614,
+                "ci_high": 0.9857262632743348,
+                "n": 3
+              },
+              "balanced_accuracy": {
+                "mean": 0.9847515313684464,
+                "std": 0.0010747521610459448,
+                "ci_low": 0.983535334807442,
+                "ci_high": 0.9859677279294508,
+                "n": 3
+              },
+              "accuracy": {
+                "mean": 0.9848484848484849,
+                "std": 0.0010101010101010166,
+                "ci_low": 0.9837054479519074,
+                "ci_high": 0.9859915217450623,
+                "n": 3
+              },
+              "macro_precision": {
+                "mean": 0.9846026397570592,
+                "std": 0.0010627181803000516,
+                "ci_low": 0.9834000609272201,
+                "ci_high": 0.9858052185868983,
+                "n": 3
+              },
+              "macro_recall_sensitivity": {
+                "mean": 0.9847515313684464,
+                "std": 0.0010747521610459448,
+                "ci_low": 0.983535334807442,
+                "ci_high": 0.9859677279294508,
+                "n": 3
+              },
+              "weighted_f1": {
+                "mean": 0.9849047486385424,
+                "std": 0.0009973144004582148,
+                "ci_low": 0.9837761811529028,
+                "ci_high": 0.986033316124182,
+                "n": 3
+              },
+              "macro_specificity": {
+                "mean": 0.9950188114390727,
+                "std": 0.0003260457849711378,
+                "ci_low": 0.994649855900499,
+                "ci_high": 0.9953877669776463,
+                "n": 3
+              },
+              "mcc": {
+                "mean": 0.9798899113970366,
+                "std": 0.001340321431106777,
+                "ci_low": 0.9783731949164984,
+                "ci_high": 0.9814066278775748,
+                "n": 3
+              },
+              "auc_ovr_macro": {
+                "mean": 0.9994546232912889,
+                "std": 0.00010144301865275852,
+                "ci_low": 0.9993398297092008,
+                "ci_high": 0.999569416873377,
+                "n": 3
+              },
+              "expected_calibration_error": {
+                "mean": 0.012792916972227767,
+                "std": 0.0014349255424906608,
+                "ci_low": 0.011169145861708623,
+                "ci_high": 0.01441668808274691,
+                "n": 3
+              },
+              "brier_score": {
+                "mean": 0.02706578355298081,
+                "std": 0.001279466185241642,
+                "ci_low": 0.02561793126590297,
+                "ci_high": 0.02851363584005865,
+                "n": 3
+              },
+              "per_class_recall": {
+                "Glioma": {
+                  "mean": 0.9657064471879288,
+                  "std": 0.002375927033702217,
+                  "ci_low": 0.9630178326474623,
+                  "ci_high": 0.9683950617283952,
+                  "n": 3
+                },
+                "Meningioma": {
+                  "mean": 0.991304347826087,
+                  "std": 0.004347826086956552,
+                  "ci_low": 0.9863843194451667,
+                  "ci_high": 0.9962243762070073,
+                  "n": 3
+                },
+                "Pituitary": {
+                  "mean": 0.9885057471264368,
+                  "std": 0.003831417624521105,
+                  "ci_low": 0.9841700899325223,
+                  "ci_high": 0.9928414043203513,
+                  "n": 3
+                },
+                "No-tumor": {
+                  "mean": 0.9934895833333334,
+                  "std": 0.002255274489021976,
+                  "ci_low": 0.9909375,
+                  "ci_high": 0.9960416666666667,
+                  "n": 3
+                }
+              }
+            },
+            "mirrors": null,
+            "missing_seeds": []
+          },
+          "statistical_status": "descriptive",
+          "role": "secondary",
+          "interpretation": "The complete A0 to A8 ladder. A8's classification metrics are A7's by construction, so it contributes no delta of its own.",
+          "provenance": {
+            "source_stage": "step21_ablation",
+            "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+            "comparison": "A1",
+            "rq": "RQ10",
+            "kind": "step21_ladder"
+          }
+        },
+        {
+          "source_stage": "step21_ablation",
+          "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+          "comparison_or_analysis": "A2",
+          "metric": null,
+          "value": {
+            "across_seeds": {
+              "macro_f1": {
+                "mean": 0.9852032214122812,
+                "std": 0.0011663271960840635,
+                "ci_low": 0.9838833979438615,
+                "ci_high": 0.986523044880701,
+                "n": 3
+              },
+              "balanced_accuracy": {
+                "mean": 0.9853168351363156,
+                "std": 0.0010940177213999485,
+                "ci_low": 0.9840788375414566,
+                "ci_high": 0.9865548327311746,
+                "n": 3
+              },
+              "accuracy": {
+                "mean": 0.9855218855218855,
+                "std": 0.0011663641801810697,
+                "ci_low": 0.9842020202020202,
+                "ci_high": 0.9868417508417507,
+                "n": 3
+              },
+              "macro_precision": {
+                "mean": 0.9852227404136853,
+                "std": 0.001200832560267401,
+                "ci_low": 0.9838638704499181,
+                "ci_high": 0.9865816103774525,
+                "n": 3
+              },
+              "macro_recall_sensitivity": {
+                "mean": 0.9853168351363156,
+                "std": 0.0010940177213999485,
+                "ci_low": 0.9840788375414566,
+                "ci_high": 0.9865548327311746,
+                "n": 3
+              },
+              "weighted_f1": {
+                "mean": 0.9855517439857481,
+                "std": 0.0011519292838516582,
+                "ci_low": 0.9842482132887945,
+                "ci_high": 0.9868552746827016,
+                "n": 3
+              },
+              "macro_specificity": {
+                "mean": 0.995221151374223,
+                "std": 0.0003772109601325236,
+                "ci_low": 0.9947942969894503,
+                "ci_high": 0.9956480057589956,
+                "n": 3
+              },
+              "mcc": {
+                "mean": 0.9807237558250814,
+                "std": 0.0015416014411915994,
+                "ci_low": 0.9789792695712535,
+                "ci_high": 0.9824682420789094,
+                "n": 3
+              },
+              "auc_ovr_macro": {
+                "mean": 0.9992287910384404,
+                "std": 6.315552168362523e-05,
+                "ci_low": 0.9991573238378485,
+                "ci_high": 0.9993002582390323,
+                "n": 3
+              },
+              "expected_calibration_error": {
+                "mean": 0.011274037477544652,
+                "std": 0.0015294571271570738,
+                "ci_low": 0.00954329380875152,
+                "ci_high": 0.013004781146337784,
+                "n": 3
+              },
+              "brier_score": {
+                "mean": 0.025591280375712636,
+                "std": 0.0029216862402178093,
+                "ci_low": 0.022285081154648976,
+                "ci_high": 0.028897479596776295,
+                "n": 3
+              },
+              "per_class_recall": {
+                "Glioma": {
+                  "mean": 0.9739368998628257,
+                  "std": 0.002375927033702153,
+                  "ci_low": 0.9712482853223593,
+                  "ci_high": 0.9766255144032921,
+                  "n": 3
+                },
+                "Meningioma": {
+                  "mean": 0.9840579710144928,
+                  "std": 0.0066414140506606606,
+                  "ci_low": 0.9765425035221933,
+                  "ci_high": 0.9915734385067922,
+                  "n": 3
+                },
+                "Pituitary": {
+                  "mean": 0.9897828863346104,
+                  "std": 0.005852587094451892,
+                  "ci_low": 0.9831600605751128,
+                  "ci_high": 0.996405712094108,
+                  "n": 3
+                },
+                "No-tumor": {
+                  "mean": 0.9934895833333334,
+                  "std": 0.002255274489021976,
+                  "ci_low": 0.9909375,
+                  "ci_high": 0.9960416666666667,
+                  "n": 3
+                }
+              }
+            },
+            "mirrors": null,
+            "missing_seeds": []
+          },
+          "statistical_status": "descriptive",
+          "role": "secondary",
+          "interpretation": "The complete A0 to A8 ladder. A8's classification metrics are A7's by construction, so it contributes no delta of its own.",
+          "provenance": {
+            "source_stage": "step21_ablation",
+            "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+            "comparison": "A2",
+            "rq": "RQ10",
+            "kind": "step21_ladder"
+          }
+        },
+        {
+          "source_stage": "step21_ablation",
+          "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+          "comparison_or_analysis": "A3",
+          "metric": null,
+          "value": {
+            "across_seeds": {
+              "macro_f1": {
+                "mean": 0.7660693308924591,
+                "std": 0.016732908045182137,
+                "ci_low": 0.7471342629226052,
+                "ci_high": 0.785004398862313,
+                "n": 3
+              },
+              "balanced_accuracy": {
+                "mean": 0.7693154343128077,
+                "std": 0.014220263028542204,
+                "ci_low": 0.7532236918453545,
+                "ci_high": 0.7854071767802608,
+                "n": 3
+              },
+              "accuracy": {
+                "mean": 0.7771043771043771,
+                "std": 0.012790181759745821,
+                "ci_low": 0.7626309239357091,
+                "ci_high": 0.7915778302730451,
+                "n": 3
+              },
+              "macro_precision": {
+                "mean": 0.7727912331952741,
+                "std": 0.010455327578813529,
+                "ci_low": 0.7609599162587705,
+                "ci_high": 0.7846225501317777,
+                "n": 3
+              },
+              "macro_recall_sensitivity": {
+                "mean": 0.7693154343128077,
+                "std": 0.014220263028542204,
+                "ci_low": 0.7532236918453545,
+                "ci_high": 0.7854071767802608,
+                "n": 3
+              },
+              "weighted_f1": {
+                "mean": 0.7717217016775675,
+                "std": 0.016315304549186012,
+                "ci_low": 0.7532591965497363,
+                "ci_high": 0.7901842068053987,
+                "n": 3
+              },
+              "macro_specificity": {
+                "mean": 0.9257499295575458,
+                "std": 0.0044868844124979984,
+                "ci_low": 0.920672541867724,
+                "ci_high": 0.9308273172473676,
+                "n": 3
+              },
+              "mcc": {
+                "mean": 0.7053266629041054,
+                "std": 0.014381777535578845,
+                "ci_low": 0.6890521495661855,
+                "ci_high": 0.7216011762420252,
+                "n": 3
+              },
+              "auc_ovr_macro": {
+                "mean": 0.9375748824453197,
+                "std": 0.0026210042834573974,
+                "ci_low": 0.9346089368892612,
+                "ci_high": 0.9405408280013783,
+                "n": 3
+              },
+              "expected_calibration_error": {
+                "mean": 0.16345796550965871,
+                "std": 0.0034362083654609185,
+                "ci_low": 0.1595695296930693,
+                "ci_high": 0.16734640132624812,
+                "n": 3
+              },
+              "brier_score": {
+                "mean": 0.3515178847138944,
+                "std": 0.012123129251332344,
+                "ci_low": 0.3377992725180068,
+                "ci_high": 0.365236496909782,
+                "n": 3
+              },
+              "per_class_recall": {
+                "Glioma": {
+                  "mean": 0.7434842249657064,
+                  "std": 0.008566526746774232,
+                  "ci_low": 0.7337902873800968,
+                  "ci_high": 0.7531781625513161,
+                  "n": 3
+                },
+                "Meningioma": {
+                  "mean": 0.5115942028985506,
+                  "std": 0.0674029910390347,
+                  "ci_low": 0.43532053825822825,
+                  "ci_high": 0.587867867538873,
+                  "n": 3
+                },
+                "Pituitary": {
+                  "mean": 0.9042145593869733,
+                  "std": 0.022988505747126464,
+                  "ci_low": 0.8782006162234867,
+                  "ci_high": 0.9302285025504599,
+                  "n": 3
+                },
+                "No-tumor": {
+                  "mean": 0.91796875,
+                  "std": 0.0067658234670659265,
+                  "ci_low": 0.9103125,
+                  "ci_high": 0.925625,
+                  "n": 3
+                }
+              }
+            },
+            "mirrors": null,
+            "missing_seeds": []
+          },
+          "statistical_status": "descriptive",
+          "role": "secondary",
+          "interpretation": "The complete A0 to A8 ladder. A8's classification metrics are A7's by construction, so it contributes no delta of its own.",
+          "provenance": {
+            "source_stage": "step21_ablation",
+            "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+            "comparison": "A3",
+            "rq": "RQ10",
+            "kind": "step21_ladder"
+          }
+        },
+        {
+          "source_stage": "step21_ablation",
+          "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+          "comparison_or_analysis": "A4",
+          "metric": null,
+          "value": {
+            "across_seeds": {
+              "macro_f1": {
+                "mean": 0.3714024616953058,
+                "std": 0.0645446452387263,
+                "ci_low": 0.2983633198207838,
+                "ci_high": 0.44444160356982776,
+                "n": 3
+              },
+              "balanced_accuracy": {
+                "mean": 0.4677832524709868,
+                "std": 0.038615455339651404,
+                "ci_low": 0.42408575114194047,
+                "ci_high": 0.5114807538000331,
+                "n": 3
+              },
+              "accuracy": {
+                "mean": 0.4794612794612794,
+                "std": 0.0416516144630942,
+                "ci_low": 0.43232804064927755,
+                "ci_high": 0.5265945182732813,
+                "n": 3
+              },
+              "macro_precision": {
+                "mean": 0.4207952960992612,
+                "std": 0.12087594026611094,
+                "ci_low": 0.28401129306293216,
+                "ci_high": 0.5575792991355902,
+                "n": 3
+              },
+              "macro_recall_sensitivity": {
+                "mean": 0.4677832524709868,
+                "std": 0.038615455339651404,
+                "ci_low": 0.42408575114194047,
+                "ci_high": 0.5114807538000331,
+                "n": 3
+              },
+              "weighted_f1": {
+                "mean": 0.3802177245269645,
+                "std": 0.06567135145587832,
+                "ci_low": 0.30590359454241267,
+                "ci_high": 0.45453185451151634,
+                "n": 3
+              },
+              "macro_specificity": {
+                "mean": 0.8253950658012897,
+                "std": 0.013632750512503422,
+                "ci_low": 0.8099681563320396,
+                "ci_high": 0.8408219752705399,
+                "n": 3
+              },
+              "mcc": {
+                "mean": 0.38791330033580884,
+                "std": 0.02256556401841295,
+                "ci_low": 0.3623779607933338,
+                "ci_high": 0.4134486398782839,
+                "n": 3
+              },
+              "auc_ovr_macro": {
+                "mean": 0.8073287198401712,
+                "std": 0.029945213720221717,
+                "ci_low": 0.7734425205236418,
+                "ci_high": 0.8412149191567005,
+                "n": 3
+              },
+              "expected_calibration_error": {
+                "mean": 0.128668711612923,
+                "std": 0.021862698361328772,
+                "ci_low": 0.10392873943603849,
+                "ci_high": 0.15340868378980754,
+                "n": 3
+              },
+              "brier_score": {
+                "mean": 0.6452574415741296,
+                "std": 0.018225125026166893,
+                "ci_low": 0.6246337711279804,
+                "ci_high": 0.6658811120202788,
+                "n": 3
+              },
+              "per_class_recall": {
+                "Glioma": {
+                  "mean": 0.3333333333333333,
+                  "std": 0.5773502691896258,
+                  "ci_low": -0.3200000000000001,
+                  "ci_high": 0.9866666666666668,
+                  "n": 3
+                },
+                "Meningioma": {
+                  "mean": 0.12318840579710144,
+                  "std": 0.1805438818063879,
+                  "ci_low": -0.08111622937535629,
+                  "ci_high": 0.32749304096955917,
+                  "n": 3
+                },
+                "Pituitary": {
+                  "mean": 0.6385696040868455,
+                  "std": 0.5538662827367147,
+                  "ci_low": 0.011810903117970284,
+                  "ci_high": 1.2653283050557207,
+                  "n": 3
+                },
+                "No-tumor": {
+                  "mean": 0.7760416666666666,
+                  "std": 0.04493602585087864,
+                  "ci_low": 0.7251917664888857,
+                  "ci_high": 0.8268915668444475,
+                  "n": 3
+                }
+              }
+            },
+            "mirrors": null,
+            "missing_seeds": []
+          },
+          "statistical_status": "descriptive",
+          "role": "secondary",
+          "interpretation": "The complete A0 to A8 ladder. A8's classification metrics are A7's by construction, so it contributes no delta of its own.",
+          "provenance": {
+            "source_stage": "step21_ablation",
+            "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+            "comparison": "A4",
+            "rq": "RQ10",
+            "kind": "step21_ladder"
+          }
+        },
+        {
+          "source_stage": "step21_ablation",
+          "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+          "comparison_or_analysis": "A5",
+          "metric": null,
+          "value": {
+            "across_seeds": {
+              "macro_f1": {
+                "mean": 0.9058159614708766,
+                "std": 0.008360865277360892,
+                "ci_low": 0.8963547517465333,
+                "ci_high": 0.9152771711952199,
+                "n": 3
+              },
+              "balanced_accuracy": {
+                "mean": 0.9057539312423263,
+                "std": 0.00846709226838602,
+                "ci_low": 0.8961725143615303,
+                "ci_high": 0.9153353481231222,
+                "n": 3
+              },
+              "accuracy": {
+                "mean": 0.9087542087542088,
+                "std": 0.008410771715014687,
+                "ci_low": 0.8992365245792465,
+                "ci_high": 0.918271892929171,
+                "n": 3
+              },
+              "macro_precision": {
+                "mean": 0.9066578883425721,
+                "std": 0.007883552546968332,
+                "ci_low": 0.8977368088196531,
+                "ci_high": 0.9155789678654911,
+                "n": 3
+              },
+              "macro_recall_sensitivity": {
+                "mean": 0.9057539312423263,
+                "std": 0.00846709226838602,
+                "ci_low": 0.8961725143615303,
+                "ci_high": 0.9153353481231222,
+                "n": 3
+              },
+              "weighted_f1": {
+                "mean": 0.90854484154716,
+                "std": 0.008251928247597613,
+                "ci_low": 0.8992069056767954,
+                "ci_high": 0.9178827774175246,
+                "n": 3
+              },
+              "macro_specificity": {
+                "mean": 0.9698122464360311,
+                "std": 0.0027876395682652484,
+                "ci_low": 0.9666577353039536,
+                "ci_high": 0.9729667575681087,
+                "n": 3
+              },
+              "mcc": {
+                "mean": 0.878463623082694,
+                "std": 0.011100320774789715,
+                "ci_low": 0.8659024276353585,
+                "ci_high": 0.8910248185300295,
+                "n": 3
+              },
+              "auc_ovr_macro": {
+                "mean": 0.9867975765798099,
+                "std": 0.001031279781417836,
+                "ci_low": 0.9856305736473636,
+                "ci_high": 0.9879645795122562,
+                "n": 3
+              },
+              "expected_calibration_error": {
+                "mean": 0.019774141987967567,
+                "std": 0.006287849527821287,
+                "ci_low": 0.012658770417645064,
+                "ci_high": 0.02688951355829007,
+                "n": 3
+              },
+              "brier_score": {
+                "mean": 0.12611135199610926,
+                "std": 0.006269395233294427,
+                "ci_low": 0.11901686342593581,
+                "ci_high": 0.1332058405662827,
+                "n": 3
+              },
+              "per_class_recall": {
+                "Glioma": {
+                  "mean": 0.8600823045267489,
+                  "std": 0.012345679012345678,
+                  "ci_low": 0.8461118535685802,
+                  "ci_high": 0.8740527554849177,
+                  "n": 3
+                },
+                "Meningioma": {
+                  "mean": 0.8260869565217391,
+                  "std": 0.015676309893321708,
+                  "ci_low": 0.808347541917593,
+                  "ci_high": 0.8438263711258853,
+                  "n": 3
+                },
+                "Pituitary": {
+                  "mean": 0.966794380587484,
+                  "std": 0.00797573179872082,
+                  "ci_low": 0.9577689904215716,
+                  "ci_high": 0.9758197707533964,
+                  "n": 3
+                },
+                "No-tumor": {
+                  "mean": 0.9700520833333334,
+                  "std": 0.008131507810414582,
+                  "ci_low": 0.960850416015743,
+                  "ci_high": 0.9792537506509238,
+                  "n": 3
+                }
+              }
+            },
+            "mirrors": null,
+            "missing_seeds": []
+          },
+          "statistical_status": "descriptive",
+          "role": "secondary",
+          "interpretation": "The complete A0 to A8 ladder. A8's classification metrics are A7's by construction, so it contributes no delta of its own.",
+          "provenance": {
+            "source_stage": "step21_ablation",
+            "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+            "comparison": "A5",
+            "rq": "RQ10",
+            "kind": "step21_ladder"
+          }
+        },
+        {
+          "source_stage": "step21_ablation",
+          "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+          "comparison_or_analysis": "A6",
+          "metric": null,
+          "value": {
+            "across_seeds": {
+              "macro_f1": {
+                "mean": 0.9806498979784153,
+                "std": 0.0015590988384818862,
+                "ci_low": 0.9788856115555974,
+                "ci_high": 0.9824141844012332,
+                "n": 3
+              },
+              "balanced_accuracy": {
+                "mean": 0.9804880915380787,
+                "std": 0.0016518015794000948,
+                "ci_low": 0.9786189020885103,
+                "ci_high": 0.9823572809876471,
+                "n": 3
+              },
+              "accuracy": {
+                "mean": 0.981144781144781,
+                "std": 0.0015429547794464206,
+                "ci_low": 0.9793987634445498,
+                "ci_high": 0.9828907988450122,
+                "n": 3
+              },
+              "macro_precision": {
+                "mean": 0.980867341500033,
+                "std": 0.0014203736738080213,
+                "ci_low": 0.979260037379104,
+                "ci_high": 0.9824746456209619,
+                "n": 3
+              },
+              "macro_recall_sensitivity": {
+                "mean": 0.9804880915380787,
+                "std": 0.0016518015794000948,
+                "ci_low": 0.9786189020885103,
+                "ci_high": 0.9823572809876471,
+                "n": 3
+              },
+              "weighted_f1": {
+                "mean": 0.9811281774887352,
+                "std": 0.00154673599877311,
+                "ci_low": 0.9793778809360315,
+                "ci_high": 0.9828784740414388,
+                "n": 3
+              },
+              "macro_specificity": {
+                "mean": 0.9937385501508461,
+                "std": 0.0005251172899604666,
+                "ci_low": 0.9931443239977651,
+                "ci_high": 0.9943327763039271,
+                "n": 3
+              },
+              "mcc": {
+                "mean": 0.9748561290269828,
+                "std": 0.0020444055449913116,
+                "ci_low": 0.9725426663671851,
+                "ci_high": 0.9771695916867805,
+                "n": 3
+              },
+              "auc_ovr_macro": {
+                "mean": 0.998486762821584,
+                "std": 0.0004113327387778795,
+                "ci_low": 0.9980212960093625,
+                "ci_high": 0.9989522296338055,
+                "n": 3
+              },
+              "expected_calibration_error": {
+                "mean": 0.04887910753187504,
+                "std": 0.0033727587450264043,
+                "ci_low": 0.045062471719943833,
+                "ci_high": 0.05269574334380625,
+                "n": 3
+              },
+              "brier_score": {
+                "mean": 0.03356570799848109,
+                "std": 0.0013674810892901291,
+                "ci_low": 0.03201825747145487,
+                "ci_high": 0.03511315852550731,
+                "n": 3
+              },
+              "per_class_recall": {
+                "Glioma": {
+                  "mean": 0.9766803840877915,
+                  "std": 0.002375927033702153,
+                  "ci_low": 0.973991769547325,
+                  "ci_high": 0.9793689986282579,
+                  "n": 3
+                },
+                "Meningioma": {
+                  "mean": 0.9594202898550724,
+                  "std": 0.005020437123388021,
+                  "ci_low": 0.9537391304347826,
+                  "ci_high": 0.9651014492753622,
+                  "n": 3
+                },
+                "Pituitary": {
+                  "mean": 0.9910600255427843,
+                  "std": 0.0022120699968951364,
+                  "ci_low": 0.9885568326947638,
+                  "ci_high": 0.9935632183908047,
+                  "n": 3
+                },
+                "No-tumor": {
+                  "mean": 0.9947916666666666,
+                  "std": 0.002255274489021976,
+                  "ci_low": 0.9922395833333333,
+                  "ci_high": 0.99734375,
+                  "n": 3
+                }
+              }
+            },
+            "mirrors": null,
+            "missing_seeds": []
+          },
+          "statistical_status": "descriptive",
+          "role": "secondary",
+          "interpretation": "The complete A0 to A8 ladder. A8's classification metrics are A7's by construction, so it contributes no delta of its own.",
+          "provenance": {
+            "source_stage": "step21_ablation",
+            "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+            "comparison": "A6",
+            "rq": "RQ10",
+            "kind": "step21_ladder"
+          }
+        },
+        {
+          "source_stage": "step21_ablation",
+          "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+          "comparison_or_analysis": "A7",
+          "metric": null,
+          "value": {
+            "across_seeds": {
+              "macro_f1": {
+                "mean": 0.9817325473570936,
+                "std": 0.0031556780057791296,
+                "ci_low": 0.9781615615267134,
+                "ci_high": 0.9853035331874738,
+                "n": 3
+              },
+              "balanced_accuracy": {
+                "mean": 0.9816568487232722,
+                "std": 0.003261526883570048,
+                "ci_low": 0.9779660836118433,
+                "ci_high": 0.985347613834701,
+                "n": 3
+              },
+              "accuracy": {
+                "mean": 0.9821548821548821,
+                "std": 0.0030859095588928417,
+                "ci_low": 0.9786628467544197,
+                "ci_high": 0.9856469175553445,
+                "n": 3
+              },
+              "macro_precision": {
+                "mean": 0.9818881195094676,
+                "std": 0.0029854146606031746,
+                "ci_low": 0.9785098047919015,
+                "ci_high": 0.9852664342270337,
+                "n": 3
+              },
+              "macro_recall_sensitivity": {
+                "mean": 0.9816568487232722,
+                "std": 0.003261526883570048,
+                "ci_low": 0.9779660836118433,
+                "ci_high": 0.985347613834701,
+                "n": 3
+              },
+              "weighted_f1": {
+                "mean": 0.9821685276895171,
+                "std": 0.0030802813390752386,
+                "ci_low": 0.9786828612193392,
+                "ci_high": 0.985654194159695,
+                "n": 3
+              },
+              "macro_specificity": {
+                "mean": 0.994083609545163,
+                "std": 0.0010338587912878236,
+                "ci_low": 0.9929136881883129,
+                "ci_high": 0.995253530902013,
+                "n": 3
+              },
+              "mcc": {
+                "mean": 0.9762133615397874,
+                "std": 0.00409614302096505,
+                "ci_low": 0.9715781393592324,
+                "ci_high": 0.9808485837203424,
+                "n": 3
+              },
+              "auc_ovr_macro": {
+                "mean": 0.9977990454805145,
+                "std": 0.001538387079747862,
+                "ci_low": 0.9960581966190784,
+                "ci_high": 0.9995398943419506,
+                "n": 3
+              },
+              "expected_calibration_error": {
+                "mean": 0.1278464838511213,
+                "std": 0.06481613271658972,
+                "ci_low": 0.05450012497448428,
+                "ci_high": 0.2011928427277583,
+                "n": 3
+              },
+              "brier_score": {
+                "mean": 0.058795367090354766,
+                "std": 0.027332274568052057,
+                "ci_low": 0.027865986774672714,
+                "ci_high": 0.08972474740603682,
+                "n": 3
+              },
+              "per_class_recall": {
+                "Glioma": {
+                  "mean": 0.9739368998628258,
+                  "std": 0.006286112064411274,
+                  "ci_low": 0.9668234944174395,
+                  "ci_high": 0.9810503053082121,
+                  "n": 3
+                },
+                "Meningioma": {
+                  "mean": 0.9681159420289855,
+                  "std": 0.009050721736809283,
+                  "ci_low": 0.9578740862320153,
+                  "ci_high": 0.9783577978259558,
+                  "n": 3
+                },
+                "Pituitary": {
+                  "mean": 0.9897828863346105,
+                  "std": 0.0022120699968951364,
+                  "ci_low": 0.9872796934865901,
+                  "ci_high": 0.992286079182631,
+                  "n": 3
+                },
+                "No-tumor": {
+                  "mean": 0.9947916666666666,
+                  "std": 0.002255274489021976,
+                  "ci_low": 0.9922395833333333,
+                  "ci_high": 0.99734375,
+                  "n": 3
+                }
+              }
+            },
+            "mirrors": null,
+            "missing_seeds": []
+          },
+          "statistical_status": "descriptive",
+          "role": "secondary",
+          "interpretation": "The complete A0 to A8 ladder. A8's classification metrics are A7's by construction, so it contributes no delta of its own.",
+          "provenance": {
+            "source_stage": "step21_ablation",
+            "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+            "comparison": "A7",
+            "rq": "RQ10",
+            "kind": "step21_ladder"
+          }
+        },
+        {
+          "source_stage": "step21_ablation",
+          "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+          "comparison_or_analysis": "A8",
+          "metric": null,
+          "value": {
+            "across_seeds": {
+              "macro_f1": {
+                "mean": 0.9817325473570936,
+                "std": 0.0031556780057791296,
+                "ci_low": 0.9781615615267134,
+                "ci_high": 0.9853035331874738,
+                "n": 3
+              },
+              "balanced_accuracy": {
+                "mean": 0.9816568487232722,
+                "std": 0.003261526883570048,
+                "ci_low": 0.9779660836118433,
+                "ci_high": 0.985347613834701,
+                "n": 3
+              },
+              "accuracy": {
+                "mean": 0.9821548821548821,
+                "std": 0.0030859095588928417,
+                "ci_low": 0.9786628467544197,
+                "ci_high": 0.9856469175553445,
+                "n": 3
+              },
+              "macro_precision": {
+                "mean": 0.9818881195094676,
+                "std": 0.0029854146606031746,
+                "ci_low": 0.9785098047919015,
+                "ci_high": 0.9852664342270337,
+                "n": 3
+              },
+              "macro_recall_sensitivity": {
+                "mean": 0.9816568487232722,
+                "std": 0.003261526883570048,
+                "ci_low": 0.9779660836118433,
+                "ci_high": 0.985347613834701,
+                "n": 3
+              },
+              "weighted_f1": {
+                "mean": 0.9821685276895171,
+                "std": 0.0030802813390752386,
+                "ci_low": 0.9786828612193392,
+                "ci_high": 0.985654194159695,
+                "n": 3
+              },
+              "macro_specificity": {
+                "mean": 0.994083609545163,
+                "std": 0.0010338587912878236,
+                "ci_low": 0.9929136881883129,
+                "ci_high": 0.995253530902013,
+                "n": 3
+              },
+              "mcc": {
+                "mean": 0.9762133615397874,
+                "std": 0.00409614302096505,
+                "ci_low": 0.9715781393592324,
+                "ci_high": 0.9808485837203424,
+                "n": 3
+              },
+              "auc_ovr_macro": {
+                "mean": 0.9977990454805145,
+                "std": 0.001538387079747862,
+                "ci_low": 0.9960581966190784,
+                "ci_high": 0.9995398943419506,
+                "n": 3
+              },
+              "expected_calibration_error": {
+                "mean": 0.1278464838511213,
+                "std": 0.06481613271658972,
+                "ci_low": 0.05450012497448428,
+                "ci_high": 0.2011928427277583,
+                "n": 3
+              },
+              "brier_score": {
+                "mean": 0.058795367090354766,
+                "std": 0.027332274568052057,
+                "ci_low": 0.027865986774672714,
+                "ci_high": 0.08972474740603682,
+                "n": 3
+              },
+              "per_class_recall": {
+                "Glioma": {
+                  "mean": 0.9739368998628258,
+                  "std": 0.006286112064411274,
+                  "ci_low": 0.9668234944174395,
+                  "ci_high": 0.9810503053082121,
+                  "n": 3
+                },
+                "Meningioma": {
+                  "mean": 0.9681159420289855,
+                  "std": 0.009050721736809283,
+                  "ci_low": 0.9578740862320153,
+                  "ci_high": 0.9783577978259558,
+                  "n": 3
+                },
+                "Pituitary": {
+                  "mean": 0.9897828863346105,
+                  "std": 0.0022120699968951364,
+                  "ci_low": 0.9872796934865901,
+                  "ci_high": 0.992286079182631,
+                  "n": 3
+                },
+                "No-tumor": {
+                  "mean": 0.9947916666666666,
+                  "std": 0.002255274489021976,
+                  "ci_low": 0.9922395833333333,
+                  "ci_high": 0.99734375,
+                  "n": 3
+                }
+              }
+            },
+            "mirrors": "A7",
+            "missing_seeds": []
+          },
+          "statistical_status": "identical_by_construction",
+          "role": "secondary",
+          "interpretation": "The complete A0 to A8 ladder. A8's classification metrics are A7's by construction, so it contributes no delta of its own. Classification metrics are identical to A7's by construction, so this rung contributes no delta of its own.",
+          "provenance": {
+            "source_stage": "step21_ablation",
+            "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+            "comparison": "A8",
+            "rq": "RQ10",
+            "kind": "step21_ladder"
+          }
+        },
+        {
+          "source_stage": "step21_ablation",
+          "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+          "comparison_or_analysis": "P",
+          "metric": null,
+          "value": {
+            "across_seeds": {
+              "macro_f1": {
+                "mean": 0.9823798783532688,
+                "std": 0.0,
+                "ci_low": null,
+                "ci_high": null,
+                "n": 1
+              },
+              "balanced_accuracy": {
+                "mean": 0.9825240808415237,
+                "std": 0.0,
+                "ci_low": null,
+                "ci_high": null,
+                "n": 1
+              },
+              "accuracy": {
+                "mean": 0.9828282828282828,
+                "std": 0.0,
+                "ci_low": null,
+                "ci_high": null,
+                "n": 1
+              },
+              "macro_precision": {
+                "mean": 0.9825288468271379,
+                "std": 0.0,
+                "ci_low": null,
+                "ci_high": null,
+                "n": 1
+              },
+              "macro_recall_sensitivity": {
+                "mean": 0.9825240808415237,
+                "std": 0.0,
+                "ci_low": null,
+                "ci_high": null,
+                "n": 1
+              },
+              "weighted_f1": {
+                "mean": 0.9828894938802384,
+                "std": 0.0,
+                "ci_low": null,
+                "ci_high": null,
+                "n": 1
+              },
+              "macro_specificity": {
+                "mean": 0.9943462174450455,
+                "std": 0.0,
+                "ci_low": null,
+                "ci_high": null,
+                "n": 1
+              },
+              "mcc": {
+                "mean": 0.9771796553526976,
+                "std": 0.0,
+                "ci_low": null,
+                "ci_high": null,
+                "n": 1
+              },
+              "auc_ovr_macro": {
+                "mean": 0.9986131343969784,
+                "std": 0.0,
+                "ci_low": null,
+                "ci_high": null,
+                "n": 1
+              },
+              "expected_calibration_error": {
+                "mean": 0.08515397207905544,
+                "std": 0.0,
+                "ci_low": null,
+                "ci_high": null,
+                "n": 1
+              },
+              "brier_score": {
+                "mean": 0.04317887340932518,
+                "std": 0.0,
+                "ci_low": null,
+                "ci_high": null,
+                "n": 1
+              },
+              "per_class_recall": {
+                "Glioma": {
+                  "mean": 0.9629629629629629,
+                  "std": 0.0,
+                  "ci_low": null,
+                  "ci_high": null,
+                  "n": 1
+                },
+                "Meningioma": {
+                  "mean": 0.9826086956521739,
+                  "std": 0.0,
+                  "ci_low": null,
+                  "ci_high": null,
+                  "n": 1
+                },
+                "Pituitary": {
+                  "mean": 0.9923371647509579,
+                  "std": 0.0,
+                  "ci_low": null,
+                  "ci_high": null,
+                  "n": 1
+                },
+                "No-tumor": {
+                  "mean": 0.9921875,
+                  "std": 0.0,
+                  "ci_low": null,
+                  "ci_high": null,
+                  "n": 1
+                }
+              }
+            },
+            "mirrors": null,
+            "missing_seeds": [
+              123,
+              7
+            ]
+          },
+          "statistical_status": "descriptive",
+          "role": "secondary",
+          "interpretation": "The complete A0 to A8 ladder. A8's classification metrics are A7's by construction, so it contributes no delta of its own.",
+          "provenance": {
+            "source_stage": "step21_ablation",
+            "source_path": "logs/analyze/runs_swin/step21_ablation/step21_ablation_summary.json",
+            "comparison": "P",
+            "rq": "RQ10",
+            "kind": "step21_ladder"
+          }
+        },
+        {
+          "source_stage": "step23_statistics",
+          "source_path": "logs/analyze/runs_swin/step23_statistics/step23_statistics_summary.json",
+          "comparison_or_analysis": "H1",
+          "metric": "macro_f1",
+          "value": {
+            "observed_delta": -0.0010469762971554442,
+            "ci_low": -0.00720922268113991,
+            "ci_high": 0.005302805049476444,
+            "raw_p_value": 1.0,
+            "adjusted_p_value": 1.0,
+            "significant": false,
+            "effect_direction": "favours A1",
+            "mcnemar_method": "exact binomial",
+            "row_a": "A2",
+            "row_b": "A1"
+          },
+          "statistical_status": "formal",
+          "role": "primary",
+          "interpretation": "The preprocessing module's contribution.",
+          "provenance": {
+            "source_stage": "step23_statistics",
+            "source_path": "logs/analyze/runs_swin/step23_statistics/step23_statistics_summary.json",
+            "comparison": "H1",
+            "rq": "RQ10",
+            "kind": "step23_comparison"
+          }
+        },
+        {
+          "source_stage": "step23_statistics",
+          "source_path": "logs/analyze/runs_swin/step23_statistics/step23_statistics_summary.json",
+          "comparison_or_analysis": "H2",
+          "metric": "macro_f1",
+          "value": {
+            "observed_delta": 0.45760011581208826,
+            "ci_low": 0.4323033446716935,
+            "ci_high": 0.48253970997939494,
+            "raw_p_value": 4.653366714365561e-78,
+            "adjusted_p_value": 1.8613466857462245e-77,
+            "significant": true,
+            "effect_direction": "favours A5",
+            "mcnemar_method": "chi-square with continuity correction",
+            "row_a": "A5",
+            "row_b": "A4"
+          },
+          "statistical_status": "formal",
+          "role": "primary",
+          "interpretation": "The adaptive circuit's contribution.",
+          "provenance": {
+            "source_stage": "step23_statistics",
+            "source_path": "logs/analyze/runs_swin/step23_statistics/step23_statistics_summary.json",
+            "comparison": "H2",
+            "rq": "RQ10",
+            "kind": "step23_comparison"
+          }
+        },
+        {
+          "source_stage": "step23_statistics",
+          "source_path": "logs/analyze/runs_swin/step23_statistics/step23_statistics_summary.json",
+          "comparison_or_analysis": "H3",
+          "metric": "macro_f1",
+          "value": {
+            "observed_delta": 0.004253724058357555,
+            "ci_low": -0.0011226508302922867,
+            "ci_high": 0.010274989349986021,
+            "raw_p_value": 0.2890625,
+            "adjusted_p_value": 0.578125,
+            "significant": false,
+            "effect_direction": "favours A7",
+            "mcnemar_method": "exact binomial",
+            "row_a": "A7",
+            "row_b": "A6"
+          },
+          "statistical_status": "formal",
+          "role": "primary",
+          "interpretation": "The imbalance-aware loss's contribution.",
+          "provenance": {
+            "source_stage": "step23_statistics",
+            "source_path": "logs/analyze/runs_swin/step23_statistics/step23_statistics_summary.json",
+            "comparison": "H3",
+            "rq": "RQ10",
+            "kind": "step23_comparison"
+          }
+        },
+        {
+          "source_stage": "step23_statistics",
+          "source_path": "logs/analyze/runs_swin/step23_statistics/step23_statistics_summary.json",
+          "comparison_or_analysis": "H4",
+          "metric": "macro_f1",
+          "value": {
+            "observed_delta": 0.20746169426907057,
+            "ci_low": 0.1813481994032215,
+            "ci_high": 0.23574066836533727,
+            "raw_p_value": 9.415398909010774e-41,
+            "adjusted_p_value": 2.8246196727032323e-40,
+            "significant": true,
+            "effect_direction": "favours A6",
+            "mcnemar_method": "chi-square with continuity correction",
+            "row_a": "A6",
+            "row_b": "A3"
+          },
+          "statistical_status": "formal",
+          "role": "primary",
+          "interpretation": "The quantum branch and fusion's contribution.",
+          "provenance": {
+            "source_stage": "step23_statistics",
+            "source_path": "logs/analyze/runs_swin/step23_statistics/step23_statistics_summary.json",
+            "comparison": "H4",
+            "rq": "RQ10",
+            "kind": "step23_comparison"
+          }
+        }
+      ],
+      "primary_evidence": [
+        "H1",
+        "H2",
+        "H3",
+        "H4"
+      ],
+      "secondary_evidence": [
+        "A0",
+        "A1",
+        "A2",
+        "A3",
+        "A4",
+        "A5",
+        "A6",
+        "A7",
+        "A8",
+        "P"
+      ],
+      "conclusion": "H1 (favours A1): not significant after Holm correction; H2 (favours A5): significant after Holm correction; H3 (favours A7): not significant after Holm correction; H4 (favours A6): significant after Holm correction",
+      "limitations": [
+        "A8 adds explainability and uncertainty, which change no weights, so its classification metrics are identical to A7's by construction and it has no performance delta to report."
+      ],
+      "provenance": {
+        "source_stages": [
+          "step21_ablation",
+          "step23_statistics"
+        ],
+        "analyze_root": "logs/analyze/runs_swin",
+        "note": "Every value is read from the named artefact. Step 22 computes no metric and reaches no conclusion Steps 21 and 23 have not reached."
+      }
+    }
+  ],
+  "rows": {
+    "A0": {
+      "row_id": "A0",
+      "n_seeds": 3,
+      "missing_seeds": [],
+      "single_seed": false,
+      "seed_spread": {
+        "n": 3,
+        "mean": 0.9814385995288015,
+        "std": 0.0035732582520175207,
+        "min": 0.979350229605372,
+        "max": 0.9855645385093824
+      },
+      "provenance": {
+        "source": "step21_ablation",
+        "per_seed": {
+          "42": "computed by step21 from the validation-selected checkpoint",
+          "123": "computed by step21 from the validation-selected checkpoint",
+          "7": "computed by step21 from the validation-selected checkpoint"
+        }
+      },
+      "excluded_from_testing": false,
+      "note": ""
+    },
+    "A1": {
+      "row_id": "A1",
+      "n_seeds": 3,
+      "missing_seeds": [],
+      "single_seed": false,
+      "seed_spread": {
+        "n": 3,
+        "mean": 0.984507522771648,
+        "std": 0.0010770002407628969,
+        "min": 0.9834036893510721,
+        "max": 0.9855555174529427
+      },
+      "provenance": {
+        "source": "step21_ablation",
+        "per_seed": {
+          "42": "computed by step21 from the validation-selected checkpoint",
+          "123": "computed by step21 from the validation-selected checkpoint",
+          "7": "computed by step21 from the validation-selected checkpoint"
+        }
+      },
+      "excluded_from_testing": false,
+      "note": ""
+    },
+    "A2": {
+      "row_id": "A2",
+      "n_seeds": 3,
+      "missing_seeds": [],
+      "single_seed": false,
+      "seed_spread": {
+        "n": 3,
+        "mean": 0.9852032214122812,
+        "std": 0.0011663271960840635,
+        "min": 0.9845085411557872,
+        "max": 0.9865497530308109
+      },
+      "provenance": {
+        "source": "step21_ablation",
+        "per_seed": {
+          "42": "computed by step21 from the validation-selected checkpoint",
+          "123": "computed by step21 from the validation-selected checkpoint",
+          "7": "computed by step21 from the validation-selected checkpoint"
+        }
+      },
+      "excluded_from_testing": false,
+      "note": ""
+    },
+    "A3": {
+      "row_id": "A3",
+      "n_seeds": 3,
+      "missing_seeds": [],
+      "single_seed": false,
+      "seed_spread": {
+        "n": 3,
+        "mean": 0.7660693308924591,
+        "std": 0.016732908045182137,
+        "min": 0.7470174380585681,
+        "max": 0.778380819668259
+      },
+      "provenance": {
+        "source": "step21_ablation",
+        "per_seed": {
+          "42": "computed by step21 from the validation-selected checkpoint",
+          "123": "computed by step21 from the validation-selected checkpoint",
+          "7": "computed by step21 from the validation-selected checkpoint"
+        }
+      },
+      "excluded_from_testing": false,
+      "note": ""
+    },
+    "A4": {
+      "row_id": "A4",
+      "n_seeds": 3,
+      "missing_seeds": [],
+      "single_seed": false,
+      "seed_spread": {
+        "n": 3,
+        "mean": 0.3714024616953058,
+        "std": 0.0645446452387263,
+        "min": 0.3246828461114175,
+        "max": 0.4450511287779846
+      },
+      "provenance": {
+        "source": "step21_ablation",
+        "per_seed": {
+          "42": "computed by step21 from the validation-selected checkpoint",
+          "123": "computed by step21 from the validation-selected checkpoint",
+          "7": "computed by step21 from the validation-selected checkpoint"
+        }
+      },
+      "excluded_from_testing": false,
+      "note": ""
+    },
+    "A5": {
+      "row_id": "A5",
+      "n_seeds": 3,
+      "missing_seeds": [],
+      "single_seed": false,
+      "seed_spread": {
+        "n": 3,
+        "mean": 0.9058159614708766,
+        "std": 0.008360865277360892,
+        "min": 0.8994994279963041,
+        "max": 0.9152972118262527
+      },
+      "provenance": {
+        "source": "step21_ablation",
+        "per_seed": {
+          "42": "computed by step21 from the validation-selected checkpoint",
+          "123": "computed by step21 from the validation-selected checkpoint",
+          "7": "computed by step21 from the validation-selected checkpoint"
+        }
+      },
+      "excluded_from_testing": false,
+      "note": ""
+    },
+    "A6": {
+      "row_id": "A6",
+      "n_seeds": 3,
+      "missing_seeds": [],
+      "single_seed": false,
+      "seed_spread": {
+        "n": 3,
+        "mean": 0.9806498979784152,
+        "std": 0.0015590988384818862,
+        "min": 0.979314875083886,
+        "max": 0.9823633896317391
+      },
+      "provenance": {
+        "source": "step21_ablation",
+        "per_seed": {
+          "42": "computed by step21 from the validation-selected checkpoint",
+          "123": "computed by step21 from the validation-selected checkpoint",
+          "7": "computed by step21 from the validation-selected checkpoint"
+        }
+      },
+      "excluded_from_testing": false,
+      "note": ""
+    },
+    "A7": {
+      "row_id": "A7",
+      "n_seeds": 3,
+      "missing_seeds": [],
+      "single_seed": false,
+      "seed_spread": {
+        "n": 3,
+        "mean": 0.9817325473570936,
+        "std": 0.0031556780057791296,
+        "min": 0.9783090991615637,
+        "max": 0.9845251532779782
+      },
+      "provenance": {
+        "source": "step21_ablation",
+        "per_seed": {
+          "42": "computed by step21 from the validation-selected checkpoint",
+          "123": "computed by step21 from the validation-selected checkpoint",
+          "7": "computed by step21 from the validation-selected checkpoint"
+        }
+      },
+      "excluded_from_testing": false,
+      "note": ""
+    },
+    "A8": {
+      "row_id": "A8",
+      "n_seeds": 3,
+      "missing_seeds": [],
+      "single_seed": false,
+      "seed_spread": {
+        "n": 3,
+        "mean": 0.9817325473570936,
+        "std": 0.0031556780057791296,
+        "min": 0.9783090991615637,
+        "max": 0.9845251532779782
+      },
+      "provenance": {
+        "source": "step21_ablation",
+        "per_seed": {
+          "42": "identical to A7 by construction; explanations change no weights",
+          "123": "identical to A7 by construction; explanations change no weights",
+          "7": "identical to A7 by construction; explanations change no weights"
+        }
+      },
+      "excluded_from_testing": true,
+      "note": "Metrics are A7's by construction - explanations change no weights - so no classification comparison is meaningful. Its statistical contribution is the explainability and uncertainty output of Step 19.",
+      "mirrors": "A7"
+    },
+    "P": {
+      "row_id": "P",
+      "n_seeds": 1,
+      "missing_seeds": [
+        123,
+        7
+      ],
+      "single_seed": true,
+      "seed_spread": null,
+      "provenance": {
+        "source": "step21_ablation",
+        "per_seed": {
+          "42": "reused from Step 16 (logs/analyze/runs/step16_internal_swin/seed_42/step16_internal_summary.json)"
+        }
+      },
+      "excluded_from_testing": true,
+      "note": "Single-seed: Step 16 evaluated one checkpoint by design. Its spread is not estimable and is not directly comparable with a three-seed row's, so comparisons involving it are descriptive."
+    }
+  },
+  "missing_sources": [],
+  "statuses": {
+    "RQ1": "descriptive_only",
+    "RQ2": "descriptive_only",
+    "RQ3": "partially_supported",
+    "RQ4": "supported",
+    "RQ5": "partially_supported",
+    "RQ6": "descriptive_only",
+    "RQ7": "descriptive_only",
+    "RQ8": "supported",
+    "RQ9": "descriptive_only",
+    "RQ10": "supported"
+  },
+  "notes": {
+    "scope": "Step 22 maps evidence; it does not produce it. No metric is computed here, no test is run, and no conclusion is drawn that Steps 21 and 23 have not already drawn.",
+    "formality": "Only the four pre-registered comparisons Step 23 Holm-corrects carry formal significance evidence. Everything else - including A7 vs P and the full ladder - is descriptive, and is labelled so.",
+    "absent_evidence": "Evidence the dataset cannot supply is listed with a null value and a reason rather than omitted or approximated. RQ5's tumour-size subgroups and RQ3's segmentation masks are the cases.",
+    "row_a8": "A8's classification metrics are A7's by construction. It contributes explainability and uncertainty evidence, not a performance delta."
+  }
+}

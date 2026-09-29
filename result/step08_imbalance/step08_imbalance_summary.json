@@ -1,0 +1,63 @@
+{
+  "selected_strategy": "focal_loss_legacy",
+  "selection_rationale": "highest validation macro-F1 among all tested strategies",
+  "selected_macro_f1": 0.6208414224867734,
+  "selected_min_class_recall": 0.4666666666666667,
+  "n_strategies": 7,
+  "recipe": "conventional",
+  "protocol": {
+    "epochs": 5,
+    "image_size": 128,
+    "per_class_train": 200,
+    "per_class_val": 75,
+    "lr": 0.001,
+    "seed": 42,
+    "model": "SmallCNN proxy"
+  },
+  "ranking": [
+    {
+      "strategy": "focal_loss_legacy",
+      "macro_f1": 0.6208414224867734,
+      "balanced_accuracy": 0.6233333333333333,
+      "min_class_recall": 0.4666666666666667
+    },
+    {
+      "strategy": "class_weighting",
+      "macro_f1": 0.6057931967022876,
+      "balanced_accuracy": 0.6233333333333333,
+      "min_class_recall": 0.38666666666666666
+    },
+    {
+      "strategy": "focal_loss",
+      "macro_f1": 0.6043093422049118,
+      "balanced_accuracy": 0.6133333333333334,
+      "min_class_recall": 0.4266666666666667
+    },
+    {
+      "strategy": "baseline",
+      "macro_f1": 0.5905991985637659,
+      "balanced_accuracy": 0.6033333333333333,
+      "min_class_recall": 0.38666666666666666
+    },
+    {
+      "strategy": "augmentation",
+      "macro_f1": 0.5658920773653807,
+      "balanced_accuracy": 0.5900000000000001,
+      "min_class_recall": 0.2
+    },
+    {
+      "strategy": "weighted_sampler",
+      "macro_f1": 0.5485389444402067,
+      "balanced_accuracy": 0.5866666666666667,
+      "min_class_recall": 0.17333333333333334
+    },
+    {
+      "strategy": "combined_sampler_weighting",
+      "macro_f1": 0.48114383254854576,
+      "balanced_accuracy": 0.5533333333333333,
+      "min_class_recall": 0.0
+    }
+  ],
+  "focal_correction_delta_macro_f1": -0.016532080281861594,
+  "caveat": "Ranking comes from a reduced-scale proxy (SmallCNN, 128px, 200 images/class), matching the reference protocol. It selects a strategy; it is not reportable performance."
+}

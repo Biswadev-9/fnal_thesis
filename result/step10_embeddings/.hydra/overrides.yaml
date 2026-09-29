@@ -1,0 +1,6 @@
+- analysis=step10_embeddings
+- model=branch_classical
+- analysis.ckpt_path=/kaggle/working/thesis/logs/train/runs/step10_classical/seed_42
+- data.num_workers=0
+- data.pin_memory=true
+- extras.print_config=false

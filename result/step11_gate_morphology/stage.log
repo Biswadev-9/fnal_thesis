@@ -1,0 +1,15 @@
+
+=== 2026-08-22T00:58:33+00:00 :: /usr/bin/python3 src/analyze.py analysis=step11_gate_morphology model=branch_multiscale model.net.arm=arm6_spatial_gate analysis.ckpt_path=/kaggle/working/thesis/logs/train/runs/step11_arm_ablation/arm6_spatial_gate/seed_42 data.num_workers=0 data.pin_memory=true extras.print_config=false hydra.run.dir=/kaggle/working/thesis/logs/analyze/runs/step11_gate_morphology
+[[36m2026-08-22 00:58:42,251[0m][[34msrc.utils.utils[0m][[32mINFO[0m] - [rank: 0] Enforcing tags! <cfg.extras.enforce_tags=True>[0m
+[[36m2026-08-22 00:58:42,255[0m][[34m__main__[0m][[32mINFO[0m] - [rank: 0] Instantiating datamodule <src.data.bt_mri_datamodule.BTMRIDataModule>[0m
+[[36m2026-08-22 00:58:42,282[0m][[34m__main__[0m][[32mINFO[0m] - [rank: 0] Instantiating analysis <src.analysis.gate_morphology.GateMorphologyAnalysis>[0m
+[[36m2026-08-22 00:58:42,296[0m][[34m__main__[0m][[32mINFO[0m] - [rank: 0] Running analysis; artefacts will be written to /kaggle/working/thesis/logs/analyze/runs/step11_gate_morphology[0m
+[[36m2026-08-22 00:58:42,361[0m][[34msrc.utils.checkpoints[0m][[32mINFO[0m] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step11_arm_ablation/arm6_spatial_gate/seed_42/checkpoints/epoch_029.ckpt[0m
+[[36m2026-08-22 00:58:42,638[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Split table already present at /kaggle/working/thesis/data/splits/dataset_split.csv[0m
+[[36m2026-08-22 00:58:43,571[0m][[34msrc.analysis.base[0m][[32mINFO[0m] - [rank: 0] [step11_gate_morphology] wrote step11_gate_morphology.csv (120 rows)[0m
+[[36m2026-08-22 00:58:45,058[0m][[34msrc.analysis.gate_morphology[0m][[32mINFO[0m] - [rank: 0] Pooled Spearman correlation (proxy tumour area vs gate weight):[0m
+[[36m2026-08-22 00:58:45,058[0m][[34msrc.analysis.gate_morphology[0m][[32mINFO[0m] - [rank: 0]   3x3 (fine)           rho=-0.035 p=0.7061 (n=120)[0m
+[[36m2026-08-22 00:58:45,058[0m][[34msrc.analysis.gate_morphology[0m][[32mINFO[0m] - [rank: 0]   5x5 (medium)         rho=+0.223 p=0.0144 (n=120)[0m
+[[36m2026-08-22 00:58:45,058[0m][[34msrc.analysis.gate_morphology[0m][[32mINFO[0m] - [rank: 0]   dilated (broad)      rho=-0.161 p=0.0792 (n=120)[0m
+[[36m2026-08-22 00:58:45,064[0m][[34msrc.analysis.base[0m][[32mINFO[0m] - [rank: 0] [step11_gate_morphology] wrote step11_gate_morphology_summary.json[0m
+[[36m2026-08-22 00:58:45,065[0m][[34msrc.utils.utils[0m][[32mINFO[0m] - [rank: 0] Output dir: /kaggle/working/thesis/logs/analyze/runs/step11_gate_morphology[0m

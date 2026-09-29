@@ -1,0 +1,68 @@
+{
+  "tag": "swin",
+  "selected_loss": "focal",
+  "selection_rationale": "higher validation macro_f1 than weighted_ce (0.9836 vs 0.9795); selected on validation only",
+  "selectable_candidates": [
+    "weighted_ce",
+    "focal"
+  ],
+  "reference_candidates": [
+    "plain_ce"
+  ],
+  "tie_break_order": [
+    "macro_f1",
+    "balanced_accuracy",
+    "ece"
+  ],
+  "results": [
+    {
+      "loss": "focal",
+      "selectable": true,
+      "macro_f1": 0.983569177407779,
+      "balanced_accuracy": 0.9840367504326539,
+      "min_class_recall": 0.9693486590038314,
+      "recall_Glioma": 0.9876543209876543,
+      "recall_Meningioma": 0.9869565217391304,
+      "recall_Pituitary": 0.9693486590038314,
+      "recall_No-tumor": 0.9921875,
+      "best_val_f1": 0.9845835566520691,
+      "ece": 0.007365305074537657,
+      "trainable_parameters": 85252
+    },
+    {
+      "loss": "plain_ce",
+      "selectable": false,
+      "macro_f1": 0.9804838500615713,
+      "balanced_accuracy": 0.9809631329204225,
+      "min_class_recall": 0.9655172413793104,
+      "recall_Glioma": 0.9835390946502057,
+      "recall_Meningioma": 0.9826086956521739,
+      "recall_Pituitary": 0.9655172413793104,
+      "recall_No-tumor": 0.9921875,
+      "best_val_f1": 0.9855534434318542,
+      "ece": 0.01439274031706528,
+      "trainable_parameters": 85252
+    },
+    {
+      "loss": "weighted_ce",
+      "selectable": true,
+      "macro_f1": 0.9794979327899566,
+      "balanced_accuracy": 0.9800634284516693,
+      "min_class_recall": 0.9616858237547893,
+      "recall_Glioma": 0.9794238683127572,
+      "recall_Meningioma": 0.9869565217391304,
+      "recall_Pituitary": 0.9616858237547893,
+      "recall_No-tumor": 0.9921875,
+      "best_val_f1": 0.9835600852966309,
+      "ece": 0.01596895432231407,
+      "trainable_parameters": 85252
+    }
+  ],
+  "protocol": {
+    "epochs": 25,
+    "lr": 0.001,
+    "seed": 42
+  },
+  "next_step": "python src/train.py -m experiment=step15_final_protocol seed=42,123,7 loss@model.criterion=focal",
+  "caveat": "Selection used validation metrics only. The internal test set has not been read; Step 16 evaluates it exactly once."
+}

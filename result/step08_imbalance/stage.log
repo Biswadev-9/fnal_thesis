@@ -1,0 +1,110 @@
+
+=== 2026-08-19T05:39:05+00:00 :: /usr/bin/python3 src/analyze.py analysis=step08_imbalance data.num_workers=0 data.pin_memory=true extras.print_config=false hydra.run.dir=/kaggle/working/thesis/logs/analyze/runs/step08_imbalance
+[[36m2026-08-19 05:39:14,153[0m][[34msrc.utils.utils[0m][[32mINFO[0m] - [rank: 0] Enforcing tags! <cfg.extras.enforce_tags=True>[0m
+[[36m2026-08-19 05:39:14,157[0m][[34m__main__[0m][[32mINFO[0m] - [rank: 0] Instantiating datamodule <src.data.bt_mri_datamodule.BTMRIDataModule>[0m
+[[36m2026-08-19 05:39:14,185[0m][[34m__main__[0m][[32mINFO[0m] - [rank: 0] Instantiating analysis <src.analysis.imbalance_study.ImbalanceStudy>[0m
+[[36m2026-08-19 05:39:14,236[0m][[34m__main__[0m][[32mINFO[0m] - [rank: 0] Running analysis; artefacts will be written to /kaggle/working/thesis/logs/analyze/runs/step08_imbalance[0m
+[[36m2026-08-19 05:39:14,237[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Split table already present at /kaggle/working/thesis/data/splits/dataset_split.csv[0m
+[[36m2026-08-19 05:39:14,237[0m][[34msrc.analysis.imbalance_study[0m][[32mINFO[0m] - [rank: 0] Step 8: evaluating 7 imbalance strategies[0m
+[[36m2026-08-19 05:39:14,237[0m][[34msrc.analysis.imbalance_study[0m][[32mINFO[0m] - [rank: 0] [1/7] baseline[0m
+Seed set to 42
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+[[36m2026-08-19 05:39:14,703[0m][[34msrc.data.bt_mri_proxy_datamodule[0m][[32mINFO[0m] - [rank: 0] Proxy subsets ready - train 800, val 300 at 128px, preprocess=None[0m
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1]
+/usr/local/lib/python3.12/dist-packages/lightning/pytorch/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+/usr/local/lib/python3.12/dist-packages/lightning/pytorch/trainer/connectors/data_connector.py:434: The 'val_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=3` in the `DataLoader` to improve performance.
+/usr/local/lib/python3.12/dist-packages/lightning/pytorch/trainer/connectors/data_connector.py:434: The 'train_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=3` in the `DataLoader` to improve performance.
+`Trainer.fit` stopped: `max_epochs=5` reached.
+[[36m2026-08-19 05:39:32,069[0m][[34msrc.analysis.imbalance_study[0m][[32mINFO[0m] - [rank: 0]     macro-F1 0.5906 | balanced acc 0.6033 | worst-class recall 0.3867[0m
+[[36m2026-08-19 05:39:32,071[0m][[34msrc.analysis.imbalance_study[0m][[32mINFO[0m] - [rank: 0] [2/7] class_weighting  (~2m remaining)[0m
+Seed set to 42
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+[[36m2026-08-19 05:39:32,161[0m][[34msrc.data.bt_mri_proxy_datamodule[0m][[32mINFO[0m] - [rank: 0] Proxy subsets ready - train 800, val 300 at 128px, preprocess=None[0m
+[[36m2026-08-19 05:39:32,162[0m][[34msrc.models.mri_classification_module[0m][[32mINFO[0m] - [rank: 0] Class weights installed on CrossEntropyLoss[0m
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1]
+/usr/local/lib/python3.12/dist-packages/lightning/pytorch/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+/usr/local/lib/python3.12/dist-packages/lightning/pytorch/trainer/connectors/data_connector.py:434: The 'val_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=3` in the `DataLoader` to improve performance.
+/usr/local/lib/python3.12/dist-packages/lightning/pytorch/trainer/connectors/data_connector.py:434: The 'train_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=3` in the `DataLoader` to improve performance.
+`Trainer.fit` stopped: `max_epochs=5` reached.
+[[36m2026-08-19 05:39:48,889[0m][[34msrc.analysis.imbalance_study[0m][[32mINFO[0m] - [rank: 0]     macro-F1 0.6058 | balanced acc 0.6233 | worst-class recall 0.3867[0m
+[[36m2026-08-19 05:39:48,891[0m][[34msrc.analysis.imbalance_study[0m][[32mINFO[0m] - [rank: 0] [3/7] focal_loss  (~87s remaining)[0m
+Seed set to 42
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+[[36m2026-08-19 05:39:48,985[0m][[34msrc.data.bt_mri_proxy_datamodule[0m][[32mINFO[0m] - [rank: 0] Proxy subsets ready - train 800, val 300 at 128px, preprocess=None[0m
+[[36m2026-08-19 05:39:48,986[0m][[34msrc.models.mri_classification_module[0m][[32mINFO[0m] - [rank: 0] Class weights installed on FocalLoss[0m
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1]
+/usr/local/lib/python3.12/dist-packages/lightning/pytorch/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+/usr/local/lib/python3.12/dist-packages/lightning/pytorch/trainer/connectors/data_connector.py:434: The 'val_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=3` in the `DataLoader` to improve performance.
+/usr/local/lib/python3.12/dist-packages/lightning/pytorch/trainer/connectors/data_connector.py:434: The 'train_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=3` in the `DataLoader` to improve performance.
+`Trainer.fit` stopped: `max_epochs=5` reached.
+[[36m2026-08-19 05:40:05,835[0m][[34msrc.analysis.imbalance_study[0m][[32mINFO[0m] - [rank: 0]     macro-F1 0.6043 | balanced acc 0.6133 | worst-class recall 0.4267[0m
+[[36m2026-08-19 05:40:05,837[0m][[34msrc.analysis.imbalance_study[0m][[32mINFO[0m] - [rank: 0] [4/7] weighted_sampler  (~69s remaining)[0m
+Seed set to 42
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+[[36m2026-08-19 05:40:05,926[0m][[34msrc.data.bt_mri_proxy_datamodule[0m][[32mINFO[0m] - [rank: 0] Proxy subsets ready - train 800, val 300 at 128px, preprocess=None[0m
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1]
+/usr/local/lib/python3.12/dist-packages/lightning/pytorch/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+/usr/local/lib/python3.12/dist-packages/lightning/pytorch/trainer/connectors/data_connector.py:434: The 'val_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=3` in the `DataLoader` to improve performance.
+/usr/local/lib/python3.12/dist-packages/lightning/pytorch/trainer/connectors/data_connector.py:434: The 'train_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=3` in the `DataLoader` to improve performance.
+`Trainer.fit` stopped: `max_epochs=5` reached.
+[[36m2026-08-19 05:40:22,623[0m][[34msrc.analysis.imbalance_study[0m][[32mINFO[0m] - [rank: 0]     macro-F1 0.5485 | balanced acc 0.5867 | worst-class recall 0.1733[0m
+[[36m2026-08-19 05:40:22,625[0m][[34msrc.analysis.imbalance_study[0m][[32mINFO[0m] - [rank: 0] [5/7] augmentation  (~51s remaining)[0m
+Seed set to 42
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+[[36m2026-08-19 05:40:22,714[0m][[34msrc.data.bt_mri_proxy_datamodule[0m][[32mINFO[0m] - [rank: 0] Proxy subsets ready - train 800, val 300 at 128px, preprocess=None[0m
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1]
+/usr/local/lib/python3.12/dist-packages/lightning/pytorch/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+/usr/local/lib/python3.12/dist-packages/lightning/pytorch/trainer/connectors/data_connector.py:434: The 'val_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=3` in the `DataLoader` to improve performance.
+/usr/local/lib/python3.12/dist-packages/lightning/pytorch/trainer/connectors/data_connector.py:434: The 'train_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=3` in the `DataLoader` to improve performance.
+`Trainer.fit` stopped: `max_epochs=5` reached.
+[[36m2026-08-19 05:40:42,532[0m][[34msrc.analysis.imbalance_study[0m][[32mINFO[0m] - [rank: 0]     macro-F1 0.5659 | balanced acc 0.5900 | worst-class recall 0.2000[0m
+[[36m2026-08-19 05:40:42,535[0m][[34msrc.analysis.imbalance_study[0m][[32mINFO[0m] - [rank: 0] [6/7] combined_sampler_weighting  (~35s remaining)[0m
+Seed set to 42
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+[[36m2026-08-19 05:40:42,627[0m][[34msrc.data.bt_mri_proxy_datamodule[0m][[32mINFO[0m] - [rank: 0] Proxy subsets ready - train 800, val 300 at 128px, preprocess=None[0m
+[[36m2026-08-19 05:40:42,628[0m][[34msrc.models.mri_classification_module[0m][[32mINFO[0m] - [rank: 0] Class weights installed on CrossEntropyLoss[0m
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1]
+/usr/local/lib/python3.12/dist-packages/lightning/pytorch/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+/usr/local/lib/python3.12/dist-packages/lightning/pytorch/trainer/connectors/data_connector.py:434: The 'val_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=3` in the `DataLoader` to improve performance.
+/usr/local/lib/python3.12/dist-packages/lightning/pytorch/trainer/connectors/data_connector.py:434: The 'train_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=3` in the `DataLoader` to improve performance.
+`Trainer.fit` stopped: `max_epochs=5` reached.
+[[36m2026-08-19 05:40:59,370[0m][[34msrc.analysis.imbalance_study[0m][[32mINFO[0m] - [rank: 0]     macro-F1 0.4811 | balanced acc 0.5533 | worst-class recall 0.0000[0m
+[[36m2026-08-19 05:40:59,372[0m][[34msrc.analysis.imbalance_study[0m][[32mINFO[0m] - [rank: 0] [7/7] focal_loss_legacy  (~18s remaining)[0m
+Seed set to 42
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+[[36m2026-08-19 05:40:59,461[0m][[34msrc.data.bt_mri_proxy_datamodule[0m][[32mINFO[0m] - [rank: 0] Proxy subsets ready - train 800, val 300 at 128px, preprocess=None[0m
+[[36m2026-08-19 05:40:59,462[0m][[34msrc.models.mri_classification_module[0m][[32mINFO[0m] - [rank: 0] Class weights installed on LegacyFocalLoss[0m
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1]
+/usr/local/lib/python3.12/dist-packages/lightning/pytorch/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+/usr/local/lib/python3.12/dist-packages/lightning/pytorch/trainer/connectors/data_connector.py:434: The 'val_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=3` in the `DataLoader` to improve performance.
+/usr/local/lib/python3.12/dist-packages/lightning/pytorch/trainer/connectors/data_connector.py:434: The 'train_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=3` in the `DataLoader` to improve performance.
+`Trainer.fit` stopped: `max_epochs=5` reached.
+[[36m2026-08-19 05:41:15,780[0m][[34msrc.analysis.imbalance_study[0m][[32mINFO[0m] - [rank: 0]     macro-F1 0.6208 | balanced acc 0.6233 | worst-class recall 0.4667[0m
+[[36m2026-08-19 05:41:15,784[0m][[34msrc.analysis.base[0m][[32mINFO[0m] - [rank: 0] [step08_imbalance] wrote step08_imbalance_comparison.csv (7 rows)[0m
+[[36m2026-08-19 05:41:16,155[0m][[34msrc.analysis.imbalance_study[0m][[32mINFO[0m] - [rank: 0] 
+                  strategy         loss  sampler  augment  macro_f1  balanced_accuracy  min_class_recall  recall_Glioma  recall_Meningioma  recall_Pituitary  recall_No-tumor  best_val_f1
+         focal_loss_legacy focal_legacy    False    False  0.620841           0.623333          0.466667       0.720000           0.466667          0.520000         0.786667     0.620841
+           class_weighting  weighted_ce    False    False  0.605793           0.623333          0.386667       0.800000           0.440000          0.386667         0.866667     0.605793
+                focal_loss        focal    False    False  0.604309           0.613333          0.426667       0.746667           0.466667          0.426667         0.813333     0.604309
+                  baseline     plain_ce    False    False  0.590599           0.603333          0.386667       0.800000           0.440000          0.386667         0.786667     0.590599
+              augmentation     plain_ce    False     True  0.565892           0.590000          0.200000       0.800000           0.573333          0.200000         0.786667     0.565892
+          weighted_sampler     plain_ce     True    False  0.548539           0.586667          0.173333       0.800000           0.506667          0.173333         0.866667     0.548539
+combined_sampler_weighting  weighted_ce     True    False  0.481144           0.553333          0.000000       0.813333           0.586667          0.000000         0.813333     0.541323[0m
+[[36m2026-08-19 05:41:16,156[0m][[34msrc.analysis.imbalance_study[0m][[32mINFO[0m] - [rank: 0] Selected imbalance strategy: focal_loss_legacy - highest validation macro-F1 among all tested strategies[0m
+[[36m2026-08-19 05:41:16,158[0m][[34msrc.analysis.imbalance_study[0m][[32mINFO[0m] - [rank: 0] Corrected focal loss differs from the notebook's formulation by -0.0165 macro-F1 (see docs/DEVIATIONS.md F6)[0m
+[[36m2026-08-19 05:41:16,164[0m][[34msrc.analysis.base[0m][[32mINFO[0m] - [rank: 0] [step08_imbalance] wrote step08_imbalance_summary.json[0m
+[[36m2026-08-19 05:41:16,165[0m][[34msrc.utils.utils[0m][[32mINFO[0m] - [rank: 0] Output dir: /kaggle/working/thesis/logs/analyze/runs/step08_imbalance[0m

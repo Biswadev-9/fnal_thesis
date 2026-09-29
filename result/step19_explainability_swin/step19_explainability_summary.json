@@ -1,0 +1,114 @@
+{
+  "n_examples": 8,
+  "grad_cam": {
+    "sanity_checks": [
+      {
+        "class_name": "Glioma",
+        "correctness": "correct",
+        "confidence": 0.9098960161209106,
+        "predicted_name": "Glioma",
+        "original_confidence": 0.9098960161209106,
+        "deletion_confidence": 0.9061926603317261,
+        "deletion_drop": 0.0037033557891845703,
+        "insertion_confidence": 0.6812742948532104
+      },
+      {
+        "class_name": "Glioma",
+        "correctness": "incorrect",
+        "confidence": 0.6450648903846741,
+        "predicted_name": "Meningioma",
+        "original_confidence": 0.30325284600257874,
+        "deletion_confidence": 0.11460167914628983,
+        "deletion_drop": 0.1886511668562889,
+        "insertion_confidence": 0.7825282216072083
+      },
+      {
+        "class_name": "Meningioma",
+        "correctness": "correct",
+        "confidence": 0.987976610660553,
+        "predicted_name": "Meningioma",
+        "original_confidence": 0.987976610660553,
+        "deletion_confidence": 0.9435473680496216,
+        "deletion_drop": 0.044429242610931396,
+        "insertion_confidence": 0.10665971040725708
+      },
+      {
+        "class_name": "Meningioma",
+        "correctness": "incorrect",
+        "confidence": 0.5476058721542358,
+        "predicted_name": "Pituitary",
+        "original_confidence": 0.3496668338775635,
+        "deletion_confidence": 0.8127760291099548,
+        "deletion_drop": -0.46310919523239136,
+        "insertion_confidence": 0.4042344093322754
+      },
+      {
+        "class_name": "Pituitary",
+        "correctness": "correct",
+        "confidence": 0.9035145044326782,
+        "predicted_name": "Pituitary",
+        "original_confidence": 0.9035145044326782,
+        "deletion_confidence": 0.31575101613998413,
+        "deletion_drop": 0.5877634882926941,
+        "insertion_confidence": 0.11044874787330627
+      },
+      {
+        "class_name": "Pituitary",
+        "correctness": "incorrect",
+        "confidence": 0.9588329792022705,
+        "predicted_name": "Meningioma",
+        "original_confidence": 0.029272260144352913,
+        "deletion_confidence": 0.019155353307724,
+        "deletion_drop": 0.010116906836628914,
+        "insertion_confidence": 0.08094915747642517
+      },
+      {
+        "class_name": "No-tumor",
+        "correctness": "correct",
+        "confidence": 0.9511228799819946,
+        "predicted_name": "No-tumor",
+        "original_confidence": 0.9511228799819946,
+        "deletion_confidence": 0.9495769143104553,
+        "deletion_drop": 0.0015459656715393066,
+        "insertion_confidence": 0.9333116412162781
+      },
+      {
+        "class_name": "No-tumor",
+        "correctness": "incorrect",
+        "confidence": 0.402299702167511,
+        "predicted_name": "Meningioma",
+        "original_confidence": 0.3426545560359955,
+        "deletion_confidence": 0.28476735949516296,
+        "deletion_drop": 0.05788719654083252,
+        "insertion_confidence": 0.5487525463104248
+      }
+    ],
+    "mean_deletion_drop": 0.053873515920713544,
+    "mean_insertion_recovery": 0.4560198411345482,
+    "figure": "step19_grad_cam.png"
+  },
+  "mc_dropout": {
+    "n_samples": 300,
+    "n_dropout_layers": 30,
+    "forward_passes": 30,
+    "mean_variance_correct": 0.010168931367379442,
+    "mean_variance_incorrect": 0.014312813446546594,
+    "variance_ratio_incorrect_over_correct": 1.4075041840148677,
+    "usable_as_triage_signal": false
+  },
+  "shap": {
+    "n_background": 50,
+    "n_explained": 25,
+    "branch_share": {
+      "classical": 0.7171993501551579,
+      "spatial": 0.15190829526680127,
+      "quantum": 0.13089235457804085
+    },
+    "caveat": "KernelExplainer approximates on a small background sample in a 192-dimensional space, so treat the shares as an ordering rather than exact percentages. Corroborate against Step 13's ablation."
+  },
+  "interpretation": [
+    "MC-dropout variance is only 1.4x higher on incorrect predictions, which is too weak to triage on reliably.",
+    "Deleting the top-scoring region cost 0.054 confidence on average, so the highlighted region is genuinely load-bearing.",
+    "SHAP attributes 72% of the fused vector's influence to the classical branch. Compare against Step 13's ablation - agreement between two independent methods is much stronger than either alone."
+  ]
+}

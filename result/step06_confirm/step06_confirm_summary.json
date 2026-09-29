@@ -1,0 +1,240 @@
+{
+  "selected_recipe": "conventional",
+  "selected_metric_value": 0.9917250474294027,
+  "confirmation_status": "confirmed",
+  "selection_metric": "val/f1_macro_best",
+  "selection_scope": "validation split only; the test set was not read",
+  "model": "see per-run provenance",
+  "n_candidates": 4,
+  "n_runs": 12,
+  "seeds": [
+    7,
+    42,
+    123
+  ],
+  "design": {
+    "seeds_observed": [
+      7,
+      42,
+      123
+    ],
+    "seeds_per_candidate": {
+      "diffusion_i15_k15": [
+        7,
+        42,
+        123
+      ],
+      "diffusion_i20_k15": [
+        7,
+        42,
+        123
+      ],
+      "diffusion_i5_k15": [
+        7,
+        42,
+        123
+      ],
+      "conventional": [
+        7,
+        42,
+        123
+      ]
+    },
+    "candidates_missing_seeds": {},
+    "balanced": true
+  },
+  "candidates": [
+    {
+      "recipe": "conventional",
+      "mean": 0.9917250474294027,
+      "std": 0.0010558390469514597,
+      "n_runs": 3,
+      "min": 0.9906705021858216,
+      "max": 0.992782175540924,
+      "seeds": [
+        7,
+        42,
+        123
+      ]
+    },
+    {
+      "recipe": "diffusion_i5_k15",
+      "mean": 0.9910376667976379,
+      "std": 0.0012196943128108162,
+      "n_runs": 3,
+      "min": 0.9896298050880432,
+      "max": 0.9917747378349304,
+      "seeds": [
+        7,
+        42,
+        123
+      ]
+    },
+    {
+      "recipe": "diffusion_i15_k15",
+      "mean": 0.9899599154790243,
+      "std": 0.0016336077437800241,
+      "n_runs": 3,
+      "min": 0.9885189533233644,
+      "max": 0.9917346239089966,
+      "seeds": [
+        7,
+        42,
+        123
+      ]
+    },
+    {
+      "recipe": "diffusion_i20_k15",
+      "mean": 0.988896389802297,
+      "std": 0.0005948769908542844,
+      "n_runs": 3,
+      "min": 0.9885361194610596,
+      "max": 0.9895830154418944,
+      "seeds": [
+        7,
+        42,
+        123
+      ]
+    }
+  ],
+  "runs": [
+    {
+      "run_dir": "/kaggle/working/thesis/logs/train/runs/step06_confirm/diffusion_i15_k15/seed_123",
+      "recipe": "diffusion_i15_k15",
+      "seed": 123,
+      "metric_value": 0.989626169204712,
+      "metric": "val/f1_macro_best",
+      "metric_segments": [
+        "version_0"
+      ],
+      "resumed": false
+    },
+    {
+      "run_dir": "/kaggle/working/thesis/logs/train/runs/step06_confirm/diffusion_i15_k15/seed_42",
+      "recipe": "diffusion_i15_k15",
+      "seed": 42,
+      "metric_value": 0.9885189533233644,
+      "metric": "val/f1_macro_best",
+      "metric_segments": [
+        "version_0"
+      ],
+      "resumed": false
+    },
+    {
+      "run_dir": "/kaggle/working/thesis/logs/train/runs/step06_confirm/diffusion_i15_k15/seed_7",
+      "recipe": "diffusion_i15_k15",
+      "seed": 7,
+      "metric_value": 0.9917346239089966,
+      "metric": "val/f1_macro_best",
+      "metric_segments": [
+        "version_0"
+      ],
+      "resumed": false
+    },
+    {
+      "run_dir": "/kaggle/working/thesis/logs/train/runs/step06_confirm/diffusion_i20_k15/seed_123",
+      "recipe": "diffusion_i20_k15",
+      "seed": 123,
+      "metric_value": 0.9885700345039368,
+      "metric": "val/f1_macro_best",
+      "metric_segments": [
+        "version_0"
+      ],
+      "resumed": false
+    },
+    {
+      "run_dir": "/kaggle/working/thesis/logs/train/runs/step06_confirm/diffusion_i20_k15/seed_42",
+      "recipe": "diffusion_i20_k15",
+      "seed": 42,
+      "metric_value": 0.9895830154418944,
+      "metric": "val/f1_macro_best",
+      "metric_segments": [
+        "version_0"
+      ],
+      "resumed": false
+    },
+    {
+      "run_dir": "/kaggle/working/thesis/logs/train/runs/step06_confirm/diffusion_i20_k15/seed_7",
+      "recipe": "diffusion_i20_k15",
+      "seed": 7,
+      "metric_value": 0.9885361194610596,
+      "metric": "val/f1_macro_best",
+      "metric_segments": [
+        "version_0"
+      ],
+      "resumed": false
+    },
+    {
+      "run_dir": "/kaggle/working/thesis/logs/train/runs/step06_confirm/diffusion_i5_k15/seed_123",
+      "recipe": "diffusion_i5_k15",
+      "seed": 123,
+      "metric_value": 0.9896298050880432,
+      "metric": "val/f1_macro_best",
+      "metric_segments": [
+        "version_0"
+      ],
+      "resumed": false
+    },
+    {
+      "run_dir": "/kaggle/working/thesis/logs/train/runs/step06_confirm/diffusion_i5_k15/seed_42",
+      "recipe": "diffusion_i5_k15",
+      "seed": 42,
+      "metric_value": 0.9917747378349304,
+      "metric": "val/f1_macro_best",
+      "metric_segments": [
+        "version_0"
+      ],
+      "resumed": false
+    },
+    {
+      "run_dir": "/kaggle/working/thesis/logs/train/runs/step06_confirm/diffusion_i5_k15/seed_7",
+      "recipe": "diffusion_i5_k15",
+      "seed": 7,
+      "metric_value": 0.9917084574699402,
+      "metric": "val/f1_macro_best",
+      "metric_segments": [
+        "version_0"
+      ],
+      "resumed": false
+    },
+    {
+      "run_dir": "/kaggle/working/thesis/logs/train/runs/step06_confirm/null/seed_123",
+      "recipe": "conventional",
+      "seed": 123,
+      "metric_value": 0.992782175540924,
+      "metric": "val/f1_macro_best",
+      "metric_segments": [
+        "version_0"
+      ],
+      "resumed": false
+    },
+    {
+      "run_dir": "/kaggle/working/thesis/logs/train/runs/step06_confirm/null/seed_42",
+      "recipe": "conventional",
+      "seed": 42,
+      "metric_value": 0.9917224645614624,
+      "metric": "val/f1_macro_best",
+      "metric_segments": [
+        "version_0"
+      ],
+      "resumed": false
+    },
+    {
+      "run_dir": "/kaggle/working/thesis/logs/train/runs/step06_confirm/null/seed_7",
+      "recipe": "conventional",
+      "seed": 7,
+      "metric_value": 0.9906705021858216,
+      "metric": "val/f1_macro_best",
+      "metric_segments": [
+        "version_0"
+      ],
+      "resumed": false
+    }
+  ],
+  "provenance": {
+    "source_stage": "step06_confirm",
+    "run_root": "/kaggle/working/thesis/logs/train/runs/step06_confirm",
+    "note": "Read from the completed confirmation runs' validation metrics. No test metric was read, no model was retrained, and no winner was assumed before these runs existed."
+  },
+  "supersedes": "step06_preprocessing_summary.json, whose ranking comes from a reduced-scale proxy. This confirmation is the authoritative decision."
+}

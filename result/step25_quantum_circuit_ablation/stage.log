@@ -1,0 +1,57 @@
+
+=== 2026-08-25T09:08:22+00:00 :: /usr/bin/python3 src/analyze.py analysis=step25_quantum_circuit_ablation analysis.run_root=/kaggle/working/thesis/logs/train/runs/step25_quantum_circuit_ablation analysis.recipe=null analysis.confirmation_summary=/kaggle/working/thesis/logs/analyze/runs/step06_confirm/step06_confirm_summary.json analysis.seeds=[42,123,7] data.num_workers=0 data.pin_memory=true extras.print_config=false hydra.run.dir=/kaggle/working/thesis/logs/analyze/runs/step25_quantum_circuit_ablation
+[[36m2026-08-25 09:08:31,792[0m][[34msrc.utils.utils[0m][[32mINFO[0m] - [rank: 0] Enforcing tags! <cfg.extras.enforce_tags=True>[0m
+[[36m2026-08-25 09:08:31,797[0m][[34m__main__[0m][[32mINFO[0m] - [rank: 0] Instantiating datamodule <src.data.bt_mri_datamodule.BTMRIDataModule>[0m
+[[36m2026-08-25 09:08:31,827[0m][[34m__main__[0m][[32mINFO[0m] - [rank: 0] Instantiating analysis <src.analysis.quantum_circuit_ablation_study.QuantumCircuitAblationStudy>[0m
+[[36m2026-08-25 09:08:31,850[0m][[34m__main__[0m][[32mINFO[0m] - [rank: 0] Running analysis; artefacts will be written to /kaggle/working/thesis/logs/analyze/runs/step25_quantum_circuit_ablation[0m
+[[36m2026-08-25 09:08:31,886[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Split table already present at data/splits/dataset_split.csv[0m
+[[36m2026-08-25 09:08:31,940[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Datasets ready - train 4617, val 990, test 990[0m
+[[36m2026-08-25 09:08:33,483[0m][[34msrc.utils.checkpoints[0m][[32mINFO[0m] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step25_quantum_circuit_ablation/FIXED_BASIC/seed_42/checkpoints/epoch_023.ckpt[0m
+[[36m2026-08-25 09:08:38,163[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Split table already present at data/splits/dataset_split.csv[0m
+[[36m2026-08-25 09:08:38,206[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Datasets ready - train 4617, val 990, test 990[0m
+[[36m2026-08-25 09:08:38,248[0m][[34msrc.utils.checkpoints[0m][[32mINFO[0m] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step25_quantum_circuit_ablation/FIXED_BASIC/seed_123/checkpoints/epoch_026.ckpt[0m
+[[36m2026-08-25 09:08:41,443[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Split table already present at data/splits/dataset_split.csv[0m
+[[36m2026-08-25 09:08:41,486[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Datasets ready - train 4617, val 990, test 990[0m
+[[36m2026-08-25 09:08:41,530[0m][[34msrc.utils.checkpoints[0m][[32mINFO[0m] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step25_quantum_circuit_ablation/FIXED_BASIC/seed_7/checkpoints/epoch_029.ckpt[0m
+[[36m2026-08-25 09:08:44,707[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Split table already present at data/splits/dataset_split.csv[0m
+[[36m2026-08-25 09:08:44,747[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Datasets ready - train 4617, val 990, test 990[0m
+[[36m2026-08-25 09:08:44,783[0m][[34msrc.utils.checkpoints[0m][[32mINFO[0m] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step25_quantum_circuit_ablation/FIXED_DEEP/seed_42/checkpoints/epoch_025.ckpt[0m
+[[36m2026-08-25 09:08:47,920[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Split table already present at data/splits/dataset_split.csv[0m
+[[36m2026-08-25 09:08:47,958[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Datasets ready - train 4617, val 990, test 990[0m
+[[36m2026-08-25 09:08:47,998[0m][[34msrc.utils.checkpoints[0m][[32mINFO[0m] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step25_quantum_circuit_ablation/FIXED_DEEP/seed_123/checkpoints/epoch_025.ckpt[0m
+[[36m2026-08-25 09:08:51,316[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Split table already present at data/splits/dataset_split.csv[0m
+[[36m2026-08-25 09:08:51,363[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Datasets ready - train 4617, val 990, test 990[0m
+[[36m2026-08-25 09:08:51,402[0m][[34msrc.utils.checkpoints[0m][[32mINFO[0m] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step25_quantum_circuit_ablation/FIXED_DEEP/seed_7/checkpoints/epoch_027.ckpt[0m
+[[36m2026-08-25 09:08:54,717[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Split table already present at data/splits/dataset_split.csv[0m
+[[36m2026-08-25 09:08:54,758[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Datasets ready - train 4617, val 990, test 990[0m
+[[36m2026-08-25 09:08:54,795[0m][[34msrc.utils.checkpoints[0m][[32mINFO[0m] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step25_quantum_circuit_ablation/FIXED_STRONG/seed_42/checkpoints/epoch_022.ckpt[0m
+[[36m2026-08-25 09:08:58,032[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Split table already present at data/splits/dataset_split.csv[0m
+[[36m2026-08-25 09:08:58,075[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Datasets ready - train 4617, val 990, test 990[0m
+[[36m2026-08-25 09:08:58,115[0m][[34msrc.utils.checkpoints[0m][[32mINFO[0m] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step25_quantum_circuit_ablation/FIXED_STRONG/seed_123/checkpoints/epoch_026.ckpt[0m
+[[36m2026-08-25 09:09:01,324[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Split table already present at data/splits/dataset_split.csv[0m
+[[36m2026-08-25 09:09:01,372[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Datasets ready - train 4617, val 990, test 990[0m
+[[36m2026-08-25 09:09:01,416[0m][[34msrc.utils.checkpoints[0m][[32mINFO[0m] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step25_quantum_circuit_ablation/FIXED_STRONG/seed_7/checkpoints/epoch_029.ckpt[0m
+[[36m2026-08-25 09:09:04,714[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Split table already present at data/splits/dataset_split.csv[0m
+[[36m2026-08-25 09:09:04,756[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Datasets ready - train 4617, val 990, test 990[0m
+[[36m2026-08-25 09:09:04,801[0m][[34msrc.utils.checkpoints[0m][[32mINFO[0m] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step25_quantum_circuit_ablation/ADAPTIVE_QUANTUM/seed_42/checkpoints/epoch_028.ckpt[0m
+[[36m2026-08-25 09:09:09,519[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Split table already present at data/splits/dataset_split.csv[0m
+[[36m2026-08-25 09:09:09,562[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Datasets ready - train 4617, val 990, test 990[0m
+[[36m2026-08-25 09:09:09,607[0m][[34msrc.utils.checkpoints[0m][[32mINFO[0m] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step25_quantum_circuit_ablation/ADAPTIVE_QUANTUM/seed_123/checkpoints/epoch_025.ckpt[0m
+[[36m2026-08-25 09:09:14,348[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Split table already present at data/splits/dataset_split.csv[0m
+[[36m2026-08-25 09:09:14,393[0m][[34msrc.data.bt_mri_datamodule[0m][[32mINFO[0m] - [rank: 0] Datasets ready - train 4617, val 990, test 990[0m
+[[36m2026-08-25 09:09:14,429[0m][[34msrc.utils.checkpoints[0m][[32mINFO[0m] - [rank: 0] Loaded weights from /kaggle/working/thesis/logs/train/runs/step25_quantum_circuit_ablation/ADAPTIVE_QUANTUM/seed_7/checkpoints/epoch_028.ckpt[0m
+[[36m2026-08-25 09:10:36,600[0m][[34msrc.analysis.base[0m][[32mINFO[0m] - [rank: 0] [step25_quantum_circuit_ablation] wrote step25_quantum_circuit_ablation.csv (12 rows)[0m
+[[36m2026-08-25 09:10:36,602[0m][[34msrc.analysis.quantum_circuit_ablation_study[0m][[32mINFO[0m] - [rank: 0] === Step 25: quantum circuit adaptivity ===[0m
+[[36m2026-08-25 09:10:36,603[0m][[34msrc.analysis.quantum_circuit_ablation_study[0m][[32mINFO[0m] - [rank: 0]   split=val  metric=macro_f1  recipe=None  family=3[0m
+[[36m2026-08-25 09:10:36,603[0m][[34msrc.analysis.quantum_circuit_ablation_study[0m][[32mINFO[0m] - [rank: 0]   FIXED_BASIC        circuits=1 params=72,052 (q=8)  macro-F1 0.9164 +- 0.0098[0m
+[[36m2026-08-25 09:10:36,603[0m][[34msrc.analysis.quantum_circuit_ablation_study[0m][[32mINFO[0m] - [rank: 0]   FIXED_DEEP         circuits=1 params=72,060 (q=16)  macro-F1 0.9179 +- 0.0006[0m
+[[36m2026-08-25 09:10:36,603[0m][[34msrc.analysis.quantum_circuit_ablation_study[0m][[32mINFO[0m] - [rank: 0]   FIXED_STRONG       circuits=1 params=72,068 (q=24)  macro-F1 0.9228 +- 0.0049[0m
+[[36m2026-08-25 09:10:36,603[0m][[34msrc.analysis.quantum_circuit_ablation_study[0m][[32mINFO[0m] - [rank: 0]   ADAPTIVE_QUANTUM   circuits=5 params=72,408 (q=104)  macro-F1 0.9267 +- 0.0051[0m
+[[36m2026-08-25 09:10:36,603[0m][[34msrc.analysis.quantum_circuit_ablation_study[0m][[32mINFO[0m] - [rank: 0]   H25a_vs_basic: delta +0.0039 [-0.0092, +0.0164]  p_raw=0.6434 p_holm=0.8888  not significant[0m
+[[36m2026-08-25 09:10:36,603[0m][[34msrc.analysis.quantum_circuit_ablation_study[0m][[32mINFO[0m] - [rank: 0]   H25b_vs_deep: delta +0.0071 [-0.0054, +0.0202]  p_raw=0.3367 p_holm=0.8888  not significant[0m
+[[36m2026-08-25 09:10:36,603[0m][[34msrc.analysis.quantum_circuit_ablation_study[0m][[32mINFO[0m] - [rank: 0]   H25c_vs_strong: delta +0.0081 [-0.0034, +0.0199]  p_raw=0.2963 p_holm=0.8888  not significant[0m
+[[36m2026-08-25 09:10:36,604[0m][[34msrc.analysis.quantum_circuit_ablation_study[0m][[32mINFO[0m] - [rank: 0]   selector seed 7: entropy=0.992 (1.0=uniform) dominant=reupload (0.263)  varies_between_images=True[0m
+[[36m2026-08-25 09:10:36,604[0m][[34msrc.analysis.quantum_circuit_ablation_study[0m][[32mINFO[0m] - [rank: 0]   selector seed 42: entropy=0.998 (1.0=uniform) dominant=reupload (0.218)  varies_between_images=True[0m
+[[36m2026-08-25 09:10:36,604[0m][[34msrc.analysis.quantum_circuit_ablation_study[0m][[32mINFO[0m] - [rank: 0]   selector seed 123: entropy=0.999 (1.0=uniform) dominant=combined (0.222)  varies_between_images=True[0m
+[[36m2026-08-25 09:10:36,612[0m][[34msrc.analysis.base[0m][[32mINFO[0m] - [rank: 0] [step25_quantum_circuit_ablation] wrote step25_quantum_circuit_ablation_summary.json[0m
+[[36m2026-08-25 09:10:36,613[0m][[34msrc.utils.utils[0m][[32mINFO[0m] - [rank: 0] Output dir: /kaggle/working/thesis/logs/analyze/runs/step25_quantum_circuit_ablation[0m

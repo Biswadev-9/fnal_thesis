@@ -1,0 +1,23 @@
+{
+  "checkpoint": "/kaggle/working/thesis/logs/train/runs/step10_classical/seed_42/checkpoints/epoch_024.ckpt",
+  "splits": {
+    "train": {
+      "n_samples": 4617,
+      "feature_dim": 1280,
+      "silhouette": 0.16694945096969604
+    },
+    "val": {
+      "n_samples": 990,
+      "feature_dim": 1280,
+      "silhouette": 0.20032259821891785
+    },
+    "test": {
+      "n_samples": 990,
+      "feature_dim": 1280,
+      "silhouette": 0.1936919242143631
+    }
+  },
+  "embeddings_file": "/kaggle/working/thesis/logs/analyze/runs/step10_embeddings/embeddings.npz",
+  "projection": "tsne",
+  "note": "Silhouette is computed in the original feature space, not on the 2-D projection - t-SNE and UMAP do not preserve global distances."
+}
